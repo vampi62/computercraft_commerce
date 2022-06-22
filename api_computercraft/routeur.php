@@ -377,8 +377,6 @@ if (isset($_GET['action']))
         case "update_abo_client": // (connect_db) (api)
             print_time_value();
             break;
-
-        
         case "banque_traitement_transaction_commerce": // (connect_db) (api)
             if (isset($_GET['player']) && isset($_GET['mdp']))
             {
@@ -389,21 +387,15 @@ if (isset($_GET['action']))
                 {
                     if ($session["role"] == $nom_role_banque)
                     {
-                        if (isset($_GET['ref_commande']))
+                        $l_commande = list_commande($bdd,$session);
+                        for ($i = 0; $i <= count($l_commande[0]); $i++)
                         {
-                            
-                            local list_command = http_get_commande_list()
-                            for j = 1, #list_command[1] do
-                                if list_command[14][j] == statuts_attente then
-                            $ref_commande = (string) htmlspecialchars($_GET['ref_commande']);
-                            $result = banque_traitement_transaction_commerce($bdd,$ref_commande);
-                            print_message($result,$_Serveur_['message_error'][$result]);
-                            printlog($bdd,$session["id"],$action,$result,$player ."-ref:". $ref_commande);        
-                        }
-                        else
-                        {
-                            print_message("4",$_Serveur_['message_error']['4']);
-                            printlog($bdd,$session["id"],$action,"4",$player);
+                            if ($l_commande[13][$i] == $_Serveur_['statuts_echange'][2])
+                            {
+                                $result = banque_traitement_transaction_commerce($bdd,$l_commande[0][$i]);
+                                print_message($result,$_Serveur_['message_error'][$result]);
+                                printlog($bdd,$session["id"],$action,$result,$player ."-ref:". $l_commande[0][$i]);   
+                            }
                         }
                     }
                     else

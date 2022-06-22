@@ -701,18 +701,6 @@ function edit_commande_statuts_banque($bdd,$id,$statuts,$id_transaction)
         'id' => $id
     ));
 }
-function link_transaction_commerce($bdd,$date,$heure,$recepteur)
-{
-    $req = $bdd->prepare('SELECT id FROM transaction WHERE date = :date AND heure = :heure AND recepteur = :recepteur');
-    $req->execute(array(
-        'date' => $date,
-        'heure' => $heure,
-        'recepteur' => $recepteur
-    ));
-	$user=$req->fetch();
-	$req->closeCursor();
-    return $user[0];
-}
 function get_statuts_commande($bdd,$id)
 {
     $req = $bdd->prepare('SELECT statuts FROM commandes WHERE id = :id');
@@ -775,7 +763,6 @@ function printlog($bdd,$id_user,$action,$code_return,$para)
         'heure' => date("H:i:s")
 	));
 }
-
 function banque_traitement_transaction_commerce($bdd,$ref_commande)
 {
 	$date = date("Y-m-d");
@@ -817,9 +804,7 @@ function banque_traitement_transaction_commerce($bdd,$ref_commande)
 			$commerce_statuts = $_Serveur_['statuts_echange']['11'];
 			$code_statuts = "13";
 		}
-//		inscription_transaction($bdd,$expediteur,$recepteur,$somme,$type,$description,$statuts,$date,$heure,$ref_commande);
 		$id_transaction = inscription_transaction($bdd,$expediteur,$recepteur,$somme,"commerce",$description,$statuts,$date,$heure,$ref_commande);
-//		edit_commande_statuts_banque($bdd,$ref_commande,$commerce_statuts,link_transaction_commerce($bdd,$date,$heure,$recepteur));
 		edit_commande_statuts_banque($bdd,$ref_commande,$commerce_statuts,$id_transaction);
 		return $code_statuts;
 	}
