@@ -1,0 +1,61 @@
+#Ce fichier contiens la config de base du serveur---
+General:
+    max_offre: 25
+    prix_offre: 5000
+    offre_depart: 5
+message_error:
+    1: succes - commande realiser
+    10: erreur - privilege insufisant
+    11: erreur - login incorrect
+    12: erreur - login admin incorrect
+    13: erreur - parametre manquant
+    20: erreur - utilisateur existant
+    21: erreur - mot de passe non identique
+    22: erreur - mail invalide
+    23: erreur - mot ne respecte pas les regles de securité
+    30: erreur - pas de stock
+    31: erreur - quantité inferieur ou egal a 0
+    32: erreur - cette offre est a vous
+    33: erreur - offre inactive ou invalide
+    40: erreur - edition status invalide
+    41: erreur - solde insufisant
+    42: erreur - limite offre atteint
+    51: erreur - offre ne vous apartient pas
+    52: erreur - le prix est incorrect
+    53: erreur - le stock est incorrect
+    60: succes - pas de transaction
+    61: succes - jeton inferieur a 0
+role:
+    0: client
+    1: banque-terminal
+    2: banque-routeur
+    10: super-admin
+type:
+    0: vide
+    1: objet
+    2: liquide
+    3: gaz
+    4: autre
+livraison:
+    0: vide
+    1: auto-rout
+    2: manu
+DataBase:
+    dbAdress: 172.18.0.11
+    dbName: minecraft_site
+    dbUser: minecraft_site
+    dbPassword: mc29md20mk12
+    dbPort: 3306
+statuts_echange:
+    1: commande effectuer validation vendeur en attente
+    2: echange accepter paiement en attente
+    3: echange accepter paiement valider
+    4: commande pret a envoyer
+    5: commande en cours de livraison
+    6: terminer
+    10: echange refuser par le vendeur
+    11: echange accepter paiement refuser
+balise:
+    tableau_ligne_suite: <br />
+    tableau_colonne_suite: </>
+    case_ligne_suite: -br-
