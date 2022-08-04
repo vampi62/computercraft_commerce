@@ -2,10 +2,10 @@
 class Boutique
 {
 	private $bdd;
-    private $proprio;
+	private $proprio;
 
-    public function __construct($player, $bdd)
-    {	
+	public function __construct($player, $bdd)
+	{	
 		$this->bdd = $bdd;
 		$this->proprio = $player['id'];
 	}
@@ -21,7 +21,7 @@ class Boutique
 		$list_livraison = array();
 		$list_nom = array();
 		$list_description = array();
-		$list_statuts = array();
+		$list_statut = array();
 
 		$listidplayer = ConvertTable::gettableidplayer($this->bdd);
 		while ($donnees = $req->fetch())
@@ -39,6 +39,14 @@ class Boutique
    	 	return array($list_id,$list_proprio,$list_prix,$list_nbr_dispo,$list_type,$list_livraison,$list_nom,$list_description);
 	}
 	
+	public function getnbrOffres()
+	{
+		$req = $this->bdd->prepare('SELECT COUNT(id) FROM liste_offres WHERE proprio = :id');
+		$req->execute(array(
+			'id' => $this->proprio
+		));
+		return $req->fetch(PDO::FETCH_ASSOC);
+	}
 	public function getOffresbyid($id)
 	{
 		$req = $this->bdd->prepare('SELECT * FROM liste_offres WHERE proprio = :proprio AND id = :id');

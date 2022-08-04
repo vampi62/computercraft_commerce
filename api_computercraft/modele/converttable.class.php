@@ -2,9 +2,9 @@
 class ConvertTable
 {
 	static public function gettableidplayer($bdd)
-    {
-        $req = $bdd->query('SELECT id, pseudo FROM liste_users');
-        $list = array();
+	{
+		$req = $bdd->query('SELECT id, pseudo FROM liste_users');
+		$list = array();
 		$lastid = 0;
 		while ($donnees = $req->fetch())
 		{
@@ -24,7 +24,7 @@ class ConvertTable
 		}
 
 		$req->closeCursor();
-        return $list;
-    }
+		return $list;
+	}
 }
 ?>

@@ -8,45 +8,47 @@ if(isset($_GET['action']))
 	{ 		
 		//connection doit être appelé à chaque action securisée car computercraft n'enregistre pas de session
 		
+		// action libre
+
+		case 'listntp': // compte libre
+			include('controleur/listntp.php');
+		break;
+
+		case 'listconfig': // compte libre
+			include('controleur/listConfig.php');
+		break;
+
 		// gestion utilisateur
+
 		case 'inscription': // compte libre
 			// paramètres - mdp - pseudo - mdpconfirm - email
 			include('controleur/joueur/inscription.php');
 		break;
 
-		case 'ntp': // compte libre
-			include('controleur/ntp.php');
-		break;
-
-		case 'getconfig': // compte libre
-			include('controleur/getConfig.php');
-		break;
-
-		
-	    case 'getuserdata': // compte normal
+		case 'listuserdata': // compte normal
 			// paramètres - mdp - pseudo
-			include('controleur/joueur/getUserData.php');
+			include('controleur/joueur/listUserData.php');
 		break;
 
-		case 'getusertransaction': // compte normal
+		case 'listusertransaction': // compte normal
 			// paramètres - mdp - pseudo
-			include('controleur/joueur/getUserTransaction.php');
+			include('controleur/joueur/listUserTransaction.php');
 		break;
 
-		case 'getusercommande': // compte normal
+		case 'listusercommande': // compte normal
 			// paramètres - mdp - pseudo
-			include('controleur/joueur/getUserCommande.php');
+			include('controleur/joueur/listUserCommande.php');
 		break;
 
-		case 'editmail': // compte normal
+		case 'updatemail': // compte normal
 			// paramètres - mdp - pseudo - email
-			include('controleur/joueur/editMail.php');
-	    break;
+			include('controleur/joueur/updateMail.php');
+		break;
 
-	    case 'editmdp': // compte normal
+		case 'updatemdp': // compte normal
 			// paramètres - mdp - pseudo - mdpconfirm - mdpnouveau
-			include('controleur/joueur/editMdp.php');
-	    break;
+			include('controleur/joueur/updateMdp.php');
+		break;
 
 		// boutique
 
@@ -71,21 +73,27 @@ if(isset($_GET['action']))
 			include('controleur/banque/listCommandes.php');
 		break;
 
-		case 'editcommandestatus': // compte normal
-			// paramètres - mdp - pseudo - id - statuts
-			include('controleur/banque/editCommandeStatus.php');
+		case 'updatecommandestatut': // compte normal
+			// paramètres - mdp - pseudo - id - statut
+			include('controleur/banque/updateCommandestatut.php');
 		break;
 
 		// gestion reserver pour la banque
+
 		case 'transaction': // compte admin
 			// paramètres - mdp - pseudo - type
 			// paramètres - mdp - pseudo - type - crediteur - debiteur - mdpuser - pseudouser - somme - description
 			include('controleur/banque/transaction.php');
 		break;
 
-		case 'syncjetoncoffre': // compte admin
+		case 'updatejetoncoffre': // compte admin
 			// paramètres - mdp - pseudo
-			include('controleur/banque/syncJetonCoffre.php');
+			include('controleur/banque/updateJetonCoffre.php');
+		break;
+		
+		case 'listjetoncoffre': // compte admin
+			// paramètres - mdp - pseudo
+			include('controleur/banque/listJetonCoffre.php');
 		break;
 
 	}

@@ -17,7 +17,7 @@ message_error:
     31: erreur - quantité inferieur ou egal a 0
     32: erreur - cette offre est a vous
     33: erreur - offre inactive ou invalide
-    40: erreur - edition status invalide
+    40: erreur - edition statut invalide
     41: erreur - solde insufisant
     42: erreur - limite offre atteint
     51: erreur - offre ne vous apartient pas
@@ -46,7 +46,7 @@ DataBase:
     dbUser: minecraft_site
     dbPassword: mc29md20mk12
     dbPort: 3306
-statuts_echange:
+statut_echange:
     1: commande effectuer validation vendeur en attente
     2: echange accepter paiement en attente
     3: echange accepter paiement valider

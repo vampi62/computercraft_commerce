@@ -7,8 +7,8 @@ class Ecrire
 	private $ymlFormat;
 
 	// Le constructeur récupère l'array de données, le met sous forme YML et l'enregistre dans le fichier choisi en argument de l'instanciation.
-    public function __construct($fichierLocalisation, $array)
-    {	
+	public function __construct($fichierLocalisation, $array)
+	{	
 		// Fonction de l'api permetant de mettre un tableau sous YML.
 		$ymlFormat = Spyc::YAMLDump($array,4,60);
 		
@@ -34,8 +34,8 @@ class Lire
 	private $tableau;
 
 	// Le constructeur récupère la localisation du fichier indiquée en argumtent, et convertis le format YML en un tableau PhP pour être utilisable.
-    public function __construct($fichierLocalisation)
-    {	
+	public function __construct($fichierLocalisation)
+	{	
 		// Fonction de l'api permetant de mettre un fichier YML sous forme de tableau.
 		$tableau = Spyc::YAMLLoad($fichierLocalisation);
 		

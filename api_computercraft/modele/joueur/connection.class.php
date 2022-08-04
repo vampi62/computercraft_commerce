@@ -3,8 +3,8 @@ class Connection
 {
 	private $reponseConnection;
 	
-    public function __construct($pseudo, $bdd)
-    {	
+	public function __construct($pseudo, $bdd)
+	{	
 		if (is_int($pseudo))
 		{
 			$reponseConnection = $bdd->prepare('SELECT * FROM liste_users WHERE id = :pseudo');
@@ -39,16 +39,16 @@ class Connection
 	}
 	
 	public function gettableidplayer()
-    {
-        $req = $this->bdd->query('SELECT id, pseudo FROM liste_users');
-        $list = array();
+	{
+		$req = $this->bdd->query('SELECT id, pseudo FROM liste_users');
+		$list = array();
 
 		while ($donnees = $req->fetch())
 		{
 			$list[$donnees['id']] = $donnees['pseudo'];
 		}
 		$req->closeCursor();
-        return $list;
-    }
+		return $list;
+	}
 }
 ?>

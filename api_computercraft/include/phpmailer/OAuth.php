@@ -34,53 +34,53 @@ use League\OAuth2\Client\Token\AccessToken;
  */
 class OAuth
 {
-    /**
-     * An instance of the League OAuth Client Provider.
-     *
-     * @var AbstractProvider
-     */
-    protected $provider;
+	/**
+	 * An instance of the League OAuth Client Provider.
+	 *
+	 * @var AbstractProvider
+	 */
+	protected $provider;
 
-    /**
-     * The current OAuth access token.
-     *
-     * @var AccessToken
-     */
-    protected $oauthToken;
+	/**
+	 * The current OAuth access token.
+	 *
+	 * @var AccessToken
+	 */
+	protected $oauthToken;
 
-    /**
-     * The user's email address, usually used as the login ID
-     * and also the from address when sending email.
-     *
-     * @var string
-     */
-    protected $oauthUserEmail = '';
+	/**
+	 * The user's email address, usually used as the login ID
+	 * and also the from address when sending email.
+	 *
+	 * @var string
+	 */
+	protected $oauthUserEmail = '';
 
-    /**
-     * The client secret, generated in the app definition of the service you're connecting to.
-     *
-     * @var string
-     */
-    protected $oauthClientSecret = '';
+	/**
+	 * The client secret, generated in the app definition of the service you're connecting to.
+	 *
+	 * @var string
+	 */
+	protected $oauthClientSecret = '';
 
-    /**
-     * The client ID, generated in the app definition of the service you're connecting to.
-     *
-     * @var string
-     */
-    protected $oauthClientId = '';
+	/**
+	 * The client ID, generated in the app definition of the service you're connecting to.
+	 *
+	 * @var string
+	 */
+	protected $oauthClientId = '';
 
-    /**
-     * The refresh token, used to obtain new AccessTokens.
-     *
-     * @var string
-     */
-    protected $oauthRefreshToken = '';
+	/**
+	 * The refresh token, used to obtain new AccessTokens.
+	 *
+	 * @var string
+	 */
+	protected $oauthRefreshToken = '';
 
-    /**
-     * OAuth constructor.
-     *
-     * @param array $options Associative array containing
+	/**
+	 * OAuth constructor.
+	 *
+	 * @param array $options Associative array containing
      *                       `provider`, `userName`, `clientSecret`, `clientId` and `refreshToken` elements
      */
     public function __construct($options)

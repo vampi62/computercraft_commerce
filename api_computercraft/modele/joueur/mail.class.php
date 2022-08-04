@@ -3,8 +3,8 @@ class Mail
 {
 	private $reponseConnection;
 	
-    public function __construct($email, $bdd)
-    {	
+	public function __construct($email, $bdd)
+	{	
 		$reponseConnection = $bdd->prepare('SELECT * FROM liste_users WHERE email = :email');
 		$reponseConnection->execute(array(
 			'email' => $email,

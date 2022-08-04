@@ -2,10 +2,10 @@
 class Maj
 {
 	private $bdd;
-    private $id;
+	private $id;
 	
-    public function __construct($player, $bdd)
-    {	
+	public function __construct($player, $bdd)
+	{	
 		$this->bdd = $bdd;
 		$this->id = $player['id'];
 	}

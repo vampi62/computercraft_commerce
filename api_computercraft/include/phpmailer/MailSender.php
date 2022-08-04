@@ -11,8 +11,8 @@ require('include/phpmailer/SMTP.php');
 class MailSender
 {
    public static function send($arrayData, $to, $object, $body) {
-        if(isset($arrayData['SMTP']))
-        {
+		if(isset($arrayData['SMTP']))
+		{
 			try {
 				$mail = new PHPMailer(true);
 				$mail->CharSet = 'UTF-8';
@@ -28,16 +28,16 @@ class MailSender
 				$mail->FromName = $arrayData['General']['name'];
 				$mail->addAddress($to);   
 				$mail->addReplyTo($arrayData['SMTP']['Reply'], $arrayData['General']['name']);
-				$mail->isHTML(true);                               
+				$mail->isHTML(true);							   
 				$mail->Subject = htmlspecialchars($object);
-				$mail->Body    = $body.'<br></br>'.$arrayData['SMTP']['Footer'];
+				$mail->Body	= $body.'<br></br>'.$arrayData['SMTP']['Footer'];
 				$mail->AltBody = strip_tags($body);
 				return $mail->send();
 			} catch(Exception $e) {
 				return false;
 			}
-        }else{
-           return mail($to, $object, $body);
-        }
-    }
+		}else{
+		   return mail($to, $object, $body);
+		}
+	}
 }

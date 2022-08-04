@@ -2,12 +2,12 @@
 class Commande
 {
 	private $bdd;
-    private $pseudo;
+	private $pseudo;
 	private $role;
-    private $_Serveur_;
+	private $_Serveur_;
 	
-    public function __construct($player, $bdd, $_Serveur_)
-    {	
+	public function __construct($player, $bdd, $_Serveur_)
+	{	
 		$this->bdd = $bdd;
 		$this->pseudo = $player['id'];
 		$this->role = $player['role'];
@@ -16,7 +16,7 @@ class Commande
 
 	public function getCommandeBanque()
 	{
-		$req = $this->bdd->query('SELECT * FROM commandes WHERE statuts = 2');
+		$req = $this->bdd->query('SELECT * FROM commandes WHERE statut = 2');
 		$req = $req->fetch(PDO::FETCH_ASSOC);
 		return $req;
 	}
@@ -45,8 +45,8 @@ class Commande
 	{
 		$date = date("Y-m-d");
 		$heure = date("H:i:s");
-		$suivie = $date . " " . $heure . " - " . $this->_Serveur_['statuts_echange']['1'] . $this->_Serveur_['balise']['case_ligne_suite'];	
-		$req = $this->bdd->prepare('INSERT INTO commandes(id_offre, id_transaction, expediteur, recepteur, nom_commande, quantite, somme, prix_unitaire, type, livraison, suivie, description, statuts, date, heure) VALUES(:id_offre, 0, :expediteur, :recepteur, :nom_commande, :quantite, :somme, :prix_unitaire, :type, :livraison, :suivie, :description, :statuts, :date, :heure)');
+		$suivie = $date . " " . $heure . " - " . $this->_Serveur_['statut_echange']['1'] . $this->_Serveur_['balise']['case_ligne_suite'];	
+		$req = $this->bdd->prepare('INSERT INTO commandes(id_offre, id_transaction, expediteur, recepteur, nom_commande, quantite, somme, prix_unitaire, type, livraison, suivie, description, statut, date, heure) VALUES(:id_offre, 0, :expediteur, :recepteur, :nom_commande, :quantite, :somme, :prix_unitaire, :type, :livraison, :suivie, :description, :statut, :date, :heure)');
 		$req->execute(array(
 			'id_offre' => $datatcommande["ref_commande"],
 			'expediteur' => $datatcommande["expediteur"],
@@ -59,7 +59,7 @@ class Commande
 			'livraison' => $datatcommande["livraison"],
 			'suivie' => $suivie,
 			'description' => $datatcommande["description"],
-			'statuts' => 1,
+			'statut' => 1,
 			'date' => $date,
 			'heure' => $heure
 		));
@@ -74,13 +74,13 @@ class Commande
 		));
 	}
 
-	public function setStatusCommande($id,$statuts)
+	public function setstatutCommande($id,$statut)
 	{
-		if ($this->checkPaternStatusCommande($id,$statuts)) {
-			$suivie = $this->getSuivieCommande($id) . date("d/m/Y H:i:s") . " - " . $this->_Serveur_['statuts_echange'][$statuts] . $this->_Serveur_['balise']['case_ligne_suite'];	
-			$req = $this->bdd->prepare('UPDATE commandes SET statuts = :statuts, suivie = :suivie WHERE id = :id');
+		if ($this->checkPaternstatutCommande($id,$statut)) {
+			$suivie = $this->getSuivieCommande($id) . date("d/m/Y H:i:s") . " - " . $this->_Serveur_['statut_echange'][$statut] . $this->_Serveur_['balise']['case_ligne_suite'];	
+			$req = $this->bdd->prepare('UPDATE commandes SET statut = :statut, suivie = :suivie WHERE id = :id');
 			$req->execute(array(
-				'statuts' => $statuts,
+				'statut' => $statut,
 				'suivie' => $suivie,
 				'id' => $id
 			));
@@ -106,7 +106,7 @@ class Commande
 		$list_livraison = array();
 		$list_suivie = array();
 		$list_description = array();
-		$list_statuts = array();
+		$list_statut = array();
 		$list_date = array();
 		$list_heure = array();
 
@@ -126,30 +126,30 @@ class Commande
 			$list_livraison[] = $donnees['livraison'];
 			$list_suivie[] = $donnees['suivie'];
 			$list_description[] = $donnees['description'];
-			$list_statuts[] = $donnees['statuts'];
+			$list_statut[] = $donnees['statut'];
 			$list_date[] = $donnees['date'];
 			$list_heure[] = $donnees['heure'];
 		}
 		$req->closeCursor();
-		return array($list_id,$list_id_offre,$list_id_transaction,$list_nom_commande,$list_expediteur,$list_recepteur,$list_quantite,$list_somme,$list_prix_unitaire,$list_type,$list_livraison,$list_suivie,$list_description,$list_statuts,$list_date,$list_heure);
+		return array($list_id,$list_id_offre,$list_id_transaction,$list_nom_commande,$list_expediteur,$list_recepteur,$list_quantite,$list_somme,$list_prix_unitaire,$list_type,$list_livraison,$list_suivie,$list_description,$list_statut,$list_date,$list_heure);
 	}
 
-	private function checkPaternStatusCommande($id,$statuts)
+	private function checkPaternstatutCommande($id,$statut)
 	{
-		$req = $this->bdd->prepare('SELECT statuts, expediteur FROM commandes WHERE id = :id');
+		$req = $this->bdd->prepare('SELECT statut, expediteur FROM commandes WHERE id = :id');
 		$req->execute(array(
 			'id' => $id
 		));
 		$req = $req->fetch(PDO::FETCH_ASSOC);
-		switch ($req['statuts'])
+		switch ($req['statut'])
 		{
 			case "1": // en attente de validation
 				if ($this->pseudo == $req['expediteur']) {
-					if ($statuts == '2') // valider
+					if ($statut == '2') // valider
 					{
 						return true;
 					}
-					elseif ($statuts == '10') // refuser
+					elseif ($statut == '10') // refuser
 					{
 						return true;
 					}
@@ -157,11 +157,11 @@ class Commande
 			break;
 			case "2": // paiement en attente
 				if ($this->role == 2) {
-					if ($statuts == '3') // paiement valider
+					if ($statut == '3') // paiement valider
 					{
 						return true;
 					}
-					if ($statuts == '11') // paiement refuser
+					if ($statut == '11') // paiement refuser
 					{
 						return true;
 					}
@@ -169,7 +169,7 @@ class Commande
 			break;
 			case "3": // paiement valider
 				if ($this->pseudo == $req['expediteur']) {
-					if ($statuts == '4') // expedition en attente
+					if ($statut == '4') // expedition en attente
 					{
 						return true;
 					}
@@ -177,7 +177,7 @@ class Commande
 			break;
 			case "4": // expedition en attente
 				if ($this->pseudo == $req['expediteur']) {
-					if ($statuts == '5') // expedition en cours
+					if ($statut == '5') // expedition en cours
 					{
 						return true;
 					}
@@ -185,7 +185,7 @@ class Commande
 			break;
 			case "5": // expedition en cours
 				if ($this->pseudo == $req['expediteur']) {
-					if ($statuts == '6') // expedition terminer
+					if ($statut == '6') // expedition terminer
 					{
 						return true;
 					}

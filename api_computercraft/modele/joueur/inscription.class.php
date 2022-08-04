@@ -2,27 +2,37 @@
 class Inscription
 {
 	private $bdd;
+	private $id;
 	
-    public function __construct($pseudo, $mdp, $email, $bdd, $_Serveur_)
-    {	
-		$reponseConnection = $bdd->prepare('INSERT INTO liste_users(pseudo, mdp, email, compte, nbr_offre, role) VALUES(:player, :mdp, :email, 0, :nbr_offre, :rang)');
-		$reponseConnection->execute(array(
+	public function __construct($pseudo, $mdp, $email, $bdd)
+	{	
+		$req = $bdd->prepare('INSERT INTO liste_users(pseudo, mdp, email, compte, nbr_offre, role) VALUES(:player, :mdp, :email, 0, :nbr_offre, :rang)');
+		$req->execute(array(
 			'player' => $pseudo,
 			'mdp' => password_hash($mdp, PASSWORD_DEFAULT),
 			'rang' => 0,
 			'email' => $email,
-			'nbr_offre' => $_Serveur_['General']['offre_depart']
+			'nbr_offre' => 0
 		));
 		$this->bdd = $bdd;
 	}
 	public function getnewid($pseudo)
 	{
-		$reponseConnection = $this->bdd->prepare('SELECT id FROM liste_users WHERE pseudo = :pseudo');
-		$reponseConnection->execute(array(
+		$req = $this->bdd->prepare('SELECT id FROM liste_users WHERE pseudo = :pseudo');
+		$req->execute(array(
 			'pseudo' => $pseudo,
 			));
-		$reponseConnection = $reponseConnection->fetch(PDO::FETCH_ASSOC);
-		return $reponseConnection;
+		$req = $req->fetch(PDO::FETCH_ASSOC);
+		$this->id = $req;
+		return $req;
+	}
+	public function setNbrOffre($nbr_offre)
+	{
+		$req = $this->bdd->prepare('UPDATE liste_users SET nbr_offre = :nbr_offre WHERE id = :id');
+		$req->execute(array(
+			'nbr_offre' => $nbr_offre,
+			'id' => $this->id
+		));
 	}
 }
 ?>

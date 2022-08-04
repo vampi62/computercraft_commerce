@@ -6,6 +6,6 @@
 	*/
 	require_once('modele/base.php');
 	$base = new base($_Serveur_['DataBase']);
-    $bddConnection = $base->getConnection();
+	$bddConnection = $base->getConnection();
 
 ?>

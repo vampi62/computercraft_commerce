@@ -8,7 +8,15 @@ require ('controleur/config.php');
 require ('controleur/connection_base.php');
 if (isset($_GET['action']))
 {
-    require ('controleur/action.php');
+	if (isset($_GET['admin']))
+	{
+		require ('admin/action.php');
+	}
+	else
+	{
+		require ('controleur/action.php');
+	}
+
 }
 require ('theme/vue.php');
 ?>

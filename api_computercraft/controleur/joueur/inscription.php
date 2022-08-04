@@ -22,10 +22,11 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['mdpconfirm'])
 				{
 					$inscription = new Inscription($_GET['pseudo'], $_GET['mdp'], $_GET['email'], $bddConnection, $_Serveur_);
 					$boutique = new Boutique($inscription->getnewid($_GET['pseudo']), $bddConnection);
-                    for ($j=0; $j < $_Serveur_['General']['offre_depart']; $j++)
+					for ($j=0; $j < $_Serveur_['General']['offre_depart']; $j++)
 					{
-                        $boutique->setNouvellesOffre();
-                    }
+						$boutique->setNouvellesOffre();
+					}
+					$inscription->setNbrOffre($boutique->getnbrOffres());
 					$printmessage = 1;
 					// modif - ok
 				}
