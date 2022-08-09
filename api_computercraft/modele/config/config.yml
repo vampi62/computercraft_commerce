@@ -1,4 +1,5 @@
 #Ce fichier contiens la config de base du serveur---
+Install: true
 General:
     max_offre: 25
     prix_offre: 5000

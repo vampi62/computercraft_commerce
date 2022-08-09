@@ -6,6 +6,7 @@ setlocale(LC_TIME, "fr_FR");
 
 require ('controleur/config.php');
 require ('controleur/connection_base.php');
+if (!$_Serveur_['Install']) header('Location: installation/');
 if (isset($_GET['action']))
 {
 	if (isset($_GET['admin']))
