@@ -1,6 +1,7 @@
 <?php
 require_once('modele/joueur/connection.class.php');
 require_once('modele/boutique/boutique.class.php');
+require_once('modele/adresse/adresse.class.php');
 require_once('modele/changetext.class.php');
 
 if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !empty($_GET['pseudo']) AND !empty($_GET['mdp']) AND !empty($_GET['id']))
@@ -33,6 +34,11 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !em
 					$printmessage[] = 52;
 				}
 			}
+			else
+			{
+				// modif pas de retour attendu
+				$printmessage[] = 0;
+			}
 			if(isset($_GET['nbr_dispo']))
 			{
 				$_GET['nbr_dispo'] = intval(htmlspecialchars($_GET['nbr_dispo']));
@@ -48,6 +54,11 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !em
 					$printmessage[] = 53;
 				}
 			}
+			else
+			{
+				// modif pas de retour attendu
+				$printmessage[] = 0;
+			}
 			if(isset($_GET['type']))
 			{
 				$_GET['type'] = intval(htmlspecialchars($_GET['type']));
@@ -58,6 +69,11 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !em
 				$boutique->setNouvellesDonneesType($_GET['type'],$_GET['id']);
 				// modif - ok
 				$printmessage[] = 1;
+			}
+			else
+			{
+				// modif pas de retour attendu
+				$printmessage[] = 0;
 			}
 			if(isset($_GET['livraison']))
 			{
@@ -70,6 +86,11 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !em
 				// modif - ok
 				$printmessage[] = 1;
 			}
+			else
+			{
+				// modif pas de retour attendu
+				$printmessage[] = 0;
+			}
 			if(isset($_GET['nom']) AND !empty($_GET['nom']))
 			{
 				$_GET['nom'] = htmlspecialchars($_GET['nom']);
@@ -78,6 +99,41 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !em
 				// modif - ok
 				$printmessage[] = 1;
 			}
+			else
+			{
+				// modif pas de retour attendu
+				$printmessage[] = 0;
+			}
+			if(isset($_GET['nomadresse']) AND !empty($_GET['nomadresse']))
+			{
+				$_GET['nomadresse'] = htmlspecialchars($_GET['nomadresse']);
+				$adresse = new Adresse($_Joueur_, $bddConnection);
+				$idadresse = $adresse->getIdAdresse($_GET['nomadresse']);
+				if(isset($idadresse["id"]) AND !empty($idadresse["id"]))
+				{
+					if($idadresse["type"] == 1)
+					{
+						$boutique->setNouvellesDonneesIdAdresse($idadresse["id"],$_GET['id']);
+						// modif - ok
+						$printmessage[] = 1;
+					}
+					else
+					{
+						// nom adresse utiliser pour la reception
+						$printmessage[] = 73;
+					}
+				}
+				else
+				{
+					// nom adresse inexistant
+					$printmessage[] = 70;
+				}
+			}
+			else
+			{
+				// modif pas de retour attendu
+				$printmessage[] = 0;
+			}
 			if(isset($_GET['description']) AND !empty($_GET['description']))
 			{
 				$_GET['description'] = htmlspecialchars($_GET['description']);
@@ -85,6 +141,11 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !em
 				$boutique->setNouvellesDonneesDescription($_GET['description'],$_GET['id']);
 				// modif - ok
 				$printmessage[] = 1;
+			}
+			else
+			{
+				// modif pas de retour attendu
+				$printmessage[] = 0;
 			}
 		}
 		else

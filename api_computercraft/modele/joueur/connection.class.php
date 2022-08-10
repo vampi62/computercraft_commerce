@@ -37,18 +37,5 @@ class Connection
 		}
 		return false;
 	}
-	
-	public function gettableidplayer()
-	{
-		$req = $this->bdd->query('SELECT id, pseudo FROM liste_users');
-		$list = array();
-
-		while ($donnees = $req->fetch())
-		{
-			$list[$donnees['id']] = $donnees['pseudo'];
-		}
-		$req->closeCursor();
-		return $list;
-	}
 }
 ?>

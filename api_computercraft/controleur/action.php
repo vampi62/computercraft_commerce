@@ -50,6 +50,11 @@ if(isset($_GET['action']))
 			include('controleur/joueur/updateMdp.php');
 		break;
 
+		case 'updateadressedefaut': // compte normal
+			// paramètres - mdp - pseudo - nom
+			include('controleur/joueur/updateAdresseDefaut.php');
+		break;
+
 		// boutique
 
 		case 'listoffresboutique': // compte libre
@@ -57,13 +62,30 @@ if(isset($_GET['action']))
 		break;
 
 		case 'updateoffreboutique': // compte normal
-			// paramètres - mdp - pseudo - id - prix - nbr_dispo - type - livraison - nom - description
+			// paramètres - mdp - pseudo - id - prix - nbr_dispo - type - livraison - nom - description - nomadresse
 			include('controleur/boutique/updateOffreBoutique.php');
 		break;
 
 		case 'achat': // compte normal
 			// paramètres - mdp - pseudo - id - quantite
 			include('controleur/boutique/achat.php');
+		break;
+
+		// adresse
+
+		case 'addadresse': // compte normal
+			// paramètres - mdp - pseudo - nom - type - coo - description
+			include('controleur/adresse/addAdresse.php');
+		break;
+
+		case 'updateadresse': // compte normal
+			// paramètres - mdp - pseudo - nom - type - coo - description
+			include('controleur/adresse/updateAdresse.php');
+		break;
+
+		case 'deleteadresse': // compte normal
+			// paramètres - mdp - pseudo - nom
+			include('controleur/adresse/deleteAdresse.php');
 		break;
 
 		// gestion commande pour les commerces et la banque

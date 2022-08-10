@@ -14,6 +14,7 @@ class Boutique
 	{
 		$req = $this->bdd->query('SELECT * FROM liste_offres');
 		$list_id = array();
+		$list_id_adresse = array();
 		$list_proprio = array();
 		$list_prix = array();
 		$list_nbr_dispo = array();
@@ -27,6 +28,7 @@ class Boutique
 		while ($donnees = $req->fetch())
 		{
 			$list_id[] = $donnees['id'];
+			$list_id_adresse[] = ConvertTable::getIdAdresse($this->bdd,$donnees['id_adresse']);
 			$list_proprio[] = $listidplayer[$donnees['proprio']];
 			$list_prix[] = $donnees['prix'];
 			$list_nbr_dispo[] = $donnees['nbr_dispo'];
@@ -36,7 +38,7 @@ class Boutique
 			$list_description[] = $donnees['description'];
 		}
 		$req->closeCursor();
-   	 	return array($list_id,$list_proprio,$list_prix,$list_nbr_dispo,$list_type,$list_livraison,$list_nom,$list_description);
+   	 	return array($list_id,$list_id_adresse,$list_proprio,$list_prix,$list_nbr_dispo,$list_type,$list_livraison,$list_nom,$list_description);
 	}
 	
 	public function getnbrOffres()
@@ -119,6 +121,15 @@ class Boutique
 			'proprio' => $this->proprio,
 			'id' => $id
 			));
+	}
+	public function setNouvellesDonneesIdAdresse($idadresse,$id)
+	{
+		$req = $this->bdd->prepare('UPDATE liste_offres SET id_adresse = :id_adresse WHERE proprio = :proprio AND id = :id');
+		$req->execute(array(
+			'id_adresse' => $idadresse,
+			'proprio' => $this->proprio,
+			'id' => $id
+		));
 	}
 	public function setNouvellesOffre()
 	{

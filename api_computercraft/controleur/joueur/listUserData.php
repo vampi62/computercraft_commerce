@@ -1,5 +1,6 @@
 <?php
 require_once('modele/joueur/connection.class.php');
+require_once('modele/converttable.class.php');
 
 if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND !empty($_GET['pseudo']) AND !empty($_GET['mdp']))
 {
@@ -10,11 +11,16 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND !empty($_GET['pseudo']) AN
 	if($connection->verifymdp($_GET['mdp']))
 	{
 		$_Joueur_ = $connection->getReponseConnection();
+		$text_adresse = ConvertTable::getIdAdresse($this->bdd,$_Joueur_['id_adresse']);
 		// modif - print $_Joueur_
 		$printmessage = array();
 		$printmessage['pseudo'] = $_Joueur_['pseudo'];
 		$printmessage['email'] = $_Joueur_['email'];
 		$printmessage['compte'] = $_Joueur_['compte'];
+		$printmessage['adrnom'] = $text_adresse["nom"];
+		$printmessage['adrtype'] = $text_adresse["type"];
+		$printmessage['adrcoo'] = $text_adresse["coo"];
+		$printmessage['adrdescription'] = $text_adresse["description"];
 		$printmessage['nbr_offre'] = $_Joueur_['nbr_offre'];
 		$printmessage['role'] = $_Joueur_['role'];
 	}

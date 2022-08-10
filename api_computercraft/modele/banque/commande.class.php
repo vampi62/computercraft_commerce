@@ -51,6 +51,8 @@ class Commande
 			'id_offre' => $datatcommande["ref_commande"],
 			'expediteur' => $datatcommande["expediteur"],
 			'recepteur' => $this->pseudo,
+			'text_adresse_expediteur' => $datatcommande["text_adresse_expediteur"],
+			'text_adresse_recepteur' => $datatcommande["text_adresse_recepteur"],
 			'nom_commande' => $datatcommande["nom_commande"],
 			'quantite' => $datatcommande["quantite"],
 			'somme' => $datatcommande["somme"],
@@ -99,6 +101,8 @@ class Commande
 		$list_nom_commande = array();
 		$list_expediteur = array();
 		$list_recepteur = array();
+		$list_text_adresse_expediteur = array();
+		$list_text_adresse_recepteur = array();
 		$list_quantite = array();
 		$list_somme = array();
 		$list_prix_unitaire = array();
@@ -119,6 +123,8 @@ class Commande
 			$list_nom_commande[] = $donnees['nom_commande'];
 			$list_expediteur[] = $listidplayer[$donnees['expediteur']];
 			$list_recepteur[] = $listidplayer[$donnees['recepteur']];
+			$list_text_adresse_expediteur[] = $donnees['text_adresse_expediteur'];
+			$list_text_adresse_recepteur[] = $donnees['text_adresse_recepteur'];
 			$list_quantite[] = $donnees['quantite'];
 			$list_somme[] = $donnees['somme'];
 			$list_prix_unitaire[] = $donnees['prix_unitaire'];
@@ -131,7 +137,7 @@ class Commande
 			$list_heure[] = $donnees['heure'];
 		}
 		$req->closeCursor();
-		return array($list_id,$list_id_offre,$list_id_transaction,$list_nom_commande,$list_expediteur,$list_recepteur,$list_quantite,$list_somme,$list_prix_unitaire,$list_type,$list_livraison,$list_suivie,$list_description,$list_statut,$list_date,$list_heure);
+		return array($list_id,$list_id_offre,$list_id_transaction,$list_nom_commande,$list_expediteur,$list_recepteur,$list_text_adresse_expediteur,$list_text_adresse_recepteur,$list_quantite,$list_somme,$list_prix_unitaire,$list_type,$list_livraison,$list_suivie,$list_description,$list_statut,$list_date,$list_heure);
 	}
 
 	private function checkPaternstatutCommande($id,$statut)

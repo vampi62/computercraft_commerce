@@ -6,13 +6,11 @@ class Inscription
 	
 	public function __construct($pseudo, $mdp, $email, $bdd)
 	{	
-		$req = $bdd->prepare('INSERT INTO liste_users(pseudo, mdp, email, compte, nbr_offre, role) VALUES(:player, :mdp, :email, 0, :nbr_offre, :rang)');
+		$req = $bdd->prepare('INSERT INTO liste_users(pseudo, mdp, email, compte, nbr_offre, id_adresse, role) VALUES(:player, :mdp, :email, 0, 0, 0, 0)');
 		$req->execute(array(
 			'player' => $pseudo,
 			'mdp' => password_hash($mdp, PASSWORD_DEFAULT),
-			'rang' => 0,
-			'email' => $email,
-			'nbr_offre' => 0
+			'email' => $email
 		));
 		$this->bdd = $bdd;
 	}
@@ -23,8 +21,7 @@ class Inscription
 			'pseudo' => $pseudo,
 			));
 		$req = $req->fetch(PDO::FETCH_ASSOC);
-		$this->id = $req;
-		return $req;
+		return $req["id"];
 	}
 	public function setNbrOffre($nbr_offre)
 	{

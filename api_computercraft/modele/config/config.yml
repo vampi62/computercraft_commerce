@@ -5,6 +5,7 @@ General:
     prix_offre: 5000
     offre_depart: 5
 message_error:
+    0: succes - pas de retour attendu
     1: succes - commande realiser
     10: erreur - privilege insufisant
     11: erreur - login incorrect
@@ -18,6 +19,7 @@ message_error:
     31: erreur - quantité inferieur ou egal a 0
     32: erreur - cette offre est a vous
     33: erreur - offre inactive ou invalide
+    34: erreur - pas d'adresse de livraison
     40: erreur - edition statut invalide
     41: erreur - solde insufisant
     42: erreur - limite offre atteint
@@ -25,7 +27,11 @@ message_error:
     52: erreur - le prix est incorrect
     53: erreur - le stock est incorrect
     60: succes - pas de transaction
-    61: succes - jeton inferieur a 0
+    61: erreur - jeton inferieur a 0
+    70: erreur - nom adresse inexistant
+    71: erreur - nom adresse déjà utiliser
+    72: erreur - nom adresse utiliser pour le commerce
+    73: erreur - nom adresse utiliser pour la reception
 role:
     0: client
     1: banque-terminal
@@ -41,6 +47,9 @@ livraison:
     0: vide
     1: auto-rout
     2: manu
+adresse:
+    0: reception
+    1: commerce
 DataBase:
     dbAdress: 172.18.0.11
     dbName: minecraft_site

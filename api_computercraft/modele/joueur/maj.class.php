@@ -34,6 +34,14 @@ class Maj
 			'id' => $this->id
 		));
 	}
+	public function setNouvellesDonneesIdAdresse($id_adresse)
+	{
+		$req = $this->bdd->prepare('UPDATE liste_users SET id_adresse = :id_adresse WHERE id = :id');
+		$req->execute(array(
+			'id_adresse' => $id_adresse,
+			'id' => $this->id
+		));
+	}
 	public function setNouvellesDonneesNbrOffre($nbr_offre)
 	{
 		$req = $this->bdd->prepare('UPDATE liste_users SET nbr_offre = :nbr_offre WHERE id = :id');

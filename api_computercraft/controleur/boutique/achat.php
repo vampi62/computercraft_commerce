@@ -2,6 +2,8 @@
 require_once('modele/joueur/connection.class.php');
 require_once('modele/boutique/boutique.class.php');
 require_once('modele/banque/commande.class.php');
+require_once('modele/adresse/adresse.class.php');
+require_once('modele/converttable.class.php');
 
 if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND isset($_GET['quantite']) AND !empty($_GET['pseudo']) AND !empty($_GET['mdp']) AND !empty($_GET['id']) AND !empty($_GET['quantite']))
 {
@@ -29,22 +31,51 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND iss
 						{
 							if ($_Joueur_["id"] != $offreid['proprio'])
 							{
-								$datatcommande = array();
-								$datatcommande["ref_commande"] = $offreid['id'];
-								$datatcommande["expediteur"] = $offreid['proprio'];
-								$datatcommande["nom_commande"] = $offreid['nom'];
-								$datatcommande["quantite"] = $_GET['quantite'];
-								$datatcommande["somme"] = $somme;
-								$datatcommande["prix_unitaire"] = $offreid['prix'];
-								$datatcommande["type"] = $offreid['type'];
-								$datatcommande["livraison"] = $offreid['livraison'];
-								$datatcommande["description"] = $offreid['description'];
-
-								$commande = new Commande($_Joueur_, $bddConnection, $_Serveur_);
-								$commande->setCommande($datatcommande);
-
-								// modif - ok
-								$printmessage = 1;
+								$adresse_client = 0;
+								if (isset($_GET['adresse']) AND !empty($_GET['adresse'])) // si adresse verifie si present dans la db
+								{
+									$_GET['adresse'] = htmlspecialchars($_GET['adresse']);
+									$adresse = new Adresse($_Joueur_, $bddConnection);
+									$idadresse = $adresse->getIdAdresse($_GET['adresse']);
+									if(isset($idadresse["id"]) AND !empty($idadresse["id"]))
+									{
+										if($idadresse["type"] == 0)
+										{
+											$adresse_client = $_GET['adresse'];
+										}
+									}
+								}
+								else // sinon prend l'adresse par defaut
+								{
+									$adresse_client = $_Joueur_['id_adresse'];
+								}
+								if ($adresse_client <= 0)
+								{
+									// modif pas d'adresse de livraison
+									$printmessage = 34;
+								}
+								else
+								{
+									$text_adresse_expediteur = ConvertTable::getIdAdresse($this->bdd,$offreid['id_adresse']);
+									$text_adresse_recepteur = ConvertTable::getIdAdresse($this->bdd,$adresse_client);
+									$datatcommande = array();
+									$datatcommande["ref_commande"] = $offreid['id'];
+									$datatcommande["expediteur"] = $offreid['proprio'];
+									$datatcommande["text_adresse_expediteur"] = $text_adresse_expediteur["nom"] . "-" . $text_adresse_expediteur["coo"] . "-" . $text_adresse_expediteur["description"];
+									$datatcommande["text_adresse_recepteur"] = $text_adresse_recepteur["nom"] . "-" . $text_adresse_recepteur["coo"] . "-" . $text_adresse_recepteur["description"];
+									$datatcommande["nom_commande"] = $offreid['nom'];
+									$datatcommande["quantite"] = $_GET['quantite'];
+									$datatcommande["somme"] = $somme;
+									$datatcommande["prix_unitaire"] = $offreid['prix'];
+									$datatcommande["type"] = $offreid['type'];
+									$datatcommande["livraison"] = $offreid['livraison'];
+									$datatcommande["description"] = $offreid['description'];
+									$commande = new Commande($_Joueur_, $bddConnection, $_Serveur_);
+									$commande->setCommande($datatcommande);
+	
+									// modif - ok
+									$printmessage = 1;
+								}
 							}
 							else
 							{

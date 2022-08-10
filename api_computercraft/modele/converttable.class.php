@@ -26,5 +26,16 @@ class ConvertTable
 		$req->closeCursor();
 		return $list;
 	}
+
+	static public function getIdAdresse($bdd,$id)
+	{
+		$req = $bdd->prepare('SELECT * FROM liste_adresses WHERE id = :id');
+		$req->execute(array(
+			'proprio' => $proprio,
+			'id' => $id
+		));
+		$req = $req->fetch(PDO::FETCH_ASSOC);
+		return $req;
+	}
 }
 ?>

@@ -73,9 +73,10 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `liste_adresse` (
+CREATE TABLE IF NOT EXISTS `liste_adresses` (
   `id` int(11) UNSIGNED AUTO_INCREMENT,
   `proprio` int(11) UNSIGNED NOT NULL,
+  `nom` varchar(55) UNSIGNED NOT NULL,
   `type` tinyint(3) UNSIGNED NOT NULL,
   `coo` varchar(55) NOT NULL,
   `description` text NOT NULL,
