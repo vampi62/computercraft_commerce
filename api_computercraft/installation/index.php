@@ -28,7 +28,7 @@ if ($_Serveur_['Install'] != true)
 							SetAdmin($_GET['pseudo'], $_GET['mdp'], $_GET['email'], $sql);
 							$_Serveur_['Install'] = true;
 							$ecriture = new Ecrire('../modele/config/config.yml', $_Serveur_);
-							echo 'installation terminer vous pouvez supprimer le repertoire installation'
+							echo 'installation terminer vous pouvez supprimer le repertoire installation';
 						} else {
 							echo 'identifiant base de donnée incorect';
 						}
@@ -101,12 +101,10 @@ function SetHtpasswd() {
 }
 
 function SetAdmin($pseudo, $mdp, $email, $bdd){
-	$req = $bdd->prepare('INSERT INTO liste_users(pseudo, mdp, email, compte, nbr_offre, role) VALUES(:player, :mdp, :email, 0, :nbr_offre, :rang)');
+	$req = $bdd->prepare('INSERT INTO liste_users(pseudo, mdp, email, compte, id_adresse, nbr_offre, role) VALUES(:player, :mdp, :email, 0, 0, 0, 10)');
 	$req->execute(array(
 		'player' => $pseudo,
 		'mdp' => password_hash($mdp, PASSWORD_DEFAULT),
-		'rang' => 10,
-		'email' => $email,
-		'nbr_offre' => 0
+		'email' => $email
 	));
 }

@@ -21,7 +21,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND iss
 		$offreid = $boutique->getOffresbyidachat($_GET['id']);
 		if (isset($offreid) AND !empty($offreid))
 		{
-			if ($offreid['proprio'] != 0 AND $offreid['type'] != 0 AND $offreid['livraison'] != 0 AND $offreid['prix'] != 0 AND $offreid['nom'] != "null" AND $offreid['description'] != "null") {
+			if ($offreid['proprio'] != 0 AND $offreid['id_adresse'] != 0 AND $offreid['type'] != 0 AND $offreid['livraison'] != 0 AND $offreid['prix'] != 0 AND $offreid['nom'] != "null" AND $offreid['description'] != "null") {
 				$somme = $_GET['quantite'] * $offreid['prix'];
 				if ($offreid['nbr_dispo'] > $_GET['quantite'])
 				{
@@ -56,8 +56,8 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND iss
 								}
 								else
 								{
-									$text_adresse_expediteur = ConvertTable::getIdAdresse($this->bdd,$offreid['id_adresse']);
-									$text_adresse_recepteur = ConvertTable::getIdAdresse($this->bdd,$adresse_client);
+									$text_adresse_expediteur = ConvertTable::getIdAdresse($bddConnection,$offreid['id_adresse']);
+									$text_adresse_recepteur = ConvertTable::getIdAdresse($bddConnection,$adresse_client);
 									$datatcommande = array();
 									$datatcommande["ref_commande"] = $offreid['id'];
 									$datatcommande["expediteur"] = $offreid['proprio'];

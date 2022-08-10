@@ -3,7 +3,7 @@ if (isset($printmessage) AND !empty($printmessage))
 {
 	if (is_array($printmessage))
 	{
-		print_array($printmessage,false);
+		print_array($printmessage,false,$_Serveur_);
 	}
 	elseif (is_int($printmessage))
 	{
@@ -20,7 +20,7 @@ else
 }
 
 
-function print_array($list,$boolarray)
+function print_array($list,$boolarray,$_Serveur_)
 {
 	foreach($list as $element)
 	{
@@ -32,7 +32,7 @@ function print_array($list,$boolarray)
 		{
 			if (is_array($element))
 			{
-				print_array($element,true);
+				print_array($element,true,$_Serveur_);
 			}
 			else
 			{

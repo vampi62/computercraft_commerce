@@ -21,13 +21,14 @@ class Inscription
 			'pseudo' => $pseudo,
 			));
 		$req = $req->fetch(PDO::FETCH_ASSOC);
-		return $req["id"];
+		$this->id = $req['id'];
+		return $req;
 	}
 	public function setNbrOffre($nbr_offre)
 	{
 		$req = $this->bdd->prepare('UPDATE liste_users SET nbr_offre = :nbr_offre WHERE id = :id');
 		$req->execute(array(
-			'nbr_offre' => $nbr_offre,
+			'nbr_offre' => $nbr_offre["COUNT(id)"],
 			'id' => $this->id
 		));
 	}

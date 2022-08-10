@@ -11,7 +11,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND !empty($_GET['pseudo']) AN
 	if($connection->verifymdp($_GET['mdp']))
 	{
 		$_Joueur_ = $connection->getReponseConnection();
-		$text_adresse = ConvertTable::getIdAdresse($this->bdd,$_Joueur_['id_adresse']);
+		$text_adresse = ConvertTable::getIdAdresse($bddConnection,$_Joueur_['id_adresse']);
 		// modif - print $_Joueur_
 		$printmessage = array();
 		$printmessage['pseudo'] = $_Joueur_['pseudo'];

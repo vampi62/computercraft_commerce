@@ -46,7 +46,7 @@ class Commande
 		$date = date("Y-m-d");
 		$heure = date("H:i:s");
 		$suivie = $date . " " . $heure . " - " . $this->_Serveur_['statut_echange']['1'] . $this->_Serveur_['balise']['case_ligne_suite'];	
-		$req = $this->bdd->prepare('INSERT INTO commandes(id_offre, id_transaction, expediteur, recepteur, nom_commande, quantite, somme, prix_unitaire, type, livraison, suivie, description, statut, date, heure) VALUES(:id_offre, 0, :expediteur, :recepteur, :nom_commande, :quantite, :somme, :prix_unitaire, :type, :livraison, :suivie, :description, :statut, :date, :heure)');
+		$req = $this->bdd->prepare('INSERT INTO commandes(id_offre, id_transaction, expediteur, recepteur, text_adresse_expediteur, text_adresse_recepteur, nom_commande, quantite, somme, prix_unitaire, type, livraison, suivie, description, statut, date, heure) VALUES(:id_offre, 0, :expediteur, :recepteur, :text_adresse_expediteur, :text_adresse_recepteur, :nom_commande, :quantite, :somme, :prix_unitaire, :type, :livraison, :suivie, :description, :statut, :date, :heure)');
 		$req->execute(array(
 			'id_offre' => $datatcommande["ref_commande"],
 			'expediteur' => $datatcommande["expediteur"],
@@ -76,9 +76,9 @@ class Commande
 		));
 	}
 
-	public function setstatutCommande($id,$statut)
+	public function setstatutCommande($id,$statut,$booltransaction)
 	{
-		if ($this->checkPaternstatutCommande($id,$statut)) {
+		if ($this->checkPaternstatutCommande($id,$statut,$booltransaction)) {
 			$suivie = $this->getSuivieCommande($id) . date("d/m/Y H:i:s") . " - " . $this->_Serveur_['statut_echange'][$statut] . $this->_Serveur_['balise']['case_ligne_suite'];	
 			$req = $this->bdd->prepare('UPDATE commandes SET statut = :statut, suivie = :suivie WHERE id = :id');
 			$req->execute(array(
@@ -140,7 +140,7 @@ class Commande
 		return array($list_id,$list_id_offre,$list_id_transaction,$list_nom_commande,$list_expediteur,$list_recepteur,$list_text_adresse_expediteur,$list_text_adresse_recepteur,$list_quantite,$list_somme,$list_prix_unitaire,$list_type,$list_livraison,$list_suivie,$list_description,$list_statut,$list_date,$list_heure);
 	}
 
-	private function checkPaternstatutCommande($id,$statut)
+	private function checkPaternstatutCommande($id,$statut,$booltransaction)
 	{
 		$req = $this->bdd->prepare('SELECT statut, expediteur FROM commandes WHERE id = :id');
 		$req->execute(array(
@@ -162,7 +162,7 @@ class Commande
 				}
 			break;
 			case "2": // paiement en attente
-				if ($this->role == 2) {
+				if (($this->role == 2) AND ($booltransaction)) {
 					if ($statut == '3') // paiement valider
 					{
 						return true;

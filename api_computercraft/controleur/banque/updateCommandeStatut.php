@@ -14,7 +14,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['statut']) AND
 	{
 		$_Joueur_ = $connection->getReponseConnection();
 		$commande = new Commande($_Joueur_, $bddConnection, $_Serveur_);
-		$patern = $commande->setstatutCommande($_GET['id'],$_GET['statut']);
+		$patern = $commande->setstatutCommande($_GET['id'],$_GET['statut'],false);
 		if($patern) {
 			// modif - ok
 			$printmessage = 1;

@@ -12,7 +12,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND !empty($_GET['pseudo']) AN
 	if($connection->verifymdp($_GET['mdp']))
 	{
 		$_Joueur_ = $connection->getReponseConnection();
-		$transaction = new Transaction($_Joueur_['id'], $bddConnection);
+		$transaction = new Transaction($_Joueur_, $bddConnection);
 		$listetransaction = $transaction->getTransactionListe();
 		// modif - print $listetransaction
 		$printmessage = $listetransaction;

@@ -82,7 +82,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !
 								// solde insufisant
 								$printmessage = 41;
 							}
-							$transaction = new Transaction($_Joueur_['id'], $bddConnection);
+							$transaction = new Transaction($_Joueur_, $bddConnection);
 							$datatransaction = array();
 							$datatransaction["ref_commande"] = $listecommande['id'];
 							$datatransaction["crediteur"] = $_compte_expediteur_['id'];
@@ -92,9 +92,8 @@ if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !
 							$datatransaction["description"] = $listecommande['description'];
 							$datatransaction["statut"] = $statut;
 							$id_transaction = $transaction->setTransaction($datatransaction);
-							$commande->getCommandeBanque();
 							$commande->setLinktansactionCommande($listecommande['id'],$id_transaction);
-							$commande->setstatutCommande($listecommande['id'],$commerce_statut);
+							$commande->setstatutCommande($listecommande['id'],$commerce_statut,true);
 						}
 						else
 						{
@@ -131,7 +130,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !
 							// solde insufisant
 							$printmessage = 41;
 						}
-						$transaction = new Transaction($_Joueur_['id'], $bddConnection);
+						$transaction = new Transaction($_Joueur_, $bddConnection);
 						$datatransaction = array();
 						$datatransaction["ref_commande"] = 0;
 						$datatransaction["crediteur"] = $_compte_crediteur_['id'];
@@ -156,7 +155,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !
 						$majCrediteur = new Maj($_compte_crediteur_, $bddConnection);
 						$majCrediteur->setNouvellesDonneesCompte($_compte_crediteur_["compte"]+$_GET['somme']);
 						$statut = "depot valider";
-						$transaction = new Transaction($_Joueur_['id'], $bddConnection);
+						$transaction = new Transaction($_Joueur_, $bddConnection);
 						$datatransaction = array();
 						$datatransaction["ref_commande"] = 0;
 						$datatransaction["crediteur"] = $_compte_crediteur_['id'];
@@ -194,7 +193,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !
 							// solde insufisant
 							$printmessage = 41;
 						}
-						$transaction = new Transaction($_Joueur_['id'], $bddConnection);
+						$transaction = new Transaction($_Joueur_, $bddConnection);
 						$datatransaction = array();
 						$datatransaction["ref_commande"] = 0;
 						$datatransaction["crediteur"] = $_Joueur_['id'];
@@ -250,7 +249,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !
 							// solde insufisant
 							$printmessage = 41;
 						}
-						$transaction = new Transaction($_Joueur_['id'], $bddConnection);
+						$transaction = new Transaction($_Joueur_, $bddConnection);
 						$datatransaction = array();
 						$datatransaction["ref_commande"] = 0;
 						$datatransaction["crediteur"] = $_Joueur_['id'];

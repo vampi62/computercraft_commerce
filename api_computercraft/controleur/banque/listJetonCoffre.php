@@ -13,7 +13,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND !empty($_GET['pseudo']) AN
 	{
 		$_Joueur_ = $connection->getReponseConnection();
 		$jeton = new Jeton($_Joueur_, $bddConnection);
-		if($_Joueur_['role'] == 1)
+		if($_Joueur_['role'] >= 1)
 		{
 			$listejeton = $jeton->getJeton();
 			// modif - ok

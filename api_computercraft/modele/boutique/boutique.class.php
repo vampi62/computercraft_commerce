@@ -27,8 +27,9 @@ class Boutique
 		$listidplayer = ConvertTable::gettableidplayer($this->bdd);
 		while ($donnees = $req->fetch())
 		{
+			$adresse = ConvertTable::getIdAdresse($this->bdd,$donnees['id_adresse']);
 			$list_id[] = $donnees['id'];
-			$list_id_adresse[] = ConvertTable::getIdAdresse($this->bdd,$donnees['id_adresse']);
+			$list_id_adresse[] = $adresse;
 			$list_proprio[] = $listidplayer[$donnees['proprio']];
 			$list_prix[] = $donnees['prix'];
 			$list_nbr_dispo[] = $donnees['nbr_dispo'];
@@ -38,7 +39,7 @@ class Boutique
 			$list_description[] = $donnees['description'];
 		}
 		$req->closeCursor();
-   	 	return array($list_id,$list_id_adresse,$list_proprio,$list_prix,$list_nbr_dispo,$list_type,$list_livraison,$list_nom,$list_description);
+   	 	return array($list_id,$list_id_s,$list_proprio,$list_prix,$list_nbr_dispo,$list_type,$list_livraison,$list_nom,$list_description);
 	}
 	
 	public function getnbrOffres()
@@ -133,7 +134,7 @@ class Boutique
 	}
 	public function setNouvellesOffre()
 	{
-		$req = $this->bdd->prepare('INSERT INTO liste_offres(proprio, prix, nbr_dispo, type, livraison, nom, description) VALUES(:proprio, 0, 0, 0, 0, "","")');
+		$req = $this->bdd->prepare('INSERT INTO liste_offres(proprio, prix, nbr_dispo, id_adresse, type, livraison, nom, description) VALUES(:proprio, 0, 0, 0, 0, 0, "","")');
 		$req->execute(array(
 			'proprio' => $this->proprio
 			));

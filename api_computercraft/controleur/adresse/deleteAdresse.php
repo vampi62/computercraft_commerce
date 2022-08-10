@@ -1,6 +1,6 @@
 <?php
 require_once('modele/joueur/connection.class.php');
-require_once('modele/banque/adresse.class.php');
+require_once('modele/adresse/adresse.class.php');
 require_once('modele/changetext.class.php');
 
 if(isset($_GET['pseudo']) AND isset($_GET['nom']) AND isset($_GET['mdp']) AND !empty($_GET['pseudo']) AND !empty($_GET['nom']) AND !empty($_GET['mdp']))

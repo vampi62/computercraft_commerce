@@ -1,6 +1,6 @@
 <?php
 require_once('modele/joueur/connection.class.php');
-require_once('modele/banque/adresse.class.php');
+require_once('modele/adresse/adresse.class.php');
 require_once('modele/changetext.class.php');
 
 if(isset($_GET['pseudo']) AND isset($_GET['nom']) AND isset($_GET['mdp']) AND !empty($_GET['pseudo']) AND !empty($_GET['nom']) AND !empty($_GET['mdp']))
@@ -18,7 +18,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['nom']) AND isset($_GET['mdp']) AND !e
 		$idadresse = $adresse->getIdAdresse($_GET['nom']);
 		if(empty($idadresse["id"]))
 		{
-			if(isset($_GET['nom']) AND isset($_GET['type']) AND isset($_GET['coo']) AND isset($_GET['description']) AND !empty($_GET['nom']) AND !empty($_GET['type']) AND !empty($_GET['coo']) AND !empty($_GET['description']))
+			if(isset($_GET['nom']) AND isset($_GET['type']) AND isset($_GET['coo']) AND isset($_GET['description']) AND !empty($_GET['nom']) AND !empty($_GET['coo']) AND !empty($_GET['description']))
 			{
 				$_GET['nom'] = htmlspecialchars($_GET['nom']);
 				$_GET['type'] = htmlspecialchars($_GET['type']);
@@ -33,14 +33,14 @@ if(isset($_GET['pseudo']) AND isset($_GET['nom']) AND isset($_GET['mdp']) AND !e
 			}
 			else
 			{
-				// nom adresse inexistant
-				$printmessage = 71;
+				// il manque des parametres
+				$printmessage = 13;
 			}
 		}
 		else
 		{
-			// modif - il manque des parametres
-			$printmessage = 13;
+			// modif - nom adresse déjà utiliser
+			$printmessage = 71;
 		}
 	}
 	else

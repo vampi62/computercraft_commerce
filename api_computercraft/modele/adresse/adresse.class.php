@@ -12,7 +12,7 @@ class Adresse
 
 	public function getIdAdresse($nom)
 	{
-		$req = $bdd->prepare('SELECT id, type FROM liste_adresses WHERE proprio = :pseudo AND nom = :nom');
+		$req = $this->bdd->prepare('SELECT id, type FROM liste_adresses WHERE proprio = :pseudo AND nom = :nom');
 		$req->execute(array(
 			'pseudo' => $this->pseudo,
 			'nom' => $nom
@@ -84,7 +84,7 @@ class Adresse
 			'nom' => $nom,
 			'type' => $type,
 			'coo' => $coo,
-			'description' => $ddescription
+			'description' => $description
 		));
 	}
 	public function deleteAdresse($id)

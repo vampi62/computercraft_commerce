@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `transactions` (
 CREATE TABLE IF NOT EXISTS `liste_adresses` (
   `id` int(11) UNSIGNED AUTO_INCREMENT,
   `proprio` int(11) UNSIGNED NOT NULL,
-  `nom` varchar(55) UNSIGNED NOT NULL,
+  `nom` varchar(55) NOT NULL,
   `type` tinyint(3) UNSIGNED NOT NULL,
   `coo` varchar(55) NOT NULL,
   `description` text NOT NULL,

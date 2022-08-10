@@ -97,7 +97,7 @@ if(isset($_GET['action']))
 
 		case 'updatecommandestatut': // compte normal
 			// paramètres - mdp - pseudo - id - statut
-			include('controleur/banque/updateCommandestatut.php');
+			include('controleur/banque/updateCommandeStatut.php');
 		break;
 
 		// gestion reserver pour la banque

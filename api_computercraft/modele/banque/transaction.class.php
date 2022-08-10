@@ -50,7 +50,7 @@ class Transaction
 	{
 		$date = date("Y-m-d");
 		$heure = date("H:i:s");
-		$req = $this->bdd->prepare('INSERT INTO transactions(id_commandes, debiteur, crediteur, somme, type, description, statut, date, heure) VALUES(:id_commandes, :debiteur, :crediteur, :somme, :type, :description, :statut, :date, :heure)');
+		$req = $this->bdd->prepare('INSERT INTO transactions(id_commandes, id_admin_exec, debiteur, crediteur, somme, type, description, statut, date, heure) VALUES(:id_commandes, :id_admin_exec, :debiteur, :crediteur, :somme, :type, :description, :statut, :date, :heure)');
 		$req->execute(array(
 			'id_commandes' => $datatransaction["ref_commande"],
 			'id_admin_exec' => $this->pseudo,

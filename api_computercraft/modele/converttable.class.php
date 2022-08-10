@@ -14,7 +14,7 @@ class ConvertTable
 				$lastid = $donnees['id'];
 			}
 		}
-		for ($j=1; j <= $lastid; $j++)
+		for ($j=1; $j <= $lastid; $j++)
 		{
 			if (empty($list[$j]))
 			{
@@ -31,10 +31,17 @@ class ConvertTable
 	{
 		$req = $bdd->prepare('SELECT * FROM liste_adresses WHERE id = :id');
 		$req->execute(array(
-			'proprio' => $proprio,
 			'id' => $id
 		));
 		$req = $req->fetch(PDO::FETCH_ASSOC);
+		if(empty($req))
+		{
+			$req = array();
+			$req['nom'] = "";
+			$req['type'] = "";
+			$req['coo'] = "";
+			$req['description'] = "";
+		}
 		return $req;
 	}
 }
