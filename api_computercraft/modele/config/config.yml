@@ -32,6 +32,8 @@ message_error:
     71: 'erreur - nom adresse déjà utiliser'
     72: 'erreur - nom adresse utiliser pour le commerce'
     73: 'erreur - nom adresse utiliser pour la reception'
+    74: 'erreur - changement type adresse impossible en cours d'utilisation'
+    75: 'erreur - suppression adresse impossible en cours d'utilisation'
 role:
     0: 'client'
     1: 'banque-terminal'

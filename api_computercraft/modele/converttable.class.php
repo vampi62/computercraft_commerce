@@ -44,5 +44,19 @@ class ConvertTable
 		}
 		return $req;
 	}
+	
+	static public function offreUsedId($bdd,$id)
+	{
+		$req = $bdd->prepare('SELECT * FROM liste_offres WHERE id_adresse = :id');
+		$req->execute(array(
+			'id' => $id
+		));
+		$req = $req->fetch(PDO::FETCH_ASSOC);
+		if(empty($req))
+		{
+			return false; // si il n'y a pas d'offre qui utilise l'id adresse
+		}
+		return true;
+	}
 }
 ?>
