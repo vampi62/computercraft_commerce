@@ -1,0 +1,67 @@
+local version = "1.0"
+local labelcomp = "client"
+os.setComputerLabel(labelcomp.."-"..version)
+
+-- chargement des variables
+local config = "config/.config"
+local session = "config/.session"
+
+shell.run("initvar")
+
+local list = fs.list("config/")
+for j = 1, #list do
+	shell.run("config/"..list[j])
+end
+
+if global_interval_minute_db > 5 then
+	global_interval_minute_db = 5
+end
+if global_interval_minute_db < 1 then
+	global_interval_minute_db = 1
+end
+global_key = ""
+global_click = ""
+global_update = false
+global_scroll = 0
+global_objet_select = {}
+global_session = {}
+global_objet_write = {}
+-- chargement des fonctions
+local list = fs.list("fonction/")
+for j = 1, #list do
+	shell.run("fonction/"..list[j])
+end
+
+
+
+
+
+
+
+
+
+
+
+
+-- run prog --
+
+get_config
+
+if mdp then
+	get_user_data
+end
+
+
+function main()
+	parallel.waitForAny(scroll, click, clavier, affichage, cron, back)
+end
+
+while true do
+	local etat, error_mes = pcall(main)
+	if not etat then
+		local file = fs.open('log', 'a')
+		file.writeLine(os.day()..':'..os.time()..' '..error_mes)
+		file.close()
+	end
+	sleep(0.2)
+end
