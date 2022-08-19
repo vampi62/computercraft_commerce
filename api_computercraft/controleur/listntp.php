@@ -5,5 +5,6 @@ $message['heure'] = date("h");
 $message['am'] = date("A");
 $message['jour'] = date("d");
 $message['mois'] = date("m");
+$message['annee'] = date("Y");
 $printmessage = $message;
 ?>
