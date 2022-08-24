@@ -2,6 +2,7 @@
 require_once('modele/joueur/connection.class.php');
 require_once('modele/joueur/inscription.class.php');
 require_once('modele/boutique/boutique.class.php');
+require_once('modele/changetext.class.php');
 
 if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['mdpconfirm']) AND isset($_GET['email']) AND !empty($_GET['pseudo']) AND !empty($_GET['mdp']) AND !empty($_GET['mdpconfirm']) AND !empty($_GET['email']))
 {
