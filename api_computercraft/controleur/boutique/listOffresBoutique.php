@@ -1,8 +1,8 @@
 <?php
 require_once('modele/boutique/boutique.class.php');
 require_once('modele/converttable.class.php');
-
-$boutique = new Boutique(0, $bddConnection);
+$player['id']=0;
+$boutique = new Boutique($player, $bddConnection);
 $listeboutique = $boutique->getOffres();
 // modif - print $listeboutique
 $printmessage = $listeboutique;

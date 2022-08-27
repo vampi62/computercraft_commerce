@@ -1,6 +1,6 @@
 <?php
 $message = array();
-$message['balise'] = $_Serveur_['balise'];
+//$message['balise'] = $_Serveur_['balise'];
 $message['General'] = $_Serveur_['General'];
 $message['role'] = $_Serveur_['role'];
 $message['type'] = $_Serveur_['type'];

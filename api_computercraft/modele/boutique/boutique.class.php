@@ -39,7 +39,7 @@ class Boutique
 			$list_description[] = $donnees['description'];
 		}
 		$req->closeCursor();
-   	 	return array($list_id,$list_id_s,$list_proprio,$list_prix,$list_nbr_dispo,$list_type,$list_livraison,$list_nom,$list_description);
+   	 	return array($list_id,$list_id_adresse,$list_proprio,$list_prix,$list_nbr_dispo,$list_type,$list_livraison,$list_nom,$list_description);
 	}
 	
 	public function getnbrOffres()
