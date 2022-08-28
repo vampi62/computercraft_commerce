@@ -1,7 +1,6 @@
 <?php
 require_once('modele/joueur/connection.class.php');
 require_once('modele/adresse/adresse.class.php');
-require_once('modele/changetext.class.php');
 require_once('modele/converttable.class.php');
 
 if(isset($_GET['pseudo']) AND isset($_GET['nom']) AND isset($_GET['mdp']) AND !empty($_GET['pseudo']) AND !empty($_GET['nom']) AND !empty($_GET['mdp']))
@@ -23,7 +22,6 @@ if(isset($_GET['pseudo']) AND isset($_GET['nom']) AND isset($_GET['mdp']) AND !e
 			if(isset($_GET['nouveaunom']))
 			{
 				$_GET['nouveaunom'] = htmlspecialchars($_GET['nouveaunom']);
-				$_GET['nouveaunom'] = Changetext::retirebalise($_GET['nouveaunom'],$_Serveur_);
 				$idnewadresse = $adresse->getIdAdresse($_GET['nouveaunom']);
 				if (empty($idnewadresse["id"]))
 				{
@@ -49,11 +47,11 @@ if(isset($_GET['pseudo']) AND isset($_GET['nom']) AND isset($_GET['mdp']) AND !e
 				{
 					$_GET['type'] = 0;
 				}
-				if ($_GET['type'] > 1)
+				if ($_GET['type'] > 2)
 				{
-					$_GET['type'] = 1;
+					$_GET['type'] = 2;
 				}
-				if ($_GET['type'] == 1)
+				if ($_GET['type'] == 2)
 				{
 					if ($idadresse["id"] == $_Joueur_['id_adresse'])
 					{
@@ -91,7 +89,6 @@ if(isset($_GET['pseudo']) AND isset($_GET['nom']) AND isset($_GET['mdp']) AND !e
 			if(isset($_GET['coo']))
 			{
 				$_GET['coo'] = htmlspecialchars($_GET['coo']);
-				$_GET['coo'] = Changetext::retirebalise($_GET['coo'],$_Serveur_);
 				$adresse->setNouvellesDonneesCoo($idadresse["id"],$_GET['coo']);
 				// modif - ok
 				$printmessage[] = 1;
@@ -104,7 +101,6 @@ if(isset($_GET['pseudo']) AND isset($_GET['nom']) AND isset($_GET['mdp']) AND !e
 			if(isset($_GET['description']) AND !empty($_GET['description']))
 			{
 				$_GET['description'] = htmlspecialchars($_GET['description']);
-				$_GET['description'] = Changetext::retirebalise($_GET['description'],$_Serveur_);
 				$adresse->setNouvellesDonneesDescription($idadresse["id"],$_GET['description']);
 				// modif - ok
 				$printmessage[] = 1;

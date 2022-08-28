@@ -11,7 +11,6 @@ if ($_Serveur_['Install'] != true)
 		if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['mdpconfirm']) AND isset($_GET['email']) AND !empty($_GET['pseudo']) AND !empty($_GET['mdp']) AND !empty($_GET['mdpconfirm']) AND !empty($_GET['email']))
 		{
 			$_GET['pseudo'] = htmlspecialchars($_GET['pseudo']);
-			$_GET['pseudo'] = str_replace($_Serveur_['balise'],"",$_GET['pseudo']);
 			$_GET['mdp'] = htmlspecialchars($_GET['mdp']);
 			$_GET['mdpconfirm'] = htmlspecialchars($_GET['mdpconfirm']);
 			$_GET['email'] = htmlspecialchars($_GET['email']);

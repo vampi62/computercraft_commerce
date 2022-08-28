@@ -2,7 +2,6 @@
 require_once('modele/joueur/connection.class.php');
 require_once('modele/joueur/inscription.class.php');
 require_once('modele/boutique/boutique.class.php');
-require_once('modele/changetext.class.php');
 
 if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['mdpconfirm']) AND isset($_GET['email']) AND !empty($_GET['pseudo']) AND !empty($_GET['mdp']) AND !empty($_GET['mdpconfirm']) AND !empty($_GET['email']))
 {
@@ -21,7 +20,6 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['mdpconfirm'])
 				$donneesJoueur = $connection->getReponseConnection();
 				if(empty($donneesJoueur['pseudo']))
 				{
-					$_GET['pseudo'] = Changetext::retirebalise($_GET['pseudo'],$_Serveur_);
 					$inscription = new Inscription($_GET['pseudo'], $_GET['mdp'], $_GET['email'], $bddConnection, $_Serveur_);
 					$boutique = new Boutique($inscription->getnewid($_GET['pseudo']), $bddConnection);
 					for ($j=0; $j < $_Serveur_['General']['offre_depart']; $j++)

@@ -3,7 +3,7 @@ if (isset($printmessage) AND !empty($printmessage))
 {
 	if (is_array($printmessage))
 	{
-		print_array($printmessage,false,$_Serveur_);
+		print_array($printmessage,$_Serveur_);
 	}
 	elseif (is_int($printmessage))
 	{
@@ -19,31 +19,35 @@ else
 	echo '404';
 }
 
-
-function print_array($list,$boolarray,$_Serveur_)
+function print_array($list,$_Serveur_)
 {
-	foreach($list as $element)
+	echo "{";
+	$value_next = false;
+	foreach($list as $element => $value)
 	{
-		if ($boolarray)
+		if ($value_next)
 		{
-			echo $element . $_Serveur_['balise']['tableau_colonne_suite'];
+			echo ",";
+		}
+		if (is_int($element))
+		{
+			echo "[" . strval($element) . "]=";
 		}
 		else
 		{
-			if (is_array($element))
-			{
-				print_array($element,true,$_Serveur_);
-			}
-			else
-			{
-				echo "" . $element . "";
-				echo $_Serveur_['balise']['tableau_ligne_suite'];
-			}
+			echo $element . "=";
+		}
+		if (is_array($value))
+		{
+			print_array($value,$_Serveur_);
+			$value_next = true;
+		}
+		else
+		{
+			echo "'" . $value . "'";
+			$value_next = true;
 		}
 	}
-	if ($boolarray)
-	{
-		echo $_Serveur_['balise']['tableau_ligne_suite'];
-	}
+	echo "}";
 }
 ?>

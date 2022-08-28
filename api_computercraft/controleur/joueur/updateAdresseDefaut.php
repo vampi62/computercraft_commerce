@@ -18,7 +18,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['nom']) AND isset($_GET['mdp']) AND !e
 		$idadresse = $adresse->getIdAdresse($_GET['nom']);
 		if(isset($idadresse["id"]) AND !empty($idadresse["id"]))
 		{
-			if($idadresse["type"] == 0)
+			if($idadresse["type"] == 1)
 			{
 				$maj = new Maj($_Joueur_, $bddConnection);
 				$maj->setNouvellesDonneesIdAdresse($idadresse["id"]);

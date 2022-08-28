@@ -39,7 +39,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND iss
 									$idadresse = $adresse->getIdAdresse($_GET['adresse']);
 									if(isset($idadresse["id"]) AND !empty($idadresse["id"]))
 									{
-										if($idadresse["type"] == 0)
+										if($idadresse["type"] == 1)
 										{
 											$adresse_client = $_GET['adresse'];
 										}

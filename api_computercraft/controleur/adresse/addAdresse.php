@@ -1,7 +1,6 @@
 <?php
 require_once('modele/joueur/connection.class.php');
 require_once('modele/adresse/adresse.class.php');
-require_once('modele/changetext.class.php');
 
 if(isset($_GET['pseudo']) AND isset($_GET['nom']) AND isset($_GET['mdp']) AND !empty($_GET['pseudo']) AND !empty($_GET['nom']) AND !empty($_GET['mdp']))
 {
@@ -18,15 +17,20 @@ if(isset($_GET['pseudo']) AND isset($_GET['nom']) AND isset($_GET['mdp']) AND !e
 		$idadresse = $adresse->getIdAdresse($_GET['nom']);
 		if(empty($idadresse["id"]))
 		{
-			if(isset($_GET['nom']) AND isset($_GET['type']) AND isset($_GET['coo']) AND isset($_GET['description']) AND !empty($_GET['nom']) AND !empty($_GET['coo']) AND !empty($_GET['description']))
+			if(isset($_GET['nom']) AND isset($_GET['type']) AND isset($_GET['coo']) AND isset($_GET['descriptidon']) AND !empty($_GET['nom']) AND !empty($_GET['coo']) AND !empty($_GET['description']))
 			{
 				$_GET['nom'] = htmlspecialchars($_GET['nom']);
-				$_GET['type'] = htmlspecialchars($_GET['type']);
+				$_GET['type'] = intval(htmlspecialchars($_GET['type']));
 				$_GET['coo'] = htmlspecialchars($_GET['coo']);
 				$_GET['description'] = htmlspecialchars($_GET['description']);
-				$_GET['nom'] = Changetext::retirebalise($_GET['nom'],$_Serveur_);
-				$_GET['coo'] = Changetext::retirebalise($_GET['coo'],$_Serveur_);
-				$_GET['description'] = Changetext::retirebalise($_GET['description'],$_Serveur_);
+				if ($_GET['type'] < 0)
+				{
+					$_GET['type'] = 0;
+				}
+				if ($_GET['type'] > 2)
+				{
+					$_GET['type'] = 2;
+				}
 				$adresse->addAdresse($_GET['nom'],$_GET['type'],$_GET['coo'],$_GET['description']);
 				// modif - ok
 				$printmessage = 1;

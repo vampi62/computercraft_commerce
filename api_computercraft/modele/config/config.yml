@@ -4,6 +4,7 @@ General:
     max_offre: 25
     prix_offre: 5000
     offre_depart: 5
+    case_ligne_suite: '-br-'
 message_error:
     0: 'succes - pas de retour attendu'
     1: 'succes - commande realiser'
@@ -14,12 +15,12 @@ message_error:
     20: 'erreur - utilisateur existant'
     21: 'erreur - mot de passe non identique'
     22: 'erreur - mail invalide'
-    23: 'erreur - mot ne respecte pas les regles de securité'
+    23: 'erreur - mot ne respecte pas les regles de securite'
     30: 'erreur - pas de stock'
-    31: 'erreur - quantité inferieur ou egal a 0'
+    31: 'erreur - quantite inferieur ou egal a 0'
     32: 'erreur - cette offre est a vous'
     33: 'erreur - offre inactive ou invalide'
-    34: "erreur - pas d'adresse de livraison"
+    34: "erreur - pas d adresse de livraison"
     40: 'erreur - edition statut invalide'
     41: 'erreur - solde insufisant'
     42: 'erreur - limite offre atteint'
@@ -29,11 +30,11 @@ message_error:
     60: 'succes - pas de transaction'
     61: 'erreur - jeton inferieur a 0'
     70: 'erreur - nom adresse inexistant'
-    71: 'erreur - nom adresse déjà utiliser'
+    71: 'erreur - nom adresse deja utiliser'
     72: 'erreur - nom adresse utiliser pour le commerce'
     73: 'erreur - nom adresse utiliser pour la reception'
-    74: 'erreur - changement type adresse impossible en cours d'utilisation'
-    75: 'erreur - suppression adresse impossible en cours d'utilisation'
+    74: 'erreur - changement type adresse impossible en cours d utilisation'
+    75: 'erreur - suppression adresse impossible en cours d utilisation'
 role:
     0: 'client'
     1: 'banque-terminal'
@@ -50,8 +51,9 @@ livraison:
     1: 'auto-rout'
     2: 'manu'
 adresse:
-    0: 'reception'
-    1: 'commerce'
+    0: 'inactive'
+    1: 'reception'
+    2: 'commerce'
 DataBase:
     dbAdress: 0.0.0.0
     dbName: dbname
@@ -67,7 +69,3 @@ statut_echange:
     6: 'terminer'
     10: 'echange refuser par le vendeur'
     11: 'echange accepter paiement refuser'
-balise:
-    tableau_ligne_suite: '<br />'
-    tableau_colonne_suite: '</>'
-    case_ligne_suite: '-br-'

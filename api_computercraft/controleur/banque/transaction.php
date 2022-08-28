@@ -3,7 +3,6 @@ require_once('modele/joueur/connection.class.php');
 require_once('modele/joueur/maj.class.php');
 require_once('modele/banque/commande.class.php');
 require_once('modele/banque/transaction.class.php');
-require_once('modele/changetext.class.php');
 
 if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !empty($_GET['pseudo']) AND !empty($_GET['type']) AND !empty($_GET['mdp']))
 {
@@ -20,7 +19,6 @@ if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !
 			$_GET['mdpuser'] = htmlspecialchars($_GET['mdpuser']);
 			$_GET['somme'] = htmlspecialchars($_GET['somme']);
 			$_GET['description'] = htmlspecialchars($_GET['description']);
-			$_GET['description'] = Changetext::retirebalise($_GET['description'],$_Serveur_);
 
 			if ($_GET['type'] == "depot")
 			{

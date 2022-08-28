@@ -2,7 +2,6 @@
 require_once('modele/joueur/connection.class.php');
 require_once('modele/boutique/boutique.class.php');
 require_once('modele/adresse/adresse.class.php');
-require_once('modele/changetext.class.php');
 
 if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !empty($_GET['pseudo']) AND !empty($_GET['mdp']) AND !empty($_GET['id']))
 {
@@ -94,7 +93,6 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !em
 			if(isset($_GET['nom']) AND !empty($_GET['nom']))
 			{
 				$_GET['nom'] = htmlspecialchars($_GET['nom']);
-				$_GET['nom'] = Changetext::retirebalise($_GET['nom'],$_Serveur_);
 				$boutique->setNouvellesDonneesNom($_GET['nom'],$_GET['id']);
 				// modif - ok
 				$printmessage[] = 1;
@@ -111,7 +109,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !em
 				$idadresse = $adresse->getIdAdresse($_GET['nomadresse']);
 				if(isset($idadresse["id"]) AND !empty($idadresse["id"]))
 				{
-					if($idadresse["type"] == 1)
+					if($idadresse["type"] == 2)
 					{
 						$boutique->setNouvellesDonneesIdAdresse($idadresse["id"],$_GET['id']);
 						// modif - ok
@@ -137,7 +135,6 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !em
 			if(isset($_GET['description']) AND !empty($_GET['description']))
 			{
 				$_GET['description'] = htmlspecialchars($_GET['description']);
-				$_GET['description'] = Changetext::retirebalise($_GET['description'],$_Serveur_);
 				$boutique->setNouvellesDonneesDescription($_GET['description'],$_GET['id']);
 				// modif - ok
 				$printmessage[] = 1;

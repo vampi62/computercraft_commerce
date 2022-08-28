@@ -45,7 +45,7 @@ class Commande
 	{
 		$date = date("Y-m-d");
 		$heure = date("H:i:s");
-		$suivie = $date . " " . $heure . " - " . $this->_Serveur_['statut_echange']['1'] . $this->_Serveur_['balise']['case_ligne_suite'];	
+		$suivie = $date . " " . $heure . " - " . $this->_Serveur_['statut_echange']['1'] . $this->_Serveur_['General']['case_ligne_suite'];	
 		$req = $this->bdd->prepare('INSERT INTO commandes(id_offre, id_transaction, expediteur, recepteur, text_adresse_expediteur, text_adresse_recepteur, nom_commande, quantite, somme, prix_unitaire, type, livraison, suivie, description, statut, date, heure) VALUES(:id_offre, 0, :expediteur, :recepteur, :text_adresse_expediteur, :text_adresse_recepteur, :nom_commande, :quantite, :somme, :prix_unitaire, :type, :livraison, :suivie, :description, :statut, :date, :heure)');
 		$req->execute(array(
 			'id_offre' => $datatcommande["ref_commande"],
@@ -79,7 +79,7 @@ class Commande
 	public function setstatutCommande($id,$statut,$booltransaction)
 	{
 		if ($this->checkPaternstatutCommande($id,$statut,$booltransaction)) {
-			$suivie = $this->getSuivieCommande($id) . date("d/m/Y H:i:s") . " - " . $this->_Serveur_['statut_echange'][$statut] . $this->_Serveur_['balise']['case_ligne_suite'];	
+			$suivie = $this->getSuivieCommande($id) . date("d/m/Y H:i:s") . " - " . $this->_Serveur_['statut_echange'][$statut] . $this->_Serveur_['General']['case_ligne_suite'];	
 			$req = $this->bdd->prepare('UPDATE commandes SET statut = :statut, suivie = :suivie WHERE id = :id');
 			$req->execute(array(
 				'statut' => $statut,

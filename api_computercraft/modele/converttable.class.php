@@ -29,7 +29,7 @@ class ConvertTable
 
 	static public function getIdAdresse($bdd,$id)
 	{
-		$req = $bdd->prepare('SELECT * FROM liste_adresses WHERE id = :id');
+		$req = $bdd->prepare('SELECT nom,type,coo,description FROM liste_adresses WHERE id = :id');
 		$req->execute(array(
 			'id' => $id
 		));
