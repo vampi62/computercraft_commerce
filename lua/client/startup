@@ -3,9 +3,9 @@ global_systeme_nom = "client"
 os.setComputerLabel(labelcomp.."-"..version)
 
 -- chargement des variables
-local config = "config/.config"
-local session = "config/.session"
-
+global_config_http = "config/.config"
+global_config_session = "config/.session"
+global_config_panier = "config/.panier"
 shell.run("initvar")
 
 local list = fs.list("config/")
@@ -19,11 +19,12 @@ end
 if global_interval_minute_db < 1 then
 	global_interval_minute_db = 1
 end
+global_maint_key = ""
 global_key = ""
 global_click = ""
 global_message_http = -1
 
-global_config_max_y_page = 15
+global_config_max_y_page = 14
 global_config_min_y_page = 6
 global_update = false
 global_scroll = 0
@@ -82,8 +83,13 @@ end
 
 
 function main()
-	parallel.waitForAny(scroll, click, clavier, affichage, cron, back)
+	if update then
+		parallel.waitForAny(scroll, click, clavier, affichage, cron, back)
+	else
+		parallel.waitForAny(scroll, clavier, update_maj(dns,poste), update_affichage_console)
+	end
 end
+
 
 while true do
 	local etat, error_mes = pcall(main)
