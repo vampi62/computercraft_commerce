@@ -42,6 +42,14 @@ class Maj
 			'id' => $this->id
 		));
 	}
+	public function setNouvellesDonneesResetToken($token)
+	{
+		$req = $this->bdd->prepare('UPDATE liste_users SET resettoken = :token WHERE id = :id');
+		$req->execute(array(
+			'token' => $token,
+			'id' => $this->id
+			));
+	}
 	public function setNouvellesDonneesNbrOffre($nbr_offre)
 	{
 		$req = $this->bdd->prepare('UPDATE liste_users SET nbr_offre = :nbr_offre WHERE id = :id');

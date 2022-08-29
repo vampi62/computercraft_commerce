@@ -10,7 +10,8 @@ require('include/phpmailer/SMTP.php');
 
 class MailSender
 {
-   public static function send($arrayData, $to, $object, $body) {
+	public static function send($arrayData, $to, $object, $body)
+	{
 		if(isset($arrayData['SMTP']))
 		{
 			try {
@@ -26,18 +27,20 @@ class MailSender
 				$mail->Timeout = 5;
 				$mail->From = $arrayData['SMTP']['From'];
 				$mail->FromName = $arrayData['General']['name'];
-				$mail->addAddress($to);   
+				$mail->addAddress($to);
 				$mail->addReplyTo($arrayData['SMTP']['Reply'], $arrayData['General']['name']);
-				$mail->isHTML(true);							   
+				$mail->isHTML(true);
 				$mail->Subject = htmlspecialchars($object);
-				$mail->Body	= $body.'<br></br>'.$arrayData['SMTP']['Footer'];
+				$mail->Body	= $body.'<br></br>';
 				$mail->AltBody = strip_tags($body);
 				return $mail->send();
 			} catch(Exception $e) {
 				return false;
 			}
-		}else{
-		   return mail($to, $object, $body);
+		}
+		else
+		{
+			return mail($to, $object, $body);
 		}
 	}
 }

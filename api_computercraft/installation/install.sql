@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS `liste_users` (
   `pseudo` varchar(55) NOT NULL,
   `mdp` varchar(255) NOT NULL,
   `email` varchar(55) NOT NULL,
+  `resettoken` varchar(32),
   `compte` double NOT NULL,
   `id_adresse` int(11) UNSIGNED NOT NULL,
   `nbr_offre` int(11) UNSIGNED NOT NULL,

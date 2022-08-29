@@ -1,13 +1,13 @@
 <?php
-class Mail
+class checkToken
 {
-	private $reponseConnection;
-	
-	public function __construct($pseudo, $email, $bdd)
-	{	
-		$reponseConnection = $bdd->prepare('SELECT * FROM liste_users WHERE pseudo = :pseudo AND email = :email');
+    private $bdd;
+   
+    public function __construct($pseudo, $token, $bdd)
+    {   
+        $reponseConnection = $bdd->prepare('SELECT * FROM liste_users WHERE resettoken = :token AND pseudo = :pseudo');
 		$reponseConnection->execute(array(
-			'email' => $email,
+			'token' => $token,
 			'pseudo' => $pseudo
 			));
 		$reponseConnection = $reponseConnection->fetch(PDO::FETCH_ASSOC);

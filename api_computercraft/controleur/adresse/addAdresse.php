@@ -17,7 +17,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['nom']) AND isset($_GET['mdp']) AND !e
 		$idadresse = $adresse->getIdAdresse($_GET['nom']);
 		if(empty($idadresse["id"]))
 		{
-			if(isset($_GET['nom']) AND isset($_GET['type']) AND isset($_GET['coo']) AND isset($_GET['descriptidon']) AND !empty($_GET['nom']) AND !empty($_GET['coo']) AND !empty($_GET['description']))
+			if(isset($_GET['nom']) AND isset($_GET['type']) AND isset($_GET['coo']) AND isset($_GET['description']) AND !empty($_GET['nom']) AND !empty($_GET['coo']) AND !empty($_GET['description']))
 			{
 				$_GET['nom'] = htmlspecialchars($_GET['nom']);
 				$_GET['type'] = intval(htmlspecialchars($_GET['type']));

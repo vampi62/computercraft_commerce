@@ -4,68 +4,77 @@ General:
     max_offre: 25
     prix_offre: 5000
     offre_depart: 5
-    case_ligne_suite: '-br-'
+    case_ligne_suite: -br-
+    name: computercraft_api
 message_error:
-    0: 'succes - pas de retour attendu'
-    1: 'succes - commande realiser'
-    10: 'erreur - privilege insufisant'
-    11: 'erreur - login incorrect'
-    12: 'erreur - login admin incorrect'
-    13: 'erreur - parametre manquant'
-    20: 'erreur - utilisateur existant'
-    21: 'erreur - mot de passe non identique'
-    22: 'erreur - mail invalide'
-    23: 'erreur - mot ne respecte pas les regles de securite'
-    30: 'erreur - pas de stock'
-    31: 'erreur - quantite inferieur ou egal a 0'
-    32: 'erreur - cette offre est a vous'
-    33: 'erreur - offre inactive ou invalide'
-    34: "erreur - pas d adresse de livraison"
-    40: 'erreur - edition statut invalide'
-    41: 'erreur - solde insufisant'
-    42: 'erreur - limite offre atteint'
-    51: 'erreur - offre ne vous apartient pas'
-    52: 'erreur - le prix est incorrect'
-    53: 'erreur - le stock est incorrect'
-    60: 'succes - pas de transaction'
-    61: 'erreur - jeton inferieur a 0'
-    70: 'erreur - nom adresse inexistant'
-    71: 'erreur - nom adresse deja utiliser'
-    72: 'erreur - nom adresse utiliser pour le commerce'
-    73: 'erreur - nom adresse utiliser pour la reception'
-    74: 'erreur - changement type adresse impossible en cours d utilisation'
-    75: 'erreur - suppression adresse impossible en cours d utilisation'
+    1: succes - pas de retour attendu
+    2: succes - commande realiser
+    10: erreur - privilege insufisant
+    11: erreur - login incorrect
+    12: erreur - login admin incorrect
+    13: erreur - parametre manquant
+    20: erreur - utilisateur existant
+    21: erreur - mot de passe non identique
+    22: erreur - mail invalide
+    23: erreur - mot ne respecte pas les regles de securite
+    30: erreur - pas de stock
+    31: erreur - quantite inferieur ou egal a 0
+    32: erreur - cette offre est a vous
+    33: erreur - offre inactive ou invalide
+    34: erreur - pas d adresse de livraison
+    40: erreur - edition statut invalide
+    41: erreur - solde insufisant
+    42: erreur - limite offre atteint
+    51: erreur - offre ne vous apartient pas
+    52: erreur - le prix est incorrect
+    53: erreur - le stock est incorrect
+    60: succes - pas de transaction
+    61: erreur - jeton inferieur a 0
+    70: erreur - nom adresse inexistant
+    71: erreur - nom adresse deja utiliser
+    72: erreur - nom adresse utiliser pour le commerce
+    73: erreur - nom adresse utiliser pour la reception
+    74: erreur - changement type adresse impossible en cours d utilisation
+    75: erreur - suppression adresse impossible en cours d utilisation
 role:
-    0: 'client'
-    1: 'banque-terminal'
-    2: 'banque-routeur'
-    10: 'super-admin'
+    0: client
+    1: banque-terminal
+    2: banque-routeur
+    10: super-admin
 type:
-    0: 'vide'
-    1: 'objet'
-    2: 'liquide'
-    3: 'gaz'
-    4: 'autre'
+    0: vide
+    1: objet
+    2: liquide
+    3: gaz
+    4: autre
 livraison:
-    0: 'vide'
-    1: 'auto-rout'
-    2: 'manu'
+    0: vide
+    1: auto-rout
+    2: manu
 adresse:
-    0: 'inactive'
-    1: 'reception'
-    2: 'commerce'
+    0: inactive
+    1: reception
+    2: commerce
 DataBase:
     dbAdress: 0.0.0.0
     dbName: dbname
     dbUser: dbuser
     dbPassword: dbpass
     dbPort: 3306
+SMTP:
+    Host: smtp.serveur.net
+	Username: snmpuser
+	Password: snmppass
+	Protocol: ssl
+	Port: 465
+	From: mailsender
+	Reply: mailtoreply
 statut_echange:
-    1: 'commande effectuer validation vendeur en attente'
-    2: 'echange accepter paiement en attente'
-    3: 'echange accepter paiement valider'
-    4: 'commande pret a envoyer'
-    5: 'commande en cours de livraison'
-    6: 'terminer'
-    10: 'echange refuser par le vendeur'
-    11: 'echange accepter paiement refuser'
+    1: commande effectuer validation vendeur en attente
+    2: echange accepter paiement en attente
+    3: echange accepter paiement valider
+    4: commande pret a envoyer
+    5: commande en cours de livraison
+    6: terminer
+    10: echange refuser par le vendeur
+    11: echange accepter paiement refuser

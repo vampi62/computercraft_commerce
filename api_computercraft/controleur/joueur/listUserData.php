@@ -17,10 +17,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND !empty($_GET['pseudo']) AN
 		$printmessage['pseudo'] = $_Joueur_['pseudo'];
 		$printmessage['email'] = $_Joueur_['email'];
 		$printmessage['compte'] = $_Joueur_['compte'];
-		$printmessage['adrnom'] = $text_adresse["nom"];
-		$printmessage['adrtype'] = $text_adresse["type"];
-		$printmessage['adrcoo'] = $text_adresse["coo"];
-		$printmessage['adrdescription'] = $text_adresse["description"];
+		$printmessage['defautadresse'] = $text_adresse;
 		$printmessage['nbr_offre'] = $_Joueur_['nbr_offre'];
 		$printmessage['role'] = $_Joueur_['role'];
 	}

@@ -25,6 +25,16 @@ if(isset($_GET['action']))
 			include('controleur/joueur/inscription.php');
 		break;
 
+		case 'changemdpmail': // compte libre
+			// paramètres - pseudo - email
+			include('controleur/joueur/changeMdpMail.php');
+		break;
+
+		case 'recuperationmailmdp': // compte libre
+			// paramètres - pseudo - email
+			include('controleur/joueur/recuperationMailMdp.php');
+		break;
+
 		case 'listuserdata': // compte normal
 			// paramètres - mdp - pseudo
 			include('controleur/joueur/listUserData.php');
@@ -102,18 +112,18 @@ if(isset($_GET['action']))
 
 		// gestion reserver pour la banque
 
-		case 'transaction': // compte admin
+		case 'transaction': // compte admin (banque_admin)
 			// paramètres - mdp - pseudo - type
 			// paramètres - mdp - pseudo - type - crediteur - debiteur - mdpuser - pseudouser - somme - description
 			include('controleur/banque/transaction.php');
 		break;
 
-		case 'updatejetoncoffre': // compte admin
+		case 'updatejetoncoffre': // compte admin (banque_terminal)
 			// paramètres - mdp - pseudo
 			include('controleur/banque/updateJetonCoffre.php');
 		break;
 		
-		case 'listjetoncoffre': // compte admin
+		case 'listjetoncoffre': // compte admin (tous)
 			// paramètres - mdp - pseudo
 			include('controleur/banque/listJetonCoffre.php');
 		break;
