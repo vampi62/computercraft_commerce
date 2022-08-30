@@ -7,8 +7,8 @@ General:
     case_ligne_suite: -br-
     name: computercraft_api
 message_error:
-    1: succes - pas de retour attendu
-    2: succes - commande realiser
+    0: succes - pas de retour attendu
+    1: succes - commande realiser
     10: erreur - privilege insufisant
     11: erreur - login incorrect
     12: erreur - login admin incorrect
@@ -63,12 +63,12 @@ DataBase:
     dbPort: 3306
 SMTP:
     Host: smtp.serveur.net
-	Username: snmpuser
-	Password: snmppass
-	Protocol: ssl
-	Port: 465
-	From: mailsender
-	Reply: mailtoreply
+    Username: snmpuser
+    Password: snmppass
+    Protocol: ssl
+    Port: 465
+    From: mailsender
+    Reply: mailtoreply
 statut_echange:
     1: commande effectuer validation vendeur en attente
     2: echange accepter paiement en attente

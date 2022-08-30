@@ -16,7 +16,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND !empty($_GET['pseudo']) AN
 		if($_Joueur_['role'] >= 1)
 		{
 			$listejeton = $jeton->getJeton();
-			// modif - ok
+			// modif - print $listejeton
 			$printmessage = $listejeton;
 		}
 		else
