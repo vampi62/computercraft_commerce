@@ -18,13 +18,28 @@ ce projet permet de créer un système d'échange et de banque sur un monde mine
 - le mot de passe doit faire plus de 8 caractères, avoir une majuscule, une minuscule et un chiffre
 - l'email doit avoir un format valide, exemple : monmail@mail.com
 
+## docker
 
-sur minecraft
+ce docker ne contient qu'un serveur apache avec php, vous devez installer mysql ou mariadb avec un compte et une base de donnée pour l'api, le tout sur un autre conteneur ou autre.
+une fois creer le conteneur n'a plus à être supprimer, pour mettre a jour les fichiers deposer les dans le volume ou le repertoire externe
+(attention) ne remplacer pas votre fichier config : /api_computercraft/modele/config/config.yml
+```sh
+cd /computercraft_commerce
+docker build -t mc-php-site:latest .
+sudo docker run --name apache_computercraft --restart=always -d \
+	  -v /opt/html:/var/www/html \
+	  -p 9081:9081 \
+	  mc-php-site:latest
+```
+
+## minecraft installation computercraft
 1. télécharger le script d'installation avec la commande : __pastebin get su1j9ve5 startup__
 2. redémarrer le poste et selectionner le programme à installer parmis ceux proposé
 
-- client (poste pour que chaque joueurs puissent commander et consulter les informations le concernant)
-- commerce (traite les commandes, actualise les stocks et prix des offres qui lui sont lier)
-- banque-terminal (permet au joueur d'effectuer des depots, retaits ou transferts de compte à compte)
-- banque-routeur (envoie les commandes du poste commerce au client si les 2 le permettent)
-- banque-admin (traite les transaction entre le client et le commerce lors de l'achat)
+(note : les postes computercraft ne sont pas encore finalisé)
+
+- [ ] client (poste pour que chaque joueurs puissent commander et consulter les informations le concernant)
+- [ ] commerce (traite les commandes, actualise les stocks et prix des offres qui lui sont lier)
+- [ ] banque-terminal (permet au joueur d'effectuer des depots, retaits ou transferts de compte à compte)
+- [ ] banque-routeur (envoie les commandes du poste commerce au client si les 2 le permettent)
+- [ ] banque-admin (traite les transaction entre le client et le commerce lors de l'achat)
