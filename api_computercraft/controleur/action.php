@@ -4,7 +4,7 @@
 */
 if(isset($_GET['action']))
 {
-	switch($_GET['action']) // on utilise ici un switch pour inclure telle ou telle page selon l'action.
+	switch(strtolower($_GET['action'])) // on utilise ici un switch pour inclure telle ou telle page selon l'action.
 	{ 		
 		//connection doit être appelé à chaque action securisée car computercraft n'enregistre pas de session
 		

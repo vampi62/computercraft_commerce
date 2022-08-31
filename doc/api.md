@@ -1,9 +1,31 @@
 api http acces via GET
 
-action=nom_action&&param1=text&&param2=text
-## nom_action
+
+## nom_action (exemple)
 - param1	:(type) parametre obligatoire
 - param2    :(type)(optionnel) parametre non obligatoire
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=__nom_action&param1=__param1__&param2=__param2__
+
+return (string) ==> renvoie un nombre faite correspondre la valeur avec la section __message_error__ du fichier config.yml<br/>
+return (array) ==> affiche la table de manière à être récuperer par computercraft, utiliser le code ci-dessous pour reconvertir la sortie en array dans computercraft
+```lua
+global_url = "0.0.0.0"
+global_port = "9081"
+global_uri = "api_computercraft"
+function http_get(action)
+	local source_return, err = http.get("http://"..global_url..":"..global_port.."/"..global_uri.."/index.php?action="..action)
+	local source_text = source_return.readAll()
+	if source_text ~= "db_error" then
+		return textutils.unserialise(source_text) -- renvoie une table ou un nombre
+	else
+		return "db_error"
+	end
+end
+
+action="listuserdata&mdp=__mdp__&pseudo=__pseudo__" -- exemple d'action
+list_ou_code_retour = http_get(action)
+```
 
 # installation
 
@@ -14,8 +36,9 @@ http://ipserveur/api_computercraft/installation/index.php?
 - mdpconfirm	:(string) doit être identique à __mdp__
 - email			:(string) l'email doit etre valide
 
-http://0.0.0.0:9081/api_computercraft/installation/index.php?action=install&mdp=&pseudo=__pseudo__&mdpconfirm=__mdp__&email=__email__
+http://0.0.0.0:9081/api_computercraft/installation/index.php?action=install&mdp=__mdp__&pseudo=__pseudo__&mdpconfirm=__mdpconfirm__&email=__email__
 
+return (string)
 
 # fonctionnement
 
@@ -30,13 +53,19 @@ http://ipserveur/api_computercraft/index.php?
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=inscription&mdp=__mdp__&pseudo=__pseudo__&mdpconfirm=__mdpconfirm__&email=__email__
 
+return (string)
+
 ## listntp
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=listntp
 
+return (array)
+
 ## listconfig
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=listconfig
+
+return (array)
 
 ## listuserdata
 - mdp			:(string)
@@ -44,11 +73,15 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=listconfig
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=listuserdata&mdp=__mdp__&pseudo=__pseudo__
 
+return (array)
+
 ## listusertransaction
 - mdp			:(string)
 - pseudo		:(string)
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=listusertransaction&mdp=__mdp__&pseudo=__pseudo__
+
+return (array)
 
 ## listusercommande
 - mdp			:(string)
@@ -56,12 +89,16 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=listusertransaction&mdp=_
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=listusercommande&mdp=__mdp__&pseudo=__pseudo__
 
+return (array)
+
 ## updatemail
 - mdp			:(string)
 - pseudo		:(string)
 - email			:(string) l'email doit etre valide
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=updatemail&mdp=__mdp__&pseudo=__pseudo__&email=__email__
+
+return (string)
 
 ## updatemdp
 - mdp			:(string)
@@ -71,6 +108,8 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=updatemail&mdp=__mdp__&ps
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=updatemdp&mdp=__mdp__&pseudo=__pseudo__&mdpconfirm=__mdpconfirm__&mdpnouveau=__mdpnouveau__
 
+return (string)
+
 ## updateadressedefaut
 - mdp			:(string)
 - pseudo		:(string)
@@ -78,9 +117,13 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=updatemdp&mdp=__mdp__&pse
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=updateadressedefaut&mdp=__mdp__&pseudo=__pseudo__&nom=__nom__
 
+return (string)
+
 ## listoffresboutique
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=listoffresboutique
+
+return (array)
 
 ## updateoffreboutique
 - mdp			:(string)
@@ -96,6 +139,8 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=listoffresboutique
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=updateoffreboutique&mdp=__mdp__&pseudo=__pseudo__&id=__id__&prix=__prix__&nbr_dispo=__nbr_dispo__&type=__type__&livraison=__livraison__&nom=__nom__&description=__description__&nomadresse=__nomadresse__
 
+return (array)
+
 ## achat
 - mdp			:(string)
 - pseudo		:(string)
@@ -104,11 +149,15 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=updateoffreboutique&mdp=_
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=achat&mdp=__mdp__&pseudo=__pseudo__&id=__id__&quantite=__quantite__
 
+return (string)
+
 ## listcommandes
 - mdp			:(string)
 - pseudo		:(string)
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=listcommandes&mdp=__mdp__&pseudo=__pseudo__
+
+return (array)
 
 ## updatecommandestatut
 - mdp			:(string)
@@ -117,6 +166,8 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=listcommandes&mdp=__mdp__
 - statut		:(int) nouveau statut de la commande
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=updatecommandestatut&mdp=__mdp__&pseudo=__pseudo__&id=__id__&statut=__statut__
+
+return (string)
 
 1-->2 (vendeur) <br/>
 1-->10 (vendeur)(à l'appréciation du vendeur) <br/>
@@ -141,6 +192,8 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=updatecommandestatut&mdp=
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=transaction&mdp=__mdp__&pseudo=__pseudo__&type=commande
 
+return (string)
+
 ## transaction
 - mdp			:(string)
 - pseudo		:(string) seul un compteur avec un role=1 (banque-terminal) peuvent utiliser les type ci-dessous
@@ -153,6 +206,8 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=transaction&mdp=__mdp__&p
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=transaction&mdp=__mdp__&pseudo=__pseudo__&type=transfert&crediteur=__crediteur__&debiteur=__debiteur__&somme=__somme__&description=__description__&mdpuser=__mdpuser__
 
+return (string)
+
 ## updatejetoncoffre
 - mdp			:(string)
 - pseudo		:(string) seul un compteur avec un role=1 (banque-terminal) peuvent entrer ses jeton
@@ -164,11 +219,15 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=transaction&mdp=__mdp__&p
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=updatejetoncoffre&mdp=__mdp__&pseudo=__pseudo__&jeton1=__jeton1__&jeton10=__jeton10__&jeton100=__jeton100__&jeton1k=__jeton1k__&jeton10k=__jeton10k__
 
+return (string)
+
 ## listjetoncoffre
 - mdp			:(string)
 - pseudo		:(string) seul un compteur avec un role superieur ou égal à 1 peut recuperer la liste des jetons
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=listjetoncoffre&mdp=__mdp__&pseudo=__pseudo__
+
+return (array)
 
 ## addadresse
 - mdp			:(string)
@@ -179,6 +238,8 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=listjetoncoffre&mdp=__mdp
 - description	:(text) text libre
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=addadresse&mdp=__mdp__&pseudo=__pseudo__&nom=__nom__&type=__type__&coo=__coo__&description=__description__
+
+return (string)
 
 ## updateadresse
 - mdp			:(string)
@@ -191,6 +252,8 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=addadresse&mdp=__mdp__&ps
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=updateadresse&mdp=__mdp__&pseudo=__pseudo__&nom=__nom__&type=__type__&coo=__coo__&description=__description__&nouveaunom=__nouveaunom__
 
+return (array)
+
 ## deleteadresse
 - mdp			:(string)
 - pseudo		:(string)
@@ -198,17 +261,23 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=updateadresse&mdp=__mdp__
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=deleteadresse&mdp=__mdp__&pseudo=__pseudo__&nom=__nom__
 
+return (string)
+
 ## changemdpmail
 - pseudo		:(string)
 - email			:(string)
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=changemdpmail&pseudo=__pseudo__&email=__email__
 
+return (string)
+
 ## recuperationmailmdp
 - pseudo		:(string)
 - token			:(string) token reçu par mail via la commande __changemdpmail__
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=recuperationmailmdp&pseudo=__pseudo__&token=__token__
+
+return (string)
 
 
 # panel admin
@@ -221,12 +290,16 @@ utiliser un compte avec un role = 10 (compte creer à l'installation du site)
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=jetondelete&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__
 
+return (string)
+
 ## joueurdelete
 - mdp			:(string)
 - pseudo		:(string)
 - player		:(string) pseudo du joueur a supprimer
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=joueurdelete&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__
+
+return (string)
 
 ## joueurupdatecompte
 - mdp			:(string)
@@ -236,6 +309,8 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=joueurdelete&admin=1&mdp=
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=joueurupdatecompte&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
 
+return (string)
+
 ## joueurupdatemail
 - mdp			:(string)
 - pseudo		:(string)
@@ -243,6 +318,8 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=joueurupdatecompte&admin=
 - newdata		:(string) nouveau mail
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=joueurupdatemail&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
 
 ## joueurupdatemdp
 - mdp			:(string)
@@ -252,6 +329,8 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=joueurupdatemail&admin=1&
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=joueurupdatemdp&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
 
+return (string)
+
 ## joueurupdatenbr
 - mdp			:(string)
 - pseudo		:(string)
@@ -259,6 +338,8 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=joueurupdatemdp&admin=1&m
 - newdata		:(string) re-compte le nombre d'offre au nom du joueur
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=joueurupdatenbr&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
 
 ## joueurupdatepseudo
 - mdp			:(string)
@@ -268,6 +349,8 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=joueurupdatenbr&admin=1&m
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=joueurupdatepseudo&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
 
+return (string)
+
 ## joueurupdaterole
 - mdp			:(string)
 - pseudo		:(string)
@@ -276,13 +359,17 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=joueurupdatepseudo&admin=
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=joueurupdaterole&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
 
-## joueurUpdateresettoken
+return (string)
+
+## joueurupdateresettoken
 - mdp			:(string)
 - pseudo		:(string)
 - player		:(string) pseudo du joueur a modifier
 - newdata		:(bool) null --> supprimer le token, non null --> genere un nouveau token
 
-http://0.0.0.0:9081/api_computercraft/index.php?action=joueurUpdateresettoken&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+http://0.0.0.0:9081/api_computercraft/index.php?action=joueurupdateresettoken&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (array)
 
 ## listadresse
 - mdp			:(string)
@@ -290,11 +377,15 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=joueurUpdateresettoken&ad
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=listadresse&admin=1&mdp=__mdp__&pseudo=__pseudo__
 
+return (array)
+
 ## listcommande
 - mdp			:(string)
 - pseudo		:(string)
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=listcommande&admin=1&mdp=__mdp__&pseudo=__pseudo__
+
+return (array)
 
 ## listjeton
 - mdp			:(string)
@@ -302,11 +393,15 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=listcommande&admin=1&mdp=
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=listjeton&admin=1&mdp=__mdp__&pseudo=__pseudo__
 
+return (array)
+
 ## listjoueur
 - mdp			:(string)
 - pseudo		:(string)
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=listjoueur&admin=1&mdp=__mdp__&pseudo=__pseudo__
+
+return (array)
 
 ## listoffre
 - mdp			:(string)
@@ -314,10 +409,260 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=listjoueur&admin=1&mdp=__
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=listoffre&admin=1&mdp=__mdp__&pseudo=__pseudo__
 
+return (array)
+
 ## listtransaction
 - mdp			:(string)
 - pseudo		:(string)
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=listtransaction&admin=1&mdp=__mdp__&pseudo=__pseudo__
 
-d'autre commande pour le pannel admin seront integrer prochainement
+return (array)
+
+## adressedelete
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du joueur propriétaire de l'adresse
+- newdata		:(string) nom de l'adresse a supprimer
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=adressedelete&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## adresseupdatecoo
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du joueur propriétaire de l'adresse
+- newdata		:(string) nom de l'adresse à modifier
+- newtypedata	:(text)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=adresseupdatecoo&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## adresseupdatedescription
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du joueur propriétaire de l'adresse
+- newdata		:(string) nom de l'adresse à modifier
+- newtypedata	:(text)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=adresseupdatedescription&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## adresseupdatenom
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du joueur propriétaire de l'adresse
+- newdata		:(string) nom de l'adresse à modifier
+- newtypedata	:(string)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=adresseupdatenom&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## adresseupdatetype
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du joueur propriétaire de l'adresse
+- newdata		:(string) nom de l'adresse à modifier
+- newtypedata	:(int)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=adresseupdatetype&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## commandedelete
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du joueur ayant fait la commande
+- newdata		:(string) id de la commande à supprimer
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=commandedelete&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## commandeupdatetextadresseexpediteur
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du joueur ayant fait la commande
+- newdata		:(string) id de la commande à modifier
+- newtypedata	:(text)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=commandeupdatetextadresseexpediteur&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## commandeupdatetextadresserecepteur
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du joueur ayant fait la commande
+- newdata		:(string) id de la commande à modifier
+- newtypedata	:(text)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=commandeupdatetextadresserecepteur&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## commandeupdatedescription
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du joueur ayant fait la commande
+- newdata		:(string) id de la commande à modifier
+- newtypedata	:(text)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=commandeupdatedescription&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## commandeupdatestatut
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du joueur ayant fait la commande
+- newdata		:(string) id de la commande à modifier
+- newtypedata	:(int)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=commandeupdatestatut&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## offreadd
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du proprio de cette nouvelle offre
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=offreadd&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## offredelete
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du proprio de l'offre
+- newdata		:(string) id de l'offre à supprimer
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=offredelete&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## offreupdateadresse
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du proprio de l'offre
+- newdata		:(string) id de l'offre à modifier
+- newtypedata	:(string)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=offreupdateadresse&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## offreupdatedescription
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du proprio de l'offre
+- newdata		:(string) id de l'offre à modifier
+- newtypedata	:(text)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=offreupdatedescription&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## offreupdatelivraison
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du proprio de l'offre
+- newdata		:(string) id de l'offre à modifier
+- newtypedata	:(int)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=offreupdatelivraison&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## offreupdatenom
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du proprio de l'offre
+- newdata		:(string) id de l'offre à modifier
+- newtypedata	:(string)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=offreupdatenom&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## offreupdateproprio
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du proprio de l'offre
+- newdata		:(string) id de l'offre à modifier
+- newtypedata	:(string)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=offreupdateproprio&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## offreupdatetype
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du proprio de l'offre
+- newdata		:(string) id de l'offre à modifier
+- newtypedata	:(int)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=offreupdatetype&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## transactionadd
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du joueur debiter
+- cplayer		:(string) nom du joueur crediter
+- newdata		:(float) somme
+- newtypedata	:(text) description
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=transactionadd&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## transactiondelete
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du joueur debiter
+- newdata		:(string) id de la transaction à supprimer
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=transactiondelete&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## transactionupdatedescription
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du joueur debiter
+- newdata		:(string) id de la transaction à modifier
+- newtypedata	:(text)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=transactionupdatedescription&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## transactionupdatestatut
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du joueur debiter
+- newdata		:(string) id de la transaction à modifier
+- newtypedata	:(string)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=transactionupdatestatut&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)
+
+## transactionupdatetype
+- mdp			:(string)
+- pseudo		:(string)
+- player		:(string) nom du joueur debiter
+- newdata		:(string) id de la transaction à modifier
+- newtypedata	:(string)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=transactionupdatetype&admin=1&mdp=__mdp__&pseudo=__pseudo__&player=__player__&newdata=__newdata__
+
+return (string)

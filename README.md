@@ -25,12 +25,20 @@ une fois creer le conteneur n'a plus à être supprimer, pour mettre a jour les 
 (attention) ne remplacer pas votre fichier config : /api_computercraft/modele/config/config.yml
 ```sh
 cd /computercraft_commerce
-docker build -t mc-php-site:latest .
-sudo docker run --name apache_computercraft --restart=always -d \
+sudo docker network create --subnet=172.18.0.0/16 dockernet
+docker build -t apache_computercraft:latest .
+sudo docker run --net dockernet --ip 172.18.0.11 --name apache_computercraft --restart=always -d \
 	  -v /opt/html:/var/www/html \
-	  -p 9081:9081 \
-	  mc-php-site:latest
+	  -p 9081:80 \
+	  apache_computercraft:latest
+sudo docker run --net dockernet --ip 172.18.0.12 --name mariadb --restart=always -d \
+	  -v mariadb:/var/lib/mysql \
+	  -p 3306:3306 \
+	  --env MARIADB_USER=youruser --env MARIADB_PASSWORD=yourpassword --env MARIADB_ROOT_PASSWORD=yourrootpassword \
+	  mariadb:latest
 ```
+si vous creer un conteneur mariadb n'oublier pas de fixer l'ip du conteneur elle devra être indiquer dans le fichier config.yml
+les deux conteneur doivent être dans le même sous-reseau pour communiquer
 
 ## minecraft installation computercraft
 1. télécharger le script d'installation avec la commande : __pastebin get su1j9ve5 startup__
