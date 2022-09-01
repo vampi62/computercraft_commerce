@@ -20,6 +20,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND !empty($_GET['pseudo']) AN
 		$printmessage['defautadresse'] = $text_adresse;
 		$printmessage['nbr_offre'] = $_Joueur_['nbr_offre'];
 		$printmessage['role'] = $_Joueur_['role'];
+		$printmessage['last_login'] = $_Joueur_['last_login'];
 	}
 	else
 	{

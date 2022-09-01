@@ -47,6 +47,7 @@ function getOffres($bdd)
 	$list_nom = array();
 	$list_description = array();
 	$list_statut = array();
+	$list_last_update = array();
 
 	$listidplayer = ConvertTable::gettableidplayer($bdd);
 	while ($donnees = $req->fetch())
@@ -61,8 +62,9 @@ function getOffres($bdd)
 		$list_livraison[] = $donnees['livraison'];
 		$list_nom[] = $donnees['nom'];
 		$list_description[] = $donnees['description'];
+		$list_last_update[] = $donnees['last_update'];
 	}
 	$req->closeCursor();
-	return array($list_id,$list_id_adresse,$list_proprio,$list_prix,$list_nbr_dispo,$list_type,$list_livraison,$list_nom,$list_description);
+	return array($list_id,$list_id_adresse,$list_proprio,$list_prix,$list_nbr_dispo,$list_type,$list_livraison,$list_nom,$list_description,$list_last_update);
 }
 ?>

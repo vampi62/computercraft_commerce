@@ -42,6 +42,7 @@ function getUser($bdd)
 	$list_id_adresse = array();
 	$list_nbr_offre = array();
 	$list_role = array();
+	$list_last_login = array();
 
 	while ($donnees = $req->fetch())
 	{
@@ -51,8 +52,9 @@ function getUser($bdd)
 		$list_id_adresse[] = $text_adresse;
 		$list_nbr_offre[] = $donnees['nbr_offre'];
 		$list_role[] = $donnees['role'];
+		$list_last_login[] = $donnees['last_login'];
 	}
 	$req->closeCursor();
-	return array($list_pseudo,$list_compte,$list_id_adresse,$list_nbr_offre,$list_role);
+	return array($list_pseudo,$list_compte,$list_id_adresse,$list_nbr_offre,$list_role,$list_last_login);
 }
 ?>

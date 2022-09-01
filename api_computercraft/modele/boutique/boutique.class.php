@@ -23,6 +23,7 @@ class Boutique
 		$list_nom = array();
 		$list_description = array();
 		$list_statut = array();
+		$list_last_update = array();
 
 		$listidplayer = ConvertTable::gettableidplayer($this->bdd);
 		while ($donnees = $req->fetch())
@@ -37,9 +38,10 @@ class Boutique
 			$list_livraison[] = $donnees['livraison'];
 			$list_nom[] = $donnees['nom'];
 			$list_description[] = $donnees['description'];
+			$list_last_update[] = $donnees['last_update'];
 		}
 		$req->closeCursor();
-   	 	return array($list_id,$list_id_adresse,$list_proprio,$list_prix,$list_nbr_dispo,$list_type,$list_livraison,$list_nom,$list_description);
+   	 	return array($list_id,$list_id_adresse,$list_proprio,$list_prix,$list_nbr_dispo,$list_type,$list_livraison,$list_nom,$list_description,$list_last_update);
 	}
 	
 	public function getnbrOffres()
@@ -132,11 +134,23 @@ class Boutique
 			'id' => $id
 		));
 	}
+	public function setNouvellesDonneesLastUpdate($id)
+	{
+		$date = date("Y-m-d");
+		$req = $this->bdd->prepare('UPDATE liste_offres SET last_update = :last_update WHERE proprio = :proprio AND id = :id');
+		$req->execute(array(
+			'last_update' => $date,
+			'proprio' => $this->proprio,
+			'id' => $id
+		));
+	}
 	public function setNouvellesOffre()
 	{
-		$req = $this->bdd->prepare('INSERT INTO liste_offres(proprio, prix, nbr_dispo, id_adresse, type, livraison, nom, description) VALUES(:proprio, 0, 0, 0, 0, 0, "","")');
+		$date = date("Y-m-d");
+		$req = $this->bdd->prepare('INSERT INTO liste_offres(proprio, last_update, prix, nbr_dispo, id_adresse, type, livraison, nom, description) VALUES(:proprio, :last_update, 0, 0, 0, 0, 0, "","")');
 		$req->execute(array(
-			'proprio' => $this->proprio
+			'proprio' => $this->proprio,
+			'last_update' => $date
 			));
 	}
 }

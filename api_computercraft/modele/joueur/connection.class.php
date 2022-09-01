@@ -32,10 +32,21 @@ class Connection
 		{
 			if(password_verify($mdp, $this->reponseConnection['mdp']))
 			{
+				updateLastLogin();
 				return true;
 			}
 		}
 		return false;
+	}
+
+	private function updateLastLogin()
+	{
+		$date = date("Y-m-d");
+		$req = $this->bdd->prepare('UPDATE liste_users SET last_login = :last_login WHERE id = :id');
+		$req->execute(array(
+			'last_login' => $date,
+			'id' => $this->reponseConnection['id']
+			));
 	}
 }
 ?>

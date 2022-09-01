@@ -144,6 +144,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !em
 				// modif pas de retour attendu
 				$printmessage[] = 0;
 			}
+			$boutique->setNouvellesDonneesLastUpdate($_GET['id']);
 		}
 		else
 		{
