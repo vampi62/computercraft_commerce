@@ -6,6 +6,20 @@ General:
     offre_depart: 5
     case_ligne_suite: -br-
     name: computercraft_api
+DataBase:
+    dbAdress: 0.0.0.0
+    dbName: dbname
+    dbUser: dbuser
+    dbPassword: dbpass
+    dbPort: 3306
+SMTP:
+    Host: smtp.serveur.net
+    Username: snmpuser
+    Password: snmppass
+    Protocol: ssl
+    Port: 465
+    From: mailsender
+    Reply: mailtoreply
 message_error:
     0: succes - pas de retour attendu
     1: succes - commande realiser
@@ -55,20 +69,22 @@ adresse:
     0: inactive
     1: reception
     2: commerce
-DataBase:
-    dbAdress: 0.0.0.0
-    dbName: dbname
-    dbUser: dbuser
-    dbPassword: dbpass
-    dbPort: 3306
-SMTP:
-    Host: smtp.serveur.net
-    Username: snmpuser
-    Password: snmppass
-    Protocol: ssl
-    Port: 465
-    From: mailsender
-    Reply: mailtoreply
+type_transaction:
+    1: commande
+    2: transfert
+    3: depot
+    4: retrait
+    5: achat option
+statut_transaction:
+    1: transaction valider
+    2: transaction refuser
+    3: transfert valider
+    4: transfert refuser
+    5: depot valider
+    6: retrait valider
+    7: retrait refuser
+    8: achat option valider
+    9: achat option refuser
 statut_echange:
     1: commande effectuer validation vendeur en attente
     2: echange accepter paiement en attente

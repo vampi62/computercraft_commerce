@@ -188,7 +188,7 @@ return (string)
 ## transaction
 - mdp			:(string)
 - pseudo		:(string) seul un compte compteur avec un role=2 (banque-routeur) peuvent utiliser le type commande
-- type			:(string) commande
+- type			:(int) =1(commande)
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=transaction&mdp=__mdp__&pseudo=__pseudo__&type=commande
 
@@ -197,7 +197,7 @@ return (string)
 ## transaction
 - mdp			:(string)
 - pseudo		:(string) seul un compteur avec un role=1 (banque-terminal) peuvent utiliser les type ci-dessous
-- type			:(string) commande - transfert - depot - retrait - achatoffre
+- type			:(int)  2=transfert - 3=depot - 4=retrait - 5=achat option
 - crediteur		:(string) pseudo du compte qui recoit
 - debiteur		:(string) pseudo du compte qui envoie
 - somme			:(float) somme a transferer

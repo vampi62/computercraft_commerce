@@ -1,22 +1,14 @@
-CREATE TABLE IF NOT EXISTS `commandes` (
+CREATE TABLE IF NOT EXISTS `liste_users` (
   `id` int(11) UNSIGNED AUTO_INCREMENT,
-  `id_offre` int(11) UNSIGNED,
-  `id_transaction` int(11) UNSIGNED NOT NULL,
-  `nom_commande` varchar(55) NOT NULL,
-  `expediteur` int(11) UNSIGNED NOT NULL,
-  `recepteur` int(11) UNSIGNED NOT NULL,
-  `text_adresse_expediteur` text NOT NULL,
-  `text_adresse_recepteur` text NOT NULL,
-  `quantite` int(11) UNSIGNED NOT NULL,
-  `somme` int(11) UNSIGNED NOT NULL,
-  `prix_unitaire` float UNSIGNED NOT NULL,
-  `type` tinyint(3) UNSIGNED NOT NULL,
-  `livraison` tinyint(3) UNSIGNED NOT NULL,
-  `suivie` text NOT NULL,
-  `description` text NOT NULL,
-  `statut` tinyint(3) UNSIGNED NOT NULL,
-  `date` varchar(55) NOT NULL,
-  `heure` varchar(55) NOT NULL,
+  `pseudo` varchar(55) NOT NULL,
+  `mdp` varchar(255) NOT NULL,
+  `email` varchar(55) NOT NULL,
+  `resettoken` varchar(32),
+  `compte` double UNSIGNED NOT NULL,
+  `id_adresse` int(11) UNSIGNED NOT NULL,
+  `nbr_offre` int(11) UNSIGNED NOT NULL,
+  `role` tinyint(3) UNSIGNED NOT NULL,
+  `last_login` varchar(55) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -30,48 +22,25 @@ CREATE TABLE IF NOT EXISTS `jeton_banque` (
   `jeton10k` int(11) UNSIGNED NOT NULL,
   `date` varchar(55) NOT NULL,
   `heure` varchar(55) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY (`id_user`),
+  CONSTRAINT `jeton_banque_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `liste_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `liste_offres` (
-  `id` smallint(5) UNSIGNED AUTO_INCREMENT,
+  `id` int(11) UNSIGNED AUTO_INCREMENT,
   `proprio` int(11) UNSIGNED NOT NULL,
   `id_adresse` int(11) UNSIGNED NOT NULL,
-  `prix` float UNSIGNED NOT NULL,
+  `prix` double UNSIGNED NOT NULL,
   `nbr_dispo` int(11) UNSIGNED NOT NULL,
   `type` tinyint(3) UNSIGNED NOT NULL,
   `livraison` tinyint(3) UNSIGNED NOT NULL,
   `nom` varchar(55) NOT NULL,
   `description` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `liste_users` (
-  `id` smallint(5) UNSIGNED AUTO_INCREMENT,
-  `pseudo` varchar(55) NOT NULL,
-  `mdp` varchar(255) NOT NULL,
-  `email` varchar(55) NOT NULL,
-  `resettoken` varchar(32),
-  `compte` double NOT NULL,
-  `id_adresse` int(11) UNSIGNED NOT NULL,
-  `nbr_offre` int(11) UNSIGNED NOT NULL,
-  `role` tinyint(3) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `transactions` (
-  `id` int(11) UNSIGNED AUTO_INCREMENT,
-  `id_commandes` int(11) UNSIGNED NOT NULL,
-  `id_admin_exec` int(11) UNSIGNED NOT NULL,
-  `crediteur` int(11) UNSIGNED NOT NULL,
-  `debiteur` int(11) UNSIGNED NOT NULL,
-  `somme` float UNSIGNED NOT NULL,
-  `type` varchar(55) NOT NULL,
-  `description` text NOT NULL,
-  `statut` varchar(55) NOT NULL,
-  `date` varchar(55) NOT NULL,
-  `heure` varchar(55) NOT NULL,
-  PRIMARY KEY (`id`)
+  `last_update` varchar(55) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY (`proprio`),
+  CONSTRAINT `liste_offres_ibfk_1` FOREIGN KEY (`proprio`) REFERENCES `liste_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `liste_adresses` (
@@ -81,5 +50,44 @@ CREATE TABLE IF NOT EXISTS `liste_adresses` (
   `type` tinyint(3) UNSIGNED NOT NULL,
   `coo` varchar(55) NOT NULL,
   `description` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY (`proprio`),
+  CONSTRAINT `liste_adresses_ibfk_1` FOREIGN KEY (`proprio`) REFERENCES `liste_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `transactions` (
+  `id` int(11) UNSIGNED AUTO_INCREMENT,
+  `id_commandes` int(11) UNSIGNED NOT NULL,
+  `id_admin_exec` int(11) UNSIGNED NOT NULL,
+  `crediteur` int(11) UNSIGNED NOT NULL,
+  `debiteur` int(11) UNSIGNED NOT NULL,
+  `somme` double UNSIGNED NOT NULL,
+  `type` tinyint(3) UNSIGNED NOT NULL,
+  `description` text NOT NULL,
+  `statut` tinyint(3) UNSIGNED NOT NULL,
+  `date` varchar(55) NOT NULL,
+  `heure` varchar(55) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `commandes` (
+  `id` int(11) UNSIGNED AUTO_INCREMENT,
+  `id_offre` int(11) UNSIGNED,
+  `id_transaction` int(11) UNSIGNED NOT NULL,
+  `nom_commande` varchar(55) NOT NULL,
+  `expediteur` int(11) UNSIGNED NOT NULL,
+  `recepteur` int(11) UNSIGNED NOT NULL,
+  `text_adresse_expediteur` text NOT NULL,
+  `text_adresse_recepteur` text NOT NULL,
+  `quantite` int(11) UNSIGNED NOT NULL,
+  `somme` double UNSIGNED NOT NULL,
+  `prix_unitaire` double UNSIGNED NOT NULL,
+  `type` tinyint(3) UNSIGNED NOT NULL,
+  `livraison` tinyint(3) UNSIGNED NOT NULL,
+  `suivie` text NOT NULL,
+  `description` text NOT NULL,
+  `statut` tinyint(3) UNSIGNED NOT NULL,
+  `date` varchar(55) NOT NULL,
+  `heure` varchar(55) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

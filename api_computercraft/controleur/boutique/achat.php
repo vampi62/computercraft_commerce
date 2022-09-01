@@ -20,8 +20,9 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND iss
 
 		$offreid = $boutique->getOffresbyidachat($_GET['id']);
 		if (isset($offreid) AND !empty($offreid))
-		{
-			if ($offreid['proprio'] != 0 AND $offreid['id_adresse'] != 0 AND $offreid['type'] != 0 AND $offreid['livraison'] != 0 AND $offreid['prix'] != 0 AND $offreid['nom'] != "null" AND $offreid['description'] != "null") {
+		{ // si offre existe
+			if ($offreid['proprio'] != 0 AND $offreid['id_adresse'] != 0 AND $offreid['type'] != 0 AND $offreid['livraison'] != 0 AND $offreid['prix'] != 0 AND $offreid['nom'] != "null" AND $offreid['description'] != "null")
+			{ // si offre active
 				$somme = $_GET['quantite'] * $offreid['prix'];
 				if ($offreid['nbr_dispo'] > $_GET['quantite'])
 				{

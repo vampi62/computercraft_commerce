@@ -10,7 +10,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !
 	$_GET['mdp'] = htmlspecialchars($_GET['mdp']);
 	$_GET['type'] = htmlspecialchars($_GET['type']);
 	$formcomplet = true;
-	if($_GET['type'] != "commande")
+	if($_GET['type'] != "1")
 	{
 		if(isset($_GET['crediteur']) AND isset($_GET['debiteur']) AND isset($_GET['mdpuser']) AND isset($_GET['somme']) AND isset($_GET['description']) AND !empty($_GET['crediteur']) AND !empty($_GET['debiteur']) AND !empty($_GET['mdpuser']) AND !empty($_GET['somme']) AND !empty($_GET['description']))
 		{
@@ -51,7 +51,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !
 			$_Joueur_ = $connection->getReponseConnection();
 			switch($_GET['type'])
 			{
-				case "commande":
+				case "1":
 					if ($_Joueur_['role'] == 2)
 					{
 						$commande = new Commande($_Joueur_, $bddConnection, $_Serveur_);
@@ -68,14 +68,14 @@ if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !
 								$majCrediteur = new Maj($_compte_expediteur_, $bddConnection);
 								$majDebiteur->setNouvellesDonneesCompte($_compte_recepteur_["compte"]-$listecommande['somme']);
 								$majCrediteur->setNouvellesDonneesCompte($_compte_expediteur_["compte"]+$listecommande['somme']);
-								$statut = "transaction valider";
+								$statut = "1"; // transaction valider
 								$commerce_statut = 3;
 								// modif - ok
 								$printmessage = 1;
 							}
 							else
 							{
-								$statut = "transaction refuser";
+								$statut = "2"; // transaction refuser
 								$commerce_statut = 11;
 								// solde insufisant
 								$printmessage = 41;
@@ -105,7 +105,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !
 						$printmessage = 10;
 					}
 				break;
-				case "transfert":
+				case "2":
 					if ($_Joueur_['role'] == 1)
 					{
 						$compte_crediteur = new Connection($_GET['crediteur'], $bddConnection);
@@ -118,13 +118,13 @@ if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !
 							$majCrediteur = new Maj($_compte_crediteur_, $bddConnection);
 							$majDebiteur->setNouvellesDonneesCompte($_compte_debiteur_["compte"]-$_GET['somme']);
 							$majCrediteur->setNouvellesDonneesCompte($_compte_crediteur_["compte"]+$_GET['somme']);
-							$statut = "transfert valider";
+							$statut = "3"; // transfert valider
 							// modif - ok
 							$printmessage = 1;
 						}
 						else
 						{
-							$statut = "transfert refuser";
+							$statut = "4"; // transfert refuser
 							// solde insufisant
 							$printmessage = 41;
 						}
@@ -145,14 +145,14 @@ if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !
 						$printmessage = 10;
 					}
 				break;
-				case "depot":
+				case "3":
 					if ($_Joueur_['role'] == 1)
 					{
 						$compte_crediteur = new Connection($_GET['crediteur'], $bddConnection);
 						$_compte_crediteur_ = $compte_crediteur->getReponseConnection();
 						$majCrediteur = new Maj($_compte_crediteur_, $bddConnection);
 						$majCrediteur->setNouvellesDonneesCompte($_compte_crediteur_["compte"]+$_GET['somme']);
-						$statut = "depot valider";
+						$statut = "5"; // depot valider
 						$transaction = new Transaction($_Joueur_, $bddConnection);
 						$datatransaction = array();
 						$datatransaction["ref_commande"] = 0;
@@ -172,7 +172,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !
 						$printmessage = 10;
 					}
 				break;
-				case "retrait":
+				case "4":
 					if ($_Joueur_['role'] == 1)
 					{
 						$compte_debiteur = new Connection($_GET['debiteur'], $bddConnection);
@@ -181,13 +181,13 @@ if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !
 						{
 							$majDebiteur = new Maj($_compte_debiteur_, $bddConnection);
 							$majDebiteur->setNouvellesDonneesCompte($_compte_debiteur_["compte"]-$_GET['somme']);
-							$statut = "retrait valider";
+							$statut = "6"; // retrait valider
 							// modif - ok
 							$printmessage = 1;
 						}
 						else
 						{
-							$statut = "retrait refuser";
+							$statut = "7"; // retrait refuser
 							// solde insufisant
 							$printmessage = 41;
 						}
@@ -208,44 +208,47 @@ if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !
 						$printmessage = 10;
 					}
 				break;
-				case "achatoffre":
+				case "5":
 					if ($_Joueur_['role'] == 1)
 					{
 						require_once('modele/boutique/boutique.class.php');
 						
 						$compte_debiteur = new Connection($_GET['debiteur'], $bddConnection);
 						$_compte_debiteur_ = $compte_debiteur->getReponseConnection();
+						 // $_GET['somme'] = nombre de slot demander
 						if ($_compte_debiteur_["nbr_offre"] + $_GET['somme'] > $_Serveur_['General']['max_offre'])
 						{
-							$_GET['somme'] = $_Serveur_['General']['max_offre'] - $_compte_debiteur_["nbr_offre"];
+							$_GET['somme'] = $_Serveur_['General']['max_offre'] - $_compte_debiteur_["nbr_offre"]; // reduction du nbr de slot demander a la q restante
 						}
-						$prix_global = $_Serveur_['General']['prix_offre'] * $_GET['somme'];
-						if($_compte_debiteur_["compte"] >= $prix_global AND $_GET['somme'] > 0)
+						if ($_GET['somme'] <= 0)
 						{
-							$boutique = new Boutique($_compte_debiteur_, $bddConnection);
-							$majDebiteur = new Maj($_compte_debiteur_, $bddConnection);
-							$majDebiteur->setNouvellesDonneesCompte($_compte_debiteur_["compte"]-$prix_global);
-							for ($j=0; $j < $_GET['somme']; $j++) {
-								$boutique->setNouvellesOffre();
-							}
-							$majDebiteur->setNouvellesDonneesNbrOffre($boutique->getnbrOffres());
-
-							$statut = "achat offre valider";
-							// modif - ok
-							$printmessage = 1;
-						}
-						elseif ($_GET['somme'] <= 0)
-						{
-							
-							$statut = "achat offre refuser limite";
+							$statut = "9"; // achat option refuser
 							// limite offre atteint
 							$printmessage = 42;
 						}
 						else
 						{
-							$statut = "achat offre refuser";
-							// solde insufisant
-							$printmessage = 41;
+							$prix_global = $_Serveur_['General']['prix_offre'] * $_GET['somme'];
+							if($_compte_debiteur_["compte"] >= $prix_global AND $_GET['somme'] > 0)
+							{
+								$boutique = new Boutique($_compte_debiteur_, $bddConnection);
+								$majDebiteur = new Maj($_compte_debiteur_, $bddConnection);
+								$majDebiteur->setNouvellesDonneesCompte($_compte_debiteur_["compte"]-$prix_global);
+								for ($j=0; $j < $_GET['somme']; $j++) {
+									$boutique->setNouvellesOffre();
+								}
+								$majDebiteur->setNouvellesDonneesNbrOffre($boutique->getnbrOffres());
+	
+								$statut = "8"; // achat option valider
+								// modif - ok
+								$printmessage = 1;
+							}
+							else
+							{
+								$statut = "9"; // achat option refuser
+								// solde insufisant
+								$printmessage = 41;
+							}
 						}
 						$transaction = new Transaction($_Joueur_, $bddConnection);
 						$datatransaction = array();
