@@ -174,7 +174,7 @@ if(isset($_GET['action']))
 
 		//transaction
 		case 'transactionadd':
-			// paramètres - mdp - pseudo - player - newdata - newtypedata
+			// paramètres - mdp - pseudo - crediteur - debiteur - somme - type - description - statut
 			require('admin/actions/transactionAdd.php');
 		break;
 
