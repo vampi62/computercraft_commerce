@@ -52,61 +52,106 @@ la partie ci-dessous est independent du reste, elle peut être appeler à n'impo
 - adresse
   - add/edit_addr
 
-![navigation](doc/vue/client/nav.png)
+### nav
+
+![nav](vue/client/nav.png)
 - la page nav est visible sur toutes les vue sauf la vue setup_login_pc et le mode update
 
-![navigation](doc/vue/client/setup_login_pc.png)
+### setup_login_pc
+
+![setup_login_pc](vue/client/setup_login_pc.png)
 - ce mot de passe est uniquement conserver sur le poste local il n'est pas lier a votre compte
 
-![navigation](doc/vue/client/demande_login_pc.png)
+### demande_login_pc
 
-![navigation](doc/vue/client/menu.png)
+![demande_login_pc](vue/client/demande_login_pc.png)
+
+### menu
+
+![menu](vue/client/menu.png)
 - portail client : faite vos achat et suivez vos commandes
 - portail commerce : editer vos offre et gerez les commande que vous recevez
 
-![navigation](doc/vue/client/login.png)
+### login
 
-![navigation](doc/vue/client/mdp_oublie.png)
+![login](vue/client/login.png)
 
-![navigation](doc/vue/client/inscription.png)
+### mdp_oublie
 
-![navigation](doc/vue/client/info.png)
+![mdp_oublie](vue/client/mdp_oublie.png)
 
-![navigation](doc/vue/client/config_pc.png)
+### inscription
+
+![inscription](vue/client/inscription.png)
+
+### info
+
+![info](vue/client/info.png)
+
+### config_pc
+
+![config_pc](vue/client/config_pc.png)
 - le bouton edit_config ouvre le fichier pour editer la config reseau, lors de l'enregistrement des modification, un test sera effectuer, si le test echoue votre modification ne sera pas sauvegarder
 
-![navigation](doc/vue/client/mise_a_jour.png)
+### mise_a_jour
+
+![mise_a_jour](vue/client/mise_a_jour.png)
 - la page va verifier sur votre serveur http si une nouvelle version y est stockée
 
-![navigation](doc/vue/client/offre_client.png)
+### offre_client
 
-![navigation](doc/vue/client/panier.png)
+![offre_client](vue/client/offre_client.png)
 
-![navigation](doc/vue/client/filtre.png)
+### panier
+
+![panier](vue/client/panier.png)
+
+### filtre
+
+![filtre](vue/client/filtre.png)
 - la page filtre garde le même modèle seul le nombre de ligne change
 
+### transaction
 
-![navigation](doc/vue/client/transaction.png)
+![transaction](vue/client/transaction.png)
 
-![navigation](doc/vue/client/commande.png)
+### commande
 
-![navigation](doc/vue/client/plus_info_offre.png)
+![commande](vue/client/commande.png)
+
+### plus_info_offre
+
+![plus_info_offre](vue/client/plus_info_offre.png)
 - le bouton __ajouter au panier__ change en retirer si l'on se trouve dans le panier
 
-![navigation](doc/vue/client/plus_info_commande.png)
+### plus_info_commande
+
+![plus_info_commande](vue/client/plus_info_commande.png)
 - le bouton __litige__ sert à annuler une commande et a obtenir un remboursement (ce bouton n'est pas encore fonctionnel)
 
-![navigation](doc/vue/client/plus_info_commande_commerce.png)
+### plus_info_commande_commerce
+
+![plus_info_commande_commerce](vue/client/plus_info_commande_commerce.png)
 - le bouton __confirm envoie__ change en fonction du statut de la commande
 
-![navigation](doc/vue/client/plus_info_transaction.png)
+### plus_info_transaction
+
+![plus_info_transaction](vue/client/plus_info_transaction.png)
 - le bonton __id cmd__ redirige vers une page plus_info_commande
 
-![navigation](doc/vue/client/offre_commerce.png)
+### offre_commerce
+
+![offre_commerce](vue/client/offre_commerce.png)
 - le bouton __histo__ redirige vers une page transaction avec les filtres pour n'afficher que les transaction
 
-![navigation](doc/vue/client/edit_offre.png)
+### edit_offre
 
-![navigation](doc/vue/client/adresse.png)
+![edit_offre](vue/client/edit_offre.png)
 
-![navigation](doc/vue/client/edit_adresse.png)
+### adresse
+
+![adresse](vue/client/adresse.png)
+
+### edit_adresse
+
+![edit_adresse](vue/client/edit_adresse.png)
