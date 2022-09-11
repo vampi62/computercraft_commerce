@@ -1,27 +1,23 @@
-function page_menu()
-	table.insert(global_objet_write,{x = 12, y = 5, text = "login", back_color = 256, text_color = 1})
+table.insert(global_term_objet_write,{x = 23, y = 5, text = "session", back_color = 256, text_color = 1})
 
-	table.insert(global_objet_write,{x = 32, y = 5, text = "commerce", back_color = 32768, text_color = 1})
+table.insert(global_term_objet_write,{x = 12, y = 6, text = "PORTAIL", back_color = 32768, text_color = 1})
+table.insert(global_term_objet_write,{x = 12, y = 7, text = "CLIENT", back_color = 32768, text_color = 1})
+table.insert(global_term_objet_write,{x = 9, y = 9, text = "offres", back_color = 256, text_color = 1})
+table.insert(global_term_objet_write,{x = 9, y = 11, text = "commandes", back_color = 256, text_color = 1})
+table.insert(global_term_objet_write,{x = 9, y = 13, text = "transactions", back_color = 256, text_color = 1})
 
-	table.insert(global_objet_write,{x = 12, y = 7, text = "offres", back_color = 256, text_color = 1})
-	table.insert(global_objet_write,{x = 30, y = 7, text = "mes offres", back_color = 256, text_color = 1})
-	table.insert(global_objet_write,{x = 12, y = 9, text = "commandes", back_color = 256, text_color = 1})
-	table.insert(global_objet_write,{x = 30, y = 7, text = "mes commandes", back_color = 256, text_color = 1})
-	table.insert(global_objet_write,{x = 12, y = 11, text = "transaction", back_color = 256, text_color = 1})
-	table.insert(global_objet_write,{x = 30, y = 7, text = "mes transactions", back_color = 256, text_color = 1})
-	table.insert(global_objet_write,{x = 12, y = 13, text = "adresses", back_color = 256, text_color = 1})
+table.insert(global_term_objet_write,{x = 33, y = 6, text = "PORTAIL", back_color = 32768, text_color = 1})
+table.insert(global_term_objet_write,{x = 33, y = 7, text = "COMMERCE", back_color = 32768, text_color = 1})
+table.insert(global_term_objet_write,{x = 31, y = 9, text = "offres", back_color = 256, text_color = 1})
+table.insert(global_term_objet_write,{x = 31, y = 11, text = "commandes", back_color = 256, text_color = 1})
+table.insert(global_term_objet_write,{x = 31, y = 13, text = "transactions", back_color = 256, text_color = 1})
 
-	table.insert(global_objet_select,{xmin = 12, xmax = 22, ymin = 5, ymax = 5, name = "page_login", back_color = 256})
-	table.insert(global_objet_select,{xmin = 12, xmax = 22, ymin = 7, ymax = 7, name = "page_offres", back_color = 256})
-	table.insert(global_objet_select,{xmin = 30, xmax = 47, ymin = 7, ymax = 7, name = "page_mes_offres", back_color = 256})
-	table.insert(global_objet_select,{xmin = 12, xmax = 22, ymin = 9, ymax = 9, name = "page_commandes", back_color = 256})
-	table.insert(global_objet_select,{xmin = 30, xmax = 47, ymin = 9, ymax = 9, name = "page_mes_commandes", back_color = 256})
-	table.insert(global_objet_select,{xmin = 12, xmax = 22, ymin = 11, ymax = 11, name = "page_transactions", back_color = 256})
-	table.insert(global_objet_select,{xmin = 30, xmax = 47, ymin = 11, ymax = 11, name = "page_mes_transactions", back_color = 256})
-	table.insert(global_objet_select,{xmin = 12, xmax = 22, ymin = 9, ymax = 9, name = "page_adresses", back_color = 256})
+table.insert(global_term_objet_select,{xmin = 9, xmax = 21, ymin = 9, ymax = 9, value={action="page",id=30,value=0}, back_color = 256})
+table.insert(global_term_objet_select,{xmin = 9, xmax = 21, ymin = 11, ymax = 11, value={action="page",id=50,value=0}, back_color = 256})
+table.insert(global_term_objet_select,{xmin = 9, xmax = 21, ymin = 13, ymax = 13, value={action="page",id=60,value=0}, back_color = 256})
 
-	if global_session["role"] == "10" then
-		table.insert(global_objet_write,{x = 12, y = 15, text = "admin", back_color = 256, text_color = 1})
-		table.insert(global_objet_select,{xmin = 12, xmax = 22, ymin = 15, ymax = 15, name = "page_menu_admin", back_color = 256})
-	end
-end
+table.insert(global_term_objet_select,{xmin = 31, xmax = 43, ymin = 9, ymax = 9, value={action="page",id=130,value=0}, back_color = 256})
+table.insert(global_term_objet_select,{xmin = 31, xmax = 43, ymin = 11, ymax = 11, value={action="page",id=150,value=0}, back_color = 256})
+table.insert(global_term_objet_select,{xmin = 31, xmax = 43, ymin = 13, ymax = 13, value={action="page",id=160,value=0}, back_color = 256})
+
+table.insert(global_term_objet_select,{xmin = 22, xmax = 30, ymin = 5, ymax = 5, value={action="page",id=20,value=0}, back_color = 256})

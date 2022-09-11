@@ -1,33 +1,39 @@
-function page_nav()
-	table.insert(global_objet_write,{x = 1, y = 1, text = "pseudo", back_color = 32768, text_color = 1})
-	table.insert(global_objet_write,{x = 15, y = 1, text = "role", back_color = 32768, text_color = 1})
-	table.insert(global_objet_write,{x = 23, y = 1, text = "compte", back_color = 32768, text_color = 1})
-	table.insert(global_objet_write,{x = 38, y = 1, text = "adresse", back_color = 256, text_color = 1})
 
-	table.insert(global_objet_write,{x = 1, y = 2, text = global_session["pseudo"], back_color = 32768, text_color = 1})
-	table.insert(global_objet_write,{x = 14, y = 2, text = global_config["role"][global_session["role"]], back_color = 32768, text_color = 1})
-	table.insert(global_objet_write,{x = 23, y = 2, text = global_session["compte"], back_color = 32768, text_color = 1})
-	table.insert(global_objet_write,{x = 38, y = 2, text = global_session["adresse"], back_color = 256, text_color = 1})
+table.insert(global_term_objet_write,{x = 1, y = 1, text = "pseudo", back_color = 32768, text_color = 1})
+table.insert(global_term_objet_write,{x = 19, y = 1, text = "compte", back_color = 32768, text_color = 1})
+table.insert(global_term_objet_write,{x = 33, y = 1, text = "adresse", back_color = 256, text_color = 1})
 
-	table.insert(global_objet_write,{x = 1, y = 19, text = "config poste", back_color = 256, text_color = 1})
-	table.insert(global_objet_write,{x = 37, y = 19, text = ":      /  /", back_color = 32768, text_color = 1})
+table.insert(global_term_objet_write,{x = 1, y = 2, text = global_session["pseudo"], back_color = 32768, text_color = 1})
+table.insert(global_term_objet_write,{x = 19, y = 2, text = convert_grand_nombre(global_session["compte"]), back_color = 32768, text_color = 1})
+table.insert(global_term_objet_write,{x = 33, y = 2, text = global_session["defautadresse"]["nom"], back_color = 256, text_color = 1})
 
-	table.insert(global_objet_write,{x = 35, y = 19, text = global_time["hour"], back_color = 32768, text_color = 1})
-	table.insert(global_objet_write,{x = 38, y = 19, text = global_time["min"], back_color = 32768, text_color = 1})
-	table.insert(global_objet_write,{x = 42, y = 19, text = global_time["day"], back_color = 32768, text_color = 1})
-	table.insert(global_objet_write,{x = 45, y = 19, text = global_time["month"], back_color = 32768, text_color = 1})
-	table.insert(global_objet_write,{x = 48, y = 19, text = global_time["year"], back_color = 32768, text_color = 1})
-	
-	if global_page == "menu" or global_page == "menu_admin" or global_page == "mise_a_jour" or global_page == "info"  then
-		table.insert(global_objet_select,{xmin = 1, xmax = 12, ymin = 19, ymax = 19, name = "page_config_config", back_color = 256})
-	else
-		table.insert(global_objet_select,{xmin = 1, xmax = 12, ymin = 19, ymax = 19, name = "page_menu", back_color = 256})
-	end
+table.insert(global_term_objet_write,{x = 37, y = 19, text = ":      /  /", back_color = 32768, text_color = 1})
 
-	table.insert(global_objet_select,{xmin = 38, xmax = 51, ymin = 1, ymax = 2, name = "page_adresse", back_color = 256})
+table.insert(global_term_objet_write,{x = 35, y = 19, text = global_ntp["heure"], back_color = 32768, text_color = 1})
+table.insert(global_term_objet_write,{x = 38, y = 19, text = global_ntp["minute"], back_color = 32768, text_color = 1})
+table.insert(global_term_objet_write,{x = 42, y = 19, text = global_ntp["jour"], back_color = 32768, text_color = 1})
+table.insert(global_term_objet_write,{x = 45, y = 19, text = global_ntp["mois"], back_color = 32768, text_color = 1})
+table.insert(global_term_objet_write,{x = 48, y = 19, text = global_ntp["annee"], back_color = 32768, text_color = 1})
 
-	if global_message_http ~= -1 then
-		table.insert(global_objet_write,{x = 3, y = 17, text = global_message_http, back_color = 256, text_color = 1})
-		table.insert(global_objet_select,{xmin = 2, xmax = 50, ymin = 17, ymax = 17, name = "page_message_http", back_color = 256})
-	end
+if global_page_visible == 10 then
+    table.insert(global_term_objet_select,{xmin = 1, xmax = 12, ymin = 19, ymax = 19, value={action="page",id=200,value=0}, back_color = 256})
+    table.insert(global_term_objet_write,{x = 1, y = 19, text = "config poste", back_color = 256, text_color = 1})
+else
+    table.insert(global_term_objet_select,{xmin = 1, xmax = 12, ymin = 19, ymax = 19, value={action="page",id=-1,value=0}, back_color = 256})
+    table.insert(global_term_objet_write,{x = 1, y = 19, text = "retour", back_color = 256, text_color = 1})
+end
+
+table.insert(global_term_objet_select,{xmin = 33, xmax = 51, ymin = 1, ymax = 2, value={action="page",id=90,value=0}, back_color = 256})
+table.insert(global_term_objet_select,{xmin = 33, xmax = 51, ymin = 1, ymax = 2, value={action="page",id=200,value=0}, back_color = 256})
+if global_message ~= "" then
+    local messagetext = split(global_message, "-")
+    if messagetext[1] == "succes " then
+        messagecolor = 32
+    elseif messagetext[1] == "erreur " then
+        messagecolor = 16384
+    else
+        messagecolor = 256
+    end 
+    table.insert(global_term_objet_write,{x = 3, y = 17, text = string.sub(messagetext[2],2), back_color = messagecolor, text_color = 1})
+    table.insert(global_term_objet_select,{xmin = 2, xmax = 50, ymin = 17, ymax = 17, value={action="action",id="disable_message",value=0}, back_color = messagecolor})
 end
