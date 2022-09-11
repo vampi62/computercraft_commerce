@@ -44,7 +44,18 @@ les deux conteneur doivent être dans le même sous-reseau pour communiquer
 1. télécharger le script d'installation avec la commande : __pastebin get su1j9ve5 startup__
 2. redémarrer le poste et selectionner le programme à installer parmis ceux proposé
 
+(note : sur les ancienne version de computercraft pastebien ne fonctionne plus entrer les commandes ci-dessous en changent bien les champs)
+```lua
+lua
+t = http.get("http://__nom_du_serveur_http_ou_ip__:__port_si_non_80__/lua/update.lua")
+t = t.readAll()
+f = fs.open("startup","w")
+f.write(t)
+f.close()
+os.reboot()
+```
 (note : les postes computercraft ne sont pas encore finalisé)
+(note 11/09 : le poste client fonctionne mais la partie commerce n'est pas terminer)
 
 - [ ] client (poste pour que chaque joueurs puissent commander et consulter les informations le concernant)
 - [ ] commerce (traite les commandes, actualise les stocks et prix des offres qui lui sont lier)
