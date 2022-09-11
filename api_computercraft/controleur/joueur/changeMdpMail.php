@@ -17,7 +17,8 @@ if(isset($_GET['pseudo']) AND isset($_GET['email']) AND !empty($_GET['pseudo']) 
 	}
 	else
 	{
-		$resetToken = md5(microtime(TRUE)*(100000+rand(1,1000)));
+		$resetToken = substr(md5(microtime(TRUE)*(100000+rand(1,1000))), 0, -20);
+		$resetToken = $resetToken;
 		
 		$maj = new Maj($donneesJoueur, $bddConnection);
 		$maj->setNouvellesDonneesResetToken($resetToken);

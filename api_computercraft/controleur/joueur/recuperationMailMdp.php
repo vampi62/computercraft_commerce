@@ -57,7 +57,7 @@ else
 	$printmessage = 13;
 }
 function genMdp(){
-	$caracAllows = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	$caracAllows = 'ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz0123456789';
 	return substr(str_shuffle($caracAllows), 0, 7);
 }
 ?>

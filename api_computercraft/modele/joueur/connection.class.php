@@ -2,6 +2,7 @@
 class Connection
 {
 	private $reponseConnection;
+	private $bdd;
 	
 	public function __construct($pseudo, $bdd)
 	{	
@@ -18,6 +19,7 @@ class Connection
 		));
 		$reponseConnection = $reponseConnection->fetch(PDO::FETCH_ASSOC);
 		$this->reponseConnection = $reponseConnection;
+		$this->bdd = $bdd;
 
 	}
 	
@@ -32,7 +34,7 @@ class Connection
 		{
 			if(password_verify($mdp, $this->reponseConnection['mdp']))
 			{
-				updateLastLogin();
+				$this->updateLastLogin();
 				return true;
 			}
 		}
