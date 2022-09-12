@@ -1,6 +1,5 @@
 function affichage_mon()
 	for k ,v in pairs(global_monitor_list) do
-		global_refresh_mon[k] = false
 		if v ~= nil then
 			global_monitor_api[k].setTextScale(v)
 		end
@@ -9,6 +8,7 @@ function affichage_mon()
 		for k ,v in pairs(global_monitor_list) do
 			if global_refresh_mon[k] then
 				global_refresh_mon[k] = false
+				global_monitor_api[k].setBackgroundColor(32768)
 				global_monitor_api[k].clear()
 				for j = 1, #global_monitor_objet_select[k] do
 					if global_monitor_objet_select[k][j]["back_color"] ~= "" then

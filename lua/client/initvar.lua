@@ -24,4 +24,3 @@ if not fs.exists(global_config_panier) then
 	files.close()
 end
 
-

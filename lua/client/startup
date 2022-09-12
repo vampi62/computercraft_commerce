@@ -87,9 +87,9 @@ global_login_pc = () mdp hash256
 
 -- init table d'echange entre les programmes --
 -- receive_rednet
-global_rednet_message_id = 0
-global_rednet_message_string = ""
-global_rednet_message_table = {}
+
+global_rednet_id = 0
+global_rednet_message = "" -- string or table
 
 -- touch
 global_value_touch = {}
@@ -122,6 +122,13 @@ global_monitor_list = {} -- {side_monitor1=1,side_monitor2=1} -- remplacer la va
 global_refresh_mon = {} -- {false,false} -- cette table a la meme taille que "global_monitor_list"
 global_monitor_api = {} -- {function,function} -- fonction a utiliser pour les moniteurs ex: global_monitor_api[x].write() -- cette table a la meme taille que "global_monitor_list"
 
+for k ,v in pairs(global_monitor_list) do
+    global_monitor_api[k] = peripheral.wrap(k)
+	global_refresh_mon[k] = false
+end
+
+
+
 
 global_histo_nav = {}
 global_edit_variable = {}
@@ -149,7 +156,11 @@ function reinitbox()
 end
 reinitbox()
 --[[
+changementpage(new_page)
+
 string = convert_grand_nombre(nombre)
+
+string = convertkey_number_altgr(numberkey)
 
 screen_function = duplicate_screen(ecran1, ecran2)
 
@@ -170,6 +181,12 @@ bool = imprimante(printer,action,text,x,y,color)
 int = get_me_objet(me_controle,fingerprint_objet)
 
 table = get_tank_objet(tank)
+
+table = rsa_key_gen()
+
+string = crypt(key, number)
+
+table = split(astring, delimiter)
 ]]--
 
 
@@ -195,7 +212,9 @@ if global_login_pc ~= nil then
 		id_message_http = nil
 	end
 	
-	global_new_version = http_get("version",false)
+	if global_session["pseudo"] ~= "" and global_session["mdp"] ~= "" then
+		global_new_version = http_get("version",false)
+	end
 end
 
 
@@ -281,6 +300,25 @@ end
 -codemail
 -ancienmdp
 -nbroffre
+
+
+
+exemple structure fichier page
+
+if idpage = x then
+	titre de page -- si plusieurs page dans le fichier
+if idpage = y then
+	titre de page -- si plusieurs page dans le fichier
+end
+
+titre de page -- si une page dans le fichier
+
+text
+
+text_variable (par variable les textes issue de la variable global_variable["xxxx"])
+selection_variable
+
+selection_bouton
 ]]--
 
 
@@ -293,6 +331,12 @@ for j = 1, #list do
 	shell.run("programme/"..list[j])
 end
 
+-- chargement des systeme --
+local list = fs.list("backend/")
+for j = 1, #list do
+	shell.run("backend/"..list[j])
+end
+
 -- run prog --
 
 os.setComputerLabel(global_systeme_nom.."-"..global_systeme_version)
@@ -300,7 +344,7 @@ os.setComputerLabel(global_systeme_nom.."-"..global_systeme_version)
 function main()
 	if not fs.exists("config/update") then
 		--parallel.waitForAny(scroll, click, clavier, affichage_term, ntp, back)
-		parallel.waitForAny(scroll, click, clavier, up_clavier, affichage_term, ntp, back)
+		parallel.waitForAny(scroll, click, clavier, up_clavier, affichage_term, ntp, backend)
 		sleep(5)
 	else
 		shell.run("update.lua")

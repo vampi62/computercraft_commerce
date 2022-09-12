@@ -4,6 +4,7 @@ function touch()
 		for j = #global_monitor_objet_select[side], 1, -1 do
 			if y < #global_monitor_objet_select[side][j]["ymax"] and y > #global_monitor_objet_select[side][j]["ymin"] and x < #global_monitor_objet_select[side][j]["xmax"] and x > #global_monitor_objet_select[side][j]["xmin"] then
 				global_value_touch = global_monitor_objet_select[side][j]["value"]
+				global_value_touch["side"] = side
 				break
 			end
 		end
