@@ -106,28 +106,42 @@ function click_change_gestion()
 			end
 			if global_http_enable then
 				if global_value_click["id"] == "inscription" then
-					id_message_http = http_get("inscription&mdp="..global_variable["mdp"].."&pseudo="..global_variable["pseudo"].."&mdpconfirm="..global_variable["confirm"].."&email="..global_variable["email"],true)
+					if global_variable["mdp"] ~= nil and global_variable["pseudo"] ~= nil and global_variable["confirm"] ~= nil and global_variable["email"] ~= nil then
+						id_message_http = http_get("inscription&mdp="..global_variable["mdp"].."&pseudo="..global_variable["pseudo"].."&mdpconfirm="..global_variable["confirm"].."&email="..global_variable["email"],true)
+					end
 				elseif global_value_click["id"] == "deconnexion" then
 					global_session = {pseudo="", mdp="", compte=0, email="", defautadresse={nom="",type="",coo="",description=""}, nbr_offre=0, role="", last_login=""}
 					save_table_file(global_config_session, textutils.serialize(global_session), "global_session")
 				elseif global_value_click["id"] == "connexion" then
-					id_message_http = http_get("listuserdata&mdp="..global_variable["mdp"].."&pseudo="..global_variable["pseudo"],true)
-					if type(id_message_http) == "table" then
-						global_session = id_message_http
-						global_session["mdp"] = global_variable["mdp"]
-						save_table_file(global_config_session, textutils.serialize(global_session), "global_session")
-						id_message_http = nil
+					if global_variable["mdp"] ~= nil and global_variable["pseudo"] ~= nil then
+						id_message_http = http_get("listuserdata&mdp="..global_variable["mdp"].."&pseudo="..global_variable["pseudo"],true)
+						if type(id_message_http) == "table" then
+							global_session = id_message_http
+							global_session["mdp"] = global_variable["mdp"]
+							save_table_file(global_config_session, textutils.serialize(global_session), "global_session")
+							id_message_http = nil
+						end
 					end
 				elseif global_value_click["id"] == "mdpoublie" then
-					id_message_http = http_get("changemdpmail&pseudo="..global_variable["pseudo"].."&email="..global_variable["email"],true)
+					if global_variable["pseudo"] ~= nil and global_variable["email"] ~= nil then
+						id_message_http = http_get("changemdpmail&pseudo="..global_variable["pseudo"].."&email="..global_variable["email"],true)
+					end
 				elseif global_value_click["id"] == "codemail" then
-					id_message_http = http_get("recuperationmailmdp&token="..global_variable["codemail"].."&pseudo="..global_variable["pseudo"],true)
+					if global_variable["codemail"] ~= nil and global_variable["pseudo"] ~= nil then
+						id_message_http = http_get("recuperationmailmdp&token="..global_variable["codemail"].."&pseudo="..global_variable["pseudo"],true)
+					end
 				elseif global_value_click["id"] == "changemdp" then
-					id_message_http = http_get("updatemdp&mdp="..global_variable["ancienmdp"].."&pseudo="..global_session["pseudo"].."&mdpconfirm="..global_variable["confirm"].."&mdpnouveau="..global_variable["mdp"],true)
+					if global_variable["ancienmdp"] ~= nil and global_variable["pseudo"] ~= nil and global_variable["confirm"] ~= nil and global_variable["mdp"] ~= nil then
+						id_message_http = http_get("updatemdp&mdp="..global_variable["ancienmdp"].."&pseudo="..global_session["pseudo"].."&mdpconfirm="..global_variable["confirm"].."&mdpnouveau="..global_variable["mdp"],true)
+					end
 				elseif global_value_click["id"] == "changemail" then
-					id_message_http = http_get("updatemail&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&email="..global_variable["email"],true)
+					if global_variable["mdp"] ~= nil and global_variable["pseudo"] ~= nil and global_variable["email"] ~= nil then
+						id_message_http = http_get("updatemail&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&email="..global_variable["email"],true)
+					end
 				elseif global_value_click["id"] == "achatoffre" then
-					-- a realiser --
+					if global_variable["mdp"] ~= nil and global_variable["pseudo"] ~= nil and global_variable["confirm"] ~= nil and global_variable["email"] ~= nil then
+						-- a realiser --
+					end
 				end
 			end
 		end
