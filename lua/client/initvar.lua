@@ -6,11 +6,11 @@ if not fs.exists(global_config_http) then
 	files.writeLine("global_api_uri = 'api_computercraft'")
 	files.writeLine("global_lua_uri = 'lua'")
 	files.writeLine("--[[ retirer le commentaire sur le type de poste a installer ]]--")
-	files.writeLine("-- global_poste = 'client'")
-	files.writeLine("-- global_poste = 'commerce'")
-	files.writeLine("-- global_poste = 'banque_terminal'")
-	files.writeLine("-- global_poste = 'banque_routeur'")
-	files.writeLine("-- global_poste = 'banque_admin'")
+	files.writeLine("-- global_systeme_nom = 'client'")
+	files.writeLine("-- global_systeme_nom = 'commerce'")
+	files.writeLine("-- global_systeme_nom = 'banque_terminal'")
+	files.writeLine("-- global_systeme_nom = 'banque_routeur'")
+	files.writeLine("-- global_systeme_nom = 'banque_admin'")
 	files.close()
 end
 if not fs.exists(global_config_session) then
@@ -23,4 +23,8 @@ if not fs.exists(global_config_panier) then
 	files.write("global_panier = {}")
 	files.close()
 end
-
+if not fs.exists("config/version") then
+	files = fs.open(global_config_panier, "w")
+	files.write("global_systeme_version = '0.0'")
+	files.close()
+end

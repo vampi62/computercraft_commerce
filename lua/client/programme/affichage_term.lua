@@ -19,7 +19,9 @@ function affichage_term()
 				term.setBackgroundColor(global_term_objet_write[j]["back_color"])
 				term.setTextColor(global_term_objet_write[j]["text_color"])
 				term.setCursorPos(global_term_objet_write[j]["x"],global_term_objet_write[j]["y"])
-				term.write(global_term_objet_write[j]["text"])
+				if global_term_objet_write[j]["text"] ~= nil then
+					term.write(global_term_objet_write[j]["text"])
+				end
 			end
 		end
 		sleep(0.5)

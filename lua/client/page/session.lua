@@ -14,7 +14,7 @@ elseif global_page_visible == 27 then
     table.insert(global_term_objet_write,{x = 21, y = 5, text = "achat offre", back_color = 32768, text_color = 1})
 end
 if global_page_visible == 20 then
-    if global_session["pseudo"] ~= "" then
+    if global_session["pseudo"] ~= "" and global_session["mdp"] ~= "" then
         table.insert(global_term_objet_write,{x = 36, y = 15, text = "deconnexion", back_color = 256, text_color = 1})
         table.insert(global_term_objet_write,{x = 2, y = 7, text = "changer mot de passe", back_color = 256, text_color = 1})
         table.insert(global_term_objet_write,{x = 2, y = 9, text = "changer email", back_color = 256, text_color = 1})
@@ -35,8 +35,8 @@ if global_page_visible == 20 then
 
         table.insert(global_term_objet_write,{x = 19, y = 7, text = global_variable["pseudo"], back_color = 256, text_color = 1})
         table.insert(global_term_objet_write,{x = 19, y = 9, text = global_variable["mdp_len"], back_color = 256, text_color = 1})
-        table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 7, ymax = 7, value={action="variable",id="pseudo",value=0}, back_color = 256})
-        table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 9, ymax = 9, value={action="variable",id="mdp",value=0}, back_color = 256})
+        table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 7, ymax = 7, value={action="variable",id="pseudo",value="text"}, back_color = 256})
+        table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 9, ymax = 9, value={action="variable",id="mdp",value="code"}, back_color = 256})
 
         table.insert(global_term_objet_select,{xmin = 4, xmax = 16, ymin = 15, ymax = 15, value={action="page",id=21,value=0}, back_color = 256})
         table.insert(global_term_objet_select,{xmin = 37, xmax = 48, ymin = 15, ymax = 15, value={action="page",id=22,value=0}, back_color = 256})
@@ -54,10 +54,10 @@ if global_page_visible == 21 then
     table.insert(global_term_objet_write,{x = 19, y = 9, text = global_variable["mdp_len"], back_color = 256, text_color = 1})
     table.insert(global_term_objet_write,{x = 19, y = 11, text = global_variable["confirm_len"], back_color = 256, text_color = 1})
     table.insert(global_term_objet_write,{x = 19, y = 13, text = global_variable["email"], back_color = 256, text_color = 1})
-    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 7, ymax = 7, value={action="variable",id="pseudo",value=0}, back_color = 256})
-    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 9, ymax = 9, value={action="variable",id="mdp",value=0}, back_color = 256})
-    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 11, ymax = 11, value={action="variable",id="confirm",value=0}, back_color = 256})
-    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 13, ymax = 13, value={action="variable",id="email",value=0}, back_color = 256})
+    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 7, ymax = 7, value={action="variable",id="pseudo",value="text"}, back_color = 256})
+    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 9, ymax = 9, value={action="variable",id="mdp",value="code"}, back_color = 256})
+    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 11, ymax = 11, value={action="variable",id="confirm",value="code"}, back_color = 256})
+    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 13, ymax = 13, value={action="variable",id="email",value="text"}, back_color = 256})
 
     table.insert(global_term_objet_select,{xmin = 23, xmax = 29, ymin = 15, ymax = 15, value={action="action",id="inscription",value=0}, back_color = 256})
 end
@@ -69,8 +69,8 @@ if global_page_visible == 22 then
 
     table.insert(global_term_objet_write,{x = 19, y = 7, text = global_variable["pseudo"], back_color = 256, text_color = 1})
     table.insert(global_term_objet_write,{x = 19, y = 9, text = global_variable["email"], back_color = 256, text_color = 1})
-    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 7, ymax = 7, value={action="variable",id="pseudo",value=0}, back_color = 256})
-    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 9, ymax = 9, value={action="variable",id="email",value=0}, back_color = 256})
+    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 7, ymax = 7, value={action="variable",id="pseudo",value="text"}, back_color = 256})
+    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 9, ymax = 9, value={action="variable",id="email",value="text"}, back_color = 256})
     
     table.insert(global_term_objet_select,{xmin = 3, xmax = 16, ymin = 15, ymax = 15, value={action="page",id=23,value=0}, back_color = 256})
     table.insert(global_term_objet_select,{xmin = 23, xmax = 29, ymin = 15, ymax = 15, value={action="action",id="mdpoublie",value=0}, back_color = 256})
@@ -82,8 +82,8 @@ if global_page_visible == 23 then
 
     table.insert(global_term_objet_write,{x = 19, y = 7, text = global_variable["pseudo"], back_color = 256, text_color = 1})
     table.insert(global_term_objet_write,{x = 19, y = 9, text = global_variable["codemail"], back_color = 256, text_color = 1})
-    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 7, ymax = 7, value={action="variable",id="pseudo",value=0}, back_color = 256})
-    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 9, ymax = 9, value={action="variable",id="codemail",value=0}, back_color = 256})
+    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 7, ymax = 7, value={action="variable",id="pseudo",value="text"}, back_color = 256})
+    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 9, ymax = 9, value={action="variable",id="codemail",value="code"}, back_color = 256})
 
     table.insert(global_term_objet_select,{xmin = 23, xmax = 29, ymin = 15, ymax = 15, value={action="action",id="codemail",value=0}, back_color = 256})
 end
@@ -96,9 +96,9 @@ if global_page_visible == 25 then
     table.insert(global_term_objet_write,{x = 19, y = 7, text = global_variable["mdp_len"], back_color = 256, text_color = 1})
     table.insert(global_term_objet_write,{x = 19, y = 9, text = global_variable["confirm_len"], back_color = 256, text_color = 1})
     table.insert(global_term_objet_write,{x = 19, y = 11, text = global_variable["ancienmdp_len"], back_color = 256, text_color = 1})
-    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 7, ymax = 7, value={action="variable",id="mdp",value=0}, back_color = 256})
-    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 9, ymax = 9, value={action="variable",id="confirm",value=0}, back_color = 256})
-    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 11, ymax = 11, value={action="variable",id="ancienmdp",value=0}, back_color = 256})
+    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 7, ymax = 7, value={action="variable",id="mdp",value="code"}, back_color = 256})
+    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 9, ymax = 9, value={action="variable",id="confirm",value="code"}, back_color = 256})
+    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 11, ymax = 11, value={action="variable",id="ancienmdp",value="code"}, back_color = 256})
     
     table.insert(global_term_objet_select,{xmin = 23, xmax = 29, ymin = 15, ymax = 15, value={action="action",id="changemdp",value=0}, back_color = 256})
 end
@@ -107,7 +107,7 @@ if global_page_visible == 26 then
     table.insert(global_term_objet_write,{x = 23, y = 15, text = "envoyer", back_color = 256, text_color = 1})
 
     table.insert(global_term_objet_write,{x = 19, y = 7, text = global_variable["email"], back_color = 256, text_color = 1})
-    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 7, ymax = 7, value={action="variable",id="email",value=0}, back_color = 256})
+    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 7, ymax = 7, value={action="variable",id="email",value="text"}, back_color = 256})
 
     table.insert(global_term_objet_select,{xmin = 23, xmax = 29, ymin = 15, ymax = 15, value={action="action",id="changemail",value=0}, back_color = 256})
 end
@@ -119,7 +119,7 @@ if global_page_visible == 27 then
     table.insert(global_term_objet_write,{x = 23, y = 15, text = "envoyer", back_color = 256, text_color = 1})
 
     table.insert(global_term_objet_write,{x = 19, y = 7, text = global_variable["nbroffre"], back_color = 256, text_color = 1})
-    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 7, ymax = 7, value={action="variable",id="nbroffre",value=0}, back_color = 256})
+    table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 7, ymax = 7, value={action="variable",id="nbroffre",value="int"}, back_color = 256})
 
     table.insert(global_term_objet_select,{xmin = 23, xmax = 29, ymin = 15, ymax = 15, value={action="action",id="achatoffre",value=0}, back_color = 256})
 end

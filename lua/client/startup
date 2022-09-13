@@ -1,9 +1,5 @@
-global_systeme_version = "0.3"
-global_systeme_nom = "client"
-global_new_version = {}
 global_createur = "vampi62"
 global_repo_git = "https://github.com/vampi62/computercraft_commerce"
-
 
 -- chargement des variables --
 if not fs.isDir("config") then
@@ -25,37 +21,8 @@ global_local_config = {resync_time=5,delay_seconde=5}
 global_min_y_page = 5
 global_max_y_page = 15
 
-global_http_error_message = {message_error = {
-    [0]="succes - pas de retour attendu",
-    [1]="succes - commande realiser",
-    [10]="erreur - privilege insufisant",
-    [11]="erreur - login incorrect",
-    [12]="erreur - login admin incorrect",
-    [13]="erreur - parametre manquant",
-    [20]="erreur - utilisateur existant",
-    [21]="erreur - mot de passe non identique",
-    [22]="erreur - mail invalide",
-    [23]="erreur - mot ne respecte pas les regles de securite",
-    [30]="erreur - pas de stock",
-    [31]="erreur - quantite inferieur ou egal a 0",
-    [32]="erreur - cette offre est a vous",
-    [33]="erreur - offre inactive ou invalide",
-    [34]="erreur - pas d adresse de livraison",
-    [40]="erreur - edition statut invalide",
-    [41]="erreur - solde insufisant",
-    [42]="erreur - limite offre atteint",
-    [51]="erreur - offre ne vous apartient pas",
-    [52]="erreur - le prix est incorrect",
-    [53]="erreur - le stock est incorrect",
-    [60]="succes - pas de transaction",
-    [61]="erreur - jeton inferieur a 0",
-    [70]="erreur - nom adresse inexistant",
-    [71]="erreur - nom adresse deja utiliser",
-    [72]="erreur - nom adresse utiliser pour le commerce",
-    [73]="erreur - nom adresse utiliser pour la reception",
-    [74]="erreur - changement type adresse impossible en cours d utilisation",
-    [75]="erreur - suppression adresse impossible en cours d utilisation"
-}}
+global_http_enable = false
+global_http_error_message = {}
 global_local_error_message = {
 	[1]="erreur - les deux mot de passe ne correspondent pas",
 	[2]="erreur - un champ est vide",
@@ -64,9 +31,9 @@ global_local_error_message = {
 	[5]="erreur - pas de reponse du serveur http",
 	[10]="succes - mot de passe bon",
 	[11]="succes - mot de passe sauvegarder",
-	[12]="succes - config fonctionnel",
-	[20]="erreur - une erreur est survenue dans la nouvelle config",
-	[21]="erreur - la connexion au serveur ne fonctionne pas dans cette config"
+	[12]="succes - config reseau sauvegarder",
+	[21]="erreur - la connexion au serveur API ne fonctionne pas",
+	[22]="erreur - la connexion au serveur LUA ne fonctionne pas"
 }
 
 --[[
@@ -127,8 +94,9 @@ for k ,v in pairs(global_monitor_list) do
 	global_refresh_mon[k] = false
 end
 
+global_new_version = {}
 
-
+global_page_visible = 0
 
 global_histo_nav = {}
 global_edit_variable = {}
@@ -138,24 +106,20 @@ global_clavier_maj = {lock=false,shift=false,altgr=false}
 global_message = ""
 global_compteur_tempo_message_http = 0
 
-global_filtre_offre = {nom="",vendeur = "",type="",livraison="",stock_min="",prix_max="",prix_min=""}
-global_filtre_commande = {nom="",vendeur="",client="",statut="",type="",livraison="",date_to_now="",prix_max="",prix_min=""}
-global_filtre_transaction = {debiteur="",recepteur="",type="",statut="",date_to_now="",terminal=""}
-global_filtre_adresse = {nom="",type="",used=""}
-
-
 -- chargement des fonctions --
 local list = fs.list("fonction/")
 for j = 1, #list do
 	shell.run("fonction/"..list[j])
 end
-function reinitbox()
-	global_variable = {pseudo="",mdp="",confirm="",email="",codemail="",ancienmdp="",nbroffre="",mdp_len="",confirm_len="",ancienmdp_len=""}
-	global_scroll = 0
-	global_message = ""
-end
 reinitbox()
+recup_http_config()
 --[[
+recup_http_config()
+
+reinitbox()
+
+remplir_variable(variable_a_remplir,variable_a_coller)
+
 changementpage(new_page)
 
 string = convert_grand_nombre(nombre)
@@ -190,15 +154,12 @@ table = split(astring, delimiter)
 ]]--
 
 
-global_page_visible = 0
-table.insert(global_histo_nav,global_page_visible)
+changementpage(0)
 if global_login_pc ~= nil then
-	global_page_visible = 10
-	table.insert(global_histo_nav,global_page_visible)
-	local http_error_message = http_get("listconfig",true)
-	if type(http_error_message) == "table" then
-		global_http_error_message = http_error_message
-	end
+	changementpage(10)
+end
+
+if global_http_enable then
 	if global_session["pseudo"] ~= "" and global_session["mdp"] ~= "" then
 		id_message_http = http_get("listuserdata&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
 		local temp_mdp_init = global_session["mdp"]
@@ -211,12 +172,7 @@ if global_login_pc ~= nil then
 		save_table_file(global_config_session, textutils.serialize(global_session), "global_session")
 		id_message_http = nil
 	end
-	
-	if global_session["pseudo"] ~= "" and global_session["mdp"] ~= "" then
-		global_new_version = http_get("version",false)
-	end
 end
-
 
 
 --[[
@@ -271,6 +227,7 @@ end
 202 = menu_config
 203 = mise_a_jour
 204 = infos
+205 = edit config
 ]]--
 --[[
 	--action--
@@ -343,7 +300,6 @@ os.setComputerLabel(global_systeme_nom.."-"..global_systeme_version)
 
 function main()
 	if not fs.exists("config/update") then
-		--parallel.waitForAny(scroll, click, clavier, affichage_term, ntp, back)
 		parallel.waitForAny(scroll, click, clavier, up_clavier, affichage_term, ntp, backend)
 		sleep(5)
 	else

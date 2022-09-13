@@ -73,6 +73,8 @@ function genere_term_affichage()
 			shell.run("page/mise_a_jour.lua")
 		elseif global_page_visible == 204 then
 			shell.run("page/info.lua")
+		elseif global_page_visible == 205 then
+			shell.run("page/edit_config.lua")
 		end
 	else
 		shell.run("page/login_pc.lua")

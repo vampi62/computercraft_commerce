@@ -1,5 +1,12 @@
 function key_change_gestion()
 	if global_edit_variable["nom"] ~= nil then
+		if global_variable[global_edit_variable["nom"]] == nil then
+			global_variable[global_edit_variable["nom"]] = ""
+			if global_edit_variable["type"] == "code" then
+				global_variable[global_edit_variable["nom"].."_len"] = ""
+			end
+		end
+		
 		if global_clavier == "backspace" or global_clavier == "delete" then
 			global_variable[global_edit_variable["nom"]] = string.sub(global_variable[global_edit_variable["nom"]],1,#global_variable[global_edit_variable["nom"]]-1)
 			if global_edit_variable["nom"] == "mdp" or global_edit_variable["nom"] == "confirm" or global_edit_variable["nom"] == "ancienmdp" then

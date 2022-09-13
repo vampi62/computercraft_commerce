@@ -25,14 +25,19 @@ if global_url == nil then
 	files.writeLine("global_api_uri = 'api_computercraft'")
 	files.writeLine("global_lua_uri = 'lua'")
 	files.writeLine("--[[ retirer le commentaire sur le type de poste a installer ]]--")
-	files.writeLine("-- global_poste = 'client'")
-	files.writeLine("-- global_poste = 'commerce'")
-	files.writeLine("-- global_poste = 'banque_terminal'")
-	files.writeLine("-- global_poste = 'banque_routeur'")
-	files.writeLine("-- global_poste = 'banque_admin'")
+	files.writeLine("-- global_systeme_nom = 'client'")
+	files.writeLine("-- global_systeme_nom = 'commerce'")
+	files.writeLine("-- global_systeme_nom = 'banque_terminal'")
+	files.writeLine("-- global_systeme_nom = 'banque_routeur'")
+	files.writeLine("-- global_systeme_nom = 'banque_admin'")
 	files.close()
 	shell.run("edit " .. config_http)
 	shell.run(config_http)
+end
+if not fs.exists("config/version") then
+	files = fs.open(global_config_panier, "w")
+	files.write("global_systeme_version = '0.0'")
+	files.close()
 end
 update_repertoire = {}
 update_file = {}
@@ -48,7 +53,7 @@ update_val2 = "alt=\"[   ]\">"
 update_valend = "\">"
 
 function update_maj()
-	table.insert(update_repertoire,{url = "http://" .. global_url .. ":" .. global_port .. "/" .. global_lua_uri .. "/" .. global_poste .. "/", dir = ""})
+	table.insert(update_repertoire,{url = "http://" .. global_url .. ":" .. global_port .. "/" .. global_lua_uri .. "/" .. global_systeme_nom .. "/", dir = ""})
 	local j = 1
 	while j <= #update_repertoire do
 		update_console("etape","recherche repertoire de mise a jour")
@@ -88,7 +93,7 @@ function update_maj()
 end
 function update_affichage_console(suivre_bas)
 	term.setCursorPos(1,1)
-	term.write("mise a jour : " ..global_poste.." - version : 1.1")
+	term.write("mise a jour : " ..global_systeme_nom.." - version : 1.1")
 	term.setCursorPos(1,2)
 	term.write(update_console_etape_msg)
 	local offset_text = 0
