@@ -2,6 +2,9 @@ function clavier()
 	while true do
 		local event, key, maint = os.pullEvent("key")
 		local stringkey = keys.getName(key)
+		if global_os_version == "CraftOS 1.8" and global_local_config["azerty"] then
+			stringkey = convert_key_qwerty_vers_azerty(stringkey)
+		end
 		if stringkey == "leftShift" or stringkey == "rightShift" then
 			global_clavier_maj["shift"] = true
 		elseif stringkey == "capsLock" then

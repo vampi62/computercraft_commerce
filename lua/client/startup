@@ -27,7 +27,7 @@ for j = 1, #list do
 	require("config/"..string.sub(list[j],1,-5))
 end
 
-global_local_config = {resync_time=5,delay_seconde=5}
+global_local_config = {resync_time=5,delay_seconde=5,azerty=true}
 
 global_min_y_page = 5
 global_max_y_page = 15
