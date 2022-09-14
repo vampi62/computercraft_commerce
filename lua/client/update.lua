@@ -1,24 +1,35 @@
 --[[
 programme de telechargement des fichiers depuis un serveur web apache
 par vampi62
-derniere modification : 24/08/2022
+derniere modification : 14/09/2022
 https://github.com/vampi62/computercraft_commerce
 ]]--
-
+global_createur = "vampi62"
+global_repo_git = "https://github.com/vampi62/computercraft_commerce"
+global_os_version = os.version()
+if global_os_version == "CraftOS 1.8" then
+	-- pas de changement
+elseif global_os_version == "CraftOS 1.7" then
+	-- dans craftos 1.7 require n'existe pas, la fonction shell.run est similaire car elle utilise un environnement partagé
+	function require(fichier)
+		shell.run(fichier..".lua")
+	end
+end
 
 min_y_page = 4
 max_y_page = 19
 
-config_http = "config/.config"
+global_config_http = "config/config.lua"
+global_config_version = "config/version.lua"
 if not fs.isDir("config") then
 	fs.makeDir("config")
 end
 local list = fs.list("config/")
 for j = 1, #list do
-	shell.run("config/"..list[j])
+	require("config/"..string.sub(list[j],1,-5))
 end
 if global_url == nil then
-	files = fs.open(config_http, "w")
+	files = fs.open(global_config_http, "w")
 	files.writeLine("--[[ completer l'url avec vos informations ]]--")
 	files.writeLine("global_url = '__ip__or__domain__'")
 	files.writeLine("global_port = '80'")
@@ -31,11 +42,11 @@ if global_url == nil then
 	files.writeLine("-- global_systeme_nom = 'banque_routeur'")
 	files.writeLine("-- global_systeme_nom = 'banque_admin'")
 	files.close()
-	shell.run("edit " .. config_http)
-	shell.run(config_http)
+	shell.run("edit " .. global_config_http)
+	require(string.sub(global_config_http,1,-5))
 end
-if not fs.exists("config/version") then
-	files = fs.open(global_config_panier, "w")
+if not fs.exists(global_config_version) then
+	files = fs.open(global_config_version, "w")
 	files.write("global_systeme_version = '0.0'")
 	files.close()
 end
@@ -160,7 +171,7 @@ function update_debut_balise(url,dir)
 			end
 			if update_test == update_val2 then
 				local update_d = update_fin_balise(update_content,update_taille,update_c)
-				--table.insert(update_file,{url = url .. string.sub(update_content,update_c+30,update_d-1),dir = dir .. string.gsub(string.sub(update_content,update_c+30,update_d-1), ".lua", "")})
+				--table.insert(update_file,{url = url .. string.sub(update_content,update_c+30,update_d-1),dir = dir .. string.gsub(string.sub(update_content,update_c+30,update_d-1), "", "")})
 				table.insert(update_file,{url = url .. string.sub(update_content,update_c+30,update_d-1),dir = dir .. string.sub(update_content,update_c+30,update_d-1)})
 			end
 		end
@@ -194,7 +205,7 @@ function update_console(textype,message)
 end
 function scroll()
 	while true do
-		local event, value_scrollDirection, x, y = os.pullEvent("mouse_value_scroll")
+		local event, value_scrollDirection, x, y = os.pullEvent("mouse_scroll")
 		if value_scrollDirection == -1 then
 			if not limite_value_scroll_haut then
 				value_scroll = value_scroll + 1
@@ -228,7 +239,7 @@ end
 
 parallel.waitForAny(scroll, update_maj, back)
 parallel.waitForAny(scroll, clavier)
-if fs.exists("config/update") then
-	fs.delete("config/update")
+if fs.exists("config/update.lua") then
+	fs.delete("config/update.lua")
 end
 os.reboot()

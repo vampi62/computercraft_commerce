@@ -19,7 +19,7 @@ end
 function http_event_succes()
 	local event, url, sourceText = os.pullEvent("http_success")
 	local_text_http = sourceText.readAll()
-    sourceText.close()
+	sourceText.close()
 end
 function http_event_fail()
 	local event, url, sourceText = os.pullEvent("http_failure")

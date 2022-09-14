@@ -4,7 +4,10 @@ ce projet permet de créer un système d'échange et de banque sur un monde mine
 
 ## prérequis
 
-- mod computercraft sur le serveur
+- mod computercraft ou cc-tweaked sur le serveur
+  - minecraft 1.7.10 - computercraft 1.75
+  - minecraft 1.18.2 - cc-tweaked 1.100.9
+  - CraftOS-1.7 ou CraftOS-1.8
 - option http activé dans les config du mod
 - un serveur web apache avec une base de donnée
 

@@ -11,6 +11,10 @@ function click_change_gestion()
 			os.shutdown()
 		elseif global_value_click["id"] == "edit_config" then
 			if global_variable["ip"] ~= "" and global_variable["port"] ~= "" and global_variable["uriapi"] ~= "" and global_variable["urilua"] ~= "" then
+				local temp_global_url = global_url
+				local temp_global_port = global_port
+				local temp_global_api_uri = global_api_uri
+				local temp_global_lua_uri = global_lua_uri
 				global_url = global_variable["ip"]
 				global_port = global_variable["port"]
 				global_api_uri = global_variable["uriapi"]
@@ -35,7 +39,10 @@ function click_change_gestion()
 							global_message = global_local_error_message[21] --erreur - la connexion au serveur API ne fonctionne pas
 						end
 					end
-					shell.run(global_config_http)
+					global_url = temp_global_url
+					global_port = temp_global_port
+					global_api_uri = temp_global_api_uri
+					global_lua_uri = temp_global_lua_uri
 				end
 			else
 				global_message = global_local_error_message[2]
@@ -96,7 +103,7 @@ function click_change_gestion()
 				global_message = global_local_error_message[2]
 			end
 		elseif global_value_click["id"] == "maj" then
-			save_var_file("config/update", global_systeme_version .. "-" .. global_new_version[global_systeme_nom], "update")
+			save_var_file("config/update.lua", global_systeme_version .. "-" .. global_new_version[global_systeme_nom], "update")
 			-- a realiser -- animation
 			os.reboot()
 		else
