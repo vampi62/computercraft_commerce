@@ -89,11 +89,11 @@ global_clavier = ""
 
 -- affichage_term
 global_refresh_term = false
-global_term_objet_select = {} -- {{back_color=0,ymin=0,ymax=0,xmin=0,xmax=0,value={action="",id=0,value=0}},{back_color=0,ymin=0,ymax=0,xmin=0,xmax=0,name="",value={action="",id=0,value=0}}}
+global_term_objet_select = {} -- {{back_color=0,ymin=0,ymax=0,xmin=0,xmax=0,value={action="",id=0,value=0,exe=""}},{back_color=0,ymin=0,ymax=0,xmin=0,xmax=0,name="",value={action="",id=0,value=0,exe=""}}}
 global_term_objet_write = {} -- {{back_color=0,text_color=0,ymin=0,ymax=0,xmin=0,xmax=0,text=""},{back_color=0,text_color=0,ymin=0,ymax=0,xmin=0,xmax=0,text=""}}
 
 -- affichage_mon
-global_monitor_objet_select = {} -- {side_monitor1={back_color=0,ymin=0,ymax=0,xmin=0,xmax=0,value={action="",id=0,value=0}},side_monitor2={back_color=0,ymin=0,ymax=0,xmin=0,xmax=0,value={action="",id=0,value=0}}}
+global_monitor_objet_select = {} -- {side_monitor1={back_color=0,ymin=0,ymax=0,xmin=0,xmax=0,value={action="",id=0,value=0,exe=""}},side_monitor2={back_color=0,ymin=0,ymax=0,xmin=0,xmax=0,value={action="",id=0,value=0,exe=""}}}
 global_monitor_objet_write = {} -- {side_monitor1={back_color=0,text_color=0,ymin=0,ymax=0,xmin=0,xmax=0,text=""},side_monitor2={back_color=0,text_color=0,ymin=0,ymax=0,xmin=0,xmax=0,text=""}}
 
 global_monitor_list = {} -- {side_monitor1=1,side_monitor2=1} -- remplacer la valeur par la taille du texte sur cette ecran
@@ -116,6 +116,13 @@ global_clavier_maj = {lock=false,shift=false,altgr=false}
 
 global_message = ""
 global_compteur_tempo_message_http = 0
+
+-- liste recuperer par http
+global_liste_adresse = {}
+global_liste_transaction = {}
+global_liste_commande = {}
+global_liste_offre = {}
+
 
 -- chargement des fonctions --
 local list = fs.list("fonction/")

@@ -10,7 +10,7 @@ function page_mise_a_jour()
 	table.insert(global_term_objet_write,{x = 28, y = 8, text = global_new_version[global_systeme_nom], back_color = 32768, text_color = 1})
 
 	if global_systeme_version ~= global_new_version[global_systeme_nom] and global_new_version[global_systeme_nom] ~= "" and global_new_version[global_systeme_nom] ~= nil then
-		table.insert(global_term_objet_select,{xmin = 39, xmax = 41, ymin = 8, ymax = 8, value={action="action",id="maj",value=0}, back_color = 256})
+		table.insert(global_term_objet_select,{xmin = 39, xmax = 41, ymin = 8, ymax = 8, value={action="action",id="maj"}, back_color = 256})
 		table.insert(global_term_objet_write,{x = 39, y = 8, text = " X ", back_color = 256, text_color = 1})
 	else
 		table.insert(global_term_objet_write,{x = 39, y = 8, text = " X ", back_color = 32768, text_color = 1})

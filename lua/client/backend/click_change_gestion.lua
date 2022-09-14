@@ -1,6 +1,53 @@
 function click_change_gestion()
 	if global_value_click["action"] == "page" then
 		changementpage(global_value_click["id"])
+		if global_value_click["value"] ~= nil then
+			global_variable["num_champ"] = global_value_click["value"]
+		end
+		if global_value_click["exe"] ~= nil then
+			if global_value_click["exe"] ~= "" then
+			-- commande a executer lors d'un changement de page
+				if not global_http_enable then -- tentative de reconnexion
+					recup_http_config()
+				end
+				if global_http_enable then
+					-- uniquement les commandes qui demande un acces http ou utiliser les valeur de la table "global_http_error_message"
+					if global_value_click["exe"] == "http_offre" then
+						if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
+							id_message_http = http_get("listoffresboutique",true)
+							if type(id_message_http) == "table" then
+								global_liste_offre = id_message_http
+								id_message_http = nil
+							end
+						end
+					elseif global_value_click["exe"] == "http_commande" then
+						if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
+							id_message_http = http_get("listcommandes&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
+							if type(id_message_http) == "table" then
+								global_liste_commande = id_message_http
+								id_message_http = nil
+							end
+						end
+					elseif global_value_click["exe"] == "http_transaction" then
+						if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
+							id_message_http = http_get("listusertransaction&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
+							if type(id_message_http) == "table" then
+								global_liste_transaction = id_message_http
+								id_message_http = nil
+							end
+						end
+					elseif global_value_click["exe"] == "http_adresse" then
+						if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
+							id_message_http = http_get("listuseradresse&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
+							if type(id_message_http) == "table" then
+								global_liste_adresse = id_message_http
+								id_message_http = nil
+							end
+						end
+					end
+				end
+			end
+		end
 	end
 	if global_value_click["action"] == "action" then
 		if global_value_click["id"] == "reboot" then
@@ -152,23 +199,6 @@ function click_change_gestion()
 				end
 			end
 		end
-		
-
-
-		if id_message_http ~= nil then
-			if type(id_message_http) == "table" then
-				for j=1, #id_message_http do
-					if id_message_http[j] > 1 then
-						global_message = global_http_error_message["message_error"][id_message_http[j]]
-						break
-					end
-				end
-				global_message = global_http_error_message["message_error"][1]
-			else
-				global_message = global_http_error_message["message_error"][tonumber(id_message_http)]
-			end
-		end
-		id_message_http = nil
 	end
 	if global_value_click["action"] == "variable" then
 		global_edit_variable = {nom = global_value_click["id"], type = global_value_click["value"]}
@@ -177,5 +207,20 @@ function click_change_gestion()
 			global_edit_variable = {}
 		end
 	end
+	if id_message_http ~= nil then
+		if type(id_message_http) == "table" then
+			for j=1, #id_message_http do
+				if id_message_http[j] > 1 then
+					global_message = global_http_error_message["message_error"][id_message_http[j]]
+					break
+				end
+			end
+			global_message = global_http_error_message["message_error"][1]
+		else
+			global_message = global_http_error_message["message_error"][tonumber(id_message_http)]
+		end
+	end
+	id_message_http = nil
+
 	genere_term_affichage()
 end
