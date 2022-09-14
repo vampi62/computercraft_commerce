@@ -91,6 +91,14 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=listusercommande&mdp=__md
 
 return (array)
 
+## listuseradresse
+- mdp			:(string)
+- pseudo		:(string)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=listuseradresse&mdp=__mdp__&pseudo=__pseudo__
+
+return (array)
+
 ## updatemail
 - mdp			:(string)
 - pseudo		:(string)

@@ -101,10 +101,12 @@ function SetHtpasswd() {
 }
 
 function SetAdmin($pseudo, $mdp, $email, $bdd){
-	$req = $bdd->prepare('INSERT INTO liste_users(pseudo, mdp, email, compte, id_adresse, nbr_offre, role) VALUES(:player, :mdp, :email, 0, 0, 0, 10)');
+	$date = date("Y-m-d");
+	$req = $bdd->prepare('INSERT INTO liste_users(pseudo, mdp, email, last_login, compte, id_adresse, nbr_offre, role) VALUES(:player, :mdp, :email, :last_login, 0, 0, 0, 10)');
 	$req->execute(array(
 		'player' => $pseudo,
 		'mdp' => password_hash($mdp, PASSWORD_DEFAULT),
+		'last_login' => $date,
 		'email' => $email
 	));
 }

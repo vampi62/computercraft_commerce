@@ -39,6 +39,11 @@ if(isset($_GET['action']))
 			// paramètres - mdp - pseudo
 			include('controleur/joueur/listUserData.php');
 		break;
+		
+		case 'listuseradresse': // compte normal
+			// paramètres - mdp - pseudo
+			include('controleur/joueur/listUserAdresse.php');
+		break;
 
 		case 'listusertransaction': // compte normal
 			// paramètres - mdp - pseudo
