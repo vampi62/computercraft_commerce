@@ -266,6 +266,16 @@ end
 -achatoffre
 ]]--
 --[[
+type de variable pour global_variable
+text
+code --> une variable "nomdevariable_len" est creer elle a le meme nombre de caratere mais seulement des "*"
+int --> ne prend que des chiffres sur le clavier et peut etre modifier avec la molette de souris
+float --> idem que int mais l'increment de la molette se fait en pas de 0.1, pas de limite avec les chiffres après la virgule
+
+select -- plus tard
+
+]]--
+--[[
 
 exemple structure fichier page
 
