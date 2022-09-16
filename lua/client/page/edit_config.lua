@@ -22,5 +22,5 @@ function page_edit_config()
 	table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 11, ymax = 11, value={action="variable",id="uriapi",value="text"}, back_color = 128 + change_color_champ_select("uriapi")})
 	table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 13, ymax = 13, value={action="variable",id="urilua",value="text"}, back_color = 128 + change_color_champ_select("urilua")})
 
-	table.insert(global_term_objet_select,{xmin = 22, xmax = 28, ymin = 15, ymax = 15, value={action="action",id="edit_config",value=0}, back_color = 128})
+	table.insert(global_term_objet_select,{xmin = 22, xmax = 28, ymin = 15, ymax = 15, value={action="action",id="edit_config"}, back_color = 128})
 end

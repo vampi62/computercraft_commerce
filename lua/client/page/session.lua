@@ -59,7 +59,7 @@ function page_session()
 		table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 11, ymax = 11, value={action="variable",id="confirm",value="code"}, back_color = 128 + change_color_champ_select("confirm")})
 		table.insert(global_term_objet_select,{xmin = 19, xmax = 33, ymin = 13, ymax = 13, value={action="variable",id="email",value="text"}, back_color = 128 + change_color_champ_select("email")})
 
-		table.insert(global_term_objet_select,{xmin = 23, xmax = 29, ymin = 15, ymax = 15, value={action="action",id="inscription",value=0}, back_color = 128})
+		table.insert(global_term_objet_select,{xmin = 23, xmax = 29, ymin = 15, ymax = 15, value={action="action",id="inscription"}, back_color = 128})
 	end
 	if global_page_visible == 22 then
 		table.insert(global_term_objet_write,{x = 6, y = 7, text = "pseudo      :", back_color = 32768, text_color = 1})

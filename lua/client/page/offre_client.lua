@@ -1,12 +1,14 @@
 function page_offre_client()
+	global_limite_scroll_haut = false
+	global_limite_scroll_bas = false
 	table.insert(global_term_objet_write,{x = 1, y = global_min_y_page, text = "vendeur       |nom            |prix    |stock |", back_color = 32768, text_color = 1})
-	for j=1, #global_liste_offre do
+	for j=0, #global_liste_offre[0] do
         local y = global_scroll + j + global_min_y_page + 1
-		if y <= global_max_y_page and y >= global_min_y_page then
-			if j == 1 then
+		if y <= global_max_y_page and y > global_min_y_page then
+			if j == 0 then
 				global_limite_scroll_haut = true
 			end
-			if j == #global_liste_offre and y == global_max_y_page then
+			if j >= #global_liste_offre[0] then
 				global_limite_scroll_bas = true
 			end
 			table.insert(global_term_objet_write,{x = 1, y = y, text = "              |               |        |      |", back_color = 32768, text_color = 1})
