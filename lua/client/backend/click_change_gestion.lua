@@ -153,6 +153,8 @@ function click_change_gestion()
 			save_var_file("config/update.lua", global_systeme_version .. "-" .. global_new_version[global_systeme_nom], "update")
 			-- a realiser -- animation
 			os.reboot()
+		elseif global_value_click["id"] == "scroll" then
+			global_scroll = global_value_click["value"]
 		else
 			-- uniquement les commandes qui demande un acces http ou utiliser les valeur de la table "global_http_error_message"
 			if not global_http_enable then -- tentative de reconnexion
