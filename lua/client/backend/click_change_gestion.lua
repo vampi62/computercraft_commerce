@@ -209,13 +209,16 @@ function click_change_gestion()
 	end
 	if id_message_http ~= nil then
 		if type(id_message_http) == "table" then
+			global_message = ""
 			for j=1, #id_message_http do
 				if id_message_http[j] > 1 then
 					global_message = global_http_error_message["message_error"][id_message_http[j]]
 					break
 				end
 			end
-			global_message = global_http_error_message["message_error"][1]
+			if global_message == "" then
+				global_message = global_http_error_message["message_error"][1]
+			end
 		else
 			global_message = global_http_error_message["message_error"][tonumber(id_message_http)]
 		end

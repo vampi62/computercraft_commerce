@@ -1,6 +1,6 @@
 function scroll_change_gestion(ancien_scroll)
 	if global_edit_variable["type"] ~= nil then
-		if global_edit_variable["type"] == "int" or global_edit_variable["type"] == "float" then -- a realiser -- a revoir
+		if global_edit_variable["type"] == "int" or global_edit_variable["type"] == "float" then
 			local scroll_int = global_scroll - ancien_scroll
 			if global_edit_variable["type"] == "float" then
 				scroll_int = scroll_int/10
