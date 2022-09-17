@@ -23,7 +23,7 @@ function page_nav()
 		table.insert(global_term_objet_write,{x = 1, y = 19, text = "retour", back_color = 128, text_color = 1})
 	end
 	if global_session["pseudo"] ~= "" and global_session["mdp"] ~= "" then
-		table.insert(global_term_objet_select,{xmin = 33, xmax = 51, ymin = 1, ymax = 2, value={action="page",id=90,exe="http_adresse"}, back_color = 128})
+		table.insert(global_term_objet_select,{xmin = 33, xmax = 51, ymin = 1, ymax = 2, value={action="page",id=90}, back_color = 128})
 	else
 		table.insert(global_term_objet_select,{xmin = 33, xmax = 51, ymin = 1, ymax = 2, value={action="page",id=20}, back_color = 128})
 	end

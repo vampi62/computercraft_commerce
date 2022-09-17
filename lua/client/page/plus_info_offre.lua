@@ -1,8 +1,21 @@
-function page_plus_info_client()
+function page_plus_info_offre()
 	global_limite_scroll_haut = false
 	global_limite_scroll_bas = false
-	for j=0, #global_liste_offre[0] do
-		if global_variable["num_champ"] == global_liste_offre[0][j] then
+	if #global_liste["offre"] < 1 then
+		global_liste["offre"] = http_commande("http_offre")
+	end
+	if global_page_visible == 33 then
+		
+	end
+	if global_page_visible == 133 then
+
+	end
+	if global_session["pseudo"] ~= "" and global_session["mdp"] ~= "" then
+
+	end
+
+	for j=1, #global_liste["offre"] do
+		if global_fitre["id"] == global_liste["offre"][j][1] then
 			local offset_text = 0
 			local texte_info = {
 				"vendeur    :",
@@ -18,18 +31,18 @@ function page_plus_info_client()
 				"dateupdate :"
 			}
 			local texte_variable = {
---				global_liste_offre[0][j], id
-				global_liste_offre[2][j],
-				global_liste_offre[7][j],
-				global_liste_offre[3][j],
-				global_liste_offre[4][j],
-				global_http_error_message["type"][tonumber(global_liste_offre[5][j])],
-				global_http_error_message["livraison"][tonumber(global_liste_offre[6][j])],
-				global_liste_offre[1][j]["nom"],
-				global_liste_offre[1][j]["coo"],
-				global_liste_offre[1][j]["description"],
-				global_liste_offre[8][j],
-				global_liste_offre[9][j],
+--				global_liste["offre"][j][0], id
+				global_liste["offre"][j][3],
+				global_liste["offre"][j][8],
+				global_liste["offre"][j][4], -- prix
+				global_liste["offre"][j][5],
+				global_http_error_message["type"][tonumber(global_liste["offre"][j][6])],
+				global_http_error_message["livraison"][tonumber(global_liste["offre"][j][7])],
+				global_liste["offre"][j][2]["nom"],
+				global_liste["offre"][j][2]["coo"],
+				global_liste["offre"][j][2]["description"],
+				global_liste["offre"][j][9],
+				global_liste["offre"][j][10],
 			}
 			genere_scroll_barre(texte_variable,31)
 			table.insert(global_term_objet_write,{x = 21, y = global_min_y_page, text = "info offre", back_color = 32768, text_color = 1})

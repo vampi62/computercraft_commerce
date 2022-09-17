@@ -10,6 +10,9 @@ elseif global_os_version == "CraftOS 1.7" then
 	end
 end
 
+global_monitor_list = {} -- {side_monitor1=1,side_monitor2=1} -- remplacer la valeur par la taille du texte sur cette ecran
+
+
 -- chargement des variables --
 if not fs.isDir("config") then
 	fs.makeDir("config")
@@ -47,22 +50,6 @@ global_local_error_message = {
 	[22]="erreur - la connexion au serveur LUA ne fonctionne pas"
 }
 
---[[
-variable init par les fichiers config
-
-global_url = '__ip__or__domain__'
-global_port = '80'
-global_api_uri = 'api_computercraft'
-global_lua_uri = 'lua'
-global_systeme_nom = 'client'
-
-global_session = {} -- {pseudo='', mdp='', compte=0, email='', defautadresse={nom='',type='',coo='',description=''}, nbr_offre=0, role='', last_login=''}
-
-global_panier = {} -- {{id_offre=0,quant=0,nom=""},{id_offre=0,quant=0,nom=""}}
-
-global_login_pc = () mdp hash256
-]]--
-
 -- init table d'echange entre les programmes --
 -- receive_rednet
 
@@ -89,14 +76,13 @@ global_clavier = ""
 
 -- affichage_term
 global_refresh_term = false
-global_term_objet_select = {} -- {{back_color=0,ymin=0,ymax=0,xmin=0,xmax=0,value={action="",id=0,value=0,exe=""}},{back_color=0,ymin=0,ymax=0,xmin=0,xmax=0,name="",value={action="",id=0,value=0,exe=""}}}
-global_term_objet_write = {} -- {{back_color=0,text_color=0,ymin=0,ymax=0,xmin=0,xmax=0,text=""},{back_color=0,text_color=0,ymin=0,ymax=0,xmin=0,xmax=0,text=""}}
+global_term_objet_select = {}
+global_term_objet_write = {}
 
 -- affichage_mon
-global_monitor_objet_select = {} -- {side_monitor1={back_color=0,ymin=0,ymax=0,xmin=0,xmax=0,value={action="",id=0,value=0,exe=""}},side_monitor2={back_color=0,ymin=0,ymax=0,xmin=0,xmax=0,value={action="",id=0,value=0,exe=""}}}
-global_monitor_objet_write = {} -- {side_monitor1={back_color=0,text_color=0,ymin=0,ymax=0,xmin=0,xmax=0,text=""},side_monitor2={back_color=0,text_color=0,ymin=0,ymax=0,xmin=0,xmax=0,text=""}}
+global_monitor_objet_select = {}
+global_monitor_objet_write = {}
 
-global_monitor_list = {} -- {side_monitor1=1,side_monitor2=1} -- remplacer la valeur par la taille du texte sur cette ecran
 global_refresh_mon = {} -- {false,false} -- cette table a la meme taille que "global_monitor_list"
 global_monitor_api = {} -- {function,function} -- fonction a utiliser pour les moniteurs ex: global_monitor_api[x].write() -- cette table a la meme taille que "global_monitor_list"
 
@@ -118,11 +104,13 @@ global_message = ""
 global_compteur_tempo_message_http = 0
 
 -- liste recuperer par http
-global_liste_adresse = {}
-global_liste_transaction = {}
-global_liste_commande = {}
-global_liste_offre = {}
+global_liste = {}
+global_liste["adresse"] = {}
+global_liste["transaction"] = {}
+global_liste["commande"] = {}
+global_liste["offre"] = {}
 
+global_fitre = {}
 
 -- chargement des fonctions --
 local list = fs.list("fonction/")
@@ -131,46 +119,6 @@ for j = 1, #list do
 end
 reinitbox()
 recup_http_config()
---[[
-recup_http_config()
-
-reinitbox()
-
-remplir_variable(variable_a_remplir,variable_a_coller)
-
-changementpage(new_page)
-
-string = convert_grand_nombre(nombre)
-
-string = convertkey_number_altgr(numberkey)
-
-screen_function = duplicate_screen(ecran1, ecran2)
-
-save_file(nom, data)
-
-save_var_file(nom, data, name)
-
-save_table_file(nom, data, name)
-
-string_or_table = load_file(nom)
-
-string = sha256(msg)
-
-string_or_table = http_get(action,api_bool)
-
-bool = imprimante(printer,action,text,x,y,color)
-
-int = get_me_objet(me_controle,fingerprint_objet)
-
-table = get_tank_objet(tank)
-
-table = rsa_key_gen()
-
-string = crypt(key, number)
-
-table = split(astring, delimiter)
-]]--
-
 
 changementpage(0)
 if global_login_pc ~= nil then
@@ -191,119 +139,6 @@ if global_http_enable then
 		id_message_http = nil
 	end
 end
-
-
---[[
-	--page--
--1 = retour dans la pile
-
-0  = setup_login_pc
-
-10 = menu
-
-20 = login
-21 = inscription
-22 = mdp_oublie
-23 = code_mdp_oublie
-25 = update_mdp
-26 = update_mail
-27 = achat_offre
-
-30 = offre
-31 = panier
-33 = plus_info_offre
-
-50 = commande_client
-53 = plus_info_commande
-54 = litige_commande
-
-60 = transaction
-63 = plus_info_transaction
-64 = litige_transaction
-
-90 = adresse
-91 = add_adresse
-92 = edit_adresse
-
-101 = filtre_offre
-102 = filtre_transac
-103 = filtre_commande
-104 = filtre_adresse
-
-130 = offre_commerce
-133 = edit_offre_commerce
-
-150 = commande_commerce
-153 = edit_commande_commerce
-
-160 = transaction_commerce
-163 = plus_info_transaction_commerce
-
-
-200 = demande_login_pc
-201 = change_login_pc
-202 = menu_config
-203 = mise_a_jour
-204 = infos
-205 = edit config
-]]--
---[[
-	--action--
--edit_config
--reboot
--shutdown
--disable_message
--setlocalmdp
--changelocalmdp
--localmdp
--deconnexion
--connexion
--inscription
--mdpoublie
--codemail
--changemdp
--changemail
--achatoffre
-]]--
---[[
-type de variable pour global_variable
-text
-code --> une variable "nomdevariable_len" est creer elle a le meme nombre de caratere mais seulement des "*"
-int --> ne prend que des chiffres sur le clavier et peut etre modifier avec la molette de souris
-float --> idem que int mais l'increment de la molette se fait en pas de 0.1, pas de limite avec les chiffres après la virgule
-
-select -- plus tard
-
-]]--
---[[
-
-exemple structure fichier page
-
--- si il y a des champs editable a afficher et qu'il sont près remplie
-local variable_a_remplir = {"ip","port","uriapi","urilua"}
-local variable_a_coller = {global_url,global_port,global_api_uri,global_lua_uri}
-remplir_variable(variable_a_remplir,variable_a_coller)
-
-
-if idpage = x then
-	titre de page -- si plusieurs page dans le fichier
-if idpage = y then
-	titre de page -- si plusieurs page dans le fichier
-end
-
-titre de page -- si une page dans le fichier
-
-text
-
-text_variable (par variable les textes issue de la variable global_variable["xxxx"])
-selection_variable
-
-selection_bouton
-]]--
-
-
-
-
 
 -- chargement des programmes --
 local list = fs.list("programme/")
