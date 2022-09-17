@@ -16,35 +16,32 @@ class Transaction
 		$req->execute(array(
 			'player' => $this->pseudo
 		));
-		$list_id = array();
-		$list_id_commandes = array();
-		$list_id_admin_exec = array();
-		$list_crediteur = array();
-		$list_debiteur = array();
-		$list_somme = array();
-		$list_type = array();
-		$list_description = array();
-		$list_statut = array();
-		$list_date = array();
-		$list_heure = array();
-
+		$list_transactions = array();
 		$listidplayer = ConvertTable::gettableidplayer($this->bdd);
 		while ($donnees = $req->fetch())
 		{
-			$list_id[] = $donnees['id'];
-			$list_id_commandes[] = $donnees['id_commandes'];
-			$list_id_admin_exec[] = $listidplayer[$donnees['id_admin_exec']];
-			$list_crediteur[] = $listidplayer[$donnees['crediteur']];
-			$list_debiteur[] = $listidplayer[$donnees['debiteur']];
-			$list_somme[] = $donnees['somme'];
-			$list_type[] = $donnees['type'];
-			$list_description[] = $donnees['description'];
-			$list_statut[] = $donnees['statut'];
-			$list_date[] = $donnees['date'];
-			$list_heure[] = $donnees['heure'];
+			$transaction = array(1 => $donnees['id']);
+			$transaction[] = $donnees['id_commandes'];
+			$transaction[] = $listidplayer[$donnees['id_admin_exec']];
+			$transaction[] = $listidplayer[$donnees['crediteur']];
+			$transaction[] = $listidplayer[$donnees['debiteur']];
+			$transaction[] = $donnees['somme'];
+			$transaction[] = $donnees['type'];
+			$transaction[] = $donnees['description'];
+			$transaction[] = $donnees['statut'];
+			$transaction[] = $donnees['date'];
+			$transaction[] = $donnees['heure'];
+			if (empty($list_transactions))
+			{
+				$list_transactions = array(1 => $transaction);
+			}
+			else
+			{
+				$list_transactions[] = $transaction;
+			}
 		}
 		$req->closeCursor();
-   	 	return array($list_id,$list_id_commandes,$list_id_admin_exec,$list_crediteur,$list_debiteur,$list_somme,$list_type,$list_description,$list_statut,$list_date,$list_heure);
+   	 	return $list_transactions;
 	}
 	public function setTransaction($datatransaction)
 	{

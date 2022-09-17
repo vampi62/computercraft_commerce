@@ -26,19 +26,24 @@ class Adresse
 		$req->execute(array(
 			'pseudo' => $this->pseudo
 		));
-		$list_nom = array();
-		$list_type = array();
-		$list_coo = array();
-		$list_description = array();
+		$list_adresses = array();
 		while ($donnees = $req->fetch())
 		{
-			$list_nom[] = $donnees['nom'];
-			$list_type[] = $donnees['type'];
-			$list_coo[] = $donnees['coo'];
-			$list_description[] = $donnees['description'];
+			$adresse = array(1 => $donnees['nom']);
+			$adresse[] = $donnees['type'];
+			$adresse[] = $donnees['coo'];
+			$adresse[] = $donnees['description'];
+			if (empty($list_adresses))
+			{
+				$list_adresses = array(1 => $adresse);
+			}
+			else
+			{
+				$list_adresses[] = $adresse;
+			}
 		}
 		$req->closeCursor();
-   	 	return array($list_nom,$list_type,$list_coo,$list_description);
+   	 	return $list_adresses;
 	}
 	public function setNouvellesDonneesNom($id,$nom)
 	{

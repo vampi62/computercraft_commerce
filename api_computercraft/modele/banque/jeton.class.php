@@ -67,29 +67,29 @@ class Jeton
 
 	private function rangejeton($req)
 	{
-		$list_id_user = array();
-		$list_jeton1 = array();
-		$list_jeton10 = array();
-		$list_jeton100 = array();
-		$list_jeton1k = array();
-		$list_jeton10k = array();
-		$list_date = array();
-		$list_heure = array();
-
+		$list_jetons = array();
 		$listidplayer = ConvertTable::gettableidplayer($this->bdd);
 		while ($donnees = $req->fetch())
 		{
-			$list_id_user[] = $listidplayer[$donnees['id_user']];
-			$list_jeton1[] = $donnees['jeton1'];
-			$list_jeton10[] = $donnees['jeton10'];
-			$list_jeton100[] = $donnees['jeton100'];
-			$list_jeton1k[] = $donnees['jeton1k'];
-			$list_jeton10k[] = $donnees['jeton10k'];
-			$list_date[] = $donnees['date'];
-			$list_heure[] = $donnees['heure'];
+			$jeton = array(1 => $listidplayer[$donnees['id_user']]);
+			$jeton[] = $donnees['jeton1'];
+			$jeton[] = $donnees['jeton10'];
+			$jeton[] = $donnees['jeton100'];
+			$jeton[] = $donnees['jeton1k'];
+			$jeton[] = $donnees['jeton10k'];
+			$jeton[] = $donnees['date'];
+			$jeton[] = $donnees['heure'];
+			if (empty($list_jetons))
+			{
+				$list_jetons = array(1 => $jeton);
+			}
+			else
+			{
+				$list_jetons[] = $jeton;
+			}
 		}
 		$req->closeCursor();
-		return array($list_id_user,$list_jeton1,$list_jeton10,$list_jeton100,$list_jeton1k,$list_jeton10k,$list_date,$list_heure);
+		return $list_jetons;
 	}
 }
 ?>

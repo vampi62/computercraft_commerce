@@ -3,7 +3,11 @@ if (isset($printmessage) AND !empty($printmessage))
 {
 	if (is_array($printmessage))
 	{
-		print_array($printmessage,$_Serveur_);
+		if (!isset($pagelectureconfig))
+		{
+			$pagelectureconfig = false;
+		}
+		print_array($printmessage,$pagelectureconfig);
 	}
 	elseif (is_int($printmessage))
 	{
@@ -19,7 +23,7 @@ else
 	echo '404';
 }
 
-function print_array($list,$_Serveur_)
+function print_array($list,$pagelectureconfig)
 {
 	echo "{";
 	$value_next = false;
@@ -31,7 +35,10 @@ function print_array($list,$_Serveur_)
 		}
 		if (is_int($element))
 		{
-			echo "[" . strval($element) . "]=";
+			if ($pagelectureconfig)
+			{
+				echo "[" . strval($element) . "]=";
+			}
 		}
 		else
 		{
@@ -39,7 +46,7 @@ function print_array($list,$_Serveur_)
 		}
 		if (is_array($value))
 		{
-			print_array($value,$_Serveur_);
+			print_array($value,$pagelectureconfig);
 			$value_next = true;
 		}
 		else

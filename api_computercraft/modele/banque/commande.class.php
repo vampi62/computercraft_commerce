@@ -95,49 +95,39 @@ class Commande
 
 	private function rangeCommande($req)
 	{
-		$list_id = array();
-		$list_id_offre = array();
-		$list_id_transaction = array();
-		$list_nom_commande = array();
-		$list_expediteur = array();
-		$list_recepteur = array();
-		$list_text_adresse_expediteur = array();
-		$list_text_adresse_recepteur = array();
-		$list_quantite = array();
-		$list_somme = array();
-		$list_prix_unitaire = array();
-		$list_type = array();
-		$list_livraison = array();
-		$list_suivie = array();
-		$list_description = array();
-		$list_statut = array();
-		$list_date = array();
-		$list_heure = array();
-
+		$list_commandes = array();
 		$listidplayer = ConvertTable::gettableidplayer($this->bdd);
 		while ($donnees = $req->fetch())
 		{
-			$list_id[] = $donnees['id'];
-			$list_id_offre[] = $donnees['id_offre'];
-			$list_id_transaction[] = $donnees['id_transaction'];
-			$list_nom_commande[] = $donnees['nom_commande'];
-			$list_expediteur[] = $listidplayer[$donnees['expediteur']];
-			$list_recepteur[] = $listidplayer[$donnees['recepteur']];
-			$list_text_adresse_expediteur[] = $donnees['text_adresse_expediteur'];
-			$list_text_adresse_recepteur[] = $donnees['text_adresse_recepteur'];
-			$list_quantite[] = $donnees['quantite'];
-			$list_somme[] = $donnees['somme'];
-			$list_prix_unitaire[] = $donnees['prix_unitaire'];
-			$list_type[] = $donnees['type'];
-			$list_livraison[] = $donnees['livraison'];
-			$list_suivie[] = $donnees['suivie'];
-			$list_description[] = $donnees['description'];
-			$list_statut[] = $donnees['statut'];
-			$list_date[] = $donnees['date'];
-			$list_heure[] = $donnees['heure'];
+			$commande = array(1 => $donnees['id']);
+			$commande[] = $donnees['id_offre'];
+			$commande[] = $donnees['id_transaction'];
+			$commande[] = $donnees['nom_commande'];
+			$commande[] = $listidplayer[$donnees['expediteur']];
+			$commande[] = $listidplayer[$donnees['recepteur']];
+			$commande[] = $donnees['text_adresse_expediteur'];
+			$commande[] = $donnees['text_adresse_recepteur'];
+			$commande[] = $donnees['quantite'];
+			$commande[] = $donnees['somme'];
+			$commande[] = $donnees['prix_unitaire'];
+			$commande[] = $donnees['type'];
+			$commande[] = $donnees['livraison'];
+			$commande[] = $donnees['suivie'];
+			$commande[] = $donnees['description'];
+			$commande[] = $donnees['statut'];
+			$commande[] = $donnees['date'];
+			$commande[] = $donnees['heure'];
+			if (empty($list_commandes))
+			{
+				$list_commandes = array(1 => $commande);
+			}
+			else
+			{
+				$list_commandes[] = $commande;
+			}
 		}
 		$req->closeCursor();
-		return array($list_id,$list_id_offre,$list_id_transaction,$list_nom_commande,$list_expediteur,$list_recepteur,$list_text_adresse_expediteur,$list_text_adresse_recepteur,$list_quantite,$list_somme,$list_prix_unitaire,$list_type,$list_livraison,$list_suivie,$list_description,$list_statut,$list_date,$list_heure);
+		return $list_commandes;
 	}
 
 	private function checkPaternstatutCommande($id,$statut,$booltransaction)

@@ -10,4 +10,5 @@ $message['type_transaction'] = $_Serveur_['type_transaction'];
 $message['statut_transaction'] = $_Serveur_['statut_transaction'];
 $message['message_error'] = $_Serveur_['message_error'];
 $printmessage = $message;
+$pagelectureconfig = true;
 ?>
