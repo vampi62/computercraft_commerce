@@ -27,9 +27,9 @@ function page_offre_client()
 			table.insert(global_term_objet_write,{x = 1, y = y, text = "              |               |       |       |", back_color = 32768, text_color = 1})
 			table.insert(global_term_objet_write,{x = 1, y = y, text = global_liste["offre"][j][3], back_color = 32768, text_color = 1})
 			table.insert(global_term_objet_write,{x = 16, y = y, text = global_liste["offre"][j][8], back_color = 32768, text_color = 1})
-			table.insert(global_term_objet_write,{x = 32, y = y, text = global_liste["offre"][j][4], back_color = 32768, text_color = 1})
-			table.insert(global_term_objet_write,{x = 41, y = y, text = global_liste["offre"][j][5], back_color = 32768, text_color = 1})
-			table.insert(global_term_objet_write,{x = 49, y = y, text = j, back_color = 128, text_color = 1})
+			table.insert(global_term_objet_write,{x = 32, y = y, text = convert_grand_nombre(global_liste["offre"][j][4]), back_color = 32768, text_color = 1})
+			table.insert(global_term_objet_write,{x = 41, y = y, text = convert_grand_nombre(global_liste["offre"][j][5]), back_color = 32768, text_color = 1})
+			table.insert(global_term_objet_write,{x = 49, y = y, text = "X", back_color = 128, text_color = 1})
 			table.insert(global_term_objet_select,{xmin = 48, xmax = 50, ymin = y, ymax = y, value={action="page",id=33,value={id=global_liste["offre"][j][1]}}, back_color = 128})
 		elseif y > global_max_y_page then
 			break

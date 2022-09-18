@@ -38,6 +38,28 @@ function http_commande(http_req)
 					return id_message_http
 				end
 			end
+		elseif http_req == "http_commande_offre" then
+			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
+				id_message_http = http_get("achat&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&id="..global_variable["id"].."&quantite="..global_variable["quant"],true)
+			end
+		elseif http_req == "http_update_offre" then
+			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
+				tval = ""
+				for j=0, #global_http_error_message["type"] do
+					if global_http_error_message["type"][j] == global_variable["type"] then
+						tval = tval.."&type="..j
+						break
+					end
+				end
+				for j=0, #global_http_error_message["livraison"] do
+					if global_http_error_message["livraison"][j] == global_variable["livraison"] then
+						tval = tval.."&livraison="..j
+						break
+					end
+				end
+				tval = tval.."&id="..global_variable["id"].."&prix="..global_variable["prix"].."&nbr_dispo="..global_variable["nbr_dispo"].."&nomadresse="..global_variable["adresse"].."&nom="..global_variable["nom"].."&description="..global_variable["description"]
+				id_message_http = http_get("updateoffreboutique&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"]..tval,true)
+			end
 		end
 
 
@@ -85,8 +107,8 @@ function convert_id_message(message)
 	local convert_message = ""
 	if type(message) == "table" then
 		for j=1, #message do
-			if message[j] > 1 then
-				convert_message = global_http_error_message["message_error"][message[j]]
+			if tonumber(message[j]) > 1 then
+				convert_message = global_http_error_message["message_error"][tonumber(message[j])]
 				break
 			end
 		end

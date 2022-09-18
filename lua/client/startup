@@ -103,6 +103,7 @@ global_clavier_maj = {lock=false,shift=false,altgr=false}
 global_message = ""
 global_compteur_tempo_message_http = 0
 
+global_reapliquer_filtre = true
 -- liste recuperer par http
 global_liste = {}
 global_liste["adresse"] = {}
@@ -126,6 +127,7 @@ if global_login_pc ~= nil then
 end
 
 if global_http_enable then
+	sleep(1) -- pour eviter un melange entre le retour config et le retour login
 	if global_session["pseudo"] ~= "" and global_session["mdp"] ~= "" then
 		id_message_http = http_get("listuserdata&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
 		local temp_mdp_init = global_session["mdp"]

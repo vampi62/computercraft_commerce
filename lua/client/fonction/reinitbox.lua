@@ -10,4 +10,5 @@ function reinitbox()
 	global_message = ""
 	global_limite_scroll_haut = false
 	global_limite_scroll_bas = false
+	global_reapliquer_filtre = true
 end

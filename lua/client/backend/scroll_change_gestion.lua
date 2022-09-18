@@ -5,8 +5,11 @@ function scroll_change_gestion(ancien_scroll)
 			if global_edit_variable["type"] == "float" then
 				scroll_int = scroll_int/10
 			end
-			global_scroll = 0
-			local int_var = tonumber(global_variable[global_edit_variable["nom"]])
+			global_scroll = ancien_scroll
+			local int_var = 0
+			if global_variable[global_edit_variable["nom"]] ~= "" then
+				int_var = tonumber(global_variable[global_edit_variable["nom"]])
+			end
 			local result_int = int_var + scroll_int
 			if result_int <= 0 then
 				result_int = 0
