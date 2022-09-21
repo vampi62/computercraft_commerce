@@ -22,6 +22,7 @@ global_config_session = "config/session.lua"
 global_config_panier = "config/panier.lua"
 global_config_mdp_local = "config/mdpsha.lua"
 global_config_version = "config/version.lua"
+global_config_table_http = "config/table.lua"
 require("initvar")
 
 
@@ -110,8 +111,12 @@ global_liste["adresse"] = {}
 global_liste["transaction"] = {}
 global_liste["commande"] = {}
 global_liste["offre"] = {}
-
-global_fitre = {}
+global_filtre_liste = {}
+global_filtre_liste["adresse"] = {}
+global_filtre_liste["transaction"] = {}
+global_filtre_liste["commande"] = {}
+global_filtre_liste["offre"] = {}
+global_filtre = {}
 
 -- chargement des fonctions --
 local list = fs.list("fonction/")

@@ -21,7 +21,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !em
 			if(isset($_GET['prix']))
 			{
 				$_GET['prix'] = floatval(htmlspecialchars($_GET['prix']));
-				if ($_GET['prix'] > 0)
+				if ($_GET['prix'] >= 0)
 				{
 					$boutique->setNouvellesDonneesPrix($_GET['prix'],$_GET['id']);
 					// modif - ok
@@ -90,7 +90,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !em
 				// modif pas de retour attendu
 				$printmessage[] = 0;
 			}
-			if(isset($_GET['nom']) AND !empty($_GET['nom']))
+			if(isset($_GET['nom']))
 			{
 				$_GET['nom'] = htmlspecialchars($_GET['nom']);
 				$boutique->setNouvellesDonneesNom($_GET['nom'],$_GET['id']);
@@ -102,14 +102,20 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !em
 				// modif pas de retour attendu
 				$printmessage[] = 0;
 			}
-			if(isset($_GET['nomadresse']) AND !empty($_GET['nomadresse']))
+			if(isset($_GET['nomadresse']))
 			{
 				$_GET['nomadresse'] = htmlspecialchars($_GET['nomadresse']);
 				$adresse = new Adresse($_Joueur_, $bddConnection);
 				$idadresse = $adresse->getIdAdresse($_GET['nomadresse']);
-				if(isset($idadresse["id"]) AND !empty($idadresse["id"]))
+				if(isset($idadresse["id"]))
 				{
-					if($idadresse["type"] == 2)
+					if(empty($_GET['nomadresse']))
+					{
+						$boutique->setNouvellesDonneesIdAdresse(0,$_GET['id']);
+						// modif - ok
+						$printmessage[] = 1;
+					}
+					elseif($idadresse["type"] == 2)
 					{
 						$boutique->setNouvellesDonneesIdAdresse($idadresse["id"],$_GET['id']);
 						// modif - ok
@@ -132,7 +138,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !em
 				// modif pas de retour attendu
 				$printmessage[] = 0;
 			}
-			if(isset($_GET['description']) AND !empty($_GET['description']))
+			if(isset($_GET['description']))
 			{
 				$_GET['description'] = htmlspecialchars($_GET['description']);
 				$boutique->setNouvellesDonneesDescription($_GET['description'],$_GET['id']);

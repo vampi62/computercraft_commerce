@@ -1,5 +1,5 @@
 function rangement_liste(liste_et_data)
-	liste_et_data["objet"] = global_liste[liste_et_data["liste"]]
+	liste_et_data["objet"] = global_filtre_liste[liste_et_data["liste"]]
 	if global_variable["rangeliste"]["id"] == liste_et_data["champ"] and global_variable["rangeliste"]["mode"] ~= "+" then
 		global_variable["rangeliste"]["id"] = liste_et_data["champ"]
 		global_variable["rangeliste"]["mode"] = "+"
@@ -17,5 +17,5 @@ function rangement_liste(liste_et_data)
 			table.sort(liste_et_data["objet"], function(a, b) return a[global_variable["rangeliste"]["id"]] > b[global_variable["rangeliste"]["id"]] end)
 		end
 	end
-	global_liste[liste_et_data["liste"]] = liste_et_data["objet"]
+	global_filtre_liste[liste_et_data["liste"]] = liste_et_data["objet"]
 end

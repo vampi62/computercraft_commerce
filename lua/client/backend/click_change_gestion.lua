@@ -123,10 +123,6 @@ function click_change_gestion()
 		global_edit_variable = {nom = global_value_click["id"], type = global_value_click["value"]}
 		global_limite_scroll_haut = false
 		global_limite_scroll_bas = false
-	else
-		if global_edit_variable["nom"] ~= nil then
-			global_edit_variable = {}
-		end
 	end
 	genere_term_affichage()
 end
