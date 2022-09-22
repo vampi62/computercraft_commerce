@@ -109,12 +109,14 @@ global_reapliquer_filtre = true
 global_liste = {}
 global_liste["adresse"] = {}
 global_liste["transaction"] = {}
-global_liste["commande"] = {}
+global_liste["commande_client"] = {}
+global_liste["commande_commerce"] = {}
 global_liste["offre"] = {}
 global_filtre_liste = {}
 global_filtre_liste["adresse"] = {}
 global_filtre_liste["transaction"] = {}
-global_filtre_liste["commande"] = {}
+global_filtre_liste["commande_client"] = {}
+global_filtre_liste["commande_commerce"] = {}
 global_filtre_liste["offre"] = {}
 global_filtre = {}
 

@@ -12,27 +12,27 @@ function chargement_filtre(liste)
 	for j=1, #global_liste[liste] do
 		filtre_passer = true
 		for k,v in pairs(postion_tab_filtre) do
-			if global_filtre[k]["type"] == "compare" then
+			if global_filtre[k]["type"] == "compare" then -- identique a la valeur rechercher
 				if not(global_liste[liste][j][v] == global_filtre[k]["value"]) then
 					filtre_passer = false
 				end
-			elseif global_filtre[k]["type"] == "diff" then
+			elseif global_filtre[k]["type"] == "diff" then -- different de la valeur rechercher
 				if not(global_liste[liste][j][v] ~= global_filtre[k]["value"]) then
 					filtre_passer = false
 				end
-			elseif global_filtre[k]["type"] == "supp" then
+			elseif global_filtre[k]["type"] == "supp" then -- superieur de la valeur rechercher (format nombre uniquement)
 				if not(global_liste[liste][j][v] >= global_filtre[k]["value"]) then
 					filtre_passer = false
 				end
-			elseif global_filtre[k]["type"] == "inff" then
+			elseif global_filtre[k]["type"] == "inff" then -- inferieur de la valeur rechercher (format nombre uniquement)
 				if not(global_liste[liste][j][v] <= global_filtre[k]["value"]) then
 					filtre_passer = false
 				end
-			elseif global_filtre[k]["type"] == "find" then
+			elseif global_filtre[k]["type"] == "find" then -- trouve une chaine dans la ligne (format texte uniquement)
 				if not(string.find(global_liste[liste][j][v],global_filtre[k]["value"])) then
 					filtre_passer = false
 				end
-			elseif global_filtre[k]["type"] == "date" then
+			elseif global_filtre[k]["type"] == "date" then -- plus recent de la valeur rechercher (format date uniquement yyyy-mm-dd)
 				objet = split(global_liste[liste][j][v],"-")
 				interval = split(global_filtre[k]["value"],"-")
 				now=os.time{day=global_ntp["jour"],year=global_ntp["annee"],month=global_ntp["mois"]}

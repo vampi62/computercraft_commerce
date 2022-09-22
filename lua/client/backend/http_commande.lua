@@ -8,12 +8,14 @@ function http_commande(http_req)
 		if http_req == "http_offre" then
 			id_message_http = http_get("listoffresboutique",true)
 			if type(id_message_http) == "table" then
+				id_message_http["date_sync"] = os.time()*50+120
 				return id_message_http
 			end
 		elseif http_req == "http_commande_client" then
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
 				id_message_http = http_get("listcommandes&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
 				if type(id_message_http) == "table" then
+					id_message_http["date_sync"] = os.time()*50+120
 					return id_message_http
 				end
 			end
@@ -21,6 +23,7 @@ function http_commande(http_req)
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
 				id_message_http = http_get("listcommandes&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
 				if type(id_message_http) == "table" then
+					id_message_http["date_sync"] = os.time()*50+120
 					return id_message_http
 				end
 			end
@@ -28,6 +31,7 @@ function http_commande(http_req)
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
 				id_message_http = http_get("listusertransaction&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
 				if type(id_message_http) == "table" then
+					id_message_http["date_sync"] = os.time()*50+120
 					return id_message_http
 				end
 			end
@@ -35,30 +39,9 @@ function http_commande(http_req)
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
 				id_message_http = http_get("listuseradresse&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
 				if type(id_message_http) == "table" then
+					id_message_http["date_sync"] = os.time()*50+120
 					return id_message_http
 				end
-			end
-		elseif http_req == "http_commande_offre" then
-			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
-				id_message_http = http_get("achat&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&id="..global_variable["id"].."&quantite="..global_variable["quant"],true)
-			end
-		elseif http_req == "http_update_offre" then
-			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
-				tval = ""
-				for j=0, #global_http_error_message["type"] do
-					if global_http_error_message["type"][j] == global_variable["type"] then
-						tval = tval.."&type="..j
-						break
-					end
-				end
-				for j=0, #global_http_error_message["livraison"] do
-					if global_http_error_message["livraison"][j] == global_variable["livraison"] then
-						tval = tval.."&livraison="..j
-						break
-					end
-				end
-				tval = tval.."&id="..global_variable["id"].."&prix="..global_variable["prix"].."&nbr_dispo="..global_variable["nbr_dispo"].."&nomadresse="..global_variable["adresse"].."&nom="..global_variable["nom"].."&description="..global_variable["description"]
-				id_message_http = http_get("updateoffreboutique&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"]..tval,true)
 			end
 		end
 
@@ -96,6 +79,15 @@ function http_commande(http_req)
 		elseif http_req == "changemail" then
 			if global_variable["mdp"] ~= nil and global_variable["pseudo"] ~= nil and global_variable["email"] ~= nil then
 				id_message_http = http_get("updatemail&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&email="..global_variable["email"],true)
+			end
+		elseif http_req == "http_commande_offre" then
+			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
+				id_message_http = http_get("achat&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&id="..global_variable["id"].."&quantite="..global_variable["quant"],true)
+			end
+		elseif http_req == "http_update_offre" then
+			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
+				tval = "&type="..global_variable["type"].."&livraison="..global_variable["livraison"].."&id="..global_variable["id"].."&prix="..global_variable["prix"].."&nbr_dispo="..global_variable["nbr_dispo"].."&nomadresse="..global_variable["adresse"].."&nom="..global_variable["nom"].."&description="..global_variable["description"]
+				id_message_http = http_get("updateoffreboutique&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"]..tval,true)
 			end
 		end
 		if id_message_http ~= "" then

@@ -107,15 +107,15 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !em
 				$_GET['nomadresse'] = htmlspecialchars($_GET['nomadresse']);
 				$adresse = new Adresse($_Joueur_, $bddConnection);
 				$idadresse = $adresse->getIdAdresse($_GET['nomadresse']);
-				if(isset($idadresse["id"]))
+				if(empty($_GET['nomadresse'])) // nomadresse existant dans le GET mais laisser vide pour supprimer l'adresse de l'offre
 				{
-					if(empty($_GET['nomadresse']))
-					{
-						$boutique->setNouvellesDonneesIdAdresse(0,$_GET['id']);
-						// modif - ok
-						$printmessage[] = 1;
-					}
-					elseif($idadresse["type"] == 2)
+					$boutique->setNouvellesDonneesIdAdresse(0,$_GET['id']);
+					// modif - ok
+					$printmessage[] = 1;
+				}
+				elseif(isset($idadresse["id"]))
+				{
+					if($idadresse["type"] == 2)
 					{
 						$boutique->setNouvellesDonneesIdAdresse($idadresse["id"],$_GET['id']);
 						// modif - ok
@@ -127,7 +127,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !em
 						$printmessage[] = 73;
 					}
 				}
-				else
+				else // si vous indiquer une adresse qui n'existe pas et autre de ""
 				{
 					// nom adresse inexistant
 					$printmessage[] = 70;
