@@ -2,11 +2,9 @@ function click_change_gestion()
 	if global_value_click["action"] == "page" then
 		changementpage(global_value_click["id"])
 		if global_value_click["value"] ~= nil then
-		--	for k, v in pairs(global_value_click["value"]) do
-		--		global_fitre[k]={}
-				global_fitre["id"] = global_value_click["value"]["id"]
-				global_fitre["type"] = global_value_click["value"]["type"]
-		--	end
+			for k, v in pairs(global_value_click["value"]) do
+				global_filtre[k] = global_value_click["value"][k]
+			end
 		end
 	end
 	if global_value_click["action"] == "action" then

@@ -31,7 +31,7 @@ for j = 1, #list do
 	require("config/"..string.sub(list[j],1,-5))
 end
 
-global_local_config = {resync_time=5,delay_seconde=5,azerty=true}
+global_local_config = {resync_time=5,delay_seconde=5,azerty=true,resync_liste=120}
 
 global_min_y_page = 5
 global_max_y_page = 15
@@ -48,7 +48,9 @@ global_local_error_message = {
 	[11]="succes - mot de passe sauvegarder",
 	[12]="succes - config reseau sauvegarder",
 	[21]="erreur - la connexion au serveur API ne fonctionne pas",
-	[22]="erreur - la connexion au serveur LUA ne fonctionne pas"
+	[22]="erreur - la connexion au serveur LUA ne fonctionne pas",
+	[30]="succes - objet ajouter au panier",
+	[31]="succes - objet retirer du panier"
 }
 
 -- init table d'echange entre les programmes --
@@ -118,6 +120,7 @@ global_filtre_liste["transaction"] = {}
 global_filtre_liste["commande_client"] = {}
 global_filtre_liste["commande_commerce"] = {}
 global_filtre_liste["offre"] = {}
+global_filtre_liste["panier"] = {}
 global_filtre = {}
 
 -- chargement des fonctions --

@@ -19,9 +19,11 @@ function genere_term_affichage()
 			page_session()
 		elseif global_page_visible == 30 then
 			page_offre_client()
-		elseif global_page_visible == 31 then
-			page_panier()
 		elseif global_page_visible == 33 then
+			page_plus_info_offre()
+		elseif global_page_visible == 40 then
+			page_panier()
+		elseif global_page_visible == 43 then
 			page_plus_info_offre()
 		elseif global_page_visible == 50 then
 			page_commande_client()
