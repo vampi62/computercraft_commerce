@@ -15,12 +15,29 @@ elseif global_os_version == "CraftOS 1.7" then
 		shell.run(fichier..".lua")
 	end
 end
+function http_get()
+	http.request("http://"..global_url..":"..global_port.."/"..global_lua_uri.."/version")
+	parallel.waitForAny(http_event_succes,http_event_fail)
+	if local_text_http == "fail" then
+		return "fail"
+	else
+		return textutils.unserialise(local_text_http)
+	end
+end
+function http_event_succes()
+	local event, url, sourceText = os.pullEvent("http_success")
+	local_text_http = sourceText.readAll()
+	sourceText.close()
+end
+function http_event_fail()
+	local event, url, sourceText = os.pullEvent("http_failure")
+	local_text_http = "fail"
+end
 
 min_y_page = 4
 max_y_page = 19
 
 global_config_http = "config/config.lua"
-global_config_version = "config/version.lua"
 if not fs.isDir("config") then
 	fs.makeDir("config")
 end
@@ -43,12 +60,23 @@ if global_url == nil then
 	files.writeLine("-- global_systeme_nom = 'banque_admin'")
 	files.close()
 	shell.run("edit " .. global_config_http)
+	files = fs.open(global_config_http, "a")
+	files.write("global_systeme_version = 'na'")
+	files.close()
 	require(string.sub(global_config_http,1,-5))
 end
-if not fs.exists(global_config_version) then
-	files = fs.open(global_config_version, "w")
-	files.write("global_systeme_version = '0.0'")
-	files.close()
+global_new_version = http_get()
+if type(global_new_version) == "table" and global_systeme_nom ~= "" then
+	local file = fs.open(global_config_http,"w")
+	file.writeLine("global_url = '"..global_url.."'")
+	file.writeLine("global_port = '"..global_port.."'")
+	file.writeLine("global_api_uri = '"..global_api_uri.."'")
+	file.writeLine("global_lua_uri = '"..global_lua_uri.."'")
+	file.writeLine("global_systeme_nom = '"..global_systeme_nom.."'")
+	file.writeLine("global_systeme_version = '"..global_new_version[1].."'")
+else
+	shell.run("edit " .. global_config_http)
+	os.reboot()
 end
 update_repertoire = {}
 update_file = {}
@@ -104,7 +132,7 @@ function update_maj()
 end
 function update_affichage_console(suivre_bas)
 	term.setCursorPos(1,1)
-	term.write("mise a jour : " ..global_systeme_nom.." - version : 1.1")
+	term.write("mise a jour : " ..global_systeme_nom.." - version : "..global_systeme_version)
 	term.setCursorPos(1,2)
 	term.write(update_console_etape_msg)
 	local offset_text = 0

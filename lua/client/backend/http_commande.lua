@@ -128,6 +128,26 @@ function http_commande(http_req)
 				end
 				id_message_http = http_get("achat&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&id="..global_variable["id"].."&quantite="..global_variable["quant"],true)
 			end
+		elseif http_req == "achat_panier" then
+			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
+				if global_variable["prix_panier"] <= tonumber(global_session["compte"]) then
+					for j=1, #global_panier do
+						id_message_http = http_get("achat&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&id="..global_panier[j]["id"].."&quantite="..global_panier[j]["quant"],true)
+						if id_message_http == "1" then
+							table.remove(global_panier,j)
+							j=j-1
+						end
+					end
+					if #global_panier > 0 then
+						global_message = global_local_error_message[33]
+					else
+						global_message = global_local_error_message[34]
+					end
+					save_table_file(global_config_panier, textutils.serialize(global_panier), "global_panier")
+				else
+					global_message = global_local_error_message[32]
+				end
+			end
 		end
 		if id_message_http ~= "" then
 			global_message = convert_id_message(id_message_http)

@@ -13,6 +13,9 @@ if not fs.exists(global_config_http) then
 	files.writeLine("-- global_systeme_nom = 'banque_admin'")
 	files.close()
 	shell.run("edit " .. global_config_http)
+	files = fs.open(global_config_http, "a")
+	files.write("global_systeme_version = 'na'")
+	files.close()
 end
 if not fs.exists(global_config_session) then
 	files = fs.open(global_config_session, "w")
@@ -22,11 +25,6 @@ end
 if not fs.exists(global_config_panier) then
 	files = fs.open(global_config_panier, "w")
 	files.write("global_panier = {}")
-	files.close()
-end
-if not fs.exists(global_config_version) then
-	files = fs.open(global_config_version, "w")
-	files.write("global_systeme_version = '0.0'")
 	files.close()
 end
 if not fs.exists(global_config_table_http) then

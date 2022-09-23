@@ -21,7 +21,6 @@ global_config_http = "config/config.lua"
 global_config_session = "config/session.lua"
 global_config_panier = "config/panier.lua"
 global_config_mdp_local = "config/mdpsha.lua"
-global_config_version = "config/version.lua"
 global_config_table_http = "config/table.lua"
 require("initvar")
 
@@ -50,7 +49,10 @@ global_local_error_message = {
 	[21]="erreur - la connexion au serveur API ne fonctionne pas",
 	[22]="erreur - la connexion au serveur LUA ne fonctionne pas",
 	[30]="succes - objet ajouter au panier",
-	[31]="succes - objet retirer du panier"
+	[31]="succes - objet retirer du panier",
+	[32]="erreur - pas assez sur le compte pour le panier",
+	[33]="erreur - les objet restant n'ont pas pu etre acheter",
+	[34]="succes - tous les objet du panier ont bien ete commander"
 }
 
 -- init table d'echange entre les programmes --
@@ -94,7 +96,7 @@ for k ,v in pairs(global_monitor_list) do
 	global_refresh_mon[k] = false
 end
 
-global_new_version = {}
+global_new_version = {""}
 
 global_page_visible = 0
 

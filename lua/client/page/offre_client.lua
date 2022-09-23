@@ -13,15 +13,12 @@ function page_offre_client()
 		global_reapliquer_filtre = false
 		global_scroll = 0
 	end
-
 	table.insert(global_term_objet_write,{x = 43, y = 3, text = "panier", back_color = 128, text_color = 1})
 	if global_session["pseudo"] ~= "" and global_session["mdp"] ~= "" then
 		table.insert(global_term_objet_select,{xmin = 42, xmax = 49, ymin = 3, ymax = 3, value={action="page",id=40}, back_color = 128})
 	else
 		table.insert(global_term_objet_select,{xmin = 42, xmax = 49, ymin = 3, ymax = 3, value={action="page",id=20}, back_color = 128})
 	end
-
-
 	genere_scroll_barre(#global_filtre_liste[liste],51)
 	for j=global_min_y_page, global_max_y_page do
 		table.insert(global_term_objet_write,{x = 1, y = j, text = "              |               |       |       |", back_color = 32768, text_color = 1})

@@ -47,6 +47,8 @@ function click_change_gestion()
 					global_api_uri = temp_global_api_uri
 					global_lua_uri = temp_global_lua_uri
 				end
+				new_new_version = nil
+				new_http_error_message = nil
 			else
 				global_message = global_local_error_message[2]
 			end
@@ -108,7 +110,7 @@ function click_change_gestion()
 		elseif global_value_click["id"] == "rangeliste" then
 			rangement_liste(global_value_click["value"])
 		elseif global_value_click["id"] == "maj" then
-			save_var_file("config/update.lua", global_systeme_version .. "-" .. global_new_version[global_systeme_nom], "update")
+			save_var_file("config/update.lua", global_systeme_version .. "-" .. global_new_version[1], "update")
 			os.reboot()
 		elseif global_value_click["id"] == "scroll" then
 			global_scroll = global_value_click["value"]

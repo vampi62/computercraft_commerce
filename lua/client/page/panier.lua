@@ -8,6 +8,7 @@ function page_panier()
 		global_filtre["proprio"]["type"] = "diff"
 	end
 	if global_reapliquer_filtre then
+		global_variable["prix_panier"] = 0
 		global_filtre_liste["offre"] = chargement_filtre("offre")
 		global_reapliquer_filtre = false
 		global_scroll = 0
@@ -18,8 +19,18 @@ function page_panier()
 					table.insert(global_filtre_liste["panier"],global_filtre_liste["offre"][g])
 					global_filtre_liste["panier"][#global_filtre_liste["panier"]]["quant"] = tonumber(global_panier[j]["quant"])
 					global_filtre_liste["panier"][#global_filtre_liste["panier"]]["prixg"] = global_panier[j]["quant"]*global_filtre_liste["offre"][g][4]
+					global_variable["prix_panier"] = global_variable["prix_panier"] + global_filtre_liste["panier"][#global_filtre_liste["panier"]]["prixg"]
 				end
 			end
+		end
+	end
+	table.insert(global_term_objet_write,{x = 1, y = 3, text = "prix panier : "..convert_grand_nombre(global_variable["prix_panier"]), back_color = 32768, text_color = 1})
+	if #global_panier > 0 then
+		table.insert(global_term_objet_write,{x = 39, y = 3, text = "achat panier", back_color = 128, text_color = 1})
+		if global_session["pseudo"] ~= "" and global_session["mdp"] ~= "" then
+			table.insert(global_term_objet_select,{xmin = 39, xmax = 50, ymin = 3, ymax = 3, value={action="action",id="achat_panier"}, back_color = 128})
+		else
+			table.insert(global_term_objet_select,{xmin = 39, xmax = 50, ymin = 3, ymax = 3, value={action="page",id=20}, back_color = 128})
 		end
 	end
 	genere_scroll_barre(#global_filtre_liste["panier"],51)
