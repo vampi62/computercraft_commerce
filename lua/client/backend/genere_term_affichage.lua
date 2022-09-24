@@ -26,13 +26,13 @@ function genere_term_affichage()
 		elseif global_page_visible == 43 then
 			page_plus_info_offre()
 		elseif global_page_visible == 50 then
-			page_commande_client()
+			page_commande()
 		elseif global_page_visible == 53 then
 			page_plus_info_commande()
 		elseif global_page_visible == 54 then
 			page_litige_commande()
 		elseif global_page_visible == 60 then
-			page_transaction_client()
+			page_transaction()
 		elseif global_page_visible == 63 then
 			page_plus_info_transaction()
 		elseif global_page_visible == 64 then
@@ -40,7 +40,7 @@ function genere_term_affichage()
 		elseif global_page_visible == 90 then
 			page_adresse()
 		elseif global_page_visible == 91 then
-			page_edit_adresse()
+			page_plus_info_adresse()
 		elseif global_page_visible == 93 then
 			page_plus_info_adresse()
 		elseif global_page_visible == 101 then
@@ -50,17 +50,11 @@ function genere_term_affichage()
 		elseif global_page_visible == 133 then
 			page_plus_info_offre()
 		elseif global_page_visible == 150 then
-			page_commande_commerce()
+			page_commande()
 		elseif global_page_visible == 153 then
 			page_plus_info_commande()
 		elseif global_page_visible == 154 then
 			page_litige_commande()
-		elseif global_page_visible == 160 then
-			page_transaction_commerce()
-		elseif global_page_visible == 163 then
-			page_plus_info_transaction()
-		elseif global_page_visible == 164 then
-			page_litige_transaction()
 		elseif global_page_visible == 200 then
 			page_login_pc()
 		elseif global_page_visible == 201 then

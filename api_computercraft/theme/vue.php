@@ -1,5 +1,5 @@
 <?php
-if (isset($printmessage) AND !empty($printmessage))
+if (isset($printmessage))
 {
 	if (is_array($printmessage))
 	{

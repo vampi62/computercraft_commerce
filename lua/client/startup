@@ -116,6 +116,12 @@ global_liste["transaction"] = {}
 global_liste["commande_client"] = {}
 global_liste["commande_commerce"] = {}
 global_liste["offre"] = {}
+
+global_liste["adresse"]["date_sync"] = 0
+global_liste["transaction"]["date_sync"] = 0
+global_liste["commande_client"]["date_sync"] = 0
+global_liste["commande_commerce"]["date_sync"] = 0
+global_liste["offre"]["date_sync"] = 0
 global_filtre_liste = {}
 global_filtre_liste["adresse"] = {}
 global_filtre_liste["transaction"] = {}

@@ -13,7 +13,7 @@ function http_commande(http_req)
 			end
 		elseif http_req == "http_commande_client" then
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
-				id_message_http = http_get("listcommandes&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
+				id_message_http = http_get("listusercommande&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
 				if type(id_message_http) == "table" then
 					id_message_http["date_sync"] = os.time()*50+global_local_config["resync_liste"]
 					return id_message_http
@@ -146,6 +146,33 @@ function http_commande(http_req)
 					save_table_file(global_config_panier, textutils.serialize(global_panier), "global_panier")
 				else
 					global_message = global_local_error_message[32]
+				end
+			end
+		elseif http_req == "http_add_adr" then
+			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
+				id_message_http = http_get("addadresse&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&nom="..global_variable["nom"].."&type="..global_variable["type_adresse"].."&coo="..global_variable["coo"].."&description="..global_variable["description"],true)
+			end
+		elseif http_req == "http_suppr_adr" then
+			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
+				id_message_http = http_get("deleteadresse&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&nom="..global_variable["id"],true)
+			end
+		elseif http_req == "http_update_adr" then
+			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
+				if global_variable["nom"] ~= global_variable["id"] then
+					id_message_http = http_get("updateadresse&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&nom="..global_variable["id"].."&nouveaunom="..global_variable["nom"].."&type="..global_variable["type_adresse"].."&coo="..global_variable["coo"].."&description="..global_variable["description"],true)
+				else
+					id_message_http = http_get("updateadresse&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&nom="..global_variable["id"].."&type="..global_variable["type_adresse"].."&coo="..global_variable["coo"].."&description="..global_variable["description"],true)
+				end
+			end
+		elseif http_req == "http_defaut_adr" then
+			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
+				id_message_http = http_get("updateadressedefaut&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&nom="..global_variable["id"],true)
+				if id_message_http == 1 then
+					id_message_http = http_get("listuserdata&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
+					if type(id_message_http) == "table" then
+						global_session = id_message_http
+						id_message_http = 1
+					end
 				end
 			end
 		end

@@ -1,5 +1,8 @@
 function print_tableau_plus_info_scroll(position_scroll_barre,page_admin,texte_variable,texte_info,variable_nom,variable_type)
 	local offset_text = 0
+	if page_admin == 0 then
+		page_admin = global_page_visible
+	end
 	if global_page_visible == page_admin then
 		for j=1, #variable_nom do
 			texte_variable[j] = global_variable[variable_nom[j]]

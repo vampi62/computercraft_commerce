@@ -20,7 +20,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !
 			$_GET['somme'] = htmlspecialchars($_GET['somme']);
 			$_GET['description'] = htmlspecialchars($_GET['description']);
 
-			if ($_GET['type'] == "depot")
+			if ($_GET['type'] == "3")
 			{
 				$connectionuser = new Connection($_GET['crediteur'], $bddConnection);
 			}
@@ -28,7 +28,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['type']) AND isset($_GET['mdp']) AND !
 			{
 				$connectionuser = new Connection($_GET['debiteur'], $bddConnection);
 			}
-			if(!$connectionuser->verifymdp($_GET['mdpuser']))
+			if($connectionuser->verifymdp($_GET['mdpuser']))
 			{
 				// modif - mot de passe incrorrect
 				$printmessage = 11;

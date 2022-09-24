@@ -77,20 +77,20 @@ type_transaction:
     5: achat option
 statut_transaction:
     1: transaction valider
-    2: transaction refuser
-    3: transfert valider
-    4: transfert refuser
-    5: depot valider
-    6: retrait valider
-    7: retrait refuser
-    8: achat option valider
-    9: achat option refuser
+    2: transfert valider
+    3: depot valider
+    4: retrait valider
+    5: achat option valider
+    11: transaction refuser
+    12: transfert refuser
+    14: retrait refuser
+    15: achat option refuser
 statut_echange:
-    1: commande effectuer validation vendeur en attente
-    2: echange accepter paiement en attente
-    3: echange accepter paiement valider
-    4: commande pret a envoyer
-    5: commande en cours de livraison
-    6: terminer
-    10: echange refuser par le vendeur
-    11: echange accepter paiement refuser
+    1: attente - commande effectuer validation vendeur en attente
+    2: attente - echange accepter paiement en attente
+    3: valider - echange accepter paiement valider
+    4: pret - commande pret a envoyer
+    5: livraison - commande en cours de livraison
+    6: terminer - terminer
+    10: refuser - echange refuser par le vendeur
+    11: refuser - echange accepter paiement refuser
