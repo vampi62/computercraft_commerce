@@ -22,15 +22,15 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND !empty($_GET['pseudo']) AN
 				$reqlogin = $reqlogin->fetch(PDO::FETCH_ASSOC);
 				if(!empty($reqlogin))
 				{
-                    if (isset($_GET['newdata']) AND !empty($_GET['newdata']))
-                    {
-                        $resetToken = md5(microtime(TRUE)*(100000+rand(1,1000)));
-                    }
-                    else
-                    {
-                        $resetToken = NULL;
-                    }
-                    
+					if (isset($_GET['newdata']) AND !empty($_GET['newdata']))
+					{
+						$resetToken = md5(microtime(TRUE)*(100000+rand(1,1000)));
+					}
+					else
+					{
+						$resetToken = NULL;
+					}
+					
 					$req = $bddConnection->prepare('UPDATE liste_users SET resettoken = :newdata WHERE id = :id_user');
 					$req->execute(array(
 						'id_user' => $reqlogin["id"],

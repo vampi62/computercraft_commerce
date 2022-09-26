@@ -65,7 +65,7 @@ livraison:
     0: vide
     1: auto-rout
     2: manu
-adresse:
+type_adresse:
     0: inactive
     1: reception
     2: commerce

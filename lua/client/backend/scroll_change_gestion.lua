@@ -11,8 +11,22 @@ function scroll_change_gestion(ancien_scroll)
 				int_var = tonumber(global_variable[global_edit_variable["nom"]])
 			end
 			local result_int = int_var + scroll_int
-			if result_int <= 0 then
+			if result_int < 0 then
 				result_int = 0
+			end
+			global_variable[global_edit_variable["nom"]] = tostring(result_int)
+		elseif global_edit_variable["type"] == "select" then
+			local scroll_int = global_scroll - ancien_scroll
+			global_scroll = ancien_scroll
+			local int_var = 0
+			if global_variable[global_edit_variable["nom"]] ~= "" then
+				int_var = tonumber(global_variable[global_edit_variable["nom"]])
+			end
+			local result_int = int_var + scroll_int
+			if result_int < 0 then
+				result_int = 0
+			elseif result_int > #global_select_section[global_edit_variable["nom"]] then
+				result_int = #global_select_section[global_edit_variable["nom"]]
 			end
 			global_variable[global_edit_variable["nom"]] = tostring(result_int)
 		end

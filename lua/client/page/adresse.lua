@@ -10,7 +10,7 @@ function page_adresse()
 	end
 	table.insert(global_term_objet_write,{x = 42, y = 3, text = "new adr", back_color = 128, text_color = 1})
 	table.insert(global_term_objet_select,{xmin = 42, xmax = 49, ymin = 3, ymax = 3, value={action="page",id=91}, back_color = 128})
-	genere_scroll_barre(#global_filtre_liste[liste],51)
+	genere_scroll_barre(#global_filtre_liste[liste],51,global_scroll,global_min_y_page,global_max_y_page)
 	for j=global_min_y_page, global_max_y_page do
 		table.insert(global_term_objet_write,{x = 1, y = j, text = "                    |          |              |", back_color = 32768, text_color = 1})
 	end
@@ -21,11 +21,11 @@ function page_adresse()
 		if y <= global_max_y_page and y > global_min_y_page then
 			if global_session["defautadresse"]["nom"] == global_filtre_liste[liste][j][1] then
 				table.insert(global_term_objet_write,{x = 1, y = y, text = global_filtre_liste[liste][j][1], back_color = 32768, text_color = 8192})
-				table.insert(global_term_objet_write,{x = 22, y = y, text = global_filtre_liste[liste][j][2], back_color = 32768, text_color = 8192})
+				table.insert(global_term_objet_write,{x = 22, y = y, text = global_http_error_message["type_adresse"][tonumber(global_filtre_liste[liste][j][2])], back_color = 32768, text_color = 8192})
 				table.insert(global_term_objet_write,{x = 33, y = y, text = string.sub(global_filtre_liste[liste][j][3],1,14), back_color = 32768, text_color = 8192})
 			else
 				table.insert(global_term_objet_write,{x = 1, y = y, text = global_filtre_liste[liste][j][1], back_color = 32768, text_color = 1})
-				table.insert(global_term_objet_write,{x = 22, y = y, text = global_filtre_liste[liste][j][2], back_color = 32768, text_color = 1})
+				table.insert(global_term_objet_write,{x = 22, y = y, text = global_http_error_message["type_adresse"][tonumber(global_filtre_liste[liste][j][2])], back_color = 32768, text_color = 1})
 				table.insert(global_term_objet_write,{x = 33, y = y, text = string.sub(global_filtre_liste[liste][j][3],1,14), back_color = 32768, text_color = 1})
 			end
 			table.insert(global_term_objet_write,{x = 48, y = y, text = " + ", back_color = 128, text_color = 1})

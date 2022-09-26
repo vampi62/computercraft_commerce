@@ -120,9 +120,17 @@ function click_change_gestion()
 		end
 	end
 	if global_value_click["action"] == "variable" then
-		global_edit_variable = {nom = global_value_click["id"], type = global_value_click["value"]}
+		global_edit_variable = {nom = global_value_click["id"],type = global_value_click["value"],xmin = global_value_click["xmin"],xmax = global_value_click["xmax"],ymin = global_value_click["ymin"],ymax = global_value_click["ymax"]}
 		global_limite_scroll_haut = false
 		global_limite_scroll_bas = false
+	elseif global_value_click["action"] == "select" then
+		if global_edit_variable["type"] ~= nil then
+			if global_edit_variable["type"] == "select" then
+				global_variable[global_edit_variable["nom"]] = global_value_click["value"]
+			end
+		end
+	else
+		global_edit_variable = {}
 	end
 	genere_term_affichage()
 end

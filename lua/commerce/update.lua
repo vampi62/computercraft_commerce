@@ -90,15 +90,15 @@ function update_affichage_console(suivre_bas)
 	local offset_text = 0
 	limite_value_scroll_haut = false
 	limite_value_scroll_bas = false
-    for j=1, #update_message do
-        local y = value_scroll + offset_text + j
-        if y <= max_y_page and y >= min_y_page then
-            if j == 1 then
-                limite_value_scroll_haut = true
-            end
-            if j == #update_message and y <= max_y_page then
-                limite_value_scroll_bas = true
-            end
+	for j=1, #update_message do
+		local y = value_scroll + offset_text + j
+		if y <= max_y_page and y >= min_y_page then
+			if j == 1 then
+				limite_value_scroll_haut = true
+			end
+			if j == #update_message and y <= max_y_page then
+				limite_value_scroll_bas = true
+			end
 			local iy = 0
 			for i=0, string.len(update_message[j]), 52 do
 				offset_text = offset_text + 1
@@ -112,10 +112,10 @@ function update_affichage_console(suivre_bas)
 				iy = iy + 1
 			end
 			offset_text = offset_text - 1
-        elseif y > max_y_page then
-            break
-        end
-    end
+		elseif y > max_y_page then
+			break
+		end
+	end
 	if suivre_bas and not limite_value_scroll_bas then -- auto-scroll si on suis l'input
 		value_scroll = value_scroll - 1
 		term.clear()

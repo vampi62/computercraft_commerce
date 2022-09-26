@@ -1,4 +1,7 @@
 function convert_grand_nombre(nombre)
+	if nombre == "" then
+		nombre = 0
+	end
 	nombre = math.floor(tonumber(nombre)*100)/100
 	if nombre >= 1000000000 then
 		return tostring(nombre/1000000000) .. "B"

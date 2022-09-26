@@ -71,5 +71,6 @@ function genere_term_affichage()
 	else
 		page_login_pc()
 	end
+	genere_select_frame()
 	global_refresh_term = true
 end

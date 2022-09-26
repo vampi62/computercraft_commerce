@@ -1,11 +1,11 @@
 <?php
 class checkToken
 {
-    private $bdd;
+	private $bdd;
    
-    public function __construct($pseudo, $token, $bdd)
-    {   
-        $reponseConnection = $bdd->prepare('SELECT * FROM liste_users WHERE resettoken = :token AND pseudo = :pseudo');
+	public function __construct($pseudo, $token, $bdd)
+	{   
+		$reponseConnection = $bdd->prepare('SELECT * FROM liste_users WHERE resettoken = :token AND pseudo = :pseudo');
 		$reponseConnection->execute(array(
 			'token' => $token,
 			'pseudo' => $pseudo

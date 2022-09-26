@@ -21,7 +21,7 @@ function page_commande()
 		global_reapliquer_filtre = false
 		global_scroll = 0
 	end
-	genere_scroll_barre(#global_filtre_liste[liste],51)
+	genere_scroll_barre(#global_filtre_liste[liste],51,global_scroll,global_min_y_page,global_max_y_page)
 	for j=global_min_y_page, global_max_y_page do
 		table.insert(global_term_objet_write,{x = 1, y = j, text = "             |              |         |       |", back_color = 32768, text_color = 1})
 	end

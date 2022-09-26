@@ -8,7 +8,7 @@ function print_tableau_plus_info_scroll(position_scroll_barre,page_admin,texte_v
 			texte_variable[j] = global_variable[variable_nom[j]]
 		end
 	end
-	genere_scroll_barre(texte_variable,position_scroll_barre)
+	genere_scroll_barre(texte_variable,position_scroll_barre,global_scroll,global_min_y_page,global_max_y_page)
 	for g=1, #texte_info do
 		local y = global_scroll + offset_text + global_min_y_page + g
 		if y <= global_max_y_page and y > global_min_y_page then
@@ -45,8 +45,12 @@ function print_tableau_plus_info_scroll(position_scroll_barre,page_admin,texte_v
 end
 function print_line_scroll_tab_page_plus_info(x,xmax,y,text_ou_var,var_type,var_id)
 	if var_type ~= "" then
-		table.insert(global_term_objet_write,{x = x, y = y, text = text_ou_var, back_color = 128 + change_color_champ_select(var_id), text_color = 1})
 		table.insert(global_term_objet_select,{xmin = x, xmax = xmax, ymin = y, ymax = y, value={action="variable",id=var_id,value=var_type}, back_color = 128 + change_color_champ_select(var_id)})
+		if var_type == "select" then
+			table.insert(global_term_objet_write,{x = x, y = y, text = global_select_section[var_id][tonumber(text_ou_var)], back_color = 128 + change_color_champ_select(var_id), text_color = 1})
+		else
+			table.insert(global_term_objet_write,{x = x, y = y, text = text_ou_var, back_color = 128 + change_color_champ_select(var_id), text_color = 1})
+		end
 	else
 		table.insert(global_term_objet_write,{x = x, y = y, text = text_ou_var, back_color = 32768, text_color = 1})
 	end

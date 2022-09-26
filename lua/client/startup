@@ -131,13 +131,43 @@ global_filtre_liste["offre"] = {}
 global_filtre_liste["panier"] = {}
 global_filtre = {}
 
+global_select_section = {
+	type = global_http_error_message["type"],
+	livraison = global_http_error_message["livraison"],
+	adresse = global_liste["adresse"],
+	type_adresse = global_http_error_message["type_adresse"],
+	motif_litige = global_http_error_message["motif_litige"]
+}
+
 -- chargement des fonctions --
 local list = fs.list("fonction/")
 for j = 1, #list do
 	require("fonction/"..string.sub(list[j],1,-5))
 end
+
+-- chargement des programmes --
+local list = fs.list("programme/")
+for j = 1, #list do
+	require("programme/"..string.sub(list[j],1,-5))
+end
+
+-- chargement des systemes --
+local list = fs.list("backend/")
+for j = 1, #list do
+	require("backend/"..string.sub(list[j],1,-5))
+end
+
+-- chargement des pages --
+local list = fs.list("page/")
+for j = 1, #list do
+	require("page/"..string.sub(list[j],1,-5))
+end
+
+-- init comm
+
 reinitbox()
 recup_http_config()
+resync_select()
 
 changementpage(0)
 if global_login_pc ~= nil then
@@ -158,24 +188,6 @@ if global_http_enable then
 		save_table_file(global_config_session, textutils.serialize(global_session), "global_session")
 		id_message_http = nil
 	end
-end
-
--- chargement des programmes --
-local list = fs.list("programme/")
-for j = 1, #list do
-	require("programme/"..string.sub(list[j],1,-5))
-end
-
--- chargement des systeme --
-local list = fs.list("backend/")
-for j = 1, #list do
-	require("backend/"..string.sub(list[j],1,-5))
-end
-
--- chargement des page --
-local list = fs.list("page/")
-for j = 1, #list do
-	require("page/"..string.sub(list[j],1,-5))
 end
 
 -- run prog --

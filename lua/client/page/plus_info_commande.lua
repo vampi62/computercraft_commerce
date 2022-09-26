@@ -16,7 +16,7 @@ function page_plus_info_commande()
 				global_liste[liste][j][0] = global_liste[liste][j][6]
 			end
 		end
-    end
+	end
 	resync_liste(liste)
 	for j=1, #global_liste[liste] do
 		if global_filtre["id"] == global_liste[liste][j][1] then
