@@ -31,6 +31,7 @@ end
 function print_select_module(x,y,lenstring)
 	local yincr = 1
 	if y + 3 < 18 then
+		global_edit_variable["select_sens"] = false
 		for j=0, #global_select_section[global_edit_variable["nom"]] do
 			if global_select_section[global_edit_variable["nom"]][j] ~= nil then
 				table.insert(global_term_objet_write,{x = x, y = y+yincr, text = bouche_trou(global_select_section[global_edit_variable["nom"]][j],lenstring), back_color = 2048 + change_color_select(j), text_color = 1})
@@ -39,6 +40,7 @@ function print_select_module(x,y,lenstring)
 			end
 		end
 	else
+		global_edit_variable["select_sens"] = true
 		for j=#global_select_section[global_edit_variable["nom"]], 0, -1 do
 			if global_select_section[global_edit_variable["nom"]][j] ~= nil then
 				table.insert(global_term_objet_write,{x = x, y = y-yincr, text = bouche_trou(global_select_section[global_edit_variable["nom"]][j],lenstring), back_color = 2048 + change_color_select(j), text_color = 1})

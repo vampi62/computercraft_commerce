@@ -22,7 +22,12 @@ function scroll_change_gestion(ancien_scroll)
 			if global_variable[global_edit_variable["nom"]] ~= "" then
 				int_var = tonumber(global_variable[global_edit_variable["nom"]])
 			end
-			local result_int = int_var + scroll_int
+			local result_int = 0
+			if global_edit_variable["select_sens"] then
+				result_int = int_var + scroll_int
+			else
+				result_int = int_var - scroll_int
+			end
 			if result_int < 0 then
 				result_int = 0
 			elseif result_int > #global_select_section[global_edit_variable["nom"]] then

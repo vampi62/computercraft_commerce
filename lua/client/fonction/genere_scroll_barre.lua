@@ -17,7 +17,7 @@ function genere_scroll_barre(liste_ou_pas,x_barre,yval,y_min,y_max)
 	for j=1, y_max-y_min do
 		if yval <= math.floor(nbr_point_par_y*(j-1)) and yval > math.floor(nbr_point_par_y*j) then
 			table.insert(global_term_objet_select,{xmin = x_barre, xmax = x_barre, ymin = j+y_min, ymax = j+y_min, value={action="action",id="scroll",value=math.floor(nbr_point_par_y*j+1)}, back_color = 512})
-			if global_edit_variable["type"] ~= "int" and global_edit_variable["type"] ~= "float" then
+			if global_edit_variable["type"] ~= "int" and global_edit_variable["type"] ~= "float" and global_edit_variable["type"] ~= "select" then
 				if j == 1 then
 					global_limite_scroll_haut = true
 				elseif j == y_max-y_min then

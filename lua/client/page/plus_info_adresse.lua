@@ -13,7 +13,7 @@ function page_plus_info_adresse()
 		table.insert(global_term_objet_write,{x = 35, y = 5, text = "nom :", back_color = 32768, text_color = 1})
 		table.insert(global_term_objet_write,{x = 35, y = 7, text = "type :", back_color = 32768, text_color = 1})
 		table.insert(global_term_objet_write,{x = 42, y = 5, text = global_variable["nom"], back_color = 128 + change_color_champ_select("nom"), text_color = 1})
-		table.insert(global_term_objet_write,{x = 42, y = 7, text = global_variable["type_adresse"], back_color = 128 + change_color_champ_select("type_adresse"), text_color = 1})
+		table.insert(global_term_objet_write,{x = 42, y = 7, text = global_http_error_message["type_adresse"][tonumber(global_variable["type_adresse"])], back_color = 128 + change_color_champ_select("type_adresse"), text_color = 1})
 		table.insert(global_term_objet_select,{xmin = 42, xmax = 50, ymin = 5, ymax = 5, value={action="variable",id="nom",value="text"}, back_color = 128 + change_color_champ_select("nom")})
 		table.insert(global_term_objet_select,{xmin = 42, xmax = 50, ymin = 7, ymax = 7, value={action="variable",id="type_adresse",value="select"}, back_color = 128 + change_color_champ_select("type_adresse")})
 
