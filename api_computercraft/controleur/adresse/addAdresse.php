@@ -27,9 +27,9 @@ if(isset($_GET['pseudo']) AND isset($_GET['nom']) AND isset($_GET['mdp']) AND !e
 				{
 					$_GET['type'] = 0;
 				}
-				if ($_GET['type'] > 2)
+				elseif ($_GET['type'] > sizeof($_Serveur_['type_adresse']))
 				{
-					$_GET['type'] = 2;
+					$_GET['type'] = sizeof($_Serveur_['type_adresse']);
 				}
 				$adresse->addAdresse($_GET['nom'],$_GET['type'],$_GET['coo'],$_GET['description']);
 				// modif - ok

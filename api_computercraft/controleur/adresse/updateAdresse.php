@@ -47,23 +47,14 @@ if(isset($_GET['pseudo']) AND isset($_GET['nom']) AND isset($_GET['mdp']) AND !e
 				{
 					$_GET['type'] = 0;
 				}
-				if ($_GET['type'] > 2)
+				elseif ($_GET['type'] > sizeof($_Serveur_['type_adresse']))
 				{
-					$_GET['type'] = 2;
+					$_GET['type'] = sizeof($_Serveur_['type_adresse']);
 				}
-				if ($_GET['type'] == 2)
+				if ($idadresse["id"] == $_Joueur_['id_adresse'])
 				{
-					if ($idadresse["id"] == $_Joueur_['id_adresse'])
-					{
-						// modif - changement type adresse impossible en cours d'utilisation
-						$printmessage[] = 74;
-					}
-					else
-					{
-						$adresse->setNouvellesDonneesType($idadresse["id"],$_GET['type']);
-						// modif - ok
-						$printmessage[] = 1;
-					}
+					// modif - changement type adresse impossible en cours d'utilisation
+					$printmessage[] = 74;
 				}
 				else
 				{

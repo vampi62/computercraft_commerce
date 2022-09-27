@@ -65,6 +65,10 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !em
 				{
 					$_GET['type'] = 0;
 				}
+				elseif ($_GET['type'] > sizeof($_Serveur_['type']))
+				{
+					$_GET['type'] = sizeof($_Serveur_['type']);
+				}
 				$boutique->setNouvellesDonneesType($_GET['type'],$_GET['id']);
 				// modif - ok
 				$printmessage[] = 1;
@@ -80,6 +84,10 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['id']) AND !em
 				if ($_GET['livraison'] < 0)
 				{
 					$_GET['livraison'] = 0;
+				}
+				elseif ($_GET['livraison'] > sizeof($_Serveur_['livraison']))
+				{
+					$_GET['livraison'] = sizeof($_Serveur_['livraison']);
 				}
 				$boutique->setNouvellesDonneesLivraison($_GET['livraison'],$_GET['id']);
 				// modif - ok
