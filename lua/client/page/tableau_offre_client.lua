@@ -1,23 +1,12 @@
-function page_offre_client()
+function page_tableau_offre_client()
 	local liste = "offre"
 	resync_liste(liste)
-	global_limite_scroll_haut = false
-	global_limite_scroll_bas = false
-	if global_filtre["proprio"] == nil then
-		global_filtre["proprio"] = {}
-		global_filtre["proprio"]["value"] = global_session["pseudo"]
-		global_filtre["proprio"]["type"] = "diff"
-	end
-	if global_reapliquer_filtre then
-		global_filtre_liste[liste] = chargement_filtre(liste)
-		global_reapliquer_filtre = false
-		global_scroll = 0
-	end
+	chargement_filtre(liste)
 	table.insert(global_term_objet_write,{x = 43, y = 3, text = "panier", back_color = 128, text_color = 1})
 	if global_session["pseudo"] ~= "" and global_session["mdp"] ~= "" then
-		table.insert(global_term_objet_select,{xmin = 42, xmax = 49, ymin = 3, ymax = 3, value={action="page",id=40}, back_color = 128})
+		table.insert(global_term_objet_select,{xmin = 42, xmax = 49, ymin = 3, ymax = 3, parametre={action="page",id=40}, back_color = 128})
 	else
-		table.insert(global_term_objet_select,{xmin = 42, xmax = 49, ymin = 3, ymax = 3, value={action="page",id=20}, back_color = 128})
+		table.insert(global_term_objet_select,{xmin = 42, xmax = 49, ymin = 3, ymax = 3, parametre={action="page",id=20}, back_color = 128})
 	end
 	genere_scroll_barre(#global_filtre_liste[liste],51,global_scroll,global_min_y_page,global_max_y_page)
 	for j=global_min_y_page, global_max_y_page do
@@ -33,7 +22,7 @@ function page_offre_client()
 			table.insert(global_term_objet_write,{x = 32, y = y, text = convert_grand_nombre(global_filtre_liste[liste][j][4]), back_color = 32768, text_color = 1})
 			table.insert(global_term_objet_write,{x = 41, y = y, text = convert_grand_nombre(global_filtre_liste[liste][j][5]), back_color = 32768, text_color = 1})
 			table.insert(global_term_objet_write,{x = 49, y = y, text = "X", back_color = 128, text_color = 1})
-			table.insert(global_term_objet_select,{xmin = 48, xmax = 50, ymin = y, ymax = y, value={action="page",id=33,value={id=global_filtre_liste[liste][j][1]}}, back_color = 128})
+			table.insert(global_term_objet_select,{xmin = 48, xmax = 50, ymin = y, ymax = y, parametre={action="page",id=33,filtre={id={valeur=global_filtre_liste[liste][j][1],type="egal"}}}, back_color = 128})
 		elseif y > global_max_y_page then
 			break
 		end

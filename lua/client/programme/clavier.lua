@@ -17,7 +17,6 @@ function clavier()
 			global_clavier_maj["altgr"] = true
 		else
 			global_clavier = stringkey
-			global_maint_clavier = maint
 		end
 	end
 end

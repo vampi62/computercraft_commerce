@@ -1,18 +1,18 @@
 function click_change_gestion()
-	if global_value_click["action"] == "page" then
-		changementpage(global_value_click["id"])
-		if global_value_click["value"] ~= nil then
-			for k, v in pairs(global_value_click["value"]) do
-				global_filtre[k] = global_value_click["value"][k]
+	if global_click["parametre"]["action"] == "page" then
+		changementpage(global_click["parametre"]["id"])
+		if global_click["parametre"]["filtre"] ~= nil then
+			for k, v in pairs(global_click["parametre"]["filtre"]) do
+				global_filtre[k] = global_click["parametre"]["filtre"][k]
 			end
 		end
 	end
-	if global_value_click["action"] == "action" then
-		if global_value_click["id"] == "reboot" then
+	if global_click["parametre"]["action"] == "action" then
+		if global_click["parametre"]["id"] == "reboot" then
 			os.reboot()
-		elseif global_value_click["id"] == "shutdown" then
+		elseif global_click["parametre"]["id"] == "shutdown" then
 			os.shutdown()
-		elseif global_value_click["id"] == "edit_config" then
+		elseif global_click["parametre"]["id"] == "edit_config" then
 			if global_variable["ip"] ~= "" and global_variable["port"] ~= "" and global_variable["uriapi"] ~= "" and global_variable["urilua"] ~= "" then
 				local temp_global_url = global_url
 				local temp_global_port = global_port
@@ -52,10 +52,10 @@ function click_change_gestion()
 			else
 				global_message = global_local_error_message[2]
 			end
-		elseif global_value_click["id"] == "disable_message" then
+		elseif global_click["parametre"]["id"] == "disable_message" then
 			global_message = ""
 			global_compteur_tempo_message_http = 0
-		elseif global_value_click["id"] == "setlocalmdp" then
+		elseif global_click["parametre"]["id"] == "setlocalmdp" then
 			if global_variable["mdp"] ~= nil and global_variable["confirm"] ~= nil then
 				if global_variable["mdp"] ~= "" and global_variable["confirm"] ~= "" then
 					if global_variable["mdp"] == global_variable["confirm"] then
@@ -72,7 +72,7 @@ function click_change_gestion()
 			else
 				global_message = global_local_error_message[2]
 			end
-		elseif global_value_click["id"] == "changelocalmdp" then
+		elseif global_click["parametre"]["id"] == "changelocalmdp" then
 			if global_variable["mdp"] ~= nil and global_variable["confirm"] ~= nil then
 				if global_variable["mdp"] ~= "" and global_variable["confirm"] ~= "" then
 					if global_variable["mdp"] == global_variable["confirm"] then
@@ -92,7 +92,7 @@ function click_change_gestion()
 			else
 				global_message = global_local_error_message[2]
 			end
-		elseif global_value_click["id"] == "localmdp" then
+		elseif global_click["parametre"]["id"] == "localmdp" then
 			if global_variable["mdp"] ~= nil then
 				if global_variable["mdp"] ~= "" then
 					if global_login_pc == sha256(global_variable["mdp"]) then
@@ -107,26 +107,26 @@ function click_change_gestion()
 			else
 				global_message = global_local_error_message[2]
 			end
-		elseif global_value_click["id"] == "rangeliste" then
-			rangement_liste(global_value_click["value"])
-		elseif global_value_click["id"] == "maj" then
+		elseif global_click["parametre"]["id"] == "rangeliste" then
+			rangement_liste(global_click["parametre"]["valeur"])
+		elseif global_click["parametre"]["id"] == "maj" then
 			save_var_file("config/update.lua", global_systeme_version .. "-" .. global_new_version[1], "update")
 			os.reboot()
-		elseif global_value_click["id"] == "scroll" then
-			global_scroll = global_value_click["value"]
+		elseif global_click["parametre"]["id"] == "scroll" then
+			global_scroll = global_click["parametre"]["valeur"]
 		else
 			-- que les commandes http ou ayant besoin d'un retour http
-			http_commande(global_value_click["id"])
+			http_commande(global_click["parametre"]["id"])
 		end
 	end
-	if global_value_click["action"] == "variable" then
-		global_edit_variable = {nom = global_value_click["id"],type = global_value_click["value"],xmin = global_value_click["xmin"],xmax = global_value_click["xmax"],ymin = global_value_click["ymin"],ymax = global_value_click["ymax"],select_sens=false}
+	if global_click["parametre"]["action"] == "variable" then
+		global_edit_variable = {nom = global_click["parametre"]["nom"],type = global_click["parametre"]["type"],xmin = global_click["xmin"],xmax = global_click["xmax"],ymin = global_click["ymin"],ymax = global_click["ymax"],select_sens=false}
 		global_limite_scroll_haut = false
 		global_limite_scroll_bas = false
-	elseif global_value_click["action"] == "select" then
+	elseif global_click["parametre"]["action"] == "select" then
 		if global_edit_variable["type"] ~= nil then
 			if global_edit_variable["type"] == "select" then
-				global_variable[global_edit_variable["nom"]] = global_value_click["value"]
+				global_variable[global_edit_variable["nom"]] = global_click["parametre"]["valeur"]
 			end
 		end
 	else

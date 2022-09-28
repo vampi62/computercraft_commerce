@@ -4,14 +4,13 @@ function backend()
 	local horloge_back = 0.05
 	while true do
 		sleep(horloge_back)
-		if global_value_click["action"] ~= nil then -- click sur la fenetre terminal
+		if global_click["parametre"] ~= nil then -- click sur la fenetre terminal
 			click_change_gestion()
-			global_value_click = {}
+			global_click = {}
 		end
 		if global_clavier ~= "" then -- input clavier fenetre terminal
 			key_change_gestion()
 			global_clavier = ""
-			global_maint_key = ""
 		end
 		if global_scroll ~= ancien_global_scroll then -- scroll souris fenetre terminal
 			scroll_change_gestion(ancien_global_scroll)
@@ -25,9 +24,9 @@ function backend()
 			rednet_change_gestion()
 			global_rednet_message = ""
 		end
-		if global_value_touch["action"] ~= nil then -- monitor_touch
+		if global_objet_touch["action"] ~= nil then -- monitor_touch
 			touch_change_gestion()
-			global_value_touch = {}
+			global_objet_touch = {}
 		end
 
 

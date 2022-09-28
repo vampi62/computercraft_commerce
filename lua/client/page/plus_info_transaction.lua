@@ -1,28 +1,17 @@
 function page_plus_info_transaction()
-	global_limite_scroll_haut = false
-	global_limite_scroll_bas = false
 	local liste = "transaction"
 	resync_liste(liste)
-	if global_reapliquer_filtre then
-		for j=1, #global_liste[liste] do
-			if global_liste[liste][j][4] ~= global_session["pseudo"] then
-				global_liste[liste][j][0] = global_liste[liste][j][4]
-			else
-				global_liste[liste][j][0] = global_liste[liste][j][5]
-			end
-		end
-	end
 	for j=1, #global_liste[liste] do
-		if global_filtre["id"] == global_liste[liste][j][1] then
-			remplir_variable({"id"},{global_liste[liste][j][1]})
+		if global_filtre["id"]["valeur"] == global_liste[liste][j][1] then
+			creation_variable({"id"},{global_liste[liste][j][1]})
 
 			table.insert(global_term_objet_write,{x = 16, y = global_min_y_page, text = "info transaction", back_color = 32768, text_color = 1})
 			table.insert(global_term_objet_write,{x = 35, y = 7, text = "commande:", back_color = 32768, text_color = 1})
-			if global_liste[liste][j][3] ~= 0 then
-				if global_liste[liste][j][4] ~= global_session["pseudo"] then
-					table.insert(global_term_objet_select,{xmin = 45, xmax = 47, ymin = 7, ymax = 7, value={action="page",id=53,value={id=global_liste[liste][j][2]}}, back_color = 128})
+			if tonumber(global_liste[liste][j][2]) ~= 0 then
+				if global_liste[liste][j][4] ~= global_session["pseudo"] then 
+					table.insert(global_term_objet_select,{xmin = 45, xmax = 47, ymin = 7, ymax = 7, parametre={action="page",id=53,filtre={id={valeur=global_liste[liste][j][2]}}}, back_color = 128})
 				else
-					table.insert(global_term_objet_select,{xmin = 45, xmax = 47, ymin = 7, ymax = 7, value={action="page",id=153,value={id=global_liste[liste][j][2]}}, back_color = 128})
+					table.insert(global_term_objet_select,{xmin = 45, xmax = 47, ymin = 7, ymax = 7, parametre={action="page",id=153,filtre={id={valeur=global_liste[liste][j][2]}}}, back_color = 128})
 				end
 				table.insert(global_term_objet_write,{x = 46, y = 7, text = "x", back_color = 128, text_color = 1})
 			end
@@ -72,7 +61,8 @@ function page_plus_info_transaction()
 				"",
 				""
 			}
-			print_tableau_plus_info_scroll(31,-1,texte_variable,texte_info,variable_nom,variable_type)
+			print_tableau_plus_info_scroll(31,texte_variable,texte_info,variable_nom,variable_type)
+			genere_scroll_barre(texte_variable,31,global_scroll,global_min_y_page,global_max_y_page)
 			break
 		end
 	end

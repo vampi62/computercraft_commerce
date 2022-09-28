@@ -1,5 +1,5 @@
 function convert_grand_nombre(nombre)
-	if nombre == "" then
+	if nombre == "" or nombre == nil then
 		nombre = 0
 	end
 	nombre = math.floor(tonumber(nombre)*100)/100

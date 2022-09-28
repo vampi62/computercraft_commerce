@@ -62,10 +62,10 @@ global_rednet_id = 0
 global_rednet_message = "" -- string or table
 
 -- touch
-global_value_touch = {}
+global_objet_touch = {}
 
 -- click
-global_value_click = {}
+global_click = {}
 
 -- scroll
 global_limite_scroll_haut = false
@@ -76,7 +76,6 @@ global_scroll = 0
 global_ntp = {seconde = 0,minute = 0,heure = 0,jour = 1,mois = 1,annee = 1974,sync = 5}
 
 -- clavier
-global_maint_clavier = ""
 global_clavier = ""
 
 -- affichage_term
@@ -167,7 +166,6 @@ end
 
 reinitbox()
 recup_http_config()
-resync_select()
 
 changementpage(0)
 if global_login_pc ~= nil then

@@ -1,20 +1,7 @@
-function page_transaction()
+function page_tableau_transaction()
 	local liste = "transaction"
 	resync_liste(liste)
-	global_limite_scroll_haut = false
-	global_limite_scroll_bas = false
-	if global_reapliquer_filtre then
-		for j=1, #global_liste[liste] do
-			if global_liste[liste][j][4] ~= global_session["pseudo"] then
-				global_liste[liste][j][0] = global_liste[liste][j][4]
-			else
-				global_liste[liste][j][0] = global_liste[liste][j][5]
-			end
-		end
-		global_filtre_liste[liste] = chargement_filtre(liste)
-		global_reapliquer_filtre = false
-		global_scroll = 0
-	end
+	chargement_filtre(liste,global_session["pseudo"],4,5)
 	genere_scroll_barre(#global_filtre_liste[liste],51,global_scroll,global_min_y_page,global_max_y_page)
 	for j=global_min_y_page, global_max_y_page do
 		table.insert(global_term_objet_write,{x = 1, y = j, text = "                    |                |        |", back_color = 32768, text_color = 1})
@@ -32,7 +19,7 @@ function page_transaction()
 				table.insert(global_term_objet_write,{x = 39, y = y, text = "-"..convert_grand_nombre(global_filtre_liste[liste][j][6]), back_color = 32768, text_color = 16384})
 			end
 			table.insert(global_term_objet_write,{x = 49, y = y, text = "+", back_color = 128, text_color = 1})
-			table.insert(global_term_objet_select,{xmin = 48, xmax = 50, ymin = y, ymax = y, value={action="page",id=63,value={id=global_filtre_liste[liste][j][1]}}, back_color = 128})
+			table.insert(global_term_objet_select,{xmin = 48, xmax = 50, ymin = y, ymax = y, parametre={action="page",id=63,filtre={id={valeur=global_filtre_liste[liste][j][1],type="egal"}}}, back_color = 128})
 		elseif y > global_max_y_page then
 			break
 		end

@@ -2,8 +2,11 @@ function genere_select_frame()
 	if global_edit_variable["type"] ~= nil then
 		if global_edit_variable["type"] == "select" then
 			lenstring = 0
-			if global_edit_variable["nom"] == "adresse" then
+			if global_edit_variable["nom"] == "adresse" and global_filtre["type_adresse"] == nil then
 				resync_liste("adresse")
+				global_filtre["type_adresse"] = {valeur="1",type="egal"}
+				global_reapliquer_filtre = true
+				chargement_filtre("adresse")
 			end
 			resync_select()
 			lenstring = len_string_tab(global_select_section[global_edit_variable["nom"]])
@@ -35,7 +38,7 @@ function print_select_module(x,y,lenstring)
 		for j=0, #global_select_section[global_edit_variable["nom"]] do
 			if global_select_section[global_edit_variable["nom"]][j] ~= nil then
 				table.insert(global_term_objet_write,{x = x, y = y+yincr, text = bouche_trou(global_select_section[global_edit_variable["nom"]][j],lenstring), back_color = 2048 + change_color_select(j), text_color = 1})
-				table.insert(global_term_objet_select,{xmin = x, xmax = x + lenstring, ymin = y+yincr, ymax = y+yincr, value={action="select",value=j}, back_color = 2048 + change_color_select(j)})
+				table.insert(global_term_objet_select,{xmin = x, xmax = x + lenstring, ymin = y+yincr, ymax = y+yincr, parametre={action="select",valeur=j}, back_color = 2048 + change_color_select(j)})
 				yincr = yincr + 1
 			end
 		end
@@ -44,7 +47,7 @@ function print_select_module(x,y,lenstring)
 		for j=#global_select_section[global_edit_variable["nom"]], 0, -1 do
 			if global_select_section[global_edit_variable["nom"]][j] ~= nil then
 				table.insert(global_term_objet_write,{x = x, y = y-yincr, text = bouche_trou(global_select_section[global_edit_variable["nom"]][j],lenstring), back_color = 2048 + change_color_select(j), text_color = 1})
-				table.insert(global_term_objet_select,{xmin = x, xmax = x + lenstring, ymin = y+yincr, ymax = y+yincr, value={action="select",value=j}, back_color = 2048 + change_color_select(j)})
+				table.insert(global_term_objet_select,{xmin = x, xmax = x + lenstring, ymin = y+yincr, ymax = y+yincr, parametre={action="select",valeur=j}, back_color = 2048 + change_color_select(j)})
 				yincr = yincr + 1
 			end
 		end

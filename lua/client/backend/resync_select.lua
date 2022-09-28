@@ -6,7 +6,7 @@ function resync_select()
 		motif_litige = global_http_error_message["motif_litige"],
 		adresse={["0"]="nil"}
 	}
-	for j=1, #global_liste["adresse"] do
-		table.insert(global_select_section["adresse"],global_liste["adresse"][j][1])
+	for j=1, #global_filtre_liste["adresse"] do
+		table.insert(global_select_section["adresse"],global_filtre_liste["adresse"][j][1])
 	end
 end
