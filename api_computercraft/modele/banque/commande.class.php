@@ -132,7 +132,7 @@ class Commande
 
 	private function checkPaternstatutCommande($id,$statut,$booltransaction)
 	{
-		$req = $this->bdd->prepare('SELECT statut, expediteur FROM commandes WHERE id = :id');
+		$req = $this->bdd->prepare('SELECT statut, expediteur, recepteur FROM commandes WHERE id = :id');
 		$req->execute(array(
 			'id' => $id
 		));
@@ -150,6 +150,12 @@ class Commande
 						return true;
 					}
 				}
+				if ($this->pseudo == $req['recepteur']) {
+					if ($statut == '13') // commande annuler par le client
+					{
+						return true;
+					}
+				}
 			break;
 			case "2": // paiement en attente
 				if (($this->role == 2) AND ($booltransaction)) {
@@ -162,10 +168,22 @@ class Commande
 						return true;
 					}
 				}
+				if ($this->pseudo == $req['recepteur']) {
+					if ($statut == '13') // commande annuler par le client
+					{
+						return true;
+					}
+				}
 			break;
 			case "3": // paiement valider
 				if ($this->pseudo == $req['expediteur']) {
 					if ($statut == '4') // expedition en attente
+					{
+						return true;
+					}
+				}
+				if ($this->pseudo == $req['recepteur']) {
+					if ($statut >= '20' and $statut <= '24' ) // ouverture litige par le client
 					{
 						return true;
 					}
@@ -178,10 +196,44 @@ class Commande
 						return true;
 					}
 				}
+				if ($this->pseudo == $req['recepteur']) {
+					if ($statut >= '20' and $statut <= '24' ) // ouverture litige par le client
+					{
+						return true;
+					}
+				}
 			break;
 			case "5": // expedition en cours
 				if ($this->pseudo == $req['expediteur']) {
 					if ($statut == '6') // expedition terminer
+					{
+						return true;
+					}
+				}
+				if ($this->pseudo == $req['recepteur']) {
+					if ($statut >= '20' and $statut <= '24' ) // ouverture litige par le client
+					{
+						return true;
+					}
+				}
+			case "6": // expedition en cours
+				if ($this->pseudo == $req['recepteur']) {
+					if ($statut == '7') // commande terminer - valider par le client
+					{
+						return true;
+					}
+					if ($statut >= '20' and $statut <= '24' ) // ouverture litige par le client
+					{
+						return true;
+					}
+				}
+			case "20": // litige
+			case "21": // litige
+			case "22": // litige
+			case "23": // litige
+			case "24": // litige
+				if ($this->role == 10) {
+					if ($statut == '25') // litige terminer - valider par admin
 					{
 						return true;
 					}

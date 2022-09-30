@@ -91,6 +91,14 @@ statut_echange:
     3: valider - echange accepter paiement valider
     4: pret - commande pret a envoyer
     5: livraison - commande en cours de livraison
-    6: terminer - terminer
+    6: livraison - commande livrer
+    7: terminer - terminer
     10: refuser - echange refuser par le vendeur
     11: refuser - echange accepter paiement refuser
+    13: annuler - annuler par le client
+    20: litige - non recu
+    21: litige - non conforme
+    22: litige - trop long
+    23: litige - plus interesser
+    24: litige - trop cher
+    25: litige - resolu

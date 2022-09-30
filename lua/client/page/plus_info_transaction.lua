@@ -62,7 +62,7 @@ function page_plus_info_transaction()
 				""
 			}
 			print_tableau_plus_info_scroll(31,texte_variable,texte_info,variable_nom,variable_type)
-			genere_scroll_barre(texte_variable,31,global_scroll,global_min_y_page,global_max_y_page)
+			genere_scroll_barre(texte_variable,31,global_scroll,global_min_y_page,global_max_y_page,"scroll")
 			break
 		end
 	end

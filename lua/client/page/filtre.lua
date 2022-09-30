@@ -1,5 +1,5 @@
 function page_filtre()
-    local texte_info = {
+	local texte_info = {
 		"coo        :",
 		"description:"
 	}
@@ -22,9 +22,9 @@ function page_filtre()
 			texte_variable[j] = global_variable[variable_nom[j]]
 		end
 	end
-	genere_scroll_barre(texte_variable,31,global_scroll,global_min_y_page,global_max_y_page)
+	genere_scroll_barre(texte_variable,31,global_scroll,global_min_y_page,global_max_y_page,"scroll")
 
-    local texte_info = {
+	local texte_info = {
 		"coo        :",
 		"description:"
 	}
@@ -47,5 +47,5 @@ function page_filtre()
 			texte_variable[j] = global_variable[variable_nom[j]]
 		end
 	end
-	genere_scroll_barre(texte_variable,31,global_scroll,global_min_y_page,global_max_y_page)
+	genere_scroll_barre(texte_variable,31,global_scroll,global_min_y_page,global_max_y_page,"scroll")
 end

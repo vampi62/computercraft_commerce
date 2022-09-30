@@ -44,6 +44,84 @@ function page_plus_info_commande()
 				table.insert(global_term_objet_write,{x = 42, y = 13, text = "-"..convert_grand_nombre(global_liste[liste][j][10]), back_color = 32768, text_color = 16384})
 			end
 
+			if global_liste[liste][j][16] == "1" then
+				if global_liste[liste][j][5] ~= global_session["pseudo"] then
+					table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="page",id=54,filtre={id={valeur=global_liste[liste][j][1]}}}, back_color = 128})
+					table.insert(global_term_objet_write,{x = 38, y = 15, text = "annuler", back_color = 128, text_color = 1})
+				else
+					table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="page",id=154,filtre={id={valeur=global_liste[liste][j][1]}}}, back_color = 128})
+					table.insert(global_term_objet_write,{x = 38, y = 15, text = "valider", back_color = 128, text_color = 1})
+					table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="page",id=154,filtre={id={valeur=global_liste[liste][j][1]}}}, back_color = 128})
+					table.insert(global_term_objet_write,{x = 38, y = 15, text = "refuser", back_color = 128, text_color = 1})
+				end
+			elseif global_liste[liste][j][16] == "2" then
+				if global_liste[liste][j][5] ~= global_session["pseudo"] then
+					table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="page",id=54,filtre={id={valeur=global_liste[liste][j][1]}}}, back_color = 128})
+					table.insert(global_term_objet_write,{x = 38, y = 15, text = "annuler", back_color = 128, text_color = 1})
+				else
+					table.insert(global_term_objet_write,{x = 37, y = 15, text = "en attente", back_color = 128, text_color = 1})
+					table.insert(global_term_objet_write,{x = 38, y = 15, text = "de la banque", back_color = 128, text_color = 1})
+				end
+			elseif global_liste[liste][j][16] == "3" then
+				if global_liste[liste][j][5] ~= global_session["pseudo"] then
+					table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="page",id=54,filtre={id={valeur=global_liste[liste][j][1]}}}, back_color = 128})
+					table.insert(global_term_objet_write,{x = 35, y = 15, text = "ouvrir un litige", back_color = 128, text_color = 1})
+				else
+					table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="page",id=154,filtre={id={valeur=global_liste[liste][j][1]}}}, back_color = 128})
+					table.insert(global_term_objet_write,{x = 33, y = 15, text = "valider preparation", back_color = 128, text_color = 1})
+				end
+			elseif global_liste[liste][j][16] == "4" then
+				if global_liste[liste][j][5] ~= global_session["pseudo"] then
+					table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="page",id=54,filtre={id={valeur=global_liste[liste][j][1]}}}, back_color = 128})
+					table.insert(global_term_objet_write,{x = 35, y = 15, text = "ouvrir un litige", back_color = 128, text_color = 1})
+				else
+					table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="page",id=154,filtre={id={valeur=global_liste[liste][j][1]}}}, back_color = 128})
+					table.insert(global_term_objet_write,{x = 38, y = 15, text = "commande", back_color = 128, text_color = 1})
+					table.insert(global_term_objet_write,{x = 38, y = 16, text = "expedier", back_color = 128, text_color = 1})
+				end
+			elseif global_liste[liste][j][16] == "5" then
+				-- litige
+				-- valider livraison
+				if global_liste[liste][j][5] ~= global_session["pseudo"] then
+					table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="page",id=54,filtre={id={valeur=global_liste[liste][j][1]}}}, back_color = 128})
+					table.insert(global_term_objet_write,{x = 35, y = 15, text = "ouvrir un litige", back_color = 128, text_color = 1})
+				else
+					table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 16, parametre={action="page",id=154,filtre={id={valeur=global_liste[liste][j][1]}}}, back_color = 128})
+					table.insert(global_term_objet_write,{x = 38, y = 15, text = "commande", back_color = 128, text_color = 1})
+					table.insert(global_term_objet_write,{x = 38, y = 16, text = "recu", back_color = 128, text_color = 1})
+				end
+			elseif global_liste[liste][j][16] == "6" then
+				if global_liste[liste][j][5] ~= global_session["pseudo"] then
+					table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="page",id=54,filtre={id={valeur=global_liste[liste][j][1]}}}, back_color = 128})
+					table.insert(global_term_objet_write,{x = 38, y = 15, text = "commande", back_color = 128, text_color = 1})
+					table.insert(global_term_objet_write,{x = 38, y = 16, text = "recu", back_color = 128, text_color = 1})
+					table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="page",id=54,filtre={id={valeur=global_liste[liste][j][1]}}}, back_color = 128})
+					table.insert(global_term_objet_write,{x = 35, y = 15, text = "ouvrir un litige", back_color = 128, text_color = 1})
+				end
+			elseif global_liste[liste][j][16] == "7" then
+				if global_liste[liste][j][5] ~= global_session["pseudo"] then
+					table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="page",id=54,filtre={id={valeur=global_liste[liste][j][1]}}}, back_color = 128})
+					table.insert(global_term_objet_write,{x = 38, y = 15, text = "commander", back_color = 128, text_color = 1})
+				end
+			elseif global_liste[liste][j][16] == "10" then
+				if global_liste[liste][j][5] ~= global_session["pseudo"] then
+					table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="page",id=54,filtre={id={valeur=global_liste[liste][j][1]}}}, back_color = 128})
+					table.insert(global_term_objet_write,{x = 38, y = 15, text = "commander", back_color = 128, text_color = 1})
+				end
+			elseif global_liste[liste][j][16] == "11" then
+				if global_liste[liste][j][5] ~= global_session["pseudo"] then
+					table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="page",id=54,filtre={id={valeur=global_liste[liste][j][1]}}}, back_color = 128})
+					table.insert(global_term_objet_write,{x = 38, y = 15, text = "commander", back_color = 128, text_color = 1})
+				end
+			elseif global_liste[liste][j][16] == "13" then
+				if global_liste[liste][j][5] ~= global_session["pseudo"] then
+					table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="page",id=54,filtre={id={valeur=global_liste[liste][j][1]}}}, back_color = 128})
+					table.insert(global_term_objet_write,{x = 38, y = 15, text = "commander", back_color = 128, text_color = 1})
+				end
+			elseif tonumber(global_liste[liste][j][16]) >= 20 then
+				-- page litige
+			end
+
 			-- variable pour la section a gauche de la barre de scroll (section mobile)
 			local texte_info = {
 				"nom        :",
@@ -114,7 +192,7 @@ function page_plus_info_commande()
 				""
 			}
 			print_tableau_plus_info_scroll(31,texte_variable,texte_info,variable_nom,variable_type)
-			genere_scroll_barre(texte_variable,31,global_scroll,global_min_y_page,global_max_y_page)
+			genere_scroll_barre(texte_variable,31,global_scroll,global_min_y_page,global_max_y_page,"scroll")
 			break
 		end
 	end

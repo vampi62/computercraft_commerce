@@ -6,7 +6,7 @@ function print_tableau_plus_info_scroll(position_scroll_barre,texte_variable,tex
 				texte_variable[j] = global_variable[variable_nom[j]]
 			end
 		end
-		genere_scroll_barre(texte_variable,position_scroll_barre,global_scroll,global_min_y_page,global_max_y_page)
+		genere_scroll_barre(texte_variable,position_scroll_barre,global_scroll,global_min_y_page,global_max_y_page,"scroll")
 		for g=1, #texte_info do
 			local y = global_scroll + offset_text + global_min_y_page + g
 			if y <= global_max_y_page and y > global_min_y_page then

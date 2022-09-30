@@ -13,7 +13,7 @@ function page_tableau_panier()
 			table.insert(global_term_objet_select,{xmin = 39, xmax = 50, ymin = 3, ymax = 3, parametre={action="page",id=20}, back_color = 128})
 		end
 	end
-	genere_scroll_barre(#global_filtre_liste["panier"],51,global_scroll,global_min_y_page,global_max_y_page)
+	genere_scroll_barre(#global_filtre_liste["panier"],51,global_scroll,global_min_y_page,global_max_y_page,"scroll")
 	for j=global_min_y_page, global_max_y_page do
 		table.insert(global_term_objet_write,{x = 1, y = j, text = "              |               |       |       |", back_color = 32768, text_color = 1})
 	end

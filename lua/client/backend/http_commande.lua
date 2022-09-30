@@ -4,19 +4,26 @@ function http_commande(http_req)
 		recup_http_config()
 	end
 	if global_http_enable then
+		local liste = ""
 		-- dans cette boucle if que les commandes retournant des listes
 		if http_req == "http_offre" then
-			id_message_http = http_get("listoffresboutique",true)
+			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
+				id_message_http = http_get("listoffresboutique&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
+			else
+				id_message_http = http_get("listoffresboutique",true)
+			end
 			if type(id_message_http) == "table" then
 				id_message_http["date_sync"] = os.time()*50+120
-				return id_message_http
+				global_liste["offre"] = id_message_http
+				id_message_http = ""
 			end
 		elseif http_req == "http_commande_client" then
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
 				id_message_http = http_get("listusercommande&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
 				if type(id_message_http) == "table" then
 					id_message_http["date_sync"] = os.time()*50+global_local_config["resync_liste"]
-					return id_message_http
+					global_liste["commande_client"] = id_message_http
+					id_message_http = ""
 				end
 			end
 		elseif http_req == "http_commande_commerce" then
@@ -24,7 +31,8 @@ function http_commande(http_req)
 				id_message_http = http_get("listcommandes&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
 				if type(id_message_http) == "table" then
 					id_message_http["date_sync"] = os.time()*50+global_local_config["resync_liste"]
-					return id_message_http
+					global_liste["commande_commerce"] = id_message_http
+					id_message_http = ""
 				end
 			end
 		elseif http_req == "http_transaction" then
@@ -32,7 +40,8 @@ function http_commande(http_req)
 				id_message_http = http_get("listusertransaction&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
 				if type(id_message_http) == "table" then
 					id_message_http["date_sync"] = os.time()*50+global_local_config["resync_liste"]
-					return id_message_http
+					global_liste["transaction"] = id_message_http
+					id_message_http = ""
 				end
 			end
 		elseif http_req == "http_adresse" then
@@ -40,7 +49,20 @@ function http_commande(http_req)
 				id_message_http = http_get("listuseradresse&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
 				if type(id_message_http) == "table" then
 					id_message_http["date_sync"] = os.time()*50+global_local_config["resync_liste"]
-					return id_message_http
+					global_liste["adresse"] = id_message_http
+					id_message_http = ""
+				end
+			end
+		elseif http_req == "http_login" then
+			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
+				id_message_http = http_get("listuserdata&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
+				if type(id_message_http) == "table" then
+					local mdp_session = global_session["mdp"]
+					global_session = id_message_http
+					global_session["date_sync"] = 0
+					global_session["mdp"] = mdp_session
+					id_message_http = ""
+					mdp_session = nil
 				end
 			end
 		end
@@ -88,6 +110,7 @@ function http_commande(http_req)
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
 				tval = "&type="..global_variable["type"].."&livraison="..global_variable["livraison"].."&id="..global_variable["id"].."&prix="..global_variable["prix"].."&nbr_dispo="..global_variable["nbr_dispo"].."&nomadresse="..global_variable["adresse"].."&nom="..global_variable["nom"].."&description="..global_variable["description"]
 				id_message_http = http_get("updateoffreboutique&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"]..tval,true)
+				liste = "offre"
 			end
 		elseif http_req == "ad_panier" then
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil and tonumber(global_variable["quant"]) ~= nil then
@@ -151,10 +174,12 @@ function http_commande(http_req)
 		elseif http_req == "http_add_adr" then
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
 				id_message_http = http_get("addadresse&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&nom="..global_variable["nom"].."&type="..global_variable["type_adresse"].."&coo="..global_variable["coo"].."&description="..global_variable["description"],true)
+				liste = "adresse"
 			end
 		elseif http_req == "http_suppr_adr" then
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
 				id_message_http = http_get("deleteadresse&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&nom="..global_variable["id"],true)
+				liste = "adresse"
 			end
 		elseif http_req == "http_update_adr" then
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
@@ -163,21 +188,22 @@ function http_commande(http_req)
 				else
 					id_message_http = http_get("updateadresse&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&nom="..global_variable["id"].."&type="..global_variable["type_adresse"].."&coo="..global_variable["coo"].."&description="..global_variable["description"],true)
 				end
+				liste = "adresse"
+				http_commande("http_login")
 			end
 		elseif http_req == "http_defaut_adr" then
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
 				id_message_http = http_get("updateadressedefaut&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&nom="..global_variable["id"],true)
 				if id_message_http == 1 then
-					id_message_http = http_get("listuserdata&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
-					if type(id_message_http) == "table" then
-						global_session = id_message_http
-						id_message_http = 1
-					end
+					http_commande("http_login")
 				end
 			end
 		end
 		if id_message_http ~= "" then
 			global_message = convert_id_message(id_message_http)
+			if liste ~= "" and ((id_message_http == "1") or (type(id_message_http) == "table")) then
+				resync_liste(liste,true)
+			end
 		end
 	end
 end

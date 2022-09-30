@@ -11,11 +11,11 @@ function genere_select_frame()
 			resync_select()
 			lenstring = len_string_tab(global_select_section[global_edit_variable["nom"]])
 			if lenstring + global_edit_variable["xmin"] < 51 then
-				--genere_scroll_barre(#global_select_section[global_edit_variable["nom"]],global_edit_variable["xmin"]-1,tonumber(global_variable[global_edit_variable["nom"]]),global_edit_variable["ymin"],global_edit_variable["ymax"]+5)
+				--genere_scroll_barre(#global_select_section[global_edit_variable["nom"]],global_edit_variable["xmin"]-1,tonumber(global_variable[global_edit_variable["nom"]]),global_edit_variable["ymin"],global_edit_variable["ymax"]+5,"select",true)
 				print_select_module(global_edit_variable["xmin"],global_edit_variable["ymin"],lenstring)
 			else
 				print_select_module(global_edit_variable["xmax"]-lenstring,global_edit_variable["ymin"],lenstring)
-				--genere_scroll_barre(#global_select_section[global_edit_variable["nom"]],global_edit_variable["xmax"]+1,tonumber(global_variable[global_edit_variable["nom"]]),global_edit_variable["ymin"],global_edit_variable["ymax"]+5)
+				--genere_scroll_barre(#global_select_section[global_edit_variable["nom"]],global_edit_variable["xmax"]+1,tonumber(global_variable[global_edit_variable["nom"]]),global_edit_variable["ymin"],global_edit_variable["ymax"]+5,"select",true)
 			end
 		end
 	end

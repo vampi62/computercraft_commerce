@@ -129,6 +129,12 @@ function click_change_gestion()
 				global_variable[global_edit_variable["nom"]] = global_click["parametre"]["valeur"]
 			end
 		end
+	elseif global_click["parametre"]["id"] == "select" then
+		if global_edit_variable["type"] ~= nil then
+			if global_edit_variable["type"] == "select" then
+				global_variable[global_edit_variable["nom"]] = math.floor(global_click["parametre"]["valeur"])
+			end
+		end
 	else
 		global_edit_variable = {}
 	end

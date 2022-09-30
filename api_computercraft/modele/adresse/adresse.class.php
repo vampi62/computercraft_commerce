@@ -33,6 +33,7 @@ class Adresse
 			$adresse[] = $donnees['type'];
 			$adresse[] = $donnees['coo'];
 			$adresse[] = $donnees['description'];
+			$adresse[] = $this->getnbroffre($donnees['id']);
 			if (empty($list_adresses))
 			{
 				$list_adresses = array(1 => $adresse);
@@ -44,6 +45,16 @@ class Adresse
 		}
 		$req->closeCursor();
    	 	return $list_adresses;
+	}
+	private function getnbroffre($id_adresse)
+	{
+		$req = $this->bdd->prepare('SELECT COUNT(id) FROM liste_offres WHERE proprio = :proprio AND id_adresse = :id_adresse');
+		$req->execute(array(
+			'proprio' => $this->pseudo,
+			'id_adresse' => $id_adresse
+		));
+		$req = $req->fetch(PDO::FETCH_ASSOC);
+		return $req["COUNT(id)"];
 	}
 	public function setNouvellesDonneesNom($id,$nom)
 	{

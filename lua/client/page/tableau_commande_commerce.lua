@@ -2,7 +2,7 @@ function page_tableau_commande_commerce()
 	local liste = "commande_commerce"
 	resync_liste(liste)
 	chargement_filtre(liste)
-	genere_scroll_barre(#global_filtre_liste[liste],51,global_scroll,global_min_y_page,global_max_y_page)
+	genere_scroll_barre(#global_filtre_liste[liste],51,global_scroll,global_min_y_page,global_max_y_page,"scroll")
 	for j=global_min_y_page, global_max_y_page do
 		table.insert(global_term_objet_write,{x = 1, y = j, text = "             |              |         |       |", back_color = 32768, text_color = 1})
 	end

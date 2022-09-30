@@ -1,4 +1,4 @@
-function genere_scroll_barre(liste_ou_pas,x_barre,yval,y_min,y_max)
+function genere_scroll_barre(liste_ou_pas,x_barre,yval,y_min,y_max,type_action,invert)
 	local nbr_point_par_y = 0
 	local pas = 0
 	if type(liste_ou_pas) == "table" then
@@ -16,7 +16,11 @@ function genere_scroll_barre(liste_ou_pas,x_barre,yval,y_min,y_max)
 	nbr_point_par_y = -nbr_point_par_y
 	for j=1, y_max-y_min do
 		if yval <= math.floor(nbr_point_par_y*(j-1)) and yval > math.floor(nbr_point_par_y*j) then
-			table.insert(global_term_objet_select,{xmin = x_barre, xmax = x_barre, ymin = j+y_min, ymax = j+y_min, parametre={action="action",id="scroll",valeur=math.floor(nbr_point_par_y*j+1)}, back_color = 512})
+			if invert then
+				table.insert(global_term_objet_select,{xmin = x_barre, xmax = x_barre, ymin = j+y_min, ymax = j+y_min, parametre={action="action",id=type_action,valeur=math.floor(-nbr_point_par_y*j-1)}, back_color = 512})
+			else
+				table.insert(global_term_objet_select,{xmin = x_barre, xmax = x_barre, ymin = j+y_min, ymax = j+y_min, parametre={action="action",id=type_action,valeur=math.floor(nbr_point_par_y*j+1)}, back_color = 512})
+			end
 			if global_edit_variable["type"] ~= "int" and global_edit_variable["type"] ~= "float" and global_edit_variable["type"] ~= "select" then
 				if j == 1 then
 					global_limite_scroll_haut = true
@@ -25,7 +29,11 @@ function genere_scroll_barre(liste_ou_pas,x_barre,yval,y_min,y_max)
 				end
 			end
 		else
-			table.insert(global_term_objet_select,{xmin = x_barre, xmax = x_barre, ymin = j+y_min, ymax = j+y_min, parametre={action="action",id="scroll",valeur=math.floor(nbr_point_par_y*j+1)}, back_color = 8})
+			if invert then
+				table.insert(global_term_objet_select,{xmin = x_barre, xmax = x_barre, ymin = j+y_min, ymax = j+y_min, parametre={action="action",id=type_action,valeur=math.floor(-nbr_point_par_y*j-1)}, back_color = 8})
+			else
+				table.insert(global_term_objet_select,{xmin = x_barre, xmax = x_barre, ymin = j+y_min, ymax = j+y_min, parametre={action="action",id=type_action,valeur=math.floor(nbr_point_par_y*j+1)}, back_color = 8})
+			end
 		end
 	end
 end

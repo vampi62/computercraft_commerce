@@ -36,35 +36,41 @@ else
 }
 function getOffres($bdd)
 {
-	$req = $bdd->query('SELECT * FROM liste_offres');
-	$list_id = array();
-	$list_id_adresse = array();
-	$list_proprio = array();
-	$list_prix = array();
-	$list_nbr_dispo = array();
-	$list_type = array();
-	$list_livraison = array();
-	$list_nom = array();
-	$list_description = array();
-	$list_statut = array();
-	$list_last_update = array();
-
-	$listidplayer = ConvertTable::gettableidplayer($bdd);
+	$req = $this->bdd->query('SELECT * FROM liste_offres');
+	$list_offres = array();
+	$listidplayer = ConvertTable::gettableidplayer($this->bdd);
 	while ($donnees = $req->fetch())
 	{
-		$adresse = ConvertTable::getIdAdresse($bdd,$donnees['id_adresse']);
-		$list_id[] = $donnees['id'];
-		$list_id_adresse[] = $adresse;
-		$list_proprio[] = $listidplayer[$donnees['proprio']];
-		$list_prix[] = $donnees['prix'];
-		$list_nbr_dispo[] = $donnees['nbr_dispo'];
-		$list_type[] = $donnees['type'];
-		$list_livraison[] = $donnees['livraison'];
-		$list_nom[] = $donnees['nom'];
-		$list_description[] = $donnees['description'];
-		$list_last_update[] = $donnees['last_update'];
+		$adresse = ConvertTable::getIdAdresse($this->bdd,$donnees['id_adresse']);
+		$offre = array(1 => $donnees['id']);
+		$offre[] = $adresse;
+		//$offre[] = $donnees['id_adresse'];
+		$offre[] = $listidplayer[$donnees['proprio']];
+		$offre[] = $donnees['prix'];
+		$offre[] = $donnees['nbr_dispo'];
+		$offre[] = $donnees['type'];
+		$offre[] = $donnees['livraison'];
+		$offre[] = $donnees['nom'];
+		$offre[] = $donnees['description'];
+		$offre[] = $donnees['last_update'];
+		if ($this->proprio == $donnees['proprio'])
+		{
+			$offre[] = $this->getnbrcommande($donnees['id']);
+		}
+		else
+		{
+			$offre[] = 0;
+		}
+		if (empty($list_offres))
+		{
+			$list_offres = array(1 => $offre);
+		}
+		else
+		{
+			$list_offres[] = $offre;
+		}
 	}
 	$req->closeCursor();
-	return array($list_id,$list_id_adresse,$list_proprio,$list_prix,$list_nbr_dispo,$list_type,$list_livraison,$list_nom,$list_description,$list_last_update);
+	return $list_offres;
 }
 ?>

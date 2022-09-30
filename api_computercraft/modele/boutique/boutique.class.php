@@ -20,6 +20,7 @@ class Boutique
 			$adresse = ConvertTable::getIdAdresse($this->bdd,$donnees['id_adresse']);
 			$offre = array(1 => $donnees['id']);
 			$offre[] = $adresse;
+			//$offre[] = $donnees['id_adresse'];
 			$offre[] = $listidplayer[$donnees['proprio']];
 			$offre[] = $donnees['prix'];
 			$offre[] = $donnees['nbr_dispo'];
@@ -28,6 +29,14 @@ class Boutique
 			$offre[] = $donnees['nom'];
 			$offre[] = $donnees['description'];
 			$offre[] = $donnees['last_update'];
+			if ($this->proprio == $donnees['proprio'])
+			{
+				$offre[] = $this->getnbrcommande($donnees['id']);
+			}
+			else
+			{
+				$offre[] = 0;
+			}
 			if (empty($list_offres))
 			{
 				$list_offres = array(1 => $offre);
@@ -41,6 +50,16 @@ class Boutique
    	 	return $list_offres;
 	}
 	
+	private function getnbrcommande($id_offre)
+	{
+		$req = $this->bdd->prepare('SELECT COUNT(id) FROM commandes WHERE expediteur = :expediteur AND id_offre = :id_offre AND statut < 6');
+		$req->execute(array(
+			'expediteur' => $this->proprio,
+			'id_offre' => $id_offre
+		));
+		$req = $req->fetch(PDO::FETCH_ASSOC);
+		return $req["COUNT(id)"];
+	}
 	public function getnbrOffres()
 	{
 		$req = $this->bdd->prepare('SELECT COUNT(id) FROM liste_offres WHERE proprio = :id');

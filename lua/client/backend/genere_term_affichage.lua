@@ -37,8 +37,6 @@ function genere_term_affichage()
 			page_tableau_transaction()
 		elseif global_page_visible == 63 then
 			page_plus_info_transaction()
-		elseif global_page_visible == 64 then
-			page_litige_transaction()
 		elseif global_page_visible == 90 then
 			page_tableau_adresse()
 		elseif global_page_visible == 91 then

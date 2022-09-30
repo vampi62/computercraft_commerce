@@ -133,6 +133,16 @@ http://0.0.0.0:9081/api_computercraft/index.php?action=listoffresboutique
 
 return (array)
 
+## listoffresboutique
+- mdp			:(string)
+- pseudo		:(string)
+
+http://0.0.0.0:9081/api_computercraft/index.php?action=listoffresboutique&mdp=__mdp__&pseudo=__pseudo__&nom=__nom__
+
+cette commande permet en plus de recuperer la liste des offres du marcher de recuperer le nombre de commande sur vos offre uniquement
+
+return (array)
+
 ## updateoffreboutique
 - mdp			:(string)
 - pseudo		:(string)

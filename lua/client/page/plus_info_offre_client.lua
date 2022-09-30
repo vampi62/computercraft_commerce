@@ -62,8 +62,8 @@ function page_plus_info_offre_client()
 			}
 			local texte_variable = {
 				global_liste[liste][j][8],
-				global_liste[liste][j][6],
-				global_liste[liste][j][7],
+				global_http_error_message["type"][tonumber(global_liste[liste][j][6])],
+				global_http_error_message["livraison"][tonumber(global_liste[liste][j][7])],
 				global_liste[liste][j][2]["nom"],
 				global_liste[liste][j][2]["coo"],
 				global_liste[liste][j][2]["description"],
@@ -91,7 +91,7 @@ function page_plus_info_offre_client()
 				""
 			}
 			print_tableau_plus_info_scroll(31,texte_variable,texte_info,variable_nom,variable_type)
-			genere_scroll_barre(texte_variable,31,global_scroll,global_min_y_page,global_max_y_page)
+			genere_scroll_barre(texte_variable,31,global_scroll,global_min_y_page,global_max_y_page,"scroll")
 			break
 		end
 	end
