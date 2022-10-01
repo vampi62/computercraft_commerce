@@ -130,13 +130,7 @@ global_filtre_liste["offre"] = {}
 global_filtre_liste["panier"] = {}
 global_filtre = {}
 
-global_select_section = {
-	type = global_http_error_message["type"],
-	livraison = global_http_error_message["livraison"],
-	adresse = global_liste["adresse"],
-	type_adresse = global_http_error_message["type_adresse"],
-	motif_litige = global_http_error_message["motif_litige"]
-}
+global_select_section = {}
 
 -- chargement des fonctions --
 local list = fs.list("fonction/")

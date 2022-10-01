@@ -2,11 +2,11 @@ function genere_select_frame()
 	if global_edit_variable["type"] ~= nil then
 		if global_edit_variable["type"] == "select" then
 			lenstring = 0
-			if global_edit_variable["nom"] == "adresse" and global_filtre["type_adresse"] == nil then
+			if global_edit_variable["nom"] == "adresse" then
 				resync_liste("adresse")
-				global_filtre["type_adresse"] = {valeur="1",type="egal"}
+				local localfiltre = {type={valeur="1",type="egal"}}
 				global_reapliquer_filtre = true
-				chargement_filtre("adresse")
+				chargement_filtre("adresse",localfiltre)
 			end
 			resync_select()
 			lenstring = len_string_tab(global_select_section[global_edit_variable["nom"]])
@@ -24,8 +24,8 @@ function len_string_tab(section)
 	lenstring = 0
 	for j=0, #section do
 		if section[j] ~= nil then
-			if string.len(section[j]) > lenstring then
-				lenstring = string.len(section[j])
+			if string.len(section[j]["text"]) > lenstring then
+				lenstring = string.len(section[j]["text"])
 			end
 		end
 	end
@@ -37,8 +37,8 @@ function print_select_module(x,y,lenstring)
 		global_edit_variable["select_sens"] = false
 		for j=0, #global_select_section[global_edit_variable["nom"]] do
 			if global_select_section[global_edit_variable["nom"]][j] ~= nil then
-				table.insert(global_term_objet_write,{x = x, y = y+yincr, text = bouche_trou(global_select_section[global_edit_variable["nom"]][j],lenstring), back_color = 2048 + change_color_select(j), text_color = 1})
-				table.insert(global_term_objet_select,{xmin = x, xmax = x + lenstring, ymin = y+yincr, ymax = y+yincr, parametre={action="select",valeur=j}, back_color = 2048 + change_color_select(j)})
+				table.insert(global_term_objet_write,{x = x, y = y+yincr, text = bouche_trou(global_select_section[global_edit_variable["nom"]][j]["text"],lenstring), back_color = 2048 + change_color_select(j), text_color = 1})
+				table.insert(global_term_objet_select,{xmin = x, xmax = x + lenstring, ymin = y+yincr, ymax = y+yincr, parametre={action="select",valeur=global_select_section[global_edit_variable["nom"]][j]["valeur"]}, back_color = 2048 + change_color_select(j)})
 				yincr = yincr + 1
 			end
 		end
@@ -46,17 +46,10 @@ function print_select_module(x,y,lenstring)
 		global_edit_variable["select_sens"] = true
 		for j=#global_select_section[global_edit_variable["nom"]], 0, -1 do
 			if global_select_section[global_edit_variable["nom"]][j] ~= nil then
-				table.insert(global_term_objet_write,{x = x, y = y-yincr, text = bouche_trou(global_select_section[global_edit_variable["nom"]][j],lenstring), back_color = 2048 + change_color_select(j), text_color = 1})
-				table.insert(global_term_objet_select,{xmin = x, xmax = x + lenstring, ymin = y+yincr, ymax = y+yincr, parametre={action="select",valeur=j}, back_color = 2048 + change_color_select(j)})
+				table.insert(global_term_objet_write,{x = x, y = y-yincr, text = bouche_trou(global_select_section[global_edit_variable["nom"]][j]["text"],lenstring), back_color = 2048 + change_color_select(j), text_color = 1})
+				table.insert(global_term_objet_select,{xmin = x, xmax = x + lenstring, ymin = y+yincr, ymax = y+yincr, parametre={action="select",valeur=global_select_section[global_edit_variable["nom"]][j]["valeur"]}, back_color = 2048 + change_color_select(j)})
 				yincr = yincr + 1
 			end
 		end
 	end
-end
-function bouche_trou(text,lenstring)
-	return_text = ""
-	for j=string.len(text), lenstring do
-		return_text = return_text.." "
-	end
-	return text..return_text
 end

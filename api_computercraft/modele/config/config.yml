@@ -102,3 +102,9 @@ statut_echange:
     23: litige - plus interesser
     24: litige - trop cher
     25: litige - resolu
+motif_litige:
+    1: non recu
+    2: non conforme
+    3: trop long
+    4: plus interesser
+    5: trop cher

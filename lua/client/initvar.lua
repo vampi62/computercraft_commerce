@@ -27,13 +27,3 @@ if not fs.exists(global_config_panier) then
 	files.write("global_panier = {}")
 	files.close()
 end
-if not fs.exists(global_config_table_http) then
-	files = fs.open(global_config_table_http, "w")
-	files.writeLine("global_table_http = {}")
-	files.writeLine("global_table_http['offre'] = {'id','adresse','proprio','prix','nbr_dispo','type','livraison','nom','description','dateupdate','nbr_commande'}")
-	files.writeLine("global_table_http['commande_client'] = {'id','id_offre','id_transaction','nom_commande','expediteur','recepteur','text_adresse_expediteur','text_adresse_recepteur','quantite','somme','prix_unitaire','type','livraison','suivie','description','statut','date','heure'}")
-	files.writeLine("global_table_http['commande_commerce'] = {'id','id_offre','id_transaction','nom_commande','expediteur','recepteur','text_adresse_expediteur','text_adresse_recepteur','quantite','somme','prix_unitaire','type','livraison','suivie','description','statut','date','heure'}")
-	files.writeLine("global_table_http['transaction'] = {'id','id_commandes','id_admin_exec','crediteur','debiteur','somme','type','description','statut','date','heure'}")
-	files.writeLine("global_table_http['adresse'] = {'nom','type','coo','description','nbr_offre'}")
-	files.close()
-end

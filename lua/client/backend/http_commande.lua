@@ -183,11 +183,14 @@ function http_commande(http_req)
 			end
 		elseif http_req == "http_update_adr" then
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
+				tval = ""
 				if global_variable["nom"] ~= global_variable["id"] then
-					id_message_http = http_get("updateadresse&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&nom="..global_variable["id"].."&nouveaunom="..global_variable["nom"].."&type="..global_variable["type_adresse"].."&coo="..global_variable["coo"].."&description="..global_variable["description"],true)
-				else
-					id_message_http = http_get("updateadresse&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&nom="..global_variable["id"].."&type="..global_variable["type_adresse"].."&coo="..global_variable["coo"].."&description="..global_variable["description"],true)
+					tval = tval.."&nouveaunom="..global_variable["nom"]
 				end
+				if global_variable["type_adresse"] ~= global_variable["ancientype"] then
+					tval = tval.."&type="..global_variable["type_adresse"]
+				end
+				id_message_http = http_get("updateadresse&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&nom="..global_variable["id"]..tval.."&coo="..global_variable["coo"].."&description="..global_variable["description"],true)
 				liste = "adresse"
 				http_commande("http_login")
 			end

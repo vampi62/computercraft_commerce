@@ -71,14 +71,15 @@ class Jeton
 		$listidplayer = ConvertTable::gettableidplayer($this->bdd);
 		while ($donnees = $req->fetch())
 		{
-			$jeton = array(1 => $listidplayer[$donnees['id_user']]);
-			$jeton[] = $donnees['jeton1'];
-			$jeton[] = $donnees['jeton10'];
-			$jeton[] = $donnees['jeton100'];
-			$jeton[] = $donnees['jeton1k'];
-			$jeton[] = $donnees['jeton10k'];
-			$jeton[] = $donnees['date'];
-			$jeton[] = $donnees['heure'];
+			$jeton = array();
+			$jeton['id_user'] = $listidplayer[$donnees['id_user']];
+			$jeton['jeton1'] = $donnees['jeton1'];
+			$jeton['jeton10'] = $donnees['jeton10'];
+			$jeton['jeton100'] = $donnees['jeton100'];
+			$jeton['jeton1k'] = $donnees['jeton1k'];
+			$jeton['jeton10k'] = $donnees['jeton10k'];
+			$jeton['date'] = $donnees['date'];
+			$jeton['heure'] = $donnees['heure'];
 			if (empty($list_jetons))
 			{
 				$list_jetons = array(1 => $jeton);

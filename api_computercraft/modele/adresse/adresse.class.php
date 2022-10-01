@@ -29,11 +29,13 @@ class Adresse
 		$list_adresses = array();
 		while ($donnees = $req->fetch())
 		{
-			$adresse = array(1 => $donnees['nom']);
-			$adresse[] = $donnees['type'];
-			$adresse[] = $donnees['coo'];
-			$adresse[] = $donnees['description'];
-			$adresse[] = $this->getnbroffre($donnees['id']);
+			$adresse = array();
+			$adresse['id'] = $donnees['id'];
+			$adresse['nom'] = $donnees['nom'];
+			$adresse['type'] = $donnees['type'];
+			$adresse['coo'] = $donnees['coo'];
+			$adresse['description'] = $donnees['description'];
+			$adresse['nbr_offre'] = $this->getnbroffre($donnees['id']);
 			if (empty($list_adresses))
 			{
 				$list_adresses = array(1 => $adresse);

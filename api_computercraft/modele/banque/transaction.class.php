@@ -20,17 +20,18 @@ class Transaction
 		$listidplayer = ConvertTable::gettableidplayer($this->bdd);
 		while ($donnees = $req->fetch())
 		{
-			$transaction = array(1 => $donnees['id']);
-			$transaction[] = $donnees['id_commandes'];
-			$transaction[] = $listidplayer[$donnees['id_admin_exec']];
-			$transaction[] = $listidplayer[$donnees['crediteur']];
-			$transaction[] = $listidplayer[$donnees['debiteur']];
-			$transaction[] = $donnees['somme'];
-			$transaction[] = $donnees['type'];
-			$transaction[] = $donnees['description'];
-			$transaction[] = $donnees['statut'];
-			$transaction[] = $donnees['date'];
-			$transaction[] = $donnees['heure'];
+			$transaction = array();
+			$transaction['id'] = $donnees['id'];
+			$transaction['id_commandes'] = $donnees['id_commandes'];
+			$transaction['id_admin_exec'] = $listidplayer[$donnees['id_admin_exec']];
+			$transaction['crediteur'] = $listidplayer[$donnees['crediteur']];
+			$transaction['debiteur'] = $listidplayer[$donnees['debiteur']];
+			$transaction['somme'] = $donnees['somme'];
+			$transaction['type'] = $donnees['type'];
+			$transaction['description'] = $donnees['description'];
+			$transaction['statut'] = $donnees['statut'];
+			$transaction['date'] = $donnees['date'];
+			$transaction['heure'] = $donnees['heure'];
 			if (empty($list_transactions))
 			{
 				$list_transactions = array(1 => $transaction);

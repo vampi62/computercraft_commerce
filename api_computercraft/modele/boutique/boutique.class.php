@@ -18,24 +18,25 @@ class Boutique
 		while ($donnees = $req->fetch())
 		{
 			$adresse = ConvertTable::getIdAdresse($this->bdd,$donnees['id_adresse']);
-			$offre = array(1 => $donnees['id']);
-			$offre[] = $adresse;
-			//$offre[] = $donnees['id_adresse'];
-			$offre[] = $listidplayer[$donnees['proprio']];
-			$offre[] = $donnees['prix'];
-			$offre[] = $donnees['nbr_dispo'];
-			$offre[] = $donnees['type'];
-			$offre[] = $donnees['livraison'];
-			$offre[] = $donnees['nom'];
-			$offre[] = $donnees['description'];
-			$offre[] = $donnees['last_update'];
+			$offre = array();
+			$offre['id'] = $donnees['id'];
+			$offre['adresse'] = $adresse;
+			$offre['id_adresse'] = $donnees['id_adresse'];
+			$offre['proprio'] = $listidplayer[$donnees['proprio']];
+			$offre['prix'] = $donnees['prix'];
+			$offre['nbr_dispo'] = $donnees['nbr_dispo'];
+			$offre['type'] = $donnees['type'];
+			$offre['livraison'] = $donnees['livraison'];
+			$offre['nom'] = $donnees['nom'];
+			$offre['description'] = $donnees['description'];
+			$offre['last_update'] = $donnees['last_update'];
 			if ($this->proprio == $donnees['proprio'])
 			{
-				$offre[] = $this->getnbrcommande($donnees['id']);
+				$offre['nbr_commande'] = $this->getnbrcommande($donnees['id']);
 			}
 			else
 			{
-				$offre[] = 0;
+				$offre['nbr_commande'] = 0;
 			}
 			if (empty($list_offres))
 			{

@@ -99,24 +99,25 @@ class Commande
 		$listidplayer = ConvertTable::gettableidplayer($this->bdd);
 		while ($donnees = $req->fetch())
 		{
-			$commande = array(1 => $donnees['id']);
-			$commande[] = $donnees['id_offre'];
-			$commande[] = $donnees['id_transaction'];
-			$commande[] = $donnees['nom_commande'];
-			$commande[] = $listidplayer[$donnees['expediteur']];
-			$commande[] = $listidplayer[$donnees['recepteur']];
-			$commande[] = $donnees['text_adresse_expediteur'];
-			$commande[] = $donnees['text_adresse_recepteur'];
-			$commande[] = $donnees['quantite'];
-			$commande[] = $donnees['somme'];
-			$commande[] = $donnees['prix_unitaire'];
-			$commande[] = $donnees['type'];
-			$commande[] = $donnees['livraison'];
-			$commande[] = $donnees['suivie'];
-			$commande[] = $donnees['description'];
-			$commande[] = $donnees['statut'];
-			$commande[] = $donnees['date'];
-			$commande[] = $donnees['heure'];
+			$commande = array();
+			$commande['id'] = $donnees['id'];
+			$commande['id_offre'] = $donnees['id_offre'];
+			$commande['id_transaction'] = $donnees['id_transaction'];
+			$commande['nom_commande'] = $donnees['nom_commande'];
+			$commande['expediteur'] = $listidplayer[$donnees['expediteur']];
+			$commande['recepteur'] = $listidplayer[$donnees['recepteur']];
+			$commande['text_adresse_expediteur'] = $donnees['text_adresse_expediteur'];
+			$commande['text_adresse_recepteur'] = $donnees['text_adresse_recepteur'];
+			$commande['quantite'] = $donnees['quantite'];
+			$commande['somme'] = $donnees['somme'];
+			$commande['prix_unitaire'] = $donnees['prix_unitaire'];
+			$commande['type'] = $donnees['type'];
+			$commande['livraison'] = $donnees['livraison'];
+			$commande['suivie'] = $donnees['suivie'];
+			$commande['description'] = $donnees['description'];
+			$commande['statut'] = $donnees['statut'];
+			$commande['date'] = $donnees['date'];
+			$commande['heure'] = $donnees['heure'];
 			if (empty($list_commandes))
 			{
 				$list_commandes = array(1 => $commande);
