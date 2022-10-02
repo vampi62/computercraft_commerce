@@ -108,7 +108,8 @@ function http_commande(http_req)
 			end
 		elseif http_req == "http_update_offre" then
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
-				tval = "&type="..global_variable["type"].."&livraison="..global_variable["livraison"].."&id="..global_variable["id"].."&prix="..global_variable["prix"].."&nbr_dispo="..global_variable["nbr_dispo"].."&nomadresse="..global_variable["adresse"].."&nom="..global_variable["nom"].."&description="..global_variable["description"]
+				tval = "&nomadresse="..global_variable["adresse"]
+				tval = tval.."&type="..global_variable["type"].."&livraison="..global_variable["livraison"].."&id="..global_variable["id"].."&prix="..global_variable["prix"].."&nbr_dispo="..global_variable["nbr_dispo"].."&nom="..global_variable["nom"].."&description="..global_variable["description"]
 				id_message_http = http_get("updateoffreboutique&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"]..tval,true)
 				liste = "offre"
 			end
@@ -128,6 +129,29 @@ function http_commande(http_req)
 					end
 					save_table_file(global_config_panier, textutils.serialize(global_panier), "global_panier")
 					global_message = global_local_error_message[30]
+				end
+			end
+		elseif http_req == "save_panier" then
+			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil and tonumber(global_variable["quant"]) ~= nil then
+				if tonumber(global_variable["quant"]) > 0 then
+					panier_trouver = false
+					for j=1, #global_panier do
+						if global_panier[j]["id"] == global_variable["id"] then
+							global_panier[j]["quant"] = global_variable["quant"]
+							panier_trouver = true
+							break
+						end
+					end
+					if not panier_trouver then
+						table.insert(global_panier,{quant=global_variable["quant"],id=global_variable["id"],nom=global_variable["nom"]})
+					end
+					save_table_file(global_config_panier, textutils.serialize(global_panier), "global_panier")
+				end
+			end
+			changementpage(-1)
+			if global_click["parametre"]["filtre"] ~= nil then
+				for k, v in pairs(global_click["parametre"]["filtre"]) do
+					global_filtre[k] = global_click["parametre"]["filtre"][k]
 				end
 			end
 		elseif http_req == "del_panier" then

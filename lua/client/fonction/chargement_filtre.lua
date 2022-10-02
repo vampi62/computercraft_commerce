@@ -14,6 +14,7 @@ function chargement_filtre(liste,filtre_alternatif,comparatif_0,champ1_0,champ2_
 			localfiltre = filtre_alternatif
 		else
 			localfiltre = global_filtre
+			global_scroll = 0
 		end
 		global_filtre_liste[liste] = {}
 		for j=1, #global_liste[liste] do
@@ -54,7 +55,6 @@ function chargement_filtre(liste,filtre_alternatif,comparatif_0,champ1_0,champ2_
 				table.insert(global_filtre_liste[liste],global_liste[liste][j])
 			end
 		end
-		global_scroll = 0
 		global_reapliquer_filtre = false
 	end
 end

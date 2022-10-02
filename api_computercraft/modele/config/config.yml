@@ -4,7 +4,7 @@ General:
     max_offre: 25
     prix_offre: 5000
     offre_depart: 5
-    case_ligne_suite: -br-
+    case_ligne_suite: _br_
     name: computercraft_api
 DataBase:
     dbAdress: 0.0.0.0

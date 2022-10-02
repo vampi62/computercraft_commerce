@@ -27,7 +27,13 @@ function page_plus_info_offre_client()
 			table.insert(global_term_objet_write,{x = 42, y = 9, text = global_variable["quant"], back_color = 128 + change_color_champ_select("quant"), text_color = 1})
 			table.insert(global_term_objet_select,{xmin = 42, xmax = 50, ymin = 9, ymax = 9, parametre={action="variable",nom="quant",type="int"}, back_color = 128 + change_color_champ_select("quant")})
 			table.insert(global_term_objet_write,{x = 35, y = 11, text = "prixG:", back_color = 32768, text_color = 1})
-			table.insert(global_term_objet_write,{x = 42, y = 11, text = convert_grand_nombre(global_liste[liste][j]["prix"]*global_variable["quant"]), back_color = 32768, text_color = 1})
+			if global_variable["quant"] == "" then
+				table.insert(global_term_objet_write,{x = 42, y = 11, text = "0", back_color = 32768, text_color = 1})
+			else
+				table.insert(global_term_objet_write,{x = 42, y = 11, text = convert_grand_nombre(global_liste[liste][j]["prix"]*global_variable["quant"]), back_color = 32768, text_color = 1})
+			end
+
+			
 			table.insert(global_term_objet_write,{x = 42, y = 13, text = "commander", back_color = 128, text_color = 1})
 			if global_page_visible == page_tableau_panier then
 				table.insert(global_term_objet_write,{x = 34, y = 15, text = "retirer du panier", back_color = 128, text_color = 1})
@@ -48,6 +54,8 @@ function page_plus_info_offre_client()
 					table.insert(global_term_objet_select,{xmin = 42, xmax = 50, ymin = 13, ymax = 13, parametre={action="page",id=20}, back_color = 128})
 				end
 			end
+			-- ecrasement du bouton retour par superposition pour enregistrer la quantite selectionner
+			table.insert(global_term_objet_select,{xmin = 1, xmax = 12, ymin = 19, ymax = 19, parametre={action="action",id="save_panier"}, back_color = 128})
 			
 			-- variable pour la section a gauche de la barre de scroll (section mobile)
 			local texte_info = {
