@@ -168,17 +168,19 @@ end
 
 if global_http_enable then
 	sleep(1) -- pour eviter un melange entre le retour config et le retour login
-	if global_session["pseudo"] ~= "" and global_session["mdp"] ~= "" then
-		id_message_http = http_get("listuserdata&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
-		local temp_mdp_init = global_session["mdp"]
-		if type(id_message_http) == "table" then
-			global_session = id_message_http
-			global_session["mdp"] = temp_mdp_init
-		else
-			global_session = {pseudo='', mdp='', compte=0, email='', defautadresse={nom='',type='',coo='',description=''}, nbr_offre=0, role='', last_login=''}
+	if global_session["pseudo"] ~= nil and global_session["mdp"] ~= nil then
+		if global_session["pseudo"] ~= "" and global_session["mdp"] ~= "" then
+			id_message_http = http_get("listuserdata&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"],true)
+			local temp_mdp_init = global_session["mdp"]
+			if type(id_message_http) == "table" then
+				global_session = id_message_http
+				global_session["mdp"] = temp_mdp_init
+			else
+				global_session = {pseudo='', mdp='', compte=0, email='', defautadresse={nom='',type='',coo='',description=''}, nbr_offre=0, role='', last_login=''}
+			end
+			save_table_file(global_config_session, textutils.serialize(global_session), "global_session")
+			id_message_http = nil
 		end
-		save_table_file(global_config_session, textutils.serialize(global_session), "global_session")
-		id_message_http = nil
 	end
 end
 
