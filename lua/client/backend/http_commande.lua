@@ -292,6 +292,12 @@ function http_commande(http_req)
 					end
 				end
 			end
+		elseif http_req == "http_update_statut" then
+			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
+				if global_session["mdp"] ~= "" and global_session["pseudo"] ~= "" then
+					id_message_http = http_get("updatecommandestatut&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&id="..global_variable["id"].."&statut="..global_click["parametre"]["valeur"],true)
+				end
+			end
 		end
 		if id_message_http ~= "" then
 			global_message = convert_id_message(id_message_http)
