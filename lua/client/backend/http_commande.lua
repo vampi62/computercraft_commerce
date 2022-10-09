@@ -125,7 +125,7 @@ function http_commande(http_req)
 		elseif http_req == "changemail" then
 			if global_variable["mdp"] ~= nil and global_variable["pseudo"] ~= nil and global_variable["email"] ~= nil then
 				if global_session["mdp"] ~= "" and global_session["pseudo"] ~= "" and global_variable["email"] ~= "" then
-					id_message_http = http_get("updatemail&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&email="..global_variable["email"],true)
+					id_message_http = http_get("updatemail&mdp="..global_variable["mdp"].."&pseudo="..global_session["pseudo"].."&email="..global_variable["email"],true)
 				end
 			end
 		elseif http_req == "http_commande_offre" then

@@ -1,8 +1,6 @@
 function page_edit_config()
 	-- champs pres rempli
-	local variable_a_remplir = {"ip","port","uriapi","urilua"}
-	local variable_a_coller = {global_url,global_port,global_api_uri,global_lua_uri}
-	creation_variable(variable_a_remplir,variable_a_coller)
+	creation_variable({"ip","port","uriapi","urilua"},{global_url,global_port,global_api_uri,global_lua_uri})
 
 	table.insert(global_term_objet_write,{x = 15, y = 5, text = "changement config reseau", back_color = 32768, text_color = 1})
 

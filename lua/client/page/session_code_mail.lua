@@ -1,4 +1,6 @@
 function page_session_code_mail()
+	creation_variable({"pseudo","codemail","codemail_len"},{"","",""})
+
 	table.insert(global_term_objet_write,{x = 15, y = 5, text = "code reinit mot de passe", back_color = 32768, text_color = 1})
 	table.insert(global_term_objet_write,{x = 6, y = 7, text = "pseudo      :", back_color = 32768, text_color = 1})
 	table.insert(global_term_objet_write,{x = 6, y = 9, text = "code mail   :", back_color = 32768, text_color = 1})

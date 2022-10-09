@@ -9,6 +9,8 @@ function page_session_menu()
 		table.insert(global_term_objet_select,{xmin = 2, xmax = 15, ymin = 9, ymax = 9, parametre={action="page",id=26}, back_color = 128})
 		table.insert(global_term_objet_select,{xmin = 36, xmax = 46, ymin = 15, ymax = 15, parametre={action="action",id="deconnexion"}, back_color = 128})
 	else
+		creation_variable({"pseudo","mdp","mdp_len"},{"","",""})
+
 		table.insert(global_term_objet_write,{x = 9, y = 7, text = "pseudo :", back_color = 32768, text_color = 1})
 		table.insert(global_term_objet_write,{x = 9, y = 9, text = "mot de", back_color = 32768, text_color = 1})
 		table.insert(global_term_objet_write,{x = 10, y = 10, text = "passe :", back_color = 32768, text_color = 1})

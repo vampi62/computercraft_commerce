@@ -1,4 +1,6 @@
 function page_login_pc_set_mdp()
+	creation_variable({"mdp","mdp_len","confirm","confirm_len"},{"","","",""})
+	
 	table.insert(global_term_objet_write,{x = 15, y = 5, text = "mot de passe poste local", back_color = 32768, text_color = 1})
 	table.insert(global_term_objet_write,{x = 6, y = 7, text = "mdp         :", back_color = 32768, text_color = 1})
 	table.insert(global_term_objet_write,{x = 6, y = 9, text = "confirm     :", back_color = 32768, text_color = 1})

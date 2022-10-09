@@ -1,4 +1,6 @@
 function page_session_inscription()
+	creation_variable({"pseudo","mdp","mdp_len","confirm","confirm_len","email"},{"","","","","",""})
+
 	table.insert(global_term_objet_write,{x = 21, y = 5, text = "inscription", back_color = 32768, text_color = 1})
 	table.insert(global_term_objet_write,{x = 6, y = 7, text = "pseudo      :", back_color = 32768, text_color = 1})
 	table.insert(global_term_objet_write,{x = 6, y = 9, text = "mdp         :", back_color = 32768, text_color = 1})

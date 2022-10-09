@@ -4,9 +4,8 @@ function genere_select_frame()
 			lenstring = 0
 			if global_edit_variable["nom"] == "adresse" then
 				resync_liste("adresse")
-				local localfiltre = {type={valeur="2",type="egal"}}
 				global_reapliquer_filtre = true
-				chargement_filtre("adresse",localfiltre)
+				chargement_filtre("adresse",{type={valeur="2",type="egal"}})
 			end
 			resync_select()
 			lenstring = len_string_tab(global_select_section[global_edit_variable["nom"]])
