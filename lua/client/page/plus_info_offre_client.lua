@@ -10,9 +10,9 @@ function page_plus_info_offre_client()
 			-- section a droite de la barre de scroll (section fixe)
 
 			if global_page_visible == page_tableau_panier then
-				for j=1, #global_panier do
-					if global_filtre["id"]["valeur"] == global_panier[j]["id"] then
-						creation_variable({"quant"},{global_panier[j]["quant"]})
+				for j=1, #global_panier[global_session["pseudo"]] do
+					if global_filtre["id"]["valeur"] == global_panier[global_session["pseudo"]][j]["id"] then
+						creation_variable({"quant"},{global_panier[global_session["pseudo"]][j]["quant"]})
 						break
 					end
 				end

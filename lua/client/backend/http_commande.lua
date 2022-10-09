@@ -85,7 +85,7 @@ function http_commande(http_req)
 		-- dans cette boucle if que les commandes retournant un id de message
 		if http_req == "inscription" then
 			if global_variable["mdp"] ~= nil and global_variable["pseudo"] ~= nil and global_variable["confirm"] ~= nil and global_variable["email"] ~= nil then
-				if global_session["mdp"] ~= "" and global_session["pseudo"] ~= "" and global_variable["confirm"] ~= "" and global_variable["email"] ~= ""  then
+				if global_variable["mdp"] ~= "" and global_variable["pseudo"] ~= "" and global_variable["confirm"] ~= "" and global_variable["email"] ~= ""  then
 					id_message_http = http_get("inscription&mdp="..global_variable["mdp"].."&pseudo="..global_variable["pseudo"].."&mdpconfirm="..global_variable["confirm"].."&email="..global_variable["email"],true)
 				end
 			end
@@ -94,37 +94,40 @@ function http_commande(http_req)
 			save_table_file(global_config_session, textutils.serialize(global_session), "global_session")
 		elseif http_req == "connexion" then
 			if global_variable["mdp"] ~= nil and global_variable["pseudo"] ~= nil then
-				if global_session["mdp"] ~= "" and global_session["pseudo"] ~= "" then
+				if global_variable["mdp"] ~= "" and global_variable["pseudo"] ~= "" then
 					id_message_http = http_get("listuserdata&mdp="..global_variable["mdp"].."&pseudo="..global_variable["pseudo"],true)
 					if type(id_message_http) == "table" then
 						global_session = id_message_http
 						global_session["mdp"] = global_variable["mdp"]
 						save_table_file(global_config_session, textutils.serialize(global_session), "global_session")
 						id_message_http = ""
+						if global_panier[global_session["pseudo"]] == nil then
+							global_panier[global_session["pseudo"]] = {}
+						end
 					end
 				end
 			end
 		elseif http_req == "mdpoublie" then
 			if global_variable["pseudo"] ~= nil and global_variable["email"] ~= nil then
-				if global_session["pseudo"] ~= "" and global_session["email"] ~= "" then
+				if global_variable["pseudo"] ~= "" and global_variable["email"] ~= "" then
 					id_message_http = http_get("changemdpmail&pseudo="..global_variable["pseudo"].."&email="..global_variable["email"],true)
 				end
 			end
 		elseif http_req == "codemail" then
 			if global_variable["codemail"] ~= nil and global_variable["pseudo"] ~= nil then
-				if global_session["codemail"] ~= "" and global_session["pseudo"] ~= "" then
+				if global_variable["codemail"] ~= "" and global_variable["pseudo"] ~= "" then
 					id_message_http = http_get("recuperationmailmdp&token="..global_variable["codemail"].."&pseudo="..global_variable["pseudo"],true)
 				end
 			end
 		elseif http_req == "changemdp" then
-			if global_variable["ancienmdp"] ~= nil and global_variable["pseudo"] ~= nil and global_variable["confirm"] ~= nil and global_variable["mdp"] ~= nil then
-				if global_session["ancienmdp"] ~= "" and global_session["pseudo"] ~= "" and global_variable["confirm"] ~= "" and global_variable["mdp"] ~= "" then
+			if global_variable["ancienmdp"] ~= nil and global_session["pseudo"] ~= nil and global_variable["confirm"] ~= nil and global_variable["mdp"] ~= nil then
+				if global_variable["ancienmdp"] ~= "" and global_session["pseudo"] ~= "" and global_variable["confirm"] ~= "" and global_variable["mdp"] ~= "" then
 					id_message_http = http_get("updatemdp&mdp="..global_variable["ancienmdp"].."&pseudo="..global_session["pseudo"].."&mdpconfirm="..global_variable["confirm"].."&mdpnouveau="..global_variable["mdp"],true)
 				end
 			end
 		elseif http_req == "changemail" then
-			if global_variable["mdp"] ~= nil and global_variable["pseudo"] ~= nil and global_variable["email"] ~= nil then
-				if global_session["mdp"] ~= "" and global_session["pseudo"] ~= "" and global_variable["email"] ~= "" then
+			if global_variable["mdp"] ~= nil and global_session["pseudo"] ~= nil and global_variable["email"] ~= nil then
+				if global_variable["mdp"] ~= "" and global_session["pseudo"] ~= "" and global_variable["email"] ~= "" then
 					id_message_http = http_get("updatemail&mdp="..global_variable["mdp"].."&pseudo="..global_session["pseudo"].."&email="..global_variable["email"],true)
 				end
 			end
@@ -146,17 +149,20 @@ function http_commande(http_req)
 		elseif http_req == "ad_panier" then
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil and tonumber(global_variable["quant"]) ~= nil then
 				if global_session["mdp"] ~= "" and global_session["pseudo"] ~= "" then
+					if global_panier[global_session["pseudo"]] == nil then
+						global_panier[global_session["pseudo"]] = {}
+					end
 					if tonumber(global_variable["quant"]) > 0 then
-						panier_trouver = false
-						for j=1, #global_panier do
-							if global_panier[j]["id"] == global_variable["id"] then
-								global_panier[j]["quant"] = global_panier[j]["quant"] + global_variable["quant"]
+						local panier_trouver = false
+						for j=1, #global_panier[global_session["pseudo"]] do
+							if global_panier[global_session["pseudo"]][j]["id"] == global_variable["id"] then
+								global_panier[global_session["pseudo"]][j]["quant"] = global_panier[global_session["pseudo"]][j]["quant"] + global_variable["quant"]
 								panier_trouver = true
 								break
 							end
 						end
 						if not panier_trouver then
-							table.insert(global_panier,{quant=global_variable["quant"],id=global_variable["id"],nom=global_variable["nom"]})
+							table.insert(global_panier[global_session["pseudo"]],{quant=global_variable["quant"],id=global_variable["id"],nom=global_variable["nom"]})
 						end
 						save_table_file(global_config_panier, textutils.serialize(global_panier), "global_panier")
 						global_message = global_local_error_message[30]
@@ -166,17 +172,20 @@ function http_commande(http_req)
 		elseif http_req == "save_panier" then
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil and tonumber(global_variable["quant"]) ~= nil then
 				if global_session["mdp"] ~= "" and global_session["pseudo"] ~= "" then
+					if global_panier[global_session["pseudo"]] == nil then
+						global_panier[global_session["pseudo"]] = {}
+					end
 					if tonumber(global_variable["quant"]) > 0 then
-						panier_trouver = false
-						for j=1, #global_panier do
-							if global_panier[j]["id"] == global_variable["id"] then
-								global_panier[j]["quant"] = global_variable["quant"]
+						local panier_trouver = false
+						for j=1, #global_panier[global_session["pseudo"]] do
+							if global_panier[global_session["pseudo"]][j]["id"] == global_variable["id"] then
+								global_panier[global_session["pseudo"]][j]["quant"] = global_variable["quant"]
 								panier_trouver = true
 								break
 							end
 						end
 						if not panier_trouver then
-							table.insert(global_panier,{quant=global_variable["quant"],id=global_variable["id"],nom=global_variable["nom"]})
+							table.insert(global_panier[global_session["pseudo"]],{quant=global_variable["quant"],id=global_variable["id"],nom=global_variable["nom"]})
 						end
 						save_table_file(global_config_panier, textutils.serialize(global_panier), "global_panier")
 					end
@@ -191,9 +200,12 @@ function http_commande(http_req)
 		elseif http_req == "del_panier" then
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
 				if global_session["mdp"] ~= "" and global_session["pseudo"] ~= "" then
-					for j=1, #global_panier do
-						if global_panier[j]["id"] == global_variable["id"] then
-							table.remove(global_panier,j)
+					if global_panier[global_session["pseudo"]] == nil then
+						global_panier[global_session["pseudo"]] = {}
+					end
+					for j=1, #global_panier[global_session["pseudo"]] do
+						if global_panier[global_session["pseudo"]][j]["id"] == global_variable["id"] then
+							table.remove(global_panier[global_session["pseudo"]],j)
 							break
 						end
 					end
@@ -204,27 +216,34 @@ function http_commande(http_req)
 		elseif http_req == "http_commande_offre_panier" then
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
 				if global_session["mdp"] ~= "" and global_session["pseudo"] ~= "" then
-					for j=1, #global_panier do
-						if global_panier[j]["id"] == global_variable["id"] then
-							table.remove(global_panier,j)
+					if global_panier[global_session["pseudo"]] == nil then
+						global_panier[global_session["pseudo"]] = {}
+					end
+					for j=1, #global_panier[global_session["pseudo"]] do
+						if global_panier[global_session["pseudo"]][j]["id"] == global_variable["id"] then
+							table.remove(global_panier[global_session["pseudo"]],j)
 							break
 						end
 					end
 					id_message_http = http_get("achat&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&id="..global_variable["id"].."&quantite="..global_variable["quant"],true)
+					save_table_file(global_config_panier, textutils.serialize(global_panier), "global_panier")
 				end
 			end
 		elseif http_req == "achat_panier" then
 			if global_session["mdp"] ~= nil and global_session["pseudo"] ~= nil then
 				if global_session["mdp"] ~= "" and global_session["pseudo"] ~= "" then
+					if global_panier[global_session["pseudo"]] == nil then
+						global_panier[global_session["pseudo"]] = {}
+					end
 					if global_variable["prix_panier"] <= tonumber(global_session["compte"]) then
-						for j=1, #global_panier do
-							id_message_http = http_get("achat&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&id="..global_panier[j]["id"].."&quantite="..global_panier[j]["quant"],true)
+						for j=1, #global_panier[global_session["pseudo"]] do
+							id_message_http = http_get("achat&mdp="..global_session["mdp"].."&pseudo="..global_session["pseudo"].."&id="..global_panier[global_session["pseudo"]][j]["id"].."&quantite="..global_panier[global_session["pseudo"]][j]["quant"],true)
 							if id_message_http == "1" then
-								table.remove(global_panier,j)
+								table.remove(global_panier[global_session["pseudo"]],j)
 								j=j-1
 							end
 						end
-						if #global_panier > 0 then
+						if #global_panier[global_session["pseudo"]] > 0 then
 							global_message = global_local_error_message[33]
 						else
 							global_message = global_local_error_message[34]

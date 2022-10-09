@@ -175,6 +175,9 @@ if global_http_enable then
 			if type(id_message_http) == "table" then
 				global_session = id_message_http
 				global_session["mdp"] = temp_mdp_init
+				if global_panier[global_session["pseudo"]] == nil then
+					global_panier[global_session["pseudo"]] = {}
+				end
 			else
 				global_session = {pseudo='', mdp='', compte=0, email='', defautadresse={nom='',type='',coo='',description=''}, nbr_offre=0, role='', last_login=''}
 			end
