@@ -43,7 +43,7 @@ function page_plus_info_commande()
 			else
 				table.insert(global_term_objet_write,{x = 42, y = 13, text = "-"..convert_grand_nombre(global_liste[liste][j]["somme"]), back_color = 32768, text_color = 16384})
 			end
-			switch_status_commande()
+			switch_status_commande(liste,j)
 			-- variable pour la section a gauche de la barre de scroll (section mobile)
 			local texte_info = {
 				"nom        :",
@@ -119,20 +119,20 @@ function page_plus_info_commande()
 		end
 	end
 end
-function switch_status_commande()
+function switch_status_commande(liste,j)
 	if global_liste[liste][j]["statut"] == "1" then
 		if global_liste[liste][j]["expediteur"] ~= global_session["pseudo"] then
-			table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="action",id="http_update_statut",valeur="13", back_color = 128})
+			table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="action",id="http_update_statut",valeur="13"}, back_color = 128})
 			table.insert(global_term_objet_write,{x = 38, y = 15, text = "annuler", back_color = 128, text_color = 1})
 		else
-			table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="action",id="http_update_statut",valeur="2", back_color = 128})
+			table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="action",id="http_update_statut",valeur="2"}, back_color = 128})
 			table.insert(global_term_objet_write,{x = 38, y = 15, text = "valider", back_color = 128, text_color = 1})
-			table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="action",id="http_update_statut",valeur="10", back_color = 128})
+			table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="action",id="http_update_statut",valeur="10"}, back_color = 128})
 			table.insert(global_term_objet_write,{x = 38, y = 15, text = "refuser", back_color = 128, text_color = 1})
 		end
 	elseif global_liste[liste][j]["statut"] == "2" then
 		if global_liste[liste][j]["expediteur"] ~= global_session["pseudo"] then
-			table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="action",id="http_update_statut",valeur="13", back_color = 128})
+			table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 15, parametre={action="action",id="http_update_statut",valeur="13"}, back_color = 128})
 			table.insert(global_term_objet_write,{x = 38, y = 15, text = "annuler", back_color = 128, text_color = 1})
 		else
 			table.insert(global_term_objet_write,{x = 37, y = 15, text = "en attente", back_color = 128, text_color = 1})
@@ -143,7 +143,7 @@ function switch_status_commande()
 			table.insert(global_term_objet_select,{xmin = 35, xmax = 50, ymin = 15, ymax = 15, parametre={action="page",id=54,filtre={id={valeur=global_liste[liste][j]["id"],type="egal"}}}, back_color = 128})
 			table.insert(global_term_objet_write,{x = 35, y = 15, text = "ouvrir un litige", back_color = 128, text_color = 1})
 		else
-			table.insert(global_term_objet_select,{xmin = 32, xmax = 50, ymin = 15, ymax = 15, parametre={action="action",id="http_update_statut",valeur="4", back_color = 128})
+			table.insert(global_term_objet_select,{xmin = 32, xmax = 50, ymin = 15, ymax = 15, parametre={action="action",id="http_update_statut",valeur="4"}, back_color = 128})
 			table.insert(global_term_objet_write,{x = 32, y = 15, text = "valider preparation", back_color = 128, text_color = 1})
 		end
 	elseif global_liste[liste][j]["statut"] == "4" then
@@ -151,7 +151,7 @@ function switch_status_commande()
 			table.insert(global_term_objet_select,{xmin = 35, xmax = 50, ymin = 15, ymax = 15, parametre={action="page",id=54,filtre={id={valeur=global_liste[liste][j]["id"],type="egal"}}}, back_color = 128})
 			table.insert(global_term_objet_write,{x = 35, y = 15, text = "ouvrir un litige", back_color = 128, text_color = 1})
 		else
-			table.insert(global_term_objet_select,{xmin = 38, xmax = 44, ymin = 15, ymax = 16, parametre={action="action",id="http_update_statut",valeur="5", back_color = 128})
+			table.insert(global_term_objet_select,{xmin = 38, xmax = 44, ymin = 15, ymax = 16, parametre={action="action",id="http_update_statut",valeur="5"}, back_color = 128})
 			table.insert(global_term_objet_write,{x = 38, y = 15, text = "commande", back_color = 128, text_color = 1})
 			table.insert(global_term_objet_write,{x = 38, y = 16, text = "expedier", back_color = 128, text_color = 1})
 		end
@@ -160,13 +160,13 @@ function switch_status_commande()
 			table.insert(global_term_objet_select,{xmin = 35, xmax = 50, ymin = 15, ymax = 15, parametre={action="page",id=54,filtre={id={valeur=global_liste[liste][j]["id"],type="egal"}}}, back_color = 128})
 			table.insert(global_term_objet_write,{x = 35, y = 15, text = "ouvrir un litige", back_color = 128, text_color = 1})
 		else
-			table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 16, parametre={action="action",id="http_update_statut",valeur="6", back_color = 128})
+			table.insert(global_term_objet_select,{xmin = 37, xmax = 46, ymin = 15, ymax = 16, parametre={action="action",id="http_update_statut",valeur="6"}, back_color = 128})
 			table.insert(global_term_objet_write,{x = 38, y = 15, text = "commande", back_color = 128, text_color = 1})
 			table.insert(global_term_objet_write,{x = 38, y = 16, text = "recu", back_color = 128, text_color = 1})
 		end
 	elseif global_liste[liste][j]["statut"] == "6" then
 		if global_liste[liste][j]["expediteur"] ~= global_session["pseudo"] then
-			table.insert(global_term_objet_select,{xmin = 38, xmax = 46, ymin = 15, ymax = 16, parametre={action="action",id="http_update_statut",valeur="7", back_color = 128})
+			table.insert(global_term_objet_select,{xmin = 38, xmax = 46, ymin = 15, ymax = 16, parametre={action="action",id="http_update_statut",valeur="7"}, back_color = 128})
 			table.insert(global_term_objet_write,{x = 38, y = 15, text = "commande", back_color = 128, text_color = 1})
 			table.insert(global_term_objet_write,{x = 40, y = 16, text = "recu", back_color = 128, text_color = 1})
 			table.insert(global_term_objet_select,{xmin = 35, xmax = 50, ymin = 17, ymax = 17, parametre={action="page",id=54,filtre={id={valeur=global_liste[liste][j]["id"],type="egal"}}}, back_color = 128})
