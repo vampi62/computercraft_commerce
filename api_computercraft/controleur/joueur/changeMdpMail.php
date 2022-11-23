@@ -28,7 +28,7 @@ if(isset($_GET['pseudo']) AND isset($_GET['email']) AND !empty($_GET['pseudo']) 
 		$retourligne = "<br />";
 
 		$to = $donneesJoueur['email'];
-		$subject = "[computercraft commerce api]Recuperation de mot de passe";
+		$subject = "[".$_Serveur_['General']['name']."]Recuperation de mot de passe";
 		$txt = 'Bonjour, '.$donneesJoueur['pseudo'].$retourligne
 				.$retourligne
 				.'Suite à une demande de récupération de mail, vous recevez ce message.'.$retourligne.$retourligne

@@ -194,7 +194,6 @@ os.setComputerLabel(global_systeme_nom.."-"..global_systeme_version)
 function main()
 	if not fs.exists("config/update.lua") then
 		parallel.waitForAny(scroll, click, clavier, up_clavier, affichage_term, ntp, backend)
-		sleep(5)
 	else
 		require("update")
 	end

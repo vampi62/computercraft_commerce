@@ -194,14 +194,27 @@ return (string)
 3-->4 (vendeur) <br/>
 4-->5 (vendeur ou banque_routeur) <br/>
 5-->6 (vendeur ou banque_routeur) <br/>
+6-->7 (client) <br/>
+1-3-->13 (client) <br/>
+4-6-->20-24 (client) <br/>
+20-24-->25 (admin) <br/>
+
 1: commande effectuer validation vendeur en attente <br/>
 2: echange accepter paiement en attente <br/>
 3: echange accepter paiement valider <br/>
 4: commande pret a envoyer <br/>
 5: commande en cours de livraison <br/>
-6: terminer <br/>
+6: commande arrivée <br/>
+7: terminer <br/>
 10: echange refuser par le vendeur <br/>
 11: echange accepter paiement refuser <br/>
+13: commande annuler par le client<br/>
+20: litige commande non recu <br/>
+21: litige commande non conforme <br/>
+22: litige commande trop long <br/>
+23: litige commande plus interesser <br/>
+24: litige commande trop cher <br/>
+25: litige commande resolu <br/>
 	
 ## transaction
 - mdp			:(string)
