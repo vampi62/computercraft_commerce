@@ -91,3 +91,5 @@ CREATE TABLE IF NOT EXISTS `commandes` (
   `heure` varchar(55) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE DEFINER=`root`@`%` PROCEDURE `get_arbo_group`(IN `objet_groupe_id` INT UNSIGNED) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER WITH RECURSIVE returnlist AS ( SELECT id_groupe, nom, racine FROM groupe WHERE id_groupe = objet_groupe_id UNION ALL SELECT groupe.id_groupe, groupe.nom, groupe.racine FROM groupe, returnlist WHERE groupe.id_groupe = returnlist.racine ) SELECT returnlist.nom AS nom_dossier, groupe.nom AS nom_racine, returnlist.id_groupe AS id_groupe FROM returnlist LEFT JOIN groupe ON returnlist.racine = groupe.id_groupe ORDER BY returnlist.racine;
