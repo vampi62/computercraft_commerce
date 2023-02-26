@@ -1,0 +1,187 @@
+
+
+--[[
+	--page--
+-1 = retour dans la pile
+
+0  = setup_login_pc
+
+10 = menu
+
+20 = login
+21 = inscription
+22 = mdp_oublie
+23 = code_mdp_oublie
+25 = update_mdp
+26 = update_mail
+
+30 = offre_client
+31 = panier
+33 = plus_info_offre
+
+50 = commande_client
+53 = plus_info_commande
+54 = litige_commande
+
+60 = transaction_client
+63 = plus_info_transaction
+64 = litige_transaction
+
+90 = adresse
+91 = add_adresse
+93 = plus_info_adresse
+
+101 = filtre
+
+130 = offre_commerce
+133 = plus_info_offre
+
+150 = commande_commerce
+153 = plus_info_commande
+154 = litige_commande
+
+160 = transaction_commerce
+163 = plus_info_transaction
+164 = litige_transaction
+
+
+200 = demande_login_pc
+201 = change_login_pc
+202 = menu_config
+203 = mise_a_jour
+204 = infos
+205 = edit config
+]]--
+
+--[[ organisation des fichiers dans les postes lua
+
+-backend
+fonction 
+
+-fonction
+fichier de fonction utiilisable par tous les programmes
+
+-page
+fichier appeler pour afficher une page
+
+-programme
+les fichier continne une boucle qui doit etre appeler via la fonction main dans le fichier startup
+
+--[[
+	--action--
+-edit_config
+-reboot
+-shutdown
+-disable_message
+-setlocalmdp
+-changelocalmdp
+-localmdp
+-deconnexion
+-connexion
+-inscription
+-mdpoublie
+-codemail
+-changemdp
+-changemail
+-achatoffre
+]]--
+--[[
+type de variable pour global_variable
+text
+code --> une variable "nomdevariable_len" est creer elle a le meme nombre de caratere mais seulement des "*"
+int --> ne prend que des chiffres sur le clavier et peut etre modifier avec la molette de souris
+float --> idem que int mais l'increment de la molette se fait en pas de 0.1, pas de limite avec les chiffres après la virgule
+
+select -- plus tard
+
+]]--
+--[[
+
+exemple structure fichier page
+
+-- si il y a des champs editable a afficher et qu'il sont près remplie
+local variable_a_remplir = {"ip","port","uriapi","urilua"}
+local variable_a_coller = {global_url,global_port,global_api_uri,global_lua_uri}
+remplir_variable(variable_a_remplir,variable_a_coller)
+
+
+if idpage = x then
+	titre de page -- si plusieurs page dans le fichier
+if idpage = y then
+	titre de page -- si plusieurs page dans le fichier
+end
+
+titre de page -- si une page dans le fichier
+
+text
+
+text_variable (par variable les textes issue de la variable global_variable["xxxx"])
+selection_variable
+
+selection_bouton
+]]--
+
+
+
+--[[
+recup_http_config()
+
+reinitbox()
+
+remplir_variable(variable_a_remplir,variable_a_coller)
+
+changementpage(new_page)
+
+string = convert_grand_nombre(nombre)
+
+string = convertkey_number_altgr(numberkey)
+
+screen_function = duplicate_screen(ecran1, ecran2)
+
+save_file(nom, data)
+
+save_var_file(nom, data, name)
+
+save_table_file(nom, data, name)
+
+string_or_table = load_file(nom)
+
+string = sha256(msg)
+
+string_or_table = http_get(action,api_bool)
+
+bool = imprimante(printer,action,text,x,y,color)
+
+int = get_me_objet(me_controle,fingerprint_objet)
+
+table = get_tank_objet(tank)
+
+table = remplir_variable()
+
+table = rsa_key_gen()
+
+string = crypt(key, number)
+
+table = split(astring, delimiter)
+]]--
+
+
+
+
+
+
+--[[
+variable init par les fichiers config
+
+global_url = '__ip__or__domain__'
+global_port = '80'
+global_api_uri = 'api_computercraft'
+global_lua_uri = 'lua'
+global_systeme_nom = 'client'
+
+global_session = {} -- {pseudo='', mdp='', compte=0, email='', defautadresse={nom='',type='',coo='',description=''}, nbr_offre=0, role='', last_login=''}
+
+global_panier = {} -- {{id_offre=0,quant=0,nom=""},{id_offre=0,quant=0,nom=""}}
+
+global_login_pc = () mdp hash256
+]]--

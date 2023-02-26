@@ -9,15 +9,11 @@ require ('controleur/connection_base.php');
 if (!$_Serveur_['Install']) header('Location: installation/');
 if (isset($_GET['action']))
 {
-	if (isset($_GET['admin']))
-	{
-		require ('admin/action.php');
-	}
-	else
-	{
-		require ('controleur/action.php');
-	}
-
+	require ('controleur/action.php');
 }
-require ('theme/vue.php');
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json; charset=utf-8');
+if (isset($datareturn)){
+	echo json_encode($datareturn);
+}
 ?>

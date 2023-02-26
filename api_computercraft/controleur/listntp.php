@@ -1,10 +1,9 @@
 <?php
-$message = array();
-$message['seconde'] = date("s");
-$message['minute'] = date("i");
-$message['heure'] = date("H");
-$message['jour'] = date("d");
-$message['mois'] = date("m");
-$message['annee'] = date("Y");
-$printmessage = $message;
+$datareturn = array();
+$datareturn['seconde'] = date("s");
+$datareturn['minute'] = date("i");
+$datareturn['heure'] = date("H");
+$datareturn['jour'] = date("d");
+$datareturn['mois'] = date("m");
+$datareturn['annee'] = date("Y");
 ?>
