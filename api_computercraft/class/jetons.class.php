@@ -1,5 +1,10 @@
 <?php
-class Jeton
+// get jetons
+// get jeton/{id}
+// set jeton/{id}/value
+// set jeton/{id}/delete
+// set jeton/add
+class jetons
 {
 	private $bdd;
 	private $id;
@@ -11,17 +16,27 @@ class Jeton
 		$this->bdd = $bdd;
 		$this->id = $player;
 	}
-	
-	public function getReponseConnection()
-	{
-		return $this->reponseConnection;
-	}
 
 	public function getJetons()
 	{
 		$req = $this->bdd->query('SELECT * FROM jeton_banque');
-		$req = $this->rangejeton($req);
-		return $req;
+		$list_jetons = array();
+		$listidplayer = ConvertTable::gettableidplayer($this->bdd);
+		while ($donnees = $req->fetch())
+		{
+			$jeton = array();
+			$jeton['id_user'] = $listidplayer[$donnees['id_user']];
+			$jeton['jeton1'] = $donnees['jeton1'];
+			$jeton['jeton10'] = $donnees['jeton10'];
+			$jeton['jeton100'] = $donnees['jeton100'];
+			$jeton['jeton1k'] = $donnees['jeton1k'];
+			$jeton['jeton10k'] = $donnees['jeton10k'];
+			$jeton['date'] = $donnees['date'];
+			$jeton['heure'] = $donnees['heure'];
+			$list_jetons[] = $jeton;
+		}
+		$req->closeCursor();
+		return $list_jetons;
 	}
 
 	public function setInitJeton($jeton)
@@ -52,34 +67,6 @@ class Jeton
 			'id_user' => $this->id,
 			'date' => $date
 		));
-	}
-
-	private function rangejeton($req)
-	{
-		$list_jetons = array();
-		$listidplayer = ConvertTable::gettableidplayer($this->bdd);
-		while ($donnees = $req->fetch())
-		{
-			$jeton = array();
-			$jeton['id_user'] = $listidplayer[$donnees['id_user']];
-			$jeton['jeton1'] = $donnees['jeton1'];
-			$jeton['jeton10'] = $donnees['jeton10'];
-			$jeton['jeton100'] = $donnees['jeton100'];
-			$jeton['jeton1k'] = $donnees['jeton1k'];
-			$jeton['jeton10k'] = $donnees['jeton10k'];
-			$jeton['date'] = $donnees['date'];
-			$jeton['heure'] = $donnees['heure'];
-			if (empty($list_jetons))
-			{
-				$list_jetons = array(1 => $jeton);
-			}
-			else
-			{
-				$list_jetons[] = $jeton;
-			}
-		}
-		$req->closeCursor();
-		return $list_jetons;
 	}
 }
 ?>

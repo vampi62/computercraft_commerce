@@ -1,6 +1,6 @@
 <?php
 // classe permettant de récupérer / envoyer des données à la base.
-class base
+class Base
 {
 	private $bdd;
 	// Le constructeur se connecte à la base, il est appellé à chaque chargement de page.

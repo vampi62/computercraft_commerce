@@ -1,4 +1,16 @@
 <?php
+// get joueurs
+// get joueur/{id}
+// set joueur/{id}/pseudo
+// set joueur/{id}/mdp
+// set joueur/{id}/email
+// set joueur/{id}/delete
+// set joueur/add
+// set joueur/{id}/resettoken
+// set joueur/{id}/role/{id}
+// set joueur/{id}/lastlogin
+// set joueur/{id}/maxoffres
+// set joueur/{id}/expiretoken
 class joueurs
 {
 	private $bdd;
@@ -20,7 +32,7 @@ class joueurs
 			));
 		return $reponseConnection->fetch(PDO::FETCH_ASSOC);
 	}
-	public function getUtilisateurs() {
+	public function getAllUtilisateurs() {
 		$reponseConnection = $bdd->prepare('SELECT * FROM joueurs');
 		$reponseConnection->execute();
 		return $reponseConnection->fetch(PDO::FETCH_ASSOC);
@@ -65,21 +77,21 @@ class joueurs
 		}
 		return false;
 	}
-	public function setNouvellesDonneesMdp($mdp) {
+	public function setMdp($mdp) {
 		$req = $this->bdd->prepare('UPDATE joueurs SET mdp = :mdp WHERE id = :id');
 		$req->execute(array(
 			'mdp' => password_hash($mdp, PASSWORD_DEFAULT),
 			'id' => $this->id
 			));
 	}
-	public function setNouvellesDonneesEmail($email) {
+	public function setEmail($email) {
 		$req = $this->bdd->prepare('UPDATE joueurs SET email = :email WHERE id = :id');
 		$req->execute(array(
 			'email' => $email,
 			'id' => $this->id
 			));
 	}
-	public function setNouvellesDonneesResetToken($token) {
+	public function setResetToken($token) {
 		$req = $this->bdd->prepare('UPDATE joueurs SET expire_resettoken = :expire, resettoken = :token WHERE id = :id');
 		$req->execute(array(
 			'token' => $token,
@@ -87,21 +99,21 @@ class joueurs
 			'id' => $this->id
 			));
 	}
-	public function setNouvellesDonneesRole($role) {
+	public function setRole($role) {
 		$req = $this->bdd->prepare('UPDATE joueurs SET id_table_select_role = :id_table_select_role WHERE id = :id');
 		$req->execute(array(
 			'id_table_select_role' => $role,
 			'id' => $this->id
 		));
 	}
-	public function setNouvellesDonneesNbrOffre($nbr_offre) {
+	public function setNbrOffre($nbr_offre) {
 		$req = $this->bdd->prepare('UPDATE joueurs SET nbr_offre = :nbr_offre WHERE id = :id');
 		$req->execute(array(
 			'nbr_offre' => $nbr_offre,
 			'id' => $this->id
 		));
 	}
-	private function updateLastLogin() {
+	private function setLastLogin() {
 		$date = date('Y-m-d H:i:s');
 		$req = $this->bdd->prepare('UPDATE joueurs SET last_login = :last_login WHERE id = :id');
 		$req->execute(array(
