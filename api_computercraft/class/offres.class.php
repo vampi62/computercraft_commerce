@@ -1,9 +1,13 @@
 <?php
-// get offres
+// get offresactives
+// get offresall
+// get offres/{id_utilisateur}
+// get offres/{id_compte}
+// get offres/{id_adresse}
+// get offres/{id_groupe}
 // get offre/{id}
 // set offre/{id}/compte
 // set offre/{id}/adresse
-// set offre/{id}/type
 // set offre/{id}/livraison
 // set offre/{id}/prix
 // set offre/{id}/description

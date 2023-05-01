@@ -1,6 +1,7 @@
 <?php
 // get joueurs
 // get joueur/{id}
+// get joueur/{id_groupe}
 // set joueur/{id}/pseudo
 // set joueur/{id}/mdp
 // set joueur/{id}/email
@@ -30,12 +31,13 @@ class joueurs
 		$reponseConnection->execute(array(
 			'id' => $this->id
 			));
-		return $reponseConnection->fetch(PDO::FETCH_ASSOC);
+		$this->reponseConnection = $reponseConnection->fetch(PDO::FETCH_ASSOC);
+		return $this->reponseConnection;
 	}
 	public function getAllUtilisateurs() {
 		$reponseConnection = $bdd->prepare('SELECT * FROM joueurs');
 		$reponseConnection->execute();
-		return $reponseConnection->fetch(PDO::FETCH_ASSOC);
+		return $reponseConnection->fetchAll();
 	}
 
 	public function inscription($email, $mdp) {
@@ -54,28 +56,6 @@ class joueurs
 		$req->execute(array(
 			'id' => $this->id
 			));
-	}
-	public function verifymdp($mdp) {
-		if(!empty($this->reponseConnection)) {
-			if(password_verify($mdp, $this->reponseConnection['mdp'])) {
-				$this->updateLastLogin();
-				return true;
-			}
-		}
-		return false;
-	}
-	public function verifytoken($token) {
-		if(!empty($this->reponseConnection)) {
-			if(!empty($this->reponseConnection['resettoken'])) {
-				if($token == $this->reponseConnection['resettoken']) {
-					if(date('Y-m-d H:i:s') <= $this->reponseConnection['expire_resettoken']) {
-						$this->updateLastLogin();
-						return true;
-					}
-				}
-			}
-		}
-		return false;
 	}
 	public function setMdp($mdp) {
 		$req = $this->bdd->prepare('UPDATE joueurs SET mdp = :mdp WHERE id = :id');

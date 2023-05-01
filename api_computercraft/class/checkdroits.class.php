@@ -40,9 +40,26 @@ class Checkdroits
         return false;
     }
 
+	public function verifytoken($bdd, $nom, $token) {
+        $req = $bdd->prepare('SELECT token FROM utilisateurs WHERE nom = :nom');
+        $req->execute(array(
+            'nom' => $nom
+        ));
+        $req = $req->fetch(PDO::FETCH_ASSOC);
+        if(!empty($req)) {
+            if($token == $req['token']) {
+                return true;
+            }
+        }
+		return false;
+	}
+    
     public static function check_perm_api($bdd, $nom, $action)
     {
-        $req = $bdd->prepare('SELECT * FROM keyapi INNER JOIN keyapi_droits ON keyapi.id_keyapi = keyapi_droits.id_keyapi INNER JOIN liste_droits ON liste_droits.id_droit = keyapi_droits.id_droit WHERE keyapi.nom = :nom AND liste_droits.nom = :action');
+        $req = $bdd->prepare('SELECT * FROM keyapi 
+        INNER JOIN keyapi_droits ON keyapi.id_keyapi = keyapi_droits.id_keyapi 
+        INNER JOIN liste_droits ON liste_droits.id_droit = keyapi_droits.id_droit 
+        WHERE keyapi.nom = :nom AND liste_droits.nom = :action');
         $req->execute(array(
             'nom' => $nom,
             'action' => $action
