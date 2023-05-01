@@ -1,6 +1,8 @@
 <?php
-// get adresses/{id_groupe}
-// get adresses/{id_utilisateur}
+// get adresses/{id_utilisateur}/user
+// get adresses/{id_utilisateur}/keyapi
+// get adresses/{id_groupe}/user
+// get adresses/{id_groupe}/keyapi
 // get adresse/{id}
 // set adresse/{id}/coo
 // set adresse/{id}/name
@@ -28,19 +30,19 @@ class Adresses
         return $adresses;
     }
 
-    public static function getAdresses_apikey($bdd,$apikey) {
-        // recupere les adresses du proprio de l'apikey (si groupe a les droits)
+    public static function getAdresses_keyapi($bdd,$keyapi) {
+        // recupere les adresses du proprio de l'keyapi (si groupe a les droits)
         $req = $bdd->prepare('SELECT * FROM adresses
         INNER JOIN groupe_adresses ON adresses.id_adresse = groupe_adresses.id_adresse
-        INNER JOIN groupe_apikey ON groupe_adresses.id_groupe = groupe_apikey.id_groupe
-        INNER JOIN apikeys ON groupe_apikey.id_apikey = apikeys.id_apikey
+        INNER JOIN groupe_keyapi ON groupe_adresses.id_groupe = groupe_keyapi.id_groupe
+        INNER JOIN keyapis ON groupe_keyapi.id_keyapi = keyapis.id_keyapi
         INNER JOIN groupe_droits    ON groupe_droits.id_groupe = groupe_adresses.id_groupe
         INNER JOIN liste_droits     ON liste_droits.id_droit = groupe_droits.id_droit
-        INNER JOIN apikey_droits    ON apikey_droits.id_apikey = groupe_apikey.id_groupe
-        INNER JOIN liste_droits     ON liste_droits.id_droit = apikey_droits.id_droit
-        WHERE apikeys.nom = :nom AND liste_droits.nom = :action AND adresses.id_joueur = apikeys.id_joueur');
+        INNER JOIN keyapi_droits    ON keyapi_droits.id_keyapi = groupe_keyapi.id_groupe
+        INNER JOIN liste_droits     ON liste_droits.id_droit = keyapi_droits.id_droit
+        WHERE keyapis.nom = :nom AND liste_droits.nom = :action');
         $req->execute(array(
-            'nom' => $apikey,
+            'nom' => $keyapi,
             'action' => "getAdresses"
         ));
         $adresses = $req->fetchAll();
@@ -54,28 +56,29 @@ class Adresses
         INNER JOIN groupe_utilisateur ON groupe_adresses.id_groupe = groupe_utilisateur.id_groupe
         INNER JOIN groupe_droits    ON groupe_droits.id_groupe = groupe_adresses.id_groupe
         INNER JOIN liste_droits     ON liste_droits.id_droit = groupe_droits.id_droit
-        WHERE groupe_utilisateur.id_joueur = :user_id AND liste_droits.nom = :action');
+        WHERE groupe_utilisateur.id_joueur = :user_id AND liste_droits.nom = :action AND groupe_adresses.id_groupe = :id_groupe');
         $req->execute(array(
             'user_id' => $user_id,
-            'action' => "getAdresses"
+            'action' => "getAdresses",
+            'id_groupe' => $id_groupe
         ));
         $adresses = $req->fetchAll();
         return $adresses;
     }
 
-    public static function getAdressesGroupe_apikey($bdd,$id_groupe,$apikey) {
-        // recupere les adresses du proprio de l'apikey (si groupe a les droits)
+    public static function getAdressesGroupe_keyapi($bdd,$id_groupe,$keyapi) {
+        // recupere les adresses du proprio de l'keyapi (si groupe a les droits)
         $req = $bdd->prepare('SELECT * FROM adresses
         INNER JOIN groupe_adresses ON adresses.id_adresse = groupe_adresses.id_adresse
-        INNER JOIN groupe_apikey ON groupe_adresses.id_groupe = groupe_apikey.id_groupe
-        INNER JOIN apikeys ON groupe_apikey.id_apikey = apikeys.id_apikey
+        INNER JOIN groupe_keyapi ON groupe_adresses.id_groupe = groupe_keyapi.id_groupe
+        INNER JOIN keyapis ON groupe_keyapi.id_keyapi = keyapis.id_keyapi
         INNER JOIN groupe_droits    ON groupe_droits.id_groupe = groupe_adresses.id_groupe
         INNER JOIN liste_droits     ON liste_droits.id_droit = groupe_droits.id_droit
-        INNER JOIN apikey_droits    ON apikey_droits.id_apikey = groupe_apikey.id_groupe
-        INNER JOIN liste_droits     ON liste_droits.id_droit = apikey_droits.id_droit
-        WHERE apikeys.nom = :nom AND liste_droits.nom = :action AND groupe_adresses.id_groupe = :id_groupe');
+        INNER JOIN keyapi_droits    ON keyapi_droits.id_keyapi = groupe_keyapi.id_groupe
+        INNER JOIN liste_droits     ON liste_droits.id_droit = keyapi_droits.id_droit
+        WHERE keyapis.nom = :nom AND liste_droits.nom = :action AND groupe_adresses.id_groupe = :id_groupe');
         $req->execute(array(
-            'nom' => $apikey,
+            'nom' => $keyapi,
             'action' => "getAdresses",
             'id_groupe' => $id_groupe
         ));
@@ -88,7 +91,7 @@ class Adresses
         $req->execute(array(
             'id' => $id
         ));
-        $adresse = $req->fetch();
+        $adresse = $req->fetch(PDO::FETCH_ASSOC);
         return $adresse;
     }
 

@@ -76,7 +76,7 @@ class Checkdroits
     {
         if ($bool_api)
         {
-            // si compte est membre d'un groupe d'on l'objet est membre (si login apikey)
+            // si compte est membre d'un groupe d'on l'objet est membre (si login keyapi)
                 // si groupe a les droits sur l'objet pour effectuer l'action
                     // -- permet l'action
             # si api et obj sont dans un meme groupe qui permet l'action alors return true

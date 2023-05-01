@@ -1,10 +1,16 @@
 <?php
-// get droits
-// get droit/{id}
-// get presets
-// get presets/{id}
-
-// get groupes
+// get groupes/{id_utilisateur}/user
+// get groupes/{id_utilisateur}/keyapi
+// get groupes/{id_offre}/user
+// get groupes/{id_offre}/keyapi
+// get groupes/{id_adresse}/user
+// get groupes/{id_adresse}/keyapi
+// get groupes/{id_compte}/user
+// get groupes/{id_compte}/keyapi
+// get groupes/{id_keyapi}/user
+// get groupes/{id_keyapi}/keyapi
+// get groupes/{id_joueur}/user
+// get groupes/{id_joueur}/keyapi
 // get groupe/{id}
 // set groupe/{id}/offre/{id}/add
 // set groupe/{id}/offre/{id}/delete
@@ -21,3 +27,4 @@
 // set groupe/{id}/droits/{id}/add
 // set groupe/{id}/droits/{id}/delete
 // set groupe/add
+

@@ -1,6 +1,4 @@
 <?php
-// get offresactives
-// get offresall
 // get offres/{id_utilisateur}
 // get offres/{id_compte}
 // get offres/{id_adresse}
@@ -17,3 +15,4 @@
 // set offre/{id}/groupe/{id}/add
 // set offre/{id}/groupe/{id}/delete
 // set offre/add
+

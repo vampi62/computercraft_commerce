@@ -64,7 +64,7 @@ class Commandes {
         $req->execute(array(
             'commande_id' => $commande_id
         ));
-        $commande = $req->fetch();
+        $commande = $req->fetch(PDO::FETCH_ASSOC);
         return $commande;
     }
     public static function setCommande_status($bdd,$commande_id,$status_id) {
