@@ -6,6 +6,7 @@ General:
     offre_depart: 5
     case_ligne_suite: _br_
     name: computercraft_api
+    version: 2.0
 DataBase:
     dbAdress: 0.0.0.0
     dbName: dbname

@@ -1,5 +1,5 @@
 <?php
-// get offres/{id_utilisateur}
+// get offres/{id_joueur}
 // get offres/{id_compte}
 // get offres/{id_adresse}
 // get offre/{id}
@@ -22,34 +22,49 @@ class Offres {
         return $offres;
     }
 
-    // recupere les offres d'un utilisateur
-    public static function getOffres_joueur($bdd,$id_joueur) {
+    // recupere les offres d'un joueur
+    public static function getOffresByJoueur($bdd,$id_joueur,$bool_remove_inactive=TRUE) {
         $bdd->prepare("SELECT * FROM offres WHERE id_joueur = :id_joueur");
         $req->execute(array(
             'id_joueur' => "id_joueur"
         ));
         $offres = $req->fetchAll();
-        return $offres;
+        if ($bool_remove_inactive) {
+            return self::removeInactiveOffre($offres);
+        }
+        else {
+            return $offres;
+        }
     }
 
     // recupere les offres associer a un compte
-    public static function getOffres_compte($bdd,$id_compte) {
+    public static function getOffresByCompte($bdd,$id_compte,$bool_remove_inactive=TRUE) {
         $bdd->prepare("SELECT * FROM offres WHERE id_compte = :id_compte");
         $req->execute(array(
             'id_compte' => "id_compte"
         ));
         $offres = $req->fetchAll();
-        return $offres;
+        if ($bool_remove_inactive) {
+            return self::removeInactiveOffre($offres);
+        }
+        else {
+            return $offres;
+        }
     }
 
     // recupere les offres associer a une adresse
-    public static function getOffres_adresse($bdd,$id_adresse) {
+    public static function getOffresByAdresse($bdd,$id_adresse,$bool_remove_inactive=TRUE) {
         $bdd->prepare("SELECT * FROM offres WHERE id_adresse = :id_adresse");
         $req->execute(array(
             'id_adresse' => "id_adresse"
         ));
         $offres = $req->fetchAll();
-        return $offres;
+        if ($bool_remove_inactive) {
+            return self::removeInactiveOffre($offres);
+        }
+        else {
+            return $offres;
+        }
     }
 
     // recupere l'offre
@@ -62,8 +77,19 @@ class Offres {
         return $offre;
     }
 
+    // retire de la liste toutes les offres qui n'ont pas de prix, de compte, d'adresse, de type de produit, de description ou de nom
+    private static function removeInactiveOffre($liste_offres) {
+        $liste_offres_active = array();
+        foreach ($liste_offres as $offre) {
+            if ($offre['prix'] != null && $offre['id_compte'] != null && $offre['id_adresse'] != null && $offre['id_type_produit'] != null && $offre['description'] != null && $offre['nom'] != null) {
+                array_push($liste_offres_active,$offre);
+            }
+        }
+        return $liste_offres_active;
+    }
+
     // modifie la date de derniere modification de l'offre
-    private static function update_last_update($bdd,$id_offre) {
+    private static function updateLastUpdate($bdd,$id_offre) {
         $bdd->prepare("UPDATE offres SET last_update = :last_update WHERE id_offre = :id_offre");
         $req->execute(array(
             'id_offre' => $id_offre,
@@ -72,73 +98,73 @@ class Offres {
     }
 
     // modifie le compte associer a l'offre
-    public static function setOffre_compte($bdd,$id_offre,$id_compte) {
+    public static function setOffreCompte($bdd,$id_offre,$id_compte) {
         $bdd->prepare("UPDATE offres SET id_compte = :id_compte WHERE id_offre = :id_offre");
         $req->execute(array(
             'id_offre' => $id_offre,
             'id_compte' => $id_compte
         ));
-        self::update_last_update($bdd,$id_offre);
+        self::updateLastUpdate($bdd,$id_offre);
     }
 
     // modifie l'adresse associer a l'offre
-    public static function setOffre_adresse($bdd,$id_offre,$id_adresse) {
+    public static function setOffreAdresse($bdd,$id_offre,$id_adresse) {
         $bdd->prepare("UPDATE offres SET id_adresse = :id_adresse WHERE id_offre = :id_offre");
         $req->execute(array(
             'id_offre' => $id_offre,
             'id_adresse' => $id_adresse
         ));
-        self::update_last_update($bdd,$id_offre);
+        self::updateLastUpdate($bdd,$id_offre);
     }
 
     // modifie le type de livraison associer a l'offre
-    public static function setOffre_type_produit($bdd,$id_offre,$id_type_produit) {
+    public static function setOffreTypeProduit($bdd,$id_offre,$id_type_produit) {
         $bdd->prepare("UPDATE offres SET id_type_produit = :id_type_produit WHERE id_offre = :id_offre");
         $req->execute(array(
             'id_offre' => $id_offre,
             'id_type_produit' => $id_type_produit
         ));
-        self::update_last_update($bdd,$id_offre);
+        self::updateLastUpdate($bdd,$id_offre);
     }
 
     // modifie le prix de l'offre
-    public static function setOffre_prix($bdd,$id_offre,$prix) {
+    public static function setOffrePrix($bdd,$id_offre,$prix) {
         $bdd->prepare("UPDATE offres SET prix = :prix WHERE id_offre = :id_offre");
         $req->execute(array(
             'id_offre' => $id_offre,
             'prix' => $prix
         ));
-        self::update_last_update($bdd,$id_offre);
+        self::updateLastUpdate($bdd,$id_offre);
     }
 
     // modifie la description de l'offre
-    public static function setOffre_description($bdd,$id_offre,$description) {
+    public static function setOffreDescription($bdd,$id_offre,$description) {
         $bdd->prepare("UPDATE offres SET description = :description WHERE id_offre = :id_offre");
         $req->execute(array(
             'id_offre' => $id_offre,
             'description' => $description
         ));
-        self::update_last_update($bdd,$id_offre);
+        self::updateLastUpdate($bdd,$id_offre);
     }
 
     // modifie le nom de l'offre
-    public static function setOffre_nom($bdd,$id_offre,$nom) {
+    public static function setOffreNom($bdd,$id_offre,$nom) {
         $bdd->prepare("UPDATE offres SET nom = :nom WHERE id_offre = :id_offre");
         $req->execute(array(
             'id_offre' => $id_offre,
             'nom' => $nom
         ));
-        self::update_last_update($bdd,$id_offre);
+        self::updateLastUpdate($bdd,$id_offre);
     }
 
     // modifie le stock de l'offre
-    public static function setOffre_stock($bdd,$id_offre,$stock) {
+    public static function setOffreStock($bdd,$id_offre,$stock) {
         $bdd->prepare("UPDATE offres SET stock = :stock WHERE id_offre = :id_offre");
         $req->execute(array(
             'id_offre' => $id_offre,
             'stock' => $stock
         ));
-        self::update_last_update($bdd,$id_offre);
+        self::updateLastUpdate($bdd,$id_offre);
     }
 
     // supprime l'offre

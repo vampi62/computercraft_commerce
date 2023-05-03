@@ -5,7 +5,7 @@
 
 class Litiges {
     // recupere le fil de discution litige par rapport a l'id de commande
-    public static function getLitiges_commande($bdd,$commande_id) {
+    public static function getLitigesByCommande($bdd,$commande_id) {
         // recupere les litiges de la commande
         $req = $bdd->prepare('SELECT * FROM litiges WHERE id_commande = :commande_id');
         $req->execute(array(
@@ -30,10 +30,10 @@ class Litiges {
     }
     
     // supprime le message du fil de discution litige
-    public static function deleteLitige($bdd,$litige_id) {
-        $req = $bdd->prepare('DELETE FROM litiges WHERE id = :litige_id');
+    public static function deleteLitige($bdd,$id_litige) {
+        $req = $bdd->prepare('DELETE FROM litiges WHERE id_litige = :id_litige');
         $req->execute(array(
-            'litige_id' => $litige_id
+            'id_litige' => $id_litige
         ));
     }
 }

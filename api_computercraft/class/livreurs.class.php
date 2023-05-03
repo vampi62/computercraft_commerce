@@ -12,13 +12,13 @@
 
 class Livreurs {
     // recupere les livreurs accessible par le joueur (lui a partient ou groupe en communs qui permet le getLivreurs)
-    public static function getLivreurs_user($bdd,$id_joueur) {
+    public static function getLivreursByUser($bdd,$id_joueur) {
         $req = $bdd->prepare('SELECT * FROM livreurs 
-        INNER JOIN groupe_livreurs ON livreurs.id_livreur = groupe_livreurs.id_livreur
-        INNER JOIN groupe_joueur ON groupe_livreurs.id_groupe = groupe_joueur.id_groupe
-        INNER JOIN groupe_droits    ON groupe_droits.id_groupe = groupe_livreurs.id_groupe
-        INNER JOIN liste_droits     ON liste_droits.id_droit = groupe_droits.id_droit
-        WHERE (groupe_joueur.id_joueur = :id_joueur AND liste_droits.nom = :action) OR (livreurs.id_joueur = :id_joueur)');
+        INNER JOIN groupes_livreurs ON livreurs.id_livreur = groupes_livreurs.id_livreur
+        INNER JOIN groupes_joueurs ON groupes_livreurs.id_groupe = groupes_joueurs.id_groupe
+        INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_livreurs.id_groupe
+        INNER JOIN liste_droits     ON liste_droits.id_droit = groupes_droits.id_droit
+        WHERE (groupes_joueurs.id_joueur = :id_joueur AND liste_droits.nom = :action) OR (livreurs.id_joueur = :id_joueur)');
         $req->execute(array(
             'id_joueur' => $id_joueur,
             'action' => "getlivreurs"
@@ -28,15 +28,15 @@ class Livreurs {
     }
 
     // recupere les livreurs accessible par la keyapi (groupe en communs qui permet le getlivreurs)
-    public static function getLivreurs_keyapi($bdd,$id_keyapi) {
+    public static function getLivreursByKeyApi($bdd,$id_keyapi) {
         $req = $bdd->prepare('SELECT * FROM livreurs
-        INNER JOIN groupe_livreurs ON livreurs.id_livreur = groupe_livreurs.id_livreur
-        INNER JOIN groupe_keyapi ON groupe_livreurs.id_groupe = groupe_keyapi.id_groupe
-        INNER JOIN keyapis ON groupe_keyapi.id_keyapi = keyapis.id_keyapi
-        INNER JOIN groupe_droits    ON groupe_droits.id_groupe = groupe_livreurs.id_groupe
-        INNER JOIN liste_droits     ON liste_droits.id_droit = groupe_droits.id_droit
-        INNER JOIN keyapi_droits    ON keyapi_droits.id_keyapi = groupe_keyapi.id_groupe
-        INNER JOIN liste_droits     ON liste_droits.id_droit = keyapi_droits.id_droit
+        INNER JOIN groupes_livreurs ON livreurs.id_livreur = groupes_livreurs.id_livreur
+        INNER JOIN groupes_keyapis ON groupes_livreurs.id_groupe = groupes_keyapis.id_groupe
+        INNER JOIN keyapis ON groupes_keyapis.id_keyapi = keyapis.id_keyapi
+        INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_livreurs.id_groupe
+        INNER JOIN liste_droits     ON liste_droits.id_droit = groupes_droits.id_droit
+        INNER JOIN keyapis_droits    ON keyapis_droits.id_keyapi = groupes_keyapis.id_groupe
+        INNER JOIN liste_droits     ON liste_droits.id_droit = keyapis_droits.id_droit
         WHERE keyapis.id_keyapi = :id_keyapi AND liste_droits.nom = :action');
         $req->execute(array(
             'id_keyapi' => $id_keyapi,
@@ -47,7 +47,7 @@ class Livreurs {
     }
 
     // recupere les livreurs utilisant un compte precis
-    public static function getLivreurs_compte($bdd,$id_compte) {
+    public static function getLivreursByCompte($bdd,$id_compte) {
         $req = $bdd->prepare('SELECT * FROM livreurs
         WHERE id_compte = :id_compte');
         $req->execute(array(
@@ -58,7 +58,7 @@ class Livreurs {
     }
 
     // recupere les livreurs utilisant une adresse precis
-    public static function getLivreurs_adresse($bdd,$id_adresse) {
+    public static function getLivreursByAdresse($bdd,$id_adresse) {
         $req = $bdd->prepare('SELECT * FROM livreurs
         WHERE id_adresse = :id_adresse');
         $req->execute(array(

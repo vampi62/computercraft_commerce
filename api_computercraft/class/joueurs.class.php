@@ -12,8 +12,7 @@
 // set joueur/{id}/lastlogin
 // set joueur/{id}/maxoffres
 // set joueur/{id}/expiretoken
-class joueurs
-{
+class joueurs {
 	private $bdd;
 	private $reponseConnection;
 	private $id;
@@ -24,7 +23,7 @@ class joueurs
 	}
 
 	// recupere les infos du joueurs via son id ou son pseudo
-	public function getUtilisateur() {
+	public function getJoueur() {
 		if (is_int($this->id)) {
 			$reponseConnection = $bdd->prepare('SELECT * FROM joueurs WHERE id = :id');
 		} else {
@@ -38,14 +37,14 @@ class joueurs
 	}
 
 	// recupere les infos de tous les joueurs
-	public function getAllUtilisateurs() {
+	public function getAllJoueurs() {
 		$reponseConnection = $bdd->prepare('SELECT * FROM joueurs');
 		$reponseConnection->execute();
 		return $reponseConnection->fetchAll();
 	}
 
 	// creer un nouveau joueur
-	public function inscription($email, $mdp) {
+	public function inscriptionJoueur($email, $mdp) {
 		$req = $this->bdd->prepare('INSERT INTO joueurs(pseudo, email, mdp, last_login, id_table_select_role, max_offres) VALUES(:pseudo, :email, :mdp, :last_login, :id_table_select_role, :max_offres)');
 		$req->execute(array(
 			'pseudo' => $this->id,
@@ -58,7 +57,7 @@ class joueurs
 	}
 
 	// supprime le joueur
-	public function delete() {
+	public function deleteJoueur() {
 		$req = $this->bdd->prepare('DELETE FROM joueurs WHERE id = :id');
 		$req->execute(array(
 			'id' => $this->id
@@ -66,7 +65,7 @@ class joueurs
 	}
 
 	// modifie le mot de passe du joueur
-	public function setMdp($mdp) {
+	public function setJoueurMdp($mdp) {
 		$req = $this->bdd->prepare('UPDATE joueurs SET mdp = :mdp WHERE id = :id');
 		$req->execute(array(
 			'mdp' => password_hash($mdp, PASSWORD_DEFAULT),
@@ -75,7 +74,7 @@ class joueurs
 	}
 
 	// modifie l'email
-	public function setEmail($email) {
+	public function setJoueurEmail($email) {
 		$req = $this->bdd->prepare('UPDATE joueurs SET email = :email WHERE id = :id');
 		$req->execute(array(
 			'email' => $email,
@@ -84,7 +83,7 @@ class joueurs
 	}
 
 	// modifie le resettoken du joueur
-	public function setResetToken($token) {
+	public function setJoueurResetToken($token) {
 		$req = $this->bdd->prepare('UPDATE joueurs SET expire_resettoken = :expire, resettoken = :token WHERE id = :id');
 		$req->execute(array(
 			'token' => $token,
@@ -94,7 +93,7 @@ class joueurs
 	}
 
 	// change le role du joueur
-	public function setRole($role) {
+	public function setJoueurRole($role) {
 		$req = $this->bdd->prepare('UPDATE joueurs SET id_table_select_role = :id_table_select_role WHERE id = :id');
 		$req->execute(array(
 			'id_table_select_role' => $role,
@@ -103,7 +102,7 @@ class joueurs
 	}
 
 	// change le nombre d'offre maximum du joueur
-	public function setNbrOffre($nbr_offre) {
+	public function setJoueurNbrOffre($nbr_offre) {
 		$req = $this->bdd->prepare('UPDATE joueurs SET nbr_offre = :nbr_offre WHERE id = :id');
 		$req->execute(array(
 			'nbr_offre' => $nbr_offre,
@@ -112,12 +111,12 @@ class joueurs
 	}
 
 	// change la date de derniere connexion du joueur
-	private function setLastLogin() {
+	public function setJoueurLastLogin() {
 		$date = date('Y-m-d H:i:s');
-		$req = $this->bdd->prepare('UPDATE joueurs SET last_login = :last_login WHERE id = :id');
+		$req = $this->bdd->prepare('UPDATE joueurs SET last_login = :last_login WHERE id_joueur = :id_joueur');
 		$req->execute(array(
 			'last_login' => $date,
-			'id' => $this->id
+			'id_joueur' => $this->id
 			));
 	}
 }

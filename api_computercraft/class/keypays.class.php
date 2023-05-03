@@ -28,7 +28,7 @@ class Keypay {
     }
 
     // recupere les keypays d'une offre
-    public static function getKeypay_offre($bdd,$offre_id) {
+    public static function getKeypayByOffre($bdd,$offre_id) {
         // recupere la keypay
         $req = $bdd->prepare('SELECT * FROM keypay WHERE id_offre = :offre_id');
         $req->execute(array(

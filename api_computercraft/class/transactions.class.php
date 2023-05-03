@@ -6,7 +6,7 @@
 
 class Transactions {
     // recupere les transactions du compte
-    public static function getTransactions_compte($bdd,$compte_id) {
+    public static function getTransactionsByCompte($bdd,$compte_id) {
         $req = $bdd->prepare('SELECT * FROM transactions WHERE id_compte_debiteur = :compte_id OR id_compte_crediteur = :compte_id');
         $req->execute(array(
             'compte_id' => $compte_id
@@ -16,7 +16,7 @@ class Transactions {
     }
 
     // recupere les transactions executer par un admin
-    public static function getTransactions_admin($bdd,$admin_id) {
+    public static function getTransactionsByAdmin($bdd,$admin_id) {
         $req = $bdd->prepare('SELECT * FROM transactions WHERE id_admin = :admin_id');
         $req->execute(array(
             'admin_id' => $admin_id

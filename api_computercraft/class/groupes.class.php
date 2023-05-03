@@ -33,7 +33,7 @@
 
 class Groupes {
     // recupere les groupes d'un joueur
-    public static function getgroupes_joueur($bdd,$id_joueur) {
+    public static function getGroupesByJoueur($bdd,$id_joueur) {
         $req = $bdd->prepare('SELECT groupes.id_groupe,groupes.nom FROM groupes INNER JOIN groupes_joueurs ON groupes_joueurs.id_groupe = groupes.id_groupe WHERE groupes_joueurs.id_joueur = :id_joueur');
         $req->execute(array(
             'id_joueur' => $id_joueur
@@ -43,7 +43,7 @@ class Groupes {
     }
 
     // recupere les groupes d'un compte
-    public static function getgroupes_compte($bdd,$id_compte) {
+    public static function getGroupesByCompte($bdd,$id_compte) {
         $req = $bdd->prepare('SELECT groupes.id_groupe,groupes.nom FROM groupes INNER JOIN groupes_comptes ON groupes_comptes.id_groupe = groupes.id_groupe WHERE groupes_comptes.id_compte = :id_compte');
         $req->execute(array(
             'id_compte' => $id_compte
@@ -53,7 +53,7 @@ class Groupes {
     }
 
     // recupere les groupes d'une offre
-    public static function getgroupes_offre($bdd,$id_offre) {
+    public static function getGroupesByOffre($bdd,$id_offre) {
         $req = $bdd->prepare('SELECT groupes.id_groupe,groupes.nom FROM groupes INNER JOIN groupes_offres ON groupes_offres.id_groupe = groupes.id_groupe WHERE groupes_offres.id_offre = :id_offre');
         $req->execute(array(
             'id_offre' => $id_offre
@@ -63,7 +63,7 @@ class Groupes {
     }
 
     // recupere les groupes d'une adresse
-    public static function getgroupes_adresse($bdd,$id_adresse) {
+    public static function getGroupesByAdresse($bdd,$id_adresse) {
         $req = $bdd->prepare('SELECT groupes.id_groupe,groupes.nom FROM groupes INNER JOIN groupes_adresses ON groupes_adresses.id_groupe = groupes.id_groupe WHERE groupes_adresses.id_adresse = :id_adresse');
         $req->execute(array(
             'id_adresse' => $id_adresse
@@ -73,7 +73,7 @@ class Groupes {
     }
 
     // recupere les groupes d'un livreur
-    public static function getgroupes_livreur($bdd,$id_livreur) {
+    public static function getGroupesByLivreur($bdd,$id_livreur) {
         $req = $bdd->prepare('SELECT groupes.id_groupe,groupes.nom FROM groupes INNER JOIN groupes_livreurs ON groupes_livreurs.id_groupe = groupes.id_groupe WHERE groupes_livreurs.id_livreur = :id_livreur');
         $req->execute(array(
             'id_livreur' => $id_livreur
@@ -83,7 +83,7 @@ class Groupes {
     }
 
     // recupere les groupes d'une keyapi
-    public static function getgroupes_keyapi($bdd,$id_keyapi) {
+    public static function getGroupesByKeyapi($bdd,$id_keyapi) {
         $req = $bdd->prepare('SELECT groupes.id_groupe,groupes.nom FROM groupes INNER JOIN groupes_keyapis ON groupes_keyapis.id_groupe = groupes.id_groupe WHERE groupes_keyapis.id_keyapi = :id_keyapi');
         $req->execute(array(
             'id_keyapi' => $id_keyapi
@@ -93,7 +93,7 @@ class Groupes {
     }
 
     // recupere les joueurs d'un groupe
-    public static function getgroupe_joueurs($bdd,$id_groupe) {
+    public static function getJoueursByGroupe($bdd,$id_groupe) {
         $req = $bdd->prepare('SELECT groupes_joueurs.*,joueurs.pseudo FROM groupes_joueurs INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur WHERE id_groupe = :id_groupe');
         $req->execute(array(
             'id_groupe' => $id_groupe
@@ -103,7 +103,7 @@ class Groupes {
     }
 
     // recupere les comptes d'un groupe
-    public static function getgroupe_comptes($bdd,$id_groupe) {
+    public static function getComptesByGroupe($bdd,$id_groupe) {
         $req = $bdd->prepare('SELECT groupes_comptes.*,comptes.nom FROM groupes_comptes INNER JOIN comptes ON groupes.id_compte = comptes.id_compte WHERE id_groupe = :id_groupe');
         $req->execute(array(
             'id_groupe' => $id_groupe
@@ -113,7 +113,7 @@ class Groupes {
     }
 
     // recupere les offres d'un groupe
-    public static function getgroupe_offres($bdd,$id_groupe) {
+    public static function getOffresByGroupe($bdd,$id_groupe) {
         $req = $bdd->prepare('SELECT groupes_offres.*,offres.nom FROM groupes_offres INNER JOIN offres ON groupes.id_offre = offres.id_offre WHERE id_groupe = :id_groupe');
         $req->execute(array(
             'id_groupe' => $id_groupe
@@ -123,7 +123,7 @@ class Groupes {
     }
 
     // recupere les adresses d'un groupe
-    public static function getgroupe_adresses($bdd,$id_groupe) {
+    public static function getAdressesByGroupe($bdd,$id_groupe) {
         $req = $bdd->prepare('SELECT groupes_adresses.*,adresses.nom FROM groupes_adresses INNER JOIN adresses ON groupes.id_adresse = adresses.id_adresse WHERE id_groupe = :id_groupe');
         $req->execute(array(
             'id_groupe' => $id_groupe
@@ -133,7 +133,7 @@ class Groupes {
     }
 
     // recupere les comptes d'un groupe
-    public static function getgroupe_livreurs($bdd,$id_groupe) {
+    public static function getLivreursByGroupe($bdd,$id_groupe) {
         $req = $bdd->prepare('SELECT groupes_livreurs.*,livreurs.nom FROM groupes_livreurs INNER JOIN livreurs ON groupes.id_livreur = livreurs.id_livreur WHERE id_groupe = :id_groupe');
         $req->execute(array(
             'id_groupe' => $id_groupe
@@ -143,7 +143,7 @@ class Groupes {
     }
 
     // recupere les keyapis d'un groupe
-    public static function getgroupe_keyapis($bdd,$id_groupe) {
+    public static function getKeyapisByGroupe($bdd,$id_groupe) {
         $req = $bdd->prepare('SELECT groupes_keyapi.*,keyapis.nom FROM groupes_keyapis INNER JOIN keyapis ON groupes.id_keyapi = keyapis.id_keyapi WHERE id_keyapi = :id_keyapi');
         $req->execute(array(
             'id_keyapi' => $id_keyapi
@@ -153,7 +153,7 @@ class Groupes {
     }
 
     // recupere les droits d'un groupe
-    public static function getgroupe_droits($bdd,$id_groupe) {
+    public static function getDroitsByGroupe($bdd,$id_groupe) {
         $req = $bdd->prepare('SELECT liste_droits.* FROM liste_droits INNER JOIN groupes_droits ON liste_droits.id_droit = groupes_droits.id_droit WHERE id_groupe = :id_groupe');
         $req->execute(array(
             'id_groupe' => $id_groupe
@@ -163,7 +163,7 @@ class Groupes {
     }
 
     // recupere les infos d'un groupe
-    public static function getgroupeinfo($bdd,$id_groupe) {
+    public static function getGroupeInfo($bdd,$id_groupe) {
         $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo FROM groupes INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur WHERE id_groupe = :id_groupe');
         $req->execute(array(
             'id_groupe' => $id_groupe
@@ -173,7 +173,7 @@ class Groupes {
     }
 
     // ajoute une offre au groupe
-    public static function setgroupeoffreadd($bdd,$id_groupe,$id_offre) {
+    public static function setGroupeOffre($bdd,$id_groupe,$id_offre) {
         $req = $bdd->prepare('INSERT INTO groupes_offres(id_groupe,id_offre) VALUES(:id_groupe,:id_offre)');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -182,7 +182,7 @@ class Groupes {
     }
 
     // retire une offre du groupe
-    public static function setgroupeoffredelete($bdd,$id_groupe,$id_offre) {
+    public static function deleteGroupeOffre($bdd,$id_groupe,$id_offre) {
         $req = $bdd->prepare('DELETE FROM groupes_offres WHERE id_groupe = :id_groupe AND id_offre = :id_offre');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -191,7 +191,7 @@ class Groupes {
     }
 
     // ajoute une adresse au groupe
-    public static function setgroupeadresseadd($bdd,$id_groupe,$id_adresse) {
+    public static function setGroupeAdresse($bdd,$id_groupe,$id_adresse) {
         $req = $bdd->prepare('INSERT INTO groupes_adresses(id_groupe,id_adresse) VALUES(:id_groupe,:id_adresse)');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -200,7 +200,7 @@ class Groupes {
     }
 
     // retire une adresse du groupe
-    public static function setgroupeadressedelete($bdd,$id_groupe,$id_adresse) {
+    public static function deleteGroupeAdresse($bdd,$id_groupe,$id_adresse) {
         $req = $bdd->prepare('DELETE FROM groupes_adresses WHERE id_groupe = :id_groupe AND id_adresse = :id_adresse');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -209,7 +209,7 @@ class Groupes {
     }
 
     // ajoute un compte au groupe
-    public static function setgroupecompteadd($bdd,$id_groupe,$id_compte) {
+    public static function setGroupeCompte($bdd,$id_groupe,$id_compte) {
         $req = $bdd->prepare('INSERT INTO groupes_comptes(id_groupe,id_compte) VALUES(:id,:id_compte)');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -218,7 +218,7 @@ class Groupes {
     }
 
     // retire un compte du groupe
-    public static function setgroupecomptedelete($bdd,$id_groupe,$id_compte) {
+    public static function deleteGroupeCompte($bdd,$id_groupe,$id_compte) {
         $req = $bdd->prepare('DELETE FROM groupes_comptes WHERE id_groupe = :id_groupe AND id_compte = :id_compte');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -227,8 +227,8 @@ class Groupes {
     }
 
     // ajoute une keyapi au groupe
-    public static function setgroupekeyapiadd($bdd,$id_groupe,$id_keyapi) {
-        $req = $bdd->prepare('INSERT INTO groupes_keyapi(id_groupe,id_keyapi) VALUES(:id,:id_keyapi)');
+    public static function setGroupeKeyApi($bdd,$id_groupe,$id_keyapi) {
+        $req = $bdd->prepare('INSERT INTO groupes_keyapis(id_groupe,id_keyapi) VALUES(:id,:id_keyapi)');
         $req->execute(array(
             'id_groupe' => $id_groupe,
             'id_keyapi' => $id_keyapi
@@ -236,8 +236,8 @@ class Groupes {
     }
 
     // retire une keyapi du groupe
-    public static function setgroupekeyapidelete($bdd,$id_groupe,$id_keyapi) {
-        $req = $bdd->prepare('DELETE FROM groupes_keyapi WHERE id_groupe = :id_groupe AND id_keyapi = :id_keyapi');
+    public static function deleteGroupeKeyApi($bdd,$id_groupe,$id_keyapi) {
+        $req = $bdd->prepare('DELETE FROM groupes_keyapis WHERE id_groupe = :id_groupe AND id_keyapi = :id_keyapi');
         $req->execute(array(
             'id_groupe' => $id_groupe,
             'id_keyapi' => $id_keyapi
@@ -245,7 +245,7 @@ class Groupes {
     }
 
     // ajoute un joueur au groupe
-    public static function setgroupejoueuradd($bdd,$id_groupe,$id_joueur) {
+    public static function setGroupeJoueur($bdd,$id_groupe,$id_joueur) {
         $req = $bdd->prepare('INSERT INTO groupes_joueurs(id_groupe,id_joueur) VALUES(:id,:id_joueur)');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -254,7 +254,7 @@ class Groupes {
     }
 
     // retire un joueur du groupe
-    public static function setgroupejoueurdelete($bdd,$id_groupe,$id_joueur) {
+    public static function deleteGroupeJoueur($bdd,$id_groupe,$id_joueur) {
         $req = $bdd->prepare('DELETE FROM groupes_joueurs WHERE id_groupe = :id_groupe AND id_joueur = :id_joueur');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -263,7 +263,7 @@ class Groupes {
     }
 
     // ajoute un livreur au groupe
-    public static function setgroupelivreuradd($bdd,$id_groupe,$id_livreur) {
+    public static function setGroupeLivreur($bdd,$id_groupe,$id_livreur) {
         $req = $bdd->prepare('INSERT INTO groupes_livreurs(id_groupe,id_livreur) VALUES(:id_groupe,:id_livreur)');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -272,7 +272,7 @@ class Groupes {
     }
 
     // retire un livreur au groupe
-    public static function setgroupelivreurdelete($bdd,$id_groupe,$id_livreur) {
+    public static function deleteGroupeLivreur($bdd,$id_groupe,$id_livreur) {
         $req = $bdd->prepare('DELETE FROM groupes_livreurs WHERE id_groupe = :id_groupe AND id_livreur = :id_livreur');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -281,7 +281,7 @@ class Groupes {
     }
 
     // modifie le nom d'un groupe
-    public static function setgroupenom($bdd,$id_groupe,$nom) {
+    public static function setGroupeNom($bdd,$id_groupe,$nom) {
         $req = $bdd->prepare('UPDATE groupes SET nom = :nom WHERE id_groupe = :id_groupe');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -290,7 +290,7 @@ class Groupes {
     }
 
     // supprime un groupe
-    public static function setgroupedelete($bdd,$id_groupe) {
+    public static function deleteGroupe($bdd,$id_groupe) {
         $req = $bdd->prepare('DELETE FROM groupes WHERE id_groupe = :id_groupe');
         $req->execute(array(
             'id_groupe' => $id_groupe
@@ -298,7 +298,7 @@ class Groupes {
     }
 
     // ajoute un droit à un groupe
-    public static function setgroupedroitsadd($bdd,$id_groupe,$id_droits) {
+    public static function setGroupeDroits($bdd,$id_groupe,$id_droits) {
         $req = $bdd->prepare('INSERT INTO groupes_droits(id_groupe,id_droits) VALUES(:id_groupe,:id_droits)');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -307,7 +307,7 @@ class Groupes {
     }
 
     // supprime un droit d'un groupe
-    public static function setgroupedroitsdelete($bdd,$id_groupe,$id_droits) {
+    public static function deleteGroupeDroits($bdd,$id_groupe,$id_droits) {
         $req = $bdd->prepare('DELETE FROM groupes_droits WHERE id_groupe = :id_groupe AND id_droits = :id_droits');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -316,7 +316,7 @@ class Groupes {
     }
 
     // ajoute un groupe
-    public static function setgroupeadd($bdd,$nom,$id_joueur) {
+    public static function setGroupe($bdd,$nom,$id_joueur) {
         $req = $bdd->prepare('INSERT INTO groupes(nom,id_joueur) VALUES(:nom,:id_joueur)');
         $req->execute(array(
             'nom' => $nom,

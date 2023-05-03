@@ -1,6 +1,6 @@
 <?php
-// get adresses/{id_utilisateur}/user
-// get adresses/{id_utilisateur}/keyapi
+// get adresses/{id_joueur}/user
+// get adresses/{id_joueur}/keyapi
 // get adresse/{id}
 // set adresse/{id}/coo
 // set adresse/{id}/name
@@ -8,16 +8,15 @@
 // set adresse/{id}/type
 // set adresse/add
 // set adresse/{id}/delete
-class Adresses
-{
-    // recupere les adresses accessible par le joueur (lui a partient ou groupe en communs qui permet le getadresses)
-    public static function getAdresses_user($bdd,$id_joueur) {
+class Adresses {
+    // recupere les adresses accessible par le joueur (lui a partient ou groupes en communs qui permet le getadresses)
+    public static function getAdressesWithUser($bdd,$id_joueur) {
         $req = $bdd->prepare('SELECT * FROM adresses 
-        INNER JOIN groupe_adresses ON adresses.id_adresse = groupe_adresses.id_adresse
-        INNER JOIN groupe_utilisateur ON groupe_adresses.id_groupe = groupe_utilisateur.id_groupe
-        INNER JOIN groupe_droits    ON groupe_droits.id_groupe = groupe_adresses.id_groupe
-        INNER JOIN liste_droits     ON liste_droits.id_droit = groupe_droits.id_droit
-        WHERE (groupe_utilisateur.id_joueur = :id_joueur AND liste_droits.nom = :action) OR (adresses.id_joueur = :id_joueur)');
+        INNER JOIN groupes_adresses ON adresses.id_adresse = groupes_adresses.id_adresse
+        INNER JOIN groupes_joueurs ON groupes_adresses.id_groupe = groupes_joueurs.id_groupe
+        INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_adresses.id_groupe
+        INNER JOIN liste_droits     ON liste_droits.id_droit = groupes_droits.id_droit
+        WHERE (groupes_joueurs.id_joueur = :id_joueur AND liste_droits.nom = :action) OR (adresses.id_joueur = :id_joueur)');
         $req->execute(array(
             'id_joueur' => $id_joueur,
             'action' => "getAdresses"
@@ -27,15 +26,15 @@ class Adresses
     }
 
     // recupere les adresses accessible par la keyapi (groupe en communs qui permet le getadresses)
-    public static function getAdresses_keyapi($bdd,$id_keyapi) {
+    public static function getAdressesWithKeyApi($bdd,$id_keyapi) {
         $req = $bdd->prepare('SELECT * FROM adresses
-        INNER JOIN groupe_adresses ON adresses.id_adresse = groupe_adresses.id_adresse
-        INNER JOIN groupe_keyapi ON groupe_adresses.id_groupe = groupe_keyapi.id_groupe
-        INNER JOIN keyapis ON groupe_keyapi.id_keyapi = keyapis.id_keyapi
-        INNER JOIN groupe_droits    ON groupe_droits.id_groupe = groupe_adresses.id_groupe
-        INNER JOIN liste_droits     ON liste_droits.id_droit = groupe_droits.id_droit
-        INNER JOIN keyapi_droits    ON keyapi_droits.id_keyapi = groupe_keyapi.id_groupe
-        INNER JOIN liste_droits     ON liste_droits.id_droit = keyapi_droits.id_droit
+        INNER JOIN groupes_adresses ON adresses.id_adresse = groupes_adresses.id_adresse
+        INNER JOIN groupes_keyapis ON groupes_adresses.id_groupe = groupes_keyapis.id_groupe
+        INNER JOIN keyapis ON groupes_keyapis.id_keyapi = keyapis.id_keyapi
+        INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_adresses.id_groupe
+        INNER JOIN liste_droits     ON liste_droits.id_droit = groupes_droits.id_droit
+        INNER JOIN keyapis_droits    ON keyapis_droits.id_keyapi = groupes_keyapis.id_groupe
+        INNER JOIN liste_droits     ON liste_droits.id_droit = keyapis_droits.id_droit
         WHERE keyapis.id_keyapi = :id_keyapi AND liste_droits.nom = :action');
         $req->execute(array(
             'id_keyapi' => $id_keyapi,
@@ -104,7 +103,7 @@ class Adresses
     }
 
     // supprime l'adresse
-    public static function setAdresseDelete($bdd,$id_adresse) {
+    public static function deleteAdresse($bdd,$id_adresse) {
         $req = $bdd->prepare('DELETE FROM adresses WHERE id_adresse = :id_adresse');
         $req->execute(array(
             'id_adresse' => $id_adresse
