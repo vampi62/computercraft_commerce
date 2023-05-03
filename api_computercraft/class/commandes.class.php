@@ -13,102 +13,114 @@
 // set commande/add
 
 class Commandes {
-    public static function getCommandes_comptev($bdd,$compte_id) {
-        // recupere les commandes du vendeur
-        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_compte_vendeur = :compte_id');
+
+    // recupere les commandes ayant ce compte vendeur
+    public static function getCommandes_comptev($bdd,$id_compte_vendeur) {
+        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_compte_vendeur = :id_compte_vendeur');
         $req->execute(array(
-            'compte_id' => $compte_id
+            'id_compte_vendeur' => $id_compte_vendeur
         ));
         $commandes = $req->fetchAll();
         return $commandes;
     }
-    public static function getCommandes_comptec($bdd,$compte_id) {
-        // recupere les commandes du client
-        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_compte_client = :compte_id');
+
+    // recupere les commandes ayant ce compte client
+    public static function getCommandes_comptec($bdd,$id_compte_client) {
+        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_compte_client = :id_compte_client');
         $req->execute(array(
-            'compte_id' => $compte_id
+            'id_compte_client' => $id_compte_client
         ));
         $commandes = $req->fetchAll();
         return $commandes;
     }
-    public static function getCommandes_adressev($bdd,$adresse_id) {
-        // recupere les commandes du vendeur
-        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_adresse_vendeur = :adresse_id');
+
+    // recupere les commandes ayant cette adresse vendeur
+    public static function getCommandes_adressev($bdd,$id_adresse_vendeur) {
+        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_adresse_vendeur = :id_adresse_vendeur');
         $req->execute(array(
-            'adresse_id' => $adresse_id
+            'id_adresse_vendeur' => $id_adresse_vendeur
         ));
         $commandes = $req->fetchAll();
         return $commandes;
     }
-    public static function getCommandes_adressec($bdd,$adresse_id) {
-        // recupere les commandes du client
-        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_adresse_client = :adresse_id');
+
+    // recupere les commandes ayant cette adresse client
+    public static function getCommandes_adressec($bdd,$id_adresse_client) {
+        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_adresse_client = :id_adresse_client');
         $req->execute(array(
-            'adresse_id' => $adresse_id
+            'id_adresse_client' => $id_adresse_client
         ));
         $commandes = $req->fetchAll();
         return $commandes;
     }
-    public static function getCommandes_livreur($bdd,$livreur_id) {
-        // recupere les commandes du livreur
-        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_livreur = :livreur_id');
+
+    // recupere les commandes ayant ce livreur
+    public static function getCommandes_livreur($bdd,$id_livreur) {
+        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_livreur = :id_livreur');
         $req->execute(array(
-            'livreur_id' => $livreur_id
+            'id_livreur' => $id_livreur
         ));
         $commandes = $req->fetchAll();
         return $commandes;
     }
-    public static function getCommande($bdd,$commande_id) {
-        // recupere une commande
-        $req = $bdd->prepare('SELECT * FROM commandes WHERE id = :commande_id');
+
+    // recupere la commande
+    public static function getCommande($bdd,$id_commande) {
+        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_commande = :id_commande');
         $req->execute(array(
-            'commande_id' => $commande_id
+            'id_commande' => $id_commande
         ));
         $commande = $req->fetch(PDO::FETCH_ASSOC);
         return $commande;
     }
-    public static function setCommande_status($bdd,$commande_id,$status_id) {
-        // change le status d'une commande
-        $req = $bdd->prepare('UPDATE commandes SET id_status = :status_id WHERE id = :commande_id');
+
+    // modifie le status de la commande
+    public static function setCommande_status($bdd,$id_commande,$id_status) {
+        $req = $bdd->prepare('UPDATE commandes SET id_status = :id_status WHERE id_commande = :id_commande');
         $req->execute(array(
-            'commande_id' => $commande_id,
-            'status_id' => $status_id
+            'id_commande' => $id_commande,
+            'id_status' => $id_status
         ));
     }
-    public static function setCommande_transaction($bdd,$commande_id,$transaction_id) {
-        // ajoute une transaction a une commande
-        $req = $bdd->prepare('UPDATE commandes SET id_transaction = :transaction_id WHERE id = :commande_id');
+
+    // lier une transaction à la commande
+    public static function setCommande_transaction($bdd,$id_commande,$id_transaction) {
+        $req = $bdd->prepare('UPDATE commandes SET id_transaction = :id_transaction WHERE id_commande = :id_commande');
         $req->execute(array(
-            'commande_id' => $commande_id,
-            'transaction_id' => $transaction_id
+            'id_commande' => $id_commande,
+            'id_transaction' => $id_transaction
         ));
     }
-    public static function setCommande_suivi($bdd,$commande_id,$suivi) {
-        // ajoute un suivi a une commande
-        $req = $bdd->prepare('UPDATE commandes SET suivi = :suivi WHERE id = :commande_id');
+
+    // modifie le suivi de la commande
+    public static function setCommande_suivi($bdd,$id_commande,$suivi) {
+        $req = $bdd->prepare('UPDATE commandes SET suivi = :suivi WHERE id = :id_commande');
         $req->execute(array(
-            'commande_id' => $commande_id,
+            'id_commande' => $id_commande,
             'suivi' => $suivi
         ));
     }
-    public static function setCommande_date_livraison($bdd,$commande_id,$date_livraison) {
-        // ajoute une date de livraison a une commande
-        $req = $bdd->prepare('UPDATE commandes SET date_livraison = :date_livraison WHERE id = :commande_id');
+
+    // modifie date de livraison de la commande
+    public static function setCommande_date_livraison($bdd,$id_commande,$date_livraison) {
+        $req = $bdd->prepare('UPDATE commandes SET date_livraison = :date_livraison WHERE id = :id_commande');
         $req->execute(array(
-            'commande_id' => $commande_id,
+            'id_commande' => $id_commande,
             'date_livraison' => $date_livraison
         ));
     }
-    public static function setCommande_code_retrait($bdd,$commande_id,$code_retrait) {
-        // ajoute un code de retrait a une commande
-        $req = $bdd->prepare('UPDATE commandes SET code_retrait = :code_retrait WHERE id = :commande_id');
+
+    // modifie le code de retrait de la commande
+    public static function setCommande_code_retrait($bdd,$id_commande,$code_retrait) {
+        $req = $bdd->prepare('UPDATE commandes SET code_retrait = :code_retrait WHERE id = :id_commande');
         $req->execute(array(
-            'commande_id' => $commande_id,
+            'id_commande' => $id_commande,
             'code_retrait' => $code_retrait
         ));
     }
+
+    // ajoute une commande
     public static function setCommande($bdd,$nom_produit,$quantite,$prix_unitaire,$frait_livraison,$description,$suivi,$date_livraison,$code_retrait,$id_adresse_vendeur,$id_adresse_client,$id_offre,$id_transaction,$id_compte_vendeur,$id_compte_client,$id_types_status_commande,$id_livreur) {
-        // ajoute une commande
         $date_commande = date("Y-m-d H:i:s");
         $req = $bdd->prepare('INSERT INTO commandes(nom_produit,quantite,prix_unitaire,frait_livraison,description,suivi,date_commande,date_livraison,code_retrait,id_adresse_vendeur,id_adresse_client,id_offre,id_transaction,id_compte_vendeur,id_compte_client,id_types_status_commande,id_livreur) VALUES(:nom_produit,:quantite,:prix_unitaire,:frait_livraison,:description,:suivi,:date_commande,:date_livraison,:code_retrait,:id_adresse_vendeur,:id_adresse_client,:id_offre,:id_transaction,:id_compte_vendeur,:id_compte_client,:id_types_status_commande,:id_livreur)');
         $req->execute(array(

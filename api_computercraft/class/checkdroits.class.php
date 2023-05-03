@@ -1,20 +1,22 @@
 <?php
 class Checkdroits
 {
-    public static function check_role($bdd, $nom, $array_role_reqis)
+    // verifie si le compte a un des role requis
+    public static function check_role($bdd, $nom, $array_role_requis)
     {
         $req = $bdd->prepare('SELECT id_table_select_role FROM utilisateurs WHERE nom = :nom');
         $req->execute(array(
             'nom' => $nom
         ));
         $req = $req->fetch(PDO::FETCH_ASSOC);
-        if (in_array($req['id_table_select_role'], $array_role_reqis))
+        if (in_array($req['id_table_select_role'], $array_role_requis))
         {
             return true;
         }
         return false;
     }
 
+    // verifie le mot de passe du compte
     public static function check_password($bdd, $nom, $mdp,$bool_api)
     {
         #si bool_api=true compare avec la table api
@@ -40,6 +42,7 @@ class Checkdroits
         return false;
     }
 
+    // verifie le token du compte 
 	public function verifytoken($bdd, $nom, $token) {
         $req = $bdd->prepare('SELECT token FROM utilisateurs WHERE nom = :nom');
         $req->execute(array(
@@ -54,12 +57,13 @@ class Checkdroits
 		return false;
 	}
     
+    // verifie si l'api a la permission d'effectuer l'action
     public static function check_perm_api($bdd, $nom, $action)
     {
-        $req = $bdd->prepare('SELECT * FROM keyapi 
-        INNER JOIN keyapi_droits ON keyapi.id_keyapi = keyapi_droits.id_keyapi 
+        $req = $bdd->prepare('SELECT * FROM keyapis 
+        INNER JOIN keyapi_droits ON keyapis.id_keyapi = keyapi_droits.id_keyapi 
         INNER JOIN liste_droits ON liste_droits.id_droit = keyapi_droits.id_droit 
-        WHERE keyapi.nom = :nom AND liste_droits.nom = :action');
+        WHERE keyapis.nom = :nom AND liste_droits.nom = :action');
         $req->execute(array(
             'nom' => $nom,
             'action' => $action
@@ -72,6 +76,7 @@ class Checkdroits
         return false;
     }
 
+    // verifie si le compte a la permission d'effectuer l'action sur l'objet
     public static function check_perm_obj($bdd, $idnom, $idobjet, $type, $action ,$bool_api)
     {
         if ($bool_api)
@@ -139,6 +144,7 @@ class Checkdroits
         }
     }
 
+    // verifie si le compte est proprio de l'objet
     public static function check_proprio_obj($bdd, $idnom, $idobjet, $type)
     {
         $req = $bdd->prepare('SELECT * FROM '.$type.'s WHERE id_'.$type.' = :idobjet AND id_joueur = :idnom');

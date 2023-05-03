@@ -17,26 +17,15 @@ class jetons
 		$this->id = $player;
 	}
 
+	// recuperation le tableau de jeton
 	public function getJetons()
 	{
 		$req = $this->bdd->query('SELECT joueurs.pseudo, jeton_banque.* FROM jeton_banque INNER JOIN joueurs ON joueurs.id_joueur = jeton_banque.id_jeton');
-		$list_jetons = array();
-		while ($donnees = $req->fetch())
-		{
-			$jeton = array();
-			$jeton['pseudo'] = $donnees['pseudo'];
-			$jeton['jeton1'] = $donnees['jeton1'];
-			$jeton['jeton10'] = $donnees['jeton10'];
-			$jeton['jeton100'] = $donnees['jeton100'];
-			$jeton['jeton1k'] = $donnees['jeton1k'];
-			$jeton['jeton10k'] = $donnees['jeton10k'];
-			$jeton['last_update'] = $donnees['last_update'];
-			$list_jetons[] = $jeton;
-		}
-		$req->closeCursor();
-		return $list_jetons;
+		$list_jetons = $req->fetchAll();
+        return $list_jetons;
 	}
 
+	// creer une nouvelle entre dans la table jeton_banque
 	public function setInitJeton($jeton)
 	{
 		$date = date("Y-m-d H:i:s");
@@ -52,6 +41,7 @@ class jetons
 		));
 	}
 
+	// modifier une entre dans la table jeton_banque
 	public function setSyncJeton($jeton)
 	{
 		$date = date("Y-m-d H:i:s");

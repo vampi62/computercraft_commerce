@@ -5,15 +5,18 @@
 // set keypay/add
 
 class Keypay {
-    public static function getKeypayByKey($bdd,$key) {
+    // recupere une keypay par sa cle
+    public static function getKeypayByKey($bdd,$cle) {
         // recupere la keypay
-        $req = $bdd->prepare('SELECT * FROM keypay WHERE cle = :key');
+        $req = $bdd->prepare('SELECT * FROM keypay WHERE cle = :cle');
         $req->execute(array(
-            'key' => $key
+            'cle' => $cle
         ));
         $keypay = $req->fetch(PDO::FETCH_ASSOC);
         return $keypay;
     }
+
+    // recupere une keypay
     public static function getKeypay($bdd,$keypay_id) {
         // recupere la keypay
         $req = $bdd->prepare('SELECT * FROM keypay WHERE id = :keypay_id');
@@ -23,6 +26,8 @@ class Keypay {
         $keypay = $req->fetch(PDO::FETCH_ASSOC);
         return $keypay;
     }
+
+    // recupere les keypays d'une offre
     public static function getKeypay_offre($bdd,$offre_id) {
         // recupere la keypay
         $req = $bdd->prepare('SELECT * FROM keypay WHERE id_offre = :offre_id');
@@ -32,6 +37,8 @@ class Keypay {
         $keypay = $req->fetchAll();
         return $keypay;
     }
+
+    // ajoute une keypay
     public static function addKeypay($bdd,$offre_id,$cle,$quantite,$date_expire,$prix_unitaire,$id_offre) {
         // ajoute une keypay
         $req = $bdd->prepare('INSERT INTO keypay(id_offre,cle,quantite,date_expire,prix_unitaire,id_offre) VALUES(:offre_id,:cle,:quantite,:date_expire,:prix_unitaire,:id_offre)');
