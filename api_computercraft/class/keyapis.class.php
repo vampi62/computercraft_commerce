@@ -28,7 +28,7 @@ class Keyapis {
     }
 
     // recupere les info d'une keyapi
-    public static function getKeyapis($bdd,$id_keyapi) {
+    public static function getKeyapi($bdd,$id_keyapi) {
         $req = $bdd->prepare('SELECT * FROM keyapis WHERE id_keyapi = :id_keyapi');
         $req->execute(array(
             'id_keyapi' => $id_keyapi
@@ -38,7 +38,7 @@ class Keyapis {
     }
 
     // recupere les droits d'une keyapi
-    public static function getKeyApisDroits($bdd,$id_keyapi) {
+    public static function getKeyApiDroits($bdd,$id_keyapi) {
         $req = $bdd->prepare('SELECT liste_droits.* FROM liste_droits INNER JOIN keyapis_droits ON liste_droits.id_droit = keyapis_droits.id_droit WHERE id_keyapi = :id_keyapi');
         $req->execute(array(
             'id_keyapi' => $id_keyapi
@@ -48,7 +48,7 @@ class Keyapis {
     }
 
     // change le nom d'une keyapi
-    public static function setKeyapisNom($bdd,$id_keyapi,$nom) {
+    public static function setKeyapiNom($bdd,$id_keyapi,$nom) {
         $req = $bdd->prepare('UPDATE keyapis SET nom = :nom WHERE id_keyapi = :id_keyapi');
         $req->execute(array(
             'id_keyapi' => $id_keyapi,
@@ -58,7 +58,7 @@ class Keyapis {
     }
 
     //change le mdp d'une keyapi
-    public static function setKeyapisMdp($bdd,$id_keyapi,$mdp) {
+    public static function setKeyapiMdp($bdd,$id_keyapi,$mdp) {
         $req = $bdd->prepare('UPDATE keyapis SET mdp = :mdp WHERE id_keyapi = :id_keyapi');
         $req->execute(array(
             'id_keyapi' => $id_keyapi,

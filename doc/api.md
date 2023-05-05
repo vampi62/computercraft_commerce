@@ -5,10 +5,10 @@ api http acces via GET
 - param1	:(type) parametre obligatoire
 - param2    :(type)(optionnel) parametre non obligatoire
 
-http://0.0.0.0:9081/api_computercraft/index.php?action=__nom_action&param1=__param1__&param2=__param2__
+http://0.0.0.0:9081/api_computercraft/index.php?action=__nom_action__&__param1__=__param1_val__&__param2__=__param2_val__
 
-return (string) ==> renvoie un nombre faite correspondre la valeur avec la section __message_error__ du fichier config.yml<br/>
-return (array) ==> affiche la table de manière à être récuperer par computercraft, utiliser le code ci-dessous pour reconvertir la sortie en array dans computercraft
+return (json_format)<br/>
+
 ```lua
 global_url = "0.0.0.0"
 global_port = "9081"
@@ -36,7 +36,7 @@ http://ipserveur/api_computercraft/installation/index.php?
 - mdpconfirm	:(string) doit être identique à __mdp__
 - email			:(string) l'email doit etre valide
 
-http://0.0.0.0:9081/api_computercraft/installation/index.php?action=install&mdp=__mdp__&pseudo=__pseudo__&mdpconfirm=__mdpconfirm__&email=__email__
+http://0.0.0.0:9081/api_computercraft/index.php?action=install&mdp=__mdp__&pseudo=__pseudo__&mdpconfirm=__mdpconfirm__&email=__email__
 
 return (string)
 
