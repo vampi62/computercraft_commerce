@@ -12,8 +12,7 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','mdp'))) {
             if(checkdroits::CheckRole($_GET['pseudo'], array('admin'))) {
                 // modif - le compte cible est admin
                 $printmessage = array('status_code' => 403, 'message' => 'Vous ne pouvez pas supprimer votre compte admin.');
-            }
-            else {
+            } else {
                 Joueur::delJoueur($bddConnection, $_GET['pseudo']);
                 $printmessage = array('status_code' => 200, 'message' => 'Le compte a bien été supprimé.');
             }

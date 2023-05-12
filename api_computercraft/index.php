@@ -6,14 +6,16 @@ setlocale(LC_TIME, "fr_FR");
 
 require ('controleur/config.php');
 require ('controleur/connection_base.php');
-if (!$_Serveur_['Install']) header('Location: installation/');
-if (isset($_GET['action']))
-{
+if (!$_Serveur_['Install']) {
+	header('Location: installation/');
+}
+if (isset($_GET['action'])) {
 	require ('controleur/action.php');
 }
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json; charset=utf-8');
-if (isset($datareturn)){
-	echo json_encode($datareturn);
+if (isset($printmessage) && !empty($printmessage)) {
+	http_response_code($printmessage['status_code']);
+	echo json_encode($printmessage);
 }
 ?>

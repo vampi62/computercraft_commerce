@@ -3,18 +3,14 @@ require_once('class/joueurs.class.php');
 require_once('include/phpmailer/MailSender.php');
 require_once('class/checkdroits.class.php');
 
-if (Checkdroits::CheckArgs($_GET, array('pseudo', 'token')))
-{
+if (Checkdroits::CheckArgs($_GET, array('pseudo', 'token'))) {
 	$_GET['pseudo'] = htmlspecialchars($_GET['pseudo']);
 	$token = urldecode($_GET['token']);
 	$donneesJoueur = Joueurs::getJoueurByToken($bddConnection, $_GET['pseudo'], $token);
-	if(empty($donneesJoueur))
-	{
+	if(empty($donneesJoueur)) {
 		// modif - le mot de passe est incorrect
 		$printmessage = array('status_code' => 401, 'message' => 'Le pseudo ou le mail est incorrect.');
-	}
-	else
-	{
+	} else {
 		$caracAllows = 'ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz0123456789';
 		$mdp = substr(str_shuffle($caracAllows), 0, 7);
 
@@ -36,20 +32,15 @@ if (Checkdroits::CheckArgs($_GET, array('pseudo', 'token')))
 				.'Cordialement, '.$_Serveur_['General']['name'].'.';
 	
 		
-		if(MailSender::send($_Serveur_, $to, $subject, $txt))
-		{
+		if(MailSender::send($_Serveur_, $to, $subject, $txt)) {
 			// modif - ok
 			$printmessage = array('status_code' => 200, 'message' => 'Un mail vous a été envoyé avec votre nouveau mot de passe.');
-		}
-		else
-		{
+		} else {
 			// modif - le mot de passe est incorrect (code executer si le mail n'a pas pu être envoyer : identifient du serveur smtp incorrect, serveur injoignable, ...)
 			$printmessage = array('status_code' => 500, 'message' => 'Une erreur est survenue lors de l\'envoi du mail.');
 		}
 	}
-}
-else
-{
+} else {
 	// modif - il manque des parametres
 	$printmessage = array('status_code' => 400, 'message' => 'Il manque des paramètres.');
 }

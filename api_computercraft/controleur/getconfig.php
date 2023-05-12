@@ -1,5 +1,5 @@
 <?php
-$datareturn = array();
-$datareturn['General'] = $_Serveur_['General'];
-$datareturn['message_error'] = $_Serveur_['message_error'];
+$printmessage = array();
+$printmessage['General'] = $_Serveur_['General'];
+$printmessage['message_error'] = $_Serveur_['message_error'];
 ?>

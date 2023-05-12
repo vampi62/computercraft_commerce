@@ -20,8 +20,8 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','useraction','mdp','nbr_offre')))
                 Joueur::setNbrOffre($bddConnection, $_GET['pseudo'], $_GET['nbr_offre']);
                 $printmessage = array('status_code' => 200, 'message' => 'Le role a bien été modifié.');
             } else {
-                // modif - le compte executant n'est pas admin
-                $printmessage = array('status_code' => 403, 'message' => 'Vous ne pouvez pas modifier le role de ce compte.');
+                // modif - le compte n'est pas admin
+                $printmessage = array('status_code' => 403, 'message' => 'Le compte n\'est pas admin.');
             }
         } else {
             // modif - le mot de passe n'est pas identique

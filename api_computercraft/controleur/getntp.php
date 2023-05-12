@@ -1,9 +1,9 @@
 <?php
-$datareturn = array();
-$datareturn['seconde'] = date("s");
-$datareturn['minute'] = date("i");
-$datareturn['heure'] = date("H");
-$datareturn['jour'] = date("d");
-$datareturn['mois'] = date("m");
-$datareturn['annee'] = date("Y");
+$printmessage = array();
+$printmessage['seconde'] = date("s");
+$printmessage['minute'] = date("i");
+$printmessage['heure'] = date("H");
+$printmessage['jour'] = date("d");
+$printmessage['mois'] = date("m");
+$printmessage['annee'] = date("Y");
 ?>

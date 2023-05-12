@@ -18,19 +18,13 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','useraction','mdp','newmdp','conf
     if(!empty($donneesJoueurUserAction['pseudo']) && !empty($donneesJoueurPseudo['pseudo'])) {
         if(password_verify($_GET['mdp'], $donneesJoueurUserAction['mdp'])) {
             if ($_GET['newmdp'] == $_GET['confirmnewmdp']) {
-                if ($_GET['pseudo'] != $_GET['useraction']) {
-                    if(checkdroits::CheckRole($_GET['useraction'], 'admin')) {
-                        Joueur::setMdp($bddConnection, $_GET['pseudo'], $_GET['newmdp']);
-                        $printmessage = array('status_code' => 200, 'message' => 'Le mot de passe a bien été modifié.');
-                    }
-                    else {
-                        // modif - le compte n'est pas admin
-                        $printmessage = array('status_code' => 403, 'message' => 'Le compte n\'est pas admin.');
-                    }
+                if(checkdroits::CheckRole($_GET['useraction'], 'admin')) {
+                    Joueur::setMdp($bddConnection, $_GET['pseudo'], $_GET['newmdp']);
+                    $printmessage = array('status_code' => 200, 'message' => 'Le mot de passe a bien été modifié.');
                 }
                 else {
-                    Joueur::setMdp($bddConnection, $_GET['pseudo'], $_GET['newmdp']);
-                    $printmessage = array('status_code' => 200, 'message' => 'Le mot de passe a bien été modifié.');    
+                    // modif - le compte n'est pas admin
+                    $printmessage = array('status_code' => 403, 'message' => 'Le compte n\'est pas admin.');
                 }
             } else {
                 // modif - le mot de passe n'est pas identique

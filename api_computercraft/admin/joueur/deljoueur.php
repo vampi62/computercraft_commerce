@@ -15,22 +15,17 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','useraction','mdp'))) {
     }
     if(!empty($donneesJoueurUserAction['pseudo']) && !empty($donneesJoueurPseudo['pseudo'])) {
         if(password_verify($_GET['mdp'], $donneesJoueurUserAction['mdp'])) {
-            $isadmin = checkdroits::CheckRole($_GET['useraction'], array('admin'));
-            if($isadmin && $donneesJoueurUserAction['pseudo'] != $donneesJoueurPseudo['pseudo']) {
-                Joueur::delJoueur($bddConnection, $_GET['pseudo']);
-                $printmessage = array('status_code' => 200, 'message' => 'Le compte a bien été supprimé.');
-            }
-            elseif (!$isadmin && $donneesJoueurUserAction['pseudo'] == $donneesJoueurPseudo['pseudo']) {
-                Joueur::delJoueur($bddConnection, $_GET['pseudo']);
-                $printmessage = array('status_code' => 200, 'message' => 'Le compte a bien été supprimé.');
-            }
-            elseif($isadmin && $donneesJoueurUserAction['pseudo'] == $donneesJoueurPseudo['pseudo']) {
-                // modif - le compte cible est admin
-                $printmessage = array('status_code' => 403, 'message' => 'Vous ne pouvez pas supprimer votre compte admin.');
-            }
-            elseif (!$isadmin && $donneesJoueurUserAction['pseudo'] != $donneesJoueurPseudo['pseudo']) {
-                // modif - le compte executant n'est pas admin
-                $printmessage = array('status_code' => 403, 'message' => 'Vous ne pouvez pas supprimer ce compte.');
+            if(checkdroits::CheckRole($_GET['useraction'], array('admin'))) {
+                if($donneesJoueurUserAction['pseudo'] != $donneesJoueurPseudo['pseudo']) {
+                    Joueur::delJoueur($bddConnection, $_GET['pseudo']);
+                    $printmessage = array('status_code' => 200, 'message' => 'Le compte a bien été supprimé.');
+                } else {
+                    // modif - le compte cible est admin
+                    $printmessage = array('status_code' => 403, 'message' => 'Vous ne pouvez pas supprimer votre compte admin.');
+                }
+            } else {
+                // modif - le compte n'est pas admin
+                $printmessage = array('status_code' => 403, 'message' => 'Le compte n\'est pas admin.');
             }
         } else {
             // modif - le mot de passe n'est pas identique

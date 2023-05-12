@@ -1,6 +1,10 @@
 <?php
-error_reporting(0);
-ini_set('display_errors', 1);
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+date_default_timezone_set('Europe/Paris');
+setlocale(LC_TIME, "fr_FR");
+
+require_once('resource.php');
 require_once('../class/config/yml.class.php');
 require_once('../class/checkdroits.class.php');
 $configLecture = new Lire('../class/config/config.yml');
@@ -22,84 +26,39 @@ if ($_Serveur_['Install'] != true) {
 							SetAdmin($_GET['pseudo'], $_GET['mdp'], $_GET['email'], $sql);
 							$_Serveur_['Install'] = true;
 							$ecriture = new Ecrire('../class/config/config.yml', $_Serveur_);
-							echo 'installation terminer vous pouvez supprimer le repertoire installation';
+							// 'installation terminer vous pouvez supprimer le repertoire installation';
+							$printmessage = array('status_code' => 200, 'message' => 'Installation terminée, vous pouvez supprimer le répertoire installation.');
 						} else {
-							echo 'identifiant base de donnée incorect';
+							// 'identifiant base de donnée incorect';
+							$printmessage = array('status_code' => 500, 'message' => 'Identifiant base de donnée incorrect.');
 						}
 					} else {
-						echo 'email invalide';
+						// 'email invalide';
+						$printmessage = array('status_code' => 400, 'message' => 'Email invalide.');
 					}
 				} else {
-					echo "le mot de passe n'est pas identique";
+					// "le mot de passe n'est pas identique";
+					$printmessage = array('status_code' => 400, 'message' => 'Le mot de passe n\'est pas identique.');
 				}
 			} else {
-				echo 'le mot de passe ne respecte pas les regles de securite';
+				// 'le mot de passe ne respecte pas les regles de securite';
+				$printmessage = array('status_code' => 400, 'message' => 'Le mot de passe ne respecte pas les règles de sécurité.');
 			}
 		} else {
-			echo 'il manque des parametres';
+			// 'il manque des parametres';
+			$printmessage = array('status_code' => 400, 'message' => 'Il manque des paramètres.');
 		}
 	} else {
-		echo 'fichier config incorrect';
+		// 'fichier config incorrect';
+		$printmessage = array('status_code' => 400, 'message' => 'Fichier config incorrect.');
 	}
 } else {
-	echo 'déjà installer';
+	// 'déjà installer';
+	$printmessage = array('status_code' => 400, 'message' => 'Déjà installer.');
 }
-function verifyPDO($hote, $nomBase, $utilisateur, $mdp, $port) {
-	try {
-		$sql = new PDO('mysql:host=' . $hote . ';dbname=' . $nomBase . ';port=' . $port, $utilisateur, $mdp);
-		$sql->exec("SET CHARACTER SET utf8");
-		$req = $sql->query('SELECT @@GLOBAL.sql_mode AS sql_mode_global, @@SESSION.sql_mode AS sql_mode_session');
-		$data = $req->fetch(PDO::FETCH_ASSOC);
-		return true;
-	} catch (Exception $e) {
-		return false;
-	}
-}
-function getPDO($hote, $nomBase, $utilisateur, $mdp, $port) {
-	try {
-		$sql = new PDO('mysql:host=' . $hote . ';dbname=' . $nomBase . ';port=' . $port, $utilisateur, $mdp);
-		$sql->exec("SET CHARACTER SET utf8");
-		return $sql;
-	} catch (Exception $e) {
-	}
-}
-function SetHtpasswd() {
-	$dir[0] = '../class/.htpasswd';
-	$dir[1] = '../controleur/.htpasswd';
-	$rand = md5(uniqid(rand(), true));
-	for($i = 0; $i < count($dir); $i++) {
-		$htaccess = fopen($dir[$i], 'r+');
-		fseek($htaccess, 0);
-		fputs($htaccess, 'apimc:'. $rand);
-	}
-}
-function SetAdmin($pseudo, $mdp, $email, $bdd) {
-	$date = date("Y-m-d");
-	$req = $bdd->prepare('INSERT INTO joueurs(pseudo, mdp, email, last_login, id_table_select_role, max_offres) VALUES(:player, :mdp, :email, :last_login, 1, 0)');
-	$req->execute(array(
-		'player' => $pseudo,
-		'mdp' => password_hash($mdp, PASSWORD_DEFAULT),
-		'last_login' => $date,
-		'email' => $email
-	));
-	$req = $bdd->prepare('INSERT INTO groupes(nom, id_joueur) VALUES(:nom, :player_id)');
-	$req->execute(array(
-		'player_id' => 1,
-		'nom' => "root"
-	));
-	$req = $bdd->prepare('INSERT INTO groupe_utilisateur(id_groupe, id_joueur) VALUES(:groupe_id, :player_id)');
-	$req->execute(array(
-		'groupe_id' => 1,
-		'player_id' => 1
-	));
-	$req = $this->bdd->query('SELECT id_droit FROM list_droits WHERE groupe = 1');
-	while ($donnees = $req->fetch()) {
-		$jeton = array();
-		$req2 = $bdd->prepare('INSERT INTO groupe_droits(id_droit, id_groupe, valeur) VALUES(:player, :mdp, 1)');
-		$req2->execute(array(
-			'id_droit' => $donnees['id_droit'],
-			'id_groupe' => 1
-		));
-	}
-	$req->closeCursor();
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json; charset=utf-8');
+if (isset($printmessage) && !empty($printmessage)) {
+	http_response_code($printmessage['status_code']);
+	echo json_encode($printmessage);
 }
