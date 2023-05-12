@@ -1,9 +1,9 @@
 <?php
-require_once('modele/joueur/connection.class.php');
-require_once('modele/joueur/inscription.class.php');
-require_once('modele/boutique/boutique.class.php');
+require_once('modele/joueurs.class.php');
+require_once('include/phpmailer/MailSender.php');
+require_once('modele/checkdroits.class.php');
 
-if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['mdpconfirm']) AND isset($_GET['email']) AND !empty($_GET['pseudo']) AND !empty($_GET['mdp']) AND !empty($_GET['mdpconfirm']) AND !empty($_GET['email']))
+if(checkdroits::CheckArgs($_GET,array('pseudo','mdp','mdpconfirm','email')))
 {
 	$_GET['pseudo'] = htmlspecialchars($_GET['pseudo']);
 	$_GET['mdp'] = htmlspecialchars($_GET['mdp']);
@@ -16,47 +16,40 @@ if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['mdpconfirm'])
 		{
 			if(filter_var($_GET['email'], FILTER_VALIDATE_EMAIL))
 			{
-				$connection = new Connection($_GET['pseudo'], $bddConnection);
-				$donneesJoueur = $connection->getReponseConnection();
+				$donneesJoueur = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
 				if(empty($donneesJoueur['pseudo']))
 				{
-					$inscription = new Inscription($_GET['pseudo'], $_GET['mdp'], $_GET['email'], $bddConnection, $_Serveur_);
-					$boutique = new Boutique($inscription->getnewid($_GET['pseudo']), $bddConnection);
-					for ($j=0; $j < $_Serveur_['General']['offre_depart']; $j++)
-					{
-						$boutique->setNouvellesOffre();
-					}
-					$inscription->setNbrOffre($boutique->getnbrOffres());
-					$printmessage = 1;
+					Joueur::inscription($bddConnection,$_GET['pseudo'], $_GET['email'], $_GET['mdp'], $_Serveur_);
+					$printmessage = array('status_code' => 200, 'message' => 'Votre compte a bien été créé.');
 					// modif - ok
 				}
 				else
 				{
 					// modif - un compte existe deja
-					$printmessage = 20;
+					$printmessage = array('status_code' => 403, 'message' => 'Un compte existe déjà avec ce pseudo.');
 				}
 			}
 			else
 			{
 				// modif - mail invalide
-				$printmessage = 22;
+				$printmessage = array('status_code' => 403, 'message' => 'L\'adresse mail est invalide.');
 			}
 		}
 		else
 		{
 			// modif - le mot de passe n'est pas identique
-			$printmessage = 21;
+			$printmessage = array('status_code' => 403, 'message' => 'Les mots de passe ne sont pas identiques.');
 		}
 	}
 	else
 	{
 		// modif - le mot de passe ne respecte pas les regles de securite
-		$printmessage = 23;
+		$printmessage = array('status_code' => 403, 'message' => 'Le mot de passe ne respecte pas les règles de sécurité.');
 	}
 }
 else
 {
 	// modif - il manque des parametres
-	$printmessage = 13;
+	$printmessage = array('status_code' => 400, 'message' => 'Il manque des paramètres.');
 }
 ?>

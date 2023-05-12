@@ -1,28 +1,25 @@
 <?php
-require_once('modele/joueur/checkToken.class.php');
-require_once('modele/joueur/maj.class.php');
+require_once('modele/joueurs.class.php');
 require_once('include/phpmailer/MailSender.php');
+require_once('modele/checkdroits.class.php');
 
-if(isset($_GET['pseudo']) AND isset($_GET['token']) AND !empty($_GET['pseudo']) AND !empty($_GET['token']))
+if (Checkdroits::CheckArgs($_GET, array('pseudo', 'token')))
 {
 	$_GET['pseudo'] = htmlspecialchars($_GET['pseudo']);
 	$token = urldecode($_GET['token']);
-	$tokenInfos = new checkToken($_GET['pseudo'], $token, $bddConnection);
-	$donneesJoueur = $tokenInfos->getReponseConnection();
-
+	$donneesJoueur = Joueurs::getJoueurByToken($bddConnection, $_GET['pseudo'], $token);
 	if(empty($donneesJoueur))
 	{
 		// modif - le mot de passe est incorrect
-		$printmessage = 11;
+		$printmessage = array('status_code' => 401, 'message' => 'Le pseudo ou le mail est incorrect.');
 	}
 	else
 	{
-		$mdp = genMdp();
+		$caracAllows = 'ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz0123456789';
+		$mdp = substr(str_shuffle($caracAllows), 0, 7);
 
-		$maj = new Maj($donneesJoueur, $bddConnection);  
-		$maj->setNouvellesDonneesResetToken(null);
-		$maj = new Maj($donneesJoueur, $bddConnection);  
-		$maj->setNouvellesDonneesMdp($mdp);
+		Joueurs::setResetToken($bddConnection, $donneesJoueur['id_joueur'], null);
+		Joueurs::setMdp($bddConnection, $donneesJoueur['id_joueur'], $mdp);
 		
 		$retourligne = "<br />";
 		
@@ -42,22 +39,18 @@ if(isset($_GET['pseudo']) AND isset($_GET['token']) AND !empty($_GET['pseudo']) 
 		if(MailSender::send($_Serveur_, $to, $subject, $txt))
 		{
 			// modif - ok
-			$printmessage = 1;
+			$printmessage = array('status_code' => 200, 'message' => 'Un mail vous a été envoyé avec votre nouveau mot de passe.');
 		}
 		else
 		{
 			// modif - le mot de passe est incorrect (code executer si le mail n'a pas pu être envoyer : identifient du serveur smtp incorrect, serveur injoignable, ...)
-			$printmessage = 11;
+			$printmessage = array('status_code' => 500, 'message' => 'Une erreur est survenue lors de l\'envoi du mail.');
 		}
 	}
 }
 else
 {
 	// modif - il manque des parametres
-	$printmessage = 13;
-}
-function genMdp(){
-	$caracAllows = 'ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz0123456789';
-	return substr(str_shuffle($caracAllows), 0, 7);
+	$printmessage = array('status_code' => 400, 'message' => 'Il manque des paramètres.');
 }
 ?>

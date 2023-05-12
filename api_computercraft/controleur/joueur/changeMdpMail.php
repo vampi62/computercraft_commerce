@@ -1,32 +1,24 @@
 <?php
-require_once('modele/joueur/mail.class.php');
-require_once('modele/joueur/maj.class.php');
+require_once('modele/joueurs.class.php');
 require_once('include/phpmailer/MailSender.php');
+require_once('modele/checkdroits.class.php');
 
-if(isset($_GET['pseudo']) AND isset($_GET['email']) AND !empty($_GET['pseudo']) AND !empty($_GET['email']))
+if (Checkdroits::CheckArgs($_GET, array('pseudo', 'email')))
 {
 	$_GET['pseudo'] = htmlspecialchars($_GET['pseudo']);
 	$_GET['email'] = htmlspecialchars($_GET['email']);
-
-	$userConnection = new Mail($_GET['pseudo'],$_GET['email'], $bddConnection);
-	$donneesJoueur = $userConnection->getReponseConnection();
+	$donneesJoueur = Joueurs::getJoueurByMail($bddConnection, $_GET['pseudo'], $_GET['email']);
 	if(empty($donneesJoueur))
 	{
 		// modif - le mot de passe est incorrect
-		$printmessage = 11;
+		$printmessage = array('status_code' => 401, 'message' => 'Le pseudo ou le mail est incorrect.');
 	}
 	else
 	{
 		$resetToken = substr(md5(microtime(TRUE)*(100000+rand(1,1000))), 0, -20);
-		$resetToken = $resetToken;
-		
-		$maj = new Maj($donneesJoueur, $bddConnection);
-		$maj->setNouvellesDonneesResetToken($resetToken);
-
+		Joueurs::setResetToken($bddConnection, $donneesJoueur['id'], $resetToken);
 		$lien = urlencode($resetToken);
-
 		$retourligne = "<br />";
-
 		$to = $donneesJoueur['email'];
 		$subject = "[".$_Serveur_['General']['name']."]Recuperation de mot de passe";
 		$txt = 'Bonjour, '.$donneesJoueur['pseudo'].$retourligne
@@ -44,18 +36,18 @@ if(isset($_GET['pseudo']) AND isset($_GET['email']) AND !empty($_GET['pseudo']) 
 		if(MailSender::send($_Serveur_, $to, $subject, $txt))
 		{
 			// modif - ok
-			$printmessage = 1;
+			$printmessage = array('status_code' => 200, 'message' => 'Un mail vous a été envoyé.');
 		}
 		else
 		{
 			// modif - le mot de passe est incorrect (code executer si le mail n'a pas pu être envoyer : identifient du serveur smtp incorrect, serveur injoignable, ...)
-			$printmessage = 11;
+			$printmessage = array('status_code' => 500, 'message' => 'Une erreur est survenue lors de l\'envoi du mail.');
 		}
 	}
 }
 else
 {
 	// modif - il manque des parametres
-	$printmessage = 13;
+	$printmessage = array('status_code' => 400, 'message' => 'Il manque des paramètres.');
 }
 ?>

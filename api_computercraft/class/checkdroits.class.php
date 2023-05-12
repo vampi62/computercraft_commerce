@@ -1,10 +1,10 @@
 <?php
 class Checkdroits {
     // verifie si le compte a un des role requis
-    public static function CheckRole($bdd, $nom, $array_role_requis) {
-        $req = $bdd->prepare('SELECT id_table_select_role FROM joueurs WHERE nom = :nom');
+    public static function CheckRole($bdd, $pseudo, $array_role_requis) {
+        $req = $bdd->prepare('SELECT liste_type_role.nom FROM liste_type_role INNER JOIN joueurs ON joueurs.id_table_select_role = liste_type_role.id_table_select_role WHERE joueurs.pseudo = :pseudo');
         $req->execute(array(
-            'nom' => $nom
+            'pseudo' => $pseudo
         ));
         $login = $req->fetch(PDO::FETCH_ASSOC);
         $req->closeCursor();
@@ -17,21 +17,17 @@ class Checkdroits {
 
     // verifie le mot de passe du compte
     public static function CheckPassword($bdd, $nom, $mdp,$type_login) {
-        #si type_login=1 compare avec la table api
-        #si type_login=2 compare avec la table joueurs
+        #si type_login=TRUE compare avec la table api
+        #si type_login=FALSE compare avec la table joueurs
         #autre compare avec la table livreurs
 
-        if ($type_login == 1)
+        if ($type_login)
         {
             $req = $bdd->prepare('SELECT mdp FROM keyapi WHERE nom = :nom');
         }
-        elseif ($type_login == 2)
-        {
-            $req = $bdd->prepare('SELECT mdp FROM joueurs WHERE nom = :nom');
-        }
         else
         {
-            $req = $bdd->prepare('SELECT mdp FROM livreurs WHERE nom_groupe = :nom');
+            $req = $bdd->prepare('SELECT mdp FROM joueurs WHERE pseudo = :nom');
         }
         $req->execute(array(
             'nom' => $nom
@@ -48,13 +44,13 @@ class Checkdroits {
 
     // verifie le token du compte 
 	public function CheckToken($bdd, $nom, $token) {
-        $req = $bdd->prepare('SELECT token FROM joueurs WHERE nom = :nom');
+        $req = $bdd->prepare('SELECT resettoken FROM joueurs WHERE pseudo = :pseudo');
         $req->execute(array(
-            'nom' => $nom
+            'pseudo' => $pseudo
         ));
         $req = $req->fetch(PDO::FETCH_ASSOC);
         if(!empty($req)) {
-            if($token == $req['token']) {
+            if($token == $req['resettoken']) {
                 return true;
             }
         }
@@ -144,6 +140,16 @@ class Checkdroits {
             $req->closeCursor();
             return false;
         }
+    }
+
+    // verifie si tous les arguments sont present
+    public static function CheckArgs($args_send, $args_need) {
+        foreach ($args_need as $arg) {
+            if (!isset($args_send[$arg])) {
+                return false;
+            }
+        }
+        return true;
     }
 
     // verifie si le compte est proprio de l'objet
