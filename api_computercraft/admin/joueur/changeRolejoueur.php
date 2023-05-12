@@ -1,7 +1,7 @@
 <?php
-require_once('modele/joueurs.class.php');
+require_once('class/joueurs.class.php');
 require_once('include/phpmailer/MailSender.php');
-require_once('modele/checkdroits.class.php');
+require_once('class/checkdroits.class.php');
 
 if(checkdroits::CheckArgs($_GET,array('pseudo','useraction','mdp','role'))) {
     $_GET['pseudo']= htmlspecialchars($_GET['pseudo']);

@@ -3,20 +3,25 @@ require_once('class/joueurs.class.php');
 require_once('include/phpmailer/MailSender.php');
 require_once('class/checkdroits.class.php');
 
-if(checkdroits::CheckArgs($_GET,array('pseudo','mdp','nbr_offre'))) {
+if(checkdroits::CheckArgs($_GET,array('pseudo','useraction','mdp','nbr_offre'))) {
     $_GET['pseudo']= htmlspecialchars($_GET['pseudo']);
+    $_GET['useraction'] = htmlspecialchars($_GET['useraction']);
     $_GET['mdp'] = htmlspecialchars($_GET['mdp']);
     $_GET['nbr_offre'] = htmlspecialchars($_GET['nbr_offre']);
     $donneesJoueurPseudo = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
-    if(!empty($donneesJoueurPseudo['pseudo'])) {
-        if(password_verify($_GET['mdp'], $donneesJoueurPseudo['mdp'])) {
-            //-modif- verification compte a debiter
-            if (false) {
+    if ($_GET['pseudo'] != $_GET['useraction']) {
+        $donneesJoueurUserAction = Joueur::getJoueurbyPseudo($bddConnection, $_GET['useraction']);
+    } else {
+        $donneesJoueurUserAction = $donneesJoueurPseudo;
+    }
+    if(!empty($donneesJoueurUserAction['pseudo']) && !empty($donneesJoueurPseudo['pseudo'])) {
+        if(password_verify($_GET['mdp'], $donneesJoueurUserAction['mdp'])) {
+            if (checkdroits::CheckRole($_GET['useraction'], 'admin')) {
                 Joueur::setNbrOffre($bddConnection, $_GET['pseudo'], $_GET['nbr_offre']);
-                $printmessage = array('status_code' => 200, 'message' => 'Le nombre d\'offre a bien été modifié.');
+                $printmessage = array('status_code' => 200, 'message' => 'Le role a bien été modifié.');
             } else {
                 // modif - le compte executant n'est pas admin
-                $printmessage = array('status_code' => 403, 'message' => 'Vous ne pouvez pas modifier le nombre d\'offre de ce compte.');
+                $printmessage = array('status_code' => 403, 'message' => 'Vous ne pouvez pas modifier le role de ce compte.');
             }
         } else {
             // modif - le mot de passe n'est pas identique

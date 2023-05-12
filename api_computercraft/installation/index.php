@@ -1,12 +1,13 @@
 <?php
 error_reporting(0);
 ini_set('display_errors', 1);
-require_once('../modele/config/yml.class.php');
-$configLecture = new Lire('../modele/config/config.yml');
+require_once('../class/config/yml.class.php');
+require_once('../class/checkdroits.class.php');
+$configLecture = new Lire('../class/config/config.yml');
 $_Serveur_ = $configLecture->GetTableau();
 if ($_Serveur_['Install'] != true) {
 	if (isset($_Serveur_['DataBase']['dbAdress']) AND isset($_Serveur_['DataBase']['dbName']) AND isset($_Serveur_['DataBase']['dbUser']) AND isset($_Serveur_['DataBase']['dbPassword']) AND isset($_Serveur_['DataBase']['dbPort'])) {
-		if(isset($_GET['pseudo']) AND isset($_GET['mdp']) AND isset($_GET['mdpconfirm']) AND isset($_GET['email']) AND !empty($_GET['pseudo']) AND !empty($_GET['mdp']) AND !empty($_GET['mdpconfirm']) AND !empty($_GET['email'])) {
+		if(checkdroits::CheckArgs($_GET,array('pseudo','mdpconfirm','mdp','email'))) {
 			$_GET['pseudo'] = htmlspecialchars($_GET['pseudo']);
 			$_GET['mdp'] = htmlspecialchars($_GET['mdp']);
 			$_GET['mdpconfirm'] = htmlspecialchars($_GET['mdpconfirm']);
@@ -20,7 +21,7 @@ if ($_Serveur_['Install'] != true) {
 							SetHtpasswd();
 							SetAdmin($_GET['pseudo'], $_GET['mdp'], $_GET['email'], $sql);
 							$_Serveur_['Install'] = true;
-							$ecriture = new Ecrire('../modele/config/config.yml', $_Serveur_);
+							$ecriture = new Ecrire('../class/config/config.yml', $_Serveur_);
 							echo 'installation terminer vous pouvez supprimer le repertoire installation';
 						} else {
 							echo 'identifiant base de donnée incorect';

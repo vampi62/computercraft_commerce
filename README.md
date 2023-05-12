@@ -15,7 +15,7 @@ ce projet permet de créer un système d'échange et de banque sur un monde mine
 
 1. creer un serveur apache-php-mysql (si vous voulez installer le serveur apache-php avec docker compiler l'image dans le repertoire docker)
 2. placer dans le dossier de prod du serveur les repertoires api_computercraft et lua (noublier pas de les rendre accessible pour l'utilisateur du service apache ou docker)
-3. completer la section "DataBase" dans le fichier config (computercraft_commerce\api_computercraft\modele\config\config.yml)
+3. completer la section "DataBase" dans le fichier config (computercraft_commerce\api_computercraft\class\config\config.yml)
 4. executer l'installation (http://__nom_du_serveur_http_ou_ip__:__port_si_non_80__/api_computercraft/installation/index.php?pseudo=__pseudo_compte_admin__&mdp=__mdp_admin__&mdpconfirm=__confirm_mdp_admin__&email=__email_admin__)
 - remplacer les éléments suivant par les votre : __nom_du_serveur_http_ou_ip__ , __port_si_non_80__ , __pseudo_compte_admin__ , __mdp_admin__ , __confirm_mdp_admin__ , __email_admin__
 - le mot de passe doit faire plus de 8 caractères, avoir une majuscule, une minuscule et un chiffre
@@ -25,7 +25,7 @@ ce projet permet de créer un système d'échange et de banque sur un monde mine
 
 ce docker ne contient qu'un serveur apache avec php, vous devez installer mysql ou mariadb avec un compte et une base de donnée pour l'api, le tout sur un autre conteneur ou autre.
 une fois creer le conteneur n'a plus à être supprimer, pour mettre a jour les fichiers deposer les dans le volume ou le repertoire externe
-(attention) ne remplacer pas votre fichier config : /api_computercraft/modele/config/config.yml
+(attention) ne remplacer pas votre fichier config : /api_computercraft/class/config/config.yml
 ```sh
 cd /computercraft_commerce
 sudo docker network create --subnet=172.18.0.0/16 dockernet
