@@ -12,6 +12,7 @@ class Transactions {
             'compte_id' => $compte_id
         ));
         $transactions = $req->fetchAll();
+		$req->closeCursor();
         return $transactions;
     }
 
@@ -22,6 +23,7 @@ class Transactions {
             'admin_id' => $admin_id
         ));
         $transactions = $req->fetchAll();
+		$req->closeCursor();
         return $transactions;
     }
 
@@ -32,6 +34,7 @@ class Transactions {
             'transaction_id' => $transaction_id
         ));
         $transaction = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
         return $transaction;
     }
     
@@ -50,7 +53,6 @@ class Transactions {
             'id_type_transaction' => $id_type_transaction,
             'id_commande' => $id_commande
         ));
-        $transaction_id = $bdd->lastInsertId();
-        return $transaction_id;
+        return $bdd->lastInsertId();
     }
 }

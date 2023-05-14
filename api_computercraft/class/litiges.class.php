@@ -12,6 +12,7 @@ class Litiges {
             'commande_id' => $commande_id
         ));
         $litiges = $req->fetchAll();
+		$req->closeCursor();
         return $litiges;
     }
 
@@ -25,8 +26,7 @@ class Litiges {
             'description' => $description,
             'id_status_litige' => $id_status_litige
         ));
-        $litige_id = $bdd->lastInsertId();
-        return $litige_id;
+        return $bdd->lastInsertId();
     }
     
     // supprime le message du fil de discution litige

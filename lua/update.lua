@@ -10,7 +10,7 @@ global_os_version = os.version()
 if global_os_version == "CraftOS 1.8" then
 	-- pas de changement
 elseif global_os_version == "CraftOS 1.7" then
-	-- dans craftos 1.7 require n'existe pas, la fonction shell.run est similaire car elle utilise un environnement partagé
+	-- dans craftos 1.7 require n'existe pas, la fonction shell.run est similaire car elle utilise un environnement partage
 	function require(fichier)
 		shell.run(fichier..".lua")
 	end

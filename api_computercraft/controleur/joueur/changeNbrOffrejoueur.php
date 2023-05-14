@@ -13,7 +13,7 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','mdp','nbr_offre'))) {
             //-modif- verification compte a debiter
             if (false) {
                 Joueur::setNbrOffre($bddConnection, $_GET['pseudo'], $_GET['nbr_offre']);
-                $printmessage = array('status_code' => 200, 'message' => 'Le nombre d\'offre a bien été modifié.');
+                $printmessage = array('status_code' => 200, 'message' => 'Le nombre d\'offre a bien ete modifie.');
             } else {
                 // modif - le compte executant n'est pas admin
                 $printmessage = array('status_code' => 403, 'message' => 'Vous ne pouvez pas modifier le nombre d\'offre de ce compte.');
@@ -28,5 +28,5 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','mdp','nbr_offre'))) {
     }
 } else {
     // modif - il manque des parametres
-    $printmessage = array('status_code' => 400, 'message' => 'Il manque des paramètres.');
+    $printmessage = array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }

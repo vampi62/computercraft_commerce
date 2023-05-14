@@ -19,6 +19,7 @@ class Comptes {
             'action' => "getcomptes"
         ));
         $comptes = $req->fetchAll();
+		$req->closeCursor();
         return $comptes;
     }
 
@@ -38,6 +39,7 @@ class Comptes {
             'action' => "getcomptes"
         ));
         $comptes = $req->fetchAll();
+		$req->closeCursor();
         return $comptes;
     }
     

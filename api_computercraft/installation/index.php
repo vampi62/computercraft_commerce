@@ -27,10 +27,10 @@ if ($_Serveur_['Install'] != true) {
 							$_Serveur_['Install'] = true;
 							$ecriture = new Ecrire('../class/config/config.yml', $_Serveur_);
 							// 'installation terminer vous pouvez supprimer le repertoire installation';
-							$printmessage = array('status_code' => 200, 'message' => 'Installation terminée, vous pouvez supprimer le répertoire installation.');
+							$printmessage = array('status_code' => 200, 'message' => 'Installation terminee, vous pouvez supprimer le repertoire installation.');
 						} else {
-							// 'identifiant base de donnée incorect';
-							$printmessage = array('status_code' => 500, 'message' => 'Identifiant base de donnée incorrect.');
+							// 'identifiant base de donnee incorect';
+							$printmessage = array('status_code' => 500, 'message' => 'Identifiant base de donnee incorrect.');
 						}
 					} else {
 						// 'email invalide';
@@ -42,19 +42,19 @@ if ($_Serveur_['Install'] != true) {
 				}
 			} else {
 				// 'le mot de passe ne respecte pas les regles de securite';
-				$printmessage = array('status_code' => 400, 'message' => 'Le mot de passe ne respecte pas les règles de sécurité.');
+				$printmessage = array('status_code' => 400, 'message' => 'Le mot de passe ne respecte pas les regles de securite.');
 			}
 		} else {
 			// 'il manque des parametres';
-			$printmessage = array('status_code' => 400, 'message' => 'Il manque des paramètres.');
+			$printmessage = array('status_code' => 400, 'message' => 'Il manque des parametres.');
 		}
 	} else {
 		// 'fichier config incorrect';
 		$printmessage = array('status_code' => 400, 'message' => 'Fichier config incorrect.');
 	}
 } else {
-	// 'déjà installer';
-	$printmessage = array('status_code' => 400, 'message' => 'Déjà installer.');
+	// 'dejà installer';
+	$printmessage = array('status_code' => 400, 'message' => 'Dejà installer.');
 }
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json; charset=utf-8');

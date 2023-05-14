@@ -9,7 +9,19 @@ class Jetons {
 	public static function getJetons($bdd) {
 		$req = $bdd->query('SELECT joueurs.pseudo, jeton_banque.* FROM jeton_banque INNER JOIN joueurs ON joueurs.id_joueur = jeton_banque.id_jeton');
 		$list_jetons = $req->fetchAll();
+		$req->closeCursor();
         return $list_jetons;
+	}
+
+	// recuperation le tableau de jeton
+	public static function getJeton($bdd,$id_joueur) {
+		$req = $bdd->prepare('SELECT * FROM jeton_banque WHERE id_joueur = :id_joueur');
+		$req->execute(array(
+			'id_joueur' => $id_joueur
+		));
+		$jeton = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
+		return $jeton;
 	}
 
 	// creer une nouvelle entre dans la table jeton_banque

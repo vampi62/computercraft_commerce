@@ -24,6 +24,7 @@ class Livreurs {
             'action' => "getlivreurs"
         ));
         $livreurs = $req->fetchAll();
+		$req->closeCursor();
         return $livreurs;
     }
 
@@ -43,6 +44,7 @@ class Livreurs {
             'action' => "getlivreurs"
         ));
         $livreurs = $req->fetchAll();
+		$req->closeCursor();
         return $livreurs;
     }
 
@@ -54,6 +56,7 @@ class Livreurs {
             'id_compte' => $id_compte
         ));
         $livreurs = $req->fetchAll();
+		$req->closeCursor();
         return $livreurs;
     }
 
@@ -65,6 +68,7 @@ class Livreurs {
             'id_adresse' => $id_adresse
         ));
         $livreurs = $req->fetchAll();
+		$req->closeCursor();
         return $livreurs;
     }
 
@@ -75,7 +79,8 @@ class Livreurs {
         $req->execute(array(
             'id_livreur' => $id_livreur
         ));
-        $livreur = $req->fetch();
+        $livreur = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
         return $livreur;
     }
 

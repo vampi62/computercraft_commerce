@@ -19,6 +19,7 @@ class Offres {
         $req = $bdd->prepare('SELECT * FROM offres');
         $req->execute();
         $offres = $req->fetchAll();
+		$req->closeCursor();
         return $offres;
     }
 
@@ -29,6 +30,7 @@ class Offres {
             'id_joueur' => "id_joueur"
         ));
         $offres = $req->fetchAll();
+		$req->closeCursor();
         if ($bool_remove_inactive) {
             return self::removeInactiveOffre($offres);
         }
@@ -44,6 +46,7 @@ class Offres {
             'id_compte' => "id_compte"
         ));
         $offres = $req->fetchAll();
+		$req->closeCursor();
         if ($bool_remove_inactive) {
             return self::removeInactiveOffre($offres);
         }
@@ -59,6 +62,7 @@ class Offres {
             'id_adresse' => "id_adresse"
         ));
         $offres = $req->fetchAll();
+		$req->closeCursor();
         if ($bool_remove_inactive) {
             return self::removeInactiveOffre($offres);
         }
@@ -74,6 +78,7 @@ class Offres {
             'id_offre' => "id_offre"
         ));
         $offre = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
         return $offre;
     }
 
@@ -189,7 +194,6 @@ class Offres {
             'stock' => $stock,
             'last_update' => date('Y-m-d H:i:s')
         ));
-        $id_offre = $bdd->lastInsertId();
-        return $id_offre;
+        return $bdd->lastInsertId();
     }
 }

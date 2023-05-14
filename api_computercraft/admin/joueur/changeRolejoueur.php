@@ -8,17 +8,17 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','useraction','mdp','role'))) {
     $_GET['useraction'] = htmlspecialchars($_GET['useraction']);
     $_GET['mdp'] = htmlspecialchars($_GET['mdp']);
     $_GET['role'] = htmlspecialchars($_GET['role']);
-    $donneesJoueurPseudo = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
+    $donneesJoueurUserAction = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
     if ($_GET['pseudo'] != $_GET['useraction']) {
-        $donneesJoueurUserAction = Joueur::getJoueurbyPseudo($bddConnection, $_GET['useraction']);
+        $donneesJoueurPseudo = Joueur::getJoueurbyPseudo($bddConnection, $_GET['useraction']);
     } else {
-        $donneesJoueurUserAction = $donneesJoueurPseudo;
+        $donneesJoueurPseudo = $donneesJoueurUserAction;
     }
     if(!empty($donneesJoueurUserAction['pseudo']) && !empty($donneesJoueurPseudo['pseudo'])) {
         if(password_verify($_GET['mdp'], $donneesJoueurUserAction['mdp'])) {
             if (checkdroits::CheckRole($_GET['useraction'], 'admin')) {
                 Joueur::setRole($bddConnection, $_GET['pseudo'], $_GET['role']);
-                $printmessage = array('status_code' => 200, 'message' => 'Le role a bien été modifié.');
+                $printmessage = array('status_code' => 200, 'message' => 'Le role a bien ete modifie.');
             } else {
                 // modif - le compte n'est pas admin
                 $printmessage = array('status_code' => 403, 'message' => 'Le compte n\'est pas admin.');
@@ -33,5 +33,5 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','useraction','mdp','role'))) {
     }
 } else {
     // modif - il manque des parametres
-    $printmessage = array('status_code' => 400, 'message' => 'Il manque des paramètres.');
+    $printmessage = array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }

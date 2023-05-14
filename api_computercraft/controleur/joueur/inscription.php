@@ -14,11 +14,11 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','mdp','mdpconfirm','email'))) {
 				$donneesJoueur = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
 				if(empty($donneesJoueur['pseudo'])) {
 					Joueur::inscription($bddConnection,$_GET['pseudo'], $_GET['email'], $_GET['mdp'], $_Serveur_);
-					$printmessage = array('status_code' => 200, 'message' => 'Votre compte a bien été créé.');
+					$printmessage = array('status_code' => 200, 'message' => 'Votre compte a bien ete cree.');
 					// modif - ok
 				} else {
 					// modif - un compte existe deja
-					$printmessage = array('status_code' => 403, 'message' => 'Un compte existe déjà avec ce pseudo.');
+					$printmessage = array('status_code' => 403, 'message' => 'Un compte existe deja avec ce pseudo.');
 				}
 			} else {
 				// modif - mail invalide
@@ -30,10 +30,10 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','mdp','mdpconfirm','email'))) {
 		}
 	} else {
 		// modif - le mot de passe ne respecte pas les regles de securite
-		$printmessage = array('status_code' => 403, 'message' => 'Le mot de passe ne respecte pas les règles de sécurité.');
+		$printmessage = array('status_code' => 403, 'message' => 'Le mot de passe ne respecte pas les regles de securite.');
 	}
 } else {
 	// modif - il manque des parametres
-	$printmessage = array('status_code' => 400, 'message' => 'Il manque des paramètres.');
+	$printmessage = array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 ?>

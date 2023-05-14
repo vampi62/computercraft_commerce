@@ -22,6 +22,7 @@ class Adresses {
             'action' => "getAdresses"
         ));
         $adresses = $req->fetchAll();
+		$req->closeCursor();
         return $adresses;
     }
 
@@ -41,6 +42,7 @@ class Adresses {
             'action' => "getAdresses"
         ));
         $adresses = $req->fetchAll();
+		$req->closeCursor();
         return $adresses;
     }
 
@@ -51,6 +53,7 @@ class Adresses {
             'id_adresse' => $id_adresse
         ));
         $adresse = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
         return $adresse;
     }
 

@@ -48,9 +48,10 @@ class Checkdroits {
         $req->execute(array(
             'pseudo' => $pseudo
         ));
-        $req = $req->fetch(PDO::FETCH_ASSOC);
-        if(!empty($req)) {
-            if($token == $req['resettoken']) {
+        $reset = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
+        if(!empty($reset)) {
+            if($token == $reset['resettoken']) {
                 return true;
             }
         }

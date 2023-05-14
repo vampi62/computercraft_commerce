@@ -8,6 +8,7 @@ class Droits {
         $req = $bdd->prepare('SELECT * FROM liste_droits');
         $req->execute();
         $droits = $req->fetchAll();
+		$req->closeCursor();
         return $droits;
     }
 
@@ -17,7 +18,8 @@ class Droits {
         $req->execute(array(
             'id' => $id
         ));
-        $droit = $req->fetch(  );
+        $droit = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
         return $droit;
     }
 }

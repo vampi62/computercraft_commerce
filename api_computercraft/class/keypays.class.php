@@ -13,6 +13,7 @@ class Keypay {
             'cle' => $cle
         ));
         $keypay = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
         return $keypay;
     }
 
@@ -24,6 +25,7 @@ class Keypay {
             'keypay_id' => $keypay_id
         ));
         $keypay = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
         return $keypay;
     }
 
@@ -35,6 +37,7 @@ class Keypay {
             'offre_id' => $offre_id
         ));
         $keypay = $req->fetchAll();
+		$req->closeCursor();
         return $keypay;
     }
 
@@ -50,7 +53,6 @@ class Keypay {
             'prix_unitaire' => $prix_unitaire,
             'id_offre' => $id_offre
         ));
-        $keypay_id = $bdd->lastInsertId();
-        return $keypay_id;
+        return $bdd->lastInsertId();
     }
 }

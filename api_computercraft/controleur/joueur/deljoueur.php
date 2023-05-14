@@ -14,7 +14,7 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','mdp'))) {
                 $printmessage = array('status_code' => 403, 'message' => 'Vous ne pouvez pas supprimer votre compte admin.');
             } else {
                 Joueur::delJoueur($bddConnection, $_GET['pseudo']);
-                $printmessage = array('status_code' => 200, 'message' => 'Le compte a bien été supprimé.');
+                $printmessage = array('status_code' => 200, 'message' => 'Le compte a bien ete supprime.');
             }
         } else {
             // modif - le mot de passe n'est pas identique
@@ -26,5 +26,5 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','mdp'))) {
     }
 } else {
     // modif - il manque des parametres
-    $printmessage = array('status_code' => 400, 'message' => 'Il manque des paramètres.');
+    $printmessage = array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }

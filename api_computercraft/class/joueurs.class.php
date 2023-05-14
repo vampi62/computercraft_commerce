@@ -13,6 +13,14 @@
 // set joueur/{id}/maxoffres
 // set joueur/{id}/expiretoken
 class Joueurs {
+	// recupere les infos des joueurs
+	public static function getJoueurs($bdd) {
+		$reponseConnection = $bdd->prepare('SELECT joueurs.id_joueur,joueurs.pseudo,joueurs.email,joueurs.max_offres,liste_type_role.nom FROM joueurs
+		INNER JOIN liste_type_role ON joueurs.id_table_select_role = liste_type_role.id_table_select_role');
+		$reponseConnection->execute();
+		return $reponseConnection->fetchAll();
+	}
+
 	// recupere les infos du joueurs via son id
 	public static function getJoueurbyId($bdd,$id_joueur) {
 		$reponseConnection = $bdd->prepare('SELECT * FROM joueurs WHERE id_joueur = :id_joueur');

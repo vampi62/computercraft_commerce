@@ -19,19 +19,19 @@ if (Checkdroits::CheckArgs($_GET, array('pseudo', 'email'))) {
 		$subject = "[".$_Serveur_['General']['name']."]Recuperation de mot de passe";
 		$txt = 'Bonjour, '.$donneesJoueur['pseudo'].$retourligne
 				.$retourligne
-				.'Suite à une demande de récupération de mail, vous recevez ce message.'.$retourligne.$retourligne
-				.'Voici votre code de récupération : '.$lien.$retourligne
+				.'Suite à une demande de recuperation de mail, vous recevez ce message.'.$retourligne.$retourligne
+				.'Voici votre code de recuperation : '.$lien.$retourligne
 				.$retourligne
 				.'Enter ce code dans un poste client computercraft.'.$retourligne
 				.$retourligne
-				.'Si vous n\'avez pas fait de demande de récupération veuillez ignorer cet e-mail...'.$retourligne
-				.'Il est inutile de répondre à ce mail automatique.'.$retourligne
+				.'Si vous n\'avez pas fait de demande de recuperation veuillez ignorer cet e-mail...'.$retourligne
+				.'Il est inutile de repondre à ce mail automatique.'.$retourligne
 				.$retourligne
 				.'Cordialement, '. $_Serveur_['General']['name'] .'.';
 
 		if(MailSender::send($_Serveur_, $to, $subject, $txt)) {
 			// modif - ok
-			$printmessage = array('status_code' => 200, 'message' => 'Un mail vous a été envoyé.');
+			$printmessage = array('status_code' => 200, 'message' => 'Un mail vous a ete envoye.');
 		} else {
 			// modif - le mot de passe est incorrect (code executer si le mail n'a pas pu être envoyer : identifient du serveur smtp incorrect, serveur injoignable, ...)
 			$printmessage = array('status_code' => 500, 'message' => 'Une erreur est survenue lors de l\'envoi du mail.');
@@ -39,6 +39,6 @@ if (Checkdroits::CheckArgs($_GET, array('pseudo', 'email'))) {
 	}
 } else {
 	// modif - il manque des parametres
-	$printmessage = array('status_code' => 400, 'message' => 'Il manque des paramètres.');
+	$printmessage = array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 ?>

@@ -34,7 +34,7 @@ if (Checkdroits::CheckArgs($_GET, array('pseudo', 'token'))) {
 		
 		if(MailSender::send($_Serveur_, $to, $subject, $txt)) {
 			// modif - ok
-			$printmessage = array('status_code' => 200, 'message' => 'Un mail vous a été envoyé avec votre nouveau mot de passe.');
+			$printmessage = array('status_code' => 200, 'message' => 'Un mail vous a ete envoye avec votre nouveau mot de passe.');
 		} else {
 			// modif - le mot de passe est incorrect (code executer si le mail n'a pas pu être envoyer : identifient du serveur smtp incorrect, serveur injoignable, ...)
 			$printmessage = array('status_code' => 500, 'message' => 'Une erreur est survenue lors de l\'envoi du mail.');
@@ -42,6 +42,6 @@ if (Checkdroits::CheckArgs($_GET, array('pseudo', 'token'))) {
 	}
 } else {
 	// modif - il manque des parametres
-	$printmessage = array('status_code' => 400, 'message' => 'Il manque des paramètres.');
+	$printmessage = array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 ?>

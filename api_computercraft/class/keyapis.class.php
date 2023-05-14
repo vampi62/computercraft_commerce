@@ -24,6 +24,7 @@ class Keyapis {
             'action' => "getkeyapis"
         ));
         $keyapis = $req->fetchAll();
+		$req->closeCursor();
         return $keyapis;
     }
 
@@ -34,6 +35,7 @@ class Keyapis {
             'id_keyapi' => $id_keyapi
         ));
         $keyapi = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
         return $keyapi;
     }
 
@@ -44,6 +46,7 @@ class Keyapis {
             'id_keyapi' => $id_keyapi
         ));
         $droits = $req->fetchAll();
+		$req->closeCursor();
         return $droits;
     }
 

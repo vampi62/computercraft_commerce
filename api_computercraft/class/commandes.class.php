@@ -21,6 +21,7 @@ class Commandes {
             'id_compte_vendeur' => $id_compte_vendeur
         ));
         $commandes = $req->fetchAll();
+		$req->closeCursor();
         return $commandes;
     }
 
@@ -31,6 +32,7 @@ class Commandes {
             'id_compte_client' => $id_compte_client
         ));
         $commandes = $req->fetchAll();
+		$req->closeCursor();
         return $commandes;
     }
 
@@ -41,6 +43,7 @@ class Commandes {
             'id_adresse_vendeur' => $id_adresse_vendeur
         ));
         $commandes = $req->fetchAll();
+		$req->closeCursor();
         return $commandes;
     }
 
@@ -51,6 +54,7 @@ class Commandes {
             'id_adresse_client' => $id_adresse_client
         ));
         $commandes = $req->fetchAll();
+		$req->closeCursor();
         return $commandes;
     }
 
@@ -61,6 +65,7 @@ class Commandes {
             'id_livreur' => $id_livreur
         ));
         $commandes = $req->fetchAll();
+		$req->closeCursor();
         return $commandes;
     }
 
@@ -71,6 +76,7 @@ class Commandes {
             'id_commande' => $id_commande
         ));
         $commande = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
         return $commande;
     }
 

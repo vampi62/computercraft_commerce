@@ -17,8 +17,7 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','useraction','mdp'))) {
         if(password_verify($_GET['mdp'], $donneesJoueurUserAction['mdp'])) {
             if(checkdroits::CheckRole($_GET['useraction'], array('admin'))) {
                 if($donneesJoueurUserAction['pseudo'] != $donneesJoueurPseudo['pseudo']) {
-                    Joueur::delJoueur($bddConnection, $_GET['pseudo']);
-                    $printmessage = array('status_code' => 200, 'message' => 'Le compte a bien ete supprime.');
+                    $printmessage = array('status_code' => 200, 'message' => Joueur::getJoueurs($bddConnection));
                 } else {
                     // modif - le compte cible est admin
                     $printmessage = array('status_code' => 403, 'message' => 'Vous ne pouvez pas supprimer votre compte admin.');

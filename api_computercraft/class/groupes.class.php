@@ -39,6 +39,7 @@ class Groupes {
             'id_joueur' => $id_joueur
         ));
         $groupes = $req->fetchAll();
+		$req->closeCursor();
         return $groupes;
     }
 
@@ -49,6 +50,7 @@ class Groupes {
             'id_compte' => $id_compte
         ));
         $groupes = $req->fetchAll();
+		$req->closeCursor();
         return $groupes;
     }
 
@@ -59,6 +61,7 @@ class Groupes {
             'id_offre' => $id_offre
         ));
         $groupes = $req->fetchAll();
+		$req->closeCursor();
         return $groupes;
     }
 
@@ -69,6 +72,7 @@ class Groupes {
             'id_adresse' => $id_adresse
         ));
         $groupes = $req->fetchAll();
+		$req->closeCursor();
         return $groupes;
     }
 
@@ -79,6 +83,7 @@ class Groupes {
             'id_livreur' => $id_livreur
         ));
         $groupes = $req->fetchAll();
+		$req->closeCursor();
         return $groupes;
     }
 
@@ -89,6 +94,7 @@ class Groupes {
             'id_keyapi' => $id_keyapi
         ));
         $groupes = $req->fetchAll();
+		$req->closeCursor();
         return $groupes;
     }
 
@@ -99,6 +105,7 @@ class Groupes {
             'id_groupe' => $id_groupe
         ));
         $groupes = $req->fetchAll();
+		$req->closeCursor();
         return $groupes;
     }
 
@@ -109,6 +116,7 @@ class Groupes {
             'id_groupe' => $id_groupe
         ));
         $groupes = $req->fetchAll();
+		$req->closeCursor();
         return $groupes;
     }
 
@@ -119,6 +127,7 @@ class Groupes {
             'id_groupe' => $id_groupe
         ));
         $groupes = $req->fetchAll();
+		$req->closeCursor();
         return $groupes;
     }
 
@@ -129,6 +138,7 @@ class Groupes {
             'id_groupe' => $id_groupe
         ));
         $groupes = $req->fetchAll();
+		$req->closeCursor();
         return $groupes;
     }
 
@@ -139,6 +149,7 @@ class Groupes {
             'id_groupe' => $id_groupe
         ));
         $groupes = $req->fetchAll();
+		$req->closeCursor();
         return $groupes;
     }
 
@@ -149,6 +160,7 @@ class Groupes {
             'id_keyapi' => $id_keyapi
         ));
         $groupes = $req->fetchAll();
+		$req->closeCursor();
         return $groupes;
     }
 
@@ -159,6 +171,7 @@ class Groupes {
             'id_groupe' => $id_groupe
         ));
         $droits = $req->fetchAll();
+		$req->closeCursor();
         return $droits;
     }
 
@@ -169,6 +182,7 @@ class Groupes {
             'id_groupe' => $id_groupe
         ));
         $groupe = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
         return $groupe;
     }
 
