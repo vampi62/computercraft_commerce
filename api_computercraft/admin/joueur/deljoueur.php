@@ -7,9 +7,9 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','useraction','mdp'))) {
     $_GET['pseudo'] = htmlspecialchars($_GET['pseudo']);
     $_GET['useraction'] = htmlspecialchars($_GET['useraction']);
     $_GET['mdp'] = htmlspecialchars($_GET['mdp']);
-    $donneesJoueurUserAction = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
+    $donneesJoueurUserAction = Joueur::getJoueurbyPseudo($bddConnection, $_GET['useraction']);
     if ($_GET['pseudo'] != $_GET['useraction']) {
-        $donneesJoueurPseudo = Joueur::getJoueurbyPseudo($bddConnection, $_GET['useraction']);
+        $donneesJoueurPseudo = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
     } else {
         $donneesJoueurPseudo = $donneesJoueurUserAction;
     }

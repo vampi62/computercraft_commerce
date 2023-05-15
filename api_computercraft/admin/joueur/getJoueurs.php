@@ -7,9 +7,9 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','useraction','mdp'))) {
     $_GET['pseudo'] = htmlspecialchars($_GET['pseudo']);
     $_GET['useraction'] = htmlspecialchars($_GET['useraction']);
     $_GET['mdp'] = htmlspecialchars($_GET['mdp']);
-    $donneesJoueurUserAction = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
+    $donneesJoueurUserAction = Joueur::getJoueurbyPseudo($bddConnection, $_GET['useraction']);
     if ($_GET['pseudo'] != $_GET['useraction']) {
-        $donneesJoueurPseudo = Joueur::getJoueurbyPseudo($bddConnection, $_GET['useraction']);
+        $donneesJoueurPseudo = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
     } else {
         $donneesJoueurPseudo = $donneesJoueurUserAction;
     }
@@ -17,7 +17,7 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','useraction','mdp'))) {
         if(password_verify($_GET['mdp'], $donneesJoueurUserAction['mdp'])) {
             if(checkdroits::CheckRole($_GET['useraction'], array('admin'))) {
                 if($donneesJoueurUserAction['pseudo'] != $donneesJoueurPseudo['pseudo']) {
-                    $printmessage = array('status_code' => 200, 'message' => Joueur::getJoueurs($bddConnection));
+                    $printmessage = array('status_code' => 200, 'message' => 'Les joueurs ont ete recupere.', 'data' => Joueur::getJoueurs($bddConnection));
                 } else {
                     // modif - le compte cible est admin
                     $printmessage = array('status_code' => 403, 'message' => 'Vous ne pouvez pas supprimer votre compte admin.');

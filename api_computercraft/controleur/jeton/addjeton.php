@@ -9,8 +9,8 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','mdp'))) {
     $donneesJoueurPseudo = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
     if(!empty($donneesJoueurPseudo['pseudo'])) {
         if(checkdroits::CheckPassword($donneesJoueurPseudo['mdp'], $_GET['mdp'])) {
-            if(checkdroits::CheckRole($_GET['useraction'], 'terminal')) {
-                if(empty(Jeton::getJeton($bddConnection, $donneesJoueurPseudo['id_joueur']))) {
+            if(checkdroits::CheckRole($_GET['useraction'], array('terminal'))) {
+                if(!empty(Jeton::getJeton($bddConnection, $donneesJoueurPseudo['id_joueur']))) {
                     Jeton::setInitJeton($bddConnection, $donneesJoueurPseudo['id_joueur'], array("1" => 0, "10" => 0, "100" => 0, "1k" => 0, "10k" => 0));
                     $printmessage = array('status_code' => 200, 'message' => 'Le jeton a ete ajoute.');
                 } else {

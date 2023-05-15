@@ -9,16 +9,16 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','useraction','mdp','newmdp','conf
     $_GET['mdp'] = htmlspecialchars($_GET['mdp']);
     $_GET['newmdp'] = htmlspecialchars($_GET['newmdp']);
     $_GET['confirmnewmdp'] = htmlspecialchars($_GET['confirmnewmdp']);
-    $donneesJoueurUserAction = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
+    $donneesJoueurUserAction = Joueur::getJoueurbyPseudo($bddConnection, $_GET['useraction']);
     if ($_GET['pseudo'] != $_GET['useraction']) {
-        $donneesJoueurPseudo = Joueur::getJoueurbyPseudo($bddConnection, $_GET['useraction']);
+        $donneesJoueurPseudo = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
     } else {
         $donneesJoueurPseudo = $donneesJoueurUserAction;
     }
     if(!empty($donneesJoueurUserAction['pseudo']) && !empty($donneesJoueurPseudo['pseudo'])) {
         if(password_verify($_GET['mdp'], $donneesJoueurUserAction['mdp'])) {
             if ($_GET['newmdp'] == $_GET['confirmnewmdp']) {
-                if(checkdroits::CheckRole($_GET['useraction'], 'admin')) {
+                if(checkdroits::CheckRole($_GET['useraction'], array('admin'))) {
                     Joueur::setMdp($bddConnection, $_GET['pseudo'], $_GET['newmdp']);
                     $printmessage = array('status_code' => 200, 'message' => 'Le mot de passe a bien ete modifie.');
                 }

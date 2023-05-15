@@ -8,25 +8,21 @@ class Checkdroits {
         ));
         $login = $req->fetch(PDO::FETCH_ASSOC);
         $req->closeCursor();
-        if (in_array($login['id_table_select_role'], $array_role_requis))
-        {
+        if (in_array($login['id_table_select_role'], $array_role_requis)) {
             return true;
         }
         return false;
     }
 
     // verifie le mot de passe du compte
-    public static function CheckPassword($bdd, $nom, $mdp,$type_login) {
-        #si type_login=TRUE compare avec la table api
-        #si type_login=FALSE compare avec la table joueurs
+    public static function CheckPassword($bdd, $nom, $mdp,$isapikey=false) {
+        #si isapikey=TRUE compare avec la table api
+        #si isapikey=FALSE compare avec la table joueurs
         #autre compare avec la table livreurs
 
-        if ($type_login)
-        {
+        if ($isapikey) {
             $req = $bdd->prepare('SELECT mdp FROM keyapi WHERE nom = :nom');
-        }
-        else
-        {
+        } else {
             $req = $bdd->prepare('SELECT mdp FROM joueurs WHERE pseudo = :nom');
         }
         $req->execute(array(

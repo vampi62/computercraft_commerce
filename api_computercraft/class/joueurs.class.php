@@ -23,7 +23,7 @@ class Joueurs {
 
 	// recupere les infos du joueurs via son id
 	public static function getJoueurbyId($bdd,$id_joueur) {
-		$reponseConnection = $bdd->prepare('SELECT * FROM joueurs WHERE id_joueur = :id_joueur');
+		$reponseConnection = $bdd->prepare('SELECT * FROM joueurs INNER JOIN liste_type_role ON joueurs.id_table_select_role = liste_type_role.id_table_select_role WHERE joueurs.id_joueur = :id_joueur');
 		$reponseConnection->execute(array(
 			'id_joueur' => $id_joueur
 			));
@@ -32,7 +32,7 @@ class Joueurs {
 
 	// recupere les infos du joueurs via son pseudo
 	public static function getJoueurbyPseudo($bdd,$pseudo) {
-		$reponseConnection = $bdd->prepare('SELECT * FROM joueurs WHERE pseudo = :pseudo');
+		$reponseConnection = $bdd->prepare('SELECT * FROM joueurs INNER JOIN liste_type_role ON joueurs.id_table_select_role = liste_type_role.id_table_select_role WHERE joueurs.pseudo = :pseudo');
 		$reponseConnection->execute(array(
 			'pseudo' => $pseudo
 			));

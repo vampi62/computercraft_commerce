@@ -8,15 +8,15 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','useraction','mdp','role'))) {
     $_GET['useraction'] = htmlspecialchars($_GET['useraction']);
     $_GET['mdp'] = htmlspecialchars($_GET['mdp']);
     $_GET['role'] = htmlspecialchars($_GET['role']);
-    $donneesJoueurUserAction = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
+    $donneesJoueurUserAction = Joueur::getJoueurbyPseudo($bddConnection, $_GET['useraction']);
     if ($_GET['pseudo'] != $_GET['useraction']) {
-        $donneesJoueurPseudo = Joueur::getJoueurbyPseudo($bddConnection, $_GET['useraction']);
+        $donneesJoueurPseudo = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
     } else {
         $donneesJoueurPseudo = $donneesJoueurUserAction;
     }
     if(!empty($donneesJoueurUserAction['pseudo']) && !empty($donneesJoueurPseudo['pseudo'])) {
         if(password_verify($_GET['mdp'], $donneesJoueurUserAction['mdp'])) {
-            if (checkdroits::CheckRole($_GET['useraction'], 'admin')) {
+            if (checkdroits::CheckRole($_GET['useraction'], array('admin'))) {
                 Joueur::setRole($bddConnection, $_GET['pseudo'], $_GET['role']);
                 $printmessage = array('status_code' => 200, 'message' => 'Le role a bien ete modifie.');
             } else {
