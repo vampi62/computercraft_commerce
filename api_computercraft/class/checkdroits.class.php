@@ -14,6 +14,20 @@ class Checkdroits {
         return false;
     }
 
+    // verifie si l'id indiquer est dans la table
+    public static function CheckId($bdd, $id, $table) {
+        $req = $bdd->prepare('SELECT id FROM '.$table.' WHERE id = :id');
+        $req->execute(array(
+            'id' => $id
+        ));
+        $liste = $req->fetch(PDO::FETCH_ASSOC);
+        $req->closeCursor();
+        if(!empty($liste)) {
+            return true;
+        }
+        return false;
+    }
+
     // verifie le mot de passe du compte
     public static function CheckPassword($bdd, $nom, $mdp,$isapikey=false) {
         #si isapikey=TRUE compare avec la table api
@@ -73,7 +87,7 @@ class Checkdroits {
     }
 
     // verifie si le compte a la permission d'effectuer l'action sur l'objet
-    public static function CheckPermObj($bdd, $idnom, $idobjet, $type, $action ,$bool_api) {
+    public static function CheckPermObj($bdd, $idnom, $idobjet, $type, $action ,$bool_api=false) {
         if ($bool_api)
         {
             // si compte est membre d'un groupe d'on l'objet est membre (si login keyapi)

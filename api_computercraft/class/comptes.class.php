@@ -62,6 +62,15 @@ class Comptes {
         ));
     }
 
+    // modifie le nom du compte
+    public static function setCompteNom($bdd,$id_compte,$nom) {
+        $req = $bdd->prepare('UPDATE comptes SET nom = :nom WHERE id_compte = :id_compte');
+        $req->execute(array(
+            'nom' => $nom,
+            'id_compte' => $id_compte
+        ));
+    }
+
     // supprime le compte
     public static function deleteCompte($bdd,$id_compte) {
         $req = $bdd->prepare('DELETE FROM comptes WHERE id_compte = :id_compte');
@@ -71,13 +80,12 @@ class Comptes {
     }
 
     // ajoute un compte
-    public static function setCompte($bdd,$id_joueur,$id_type_compte,$nom,$solde) {
-        $req = $bdd->prepare('INSERT INTO comptes(id_joueur,id_type_compte,nom,solde) VALUES(:id_joueur,:id_type_compte,:nom,:solde)');
+    public static function setCompte($bdd,$id_joueur,$id_type_compte,$nom) {
+        $req = $bdd->prepare('INSERT INTO comptes(id_joueur,id_type_compte,nom,solde) VALUES(:id_joueur,:id_type_compte,:nom, 0)');
         $req->execute(array(
             'id_joueur' => $id_joueur,
             'id_type_compte' => $id_type_compte,
-            'nom' => $nom,
-            'solde' => $solde
+            'nom' => $nom
         ));
     }
 }
