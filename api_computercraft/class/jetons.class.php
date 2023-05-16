@@ -14,7 +14,7 @@ class Jetons {
 	}
 
 	// recuperation le tableau de jeton
-	public static function getJeton($bdd,$id_joueur) {
+	public static function getJetonByJoueur($bdd,$id_joueur) {
 		$req = $bdd->prepare('SELECT * FROM jeton_banque WHERE id_joueur = :id_joueur');
 		$req->execute(array(
 			'id_joueur' => $id_joueur

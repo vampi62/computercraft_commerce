@@ -48,6 +48,18 @@ class Livreurs {
         return $livreurs;
     }
 
+    // recupere les livreurs d'un joueur
+    public static function getLivreursByJoueur($bdd,$id_joueur) {
+        $req = $bdd->prepare('SELECT * FROM livreurs
+        WHERE id_joueur = :id_joueur');
+        $req->execute(array(
+            'id_joueur' => $id_joueur
+        ));
+        $livreurs = $req->fetchAll();
+        $req->closeCursor();
+        return $livreurs;
+    }
+
     // recupere les livreurs utilisant un compte precis
     public static function getLivreursByCompte($bdd,$id_compte) {
         $req = $bdd->prepare('SELECT * FROM livreurs

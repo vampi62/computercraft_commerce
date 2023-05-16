@@ -16,7 +16,7 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','useraction','mdp'))) {
     if(!empty($donneesJoueurUserAction['pseudo']) && !empty($donneesJoueurPseudo['pseudo'])) {
         if(password_verify($_GET['mdp'], $donneesJoueurUserAction['mdp'])) {
             if(checkdroits::CheckRole($_GET['useraction'], array('admin'))) {
-                $comptes = Comptes::getComptesWithUser($bddConnection, $donneesJoueurPseudo['id_joueur']);
+                $comptes = Comptes::getComptes($bddConnection, $donneesJoueurPseudo['id_joueur']);
                 $printmessage = array('status_code' => 200, 'message' => 'Les comptes ont bien ete recuperees.', 'data' => $comptes);
             } else {
                 // modif - le compte n'a pas les droits

@@ -34,6 +34,17 @@
 class Groupes {
     // recupere les groupes d'un joueur
     public static function getGroupesByJoueur($bdd,$id_joueur) {
+        $req = $bdd->prepare('SELECT * FROM groupes WHERE id_joueur = :id_joueur');
+        $req->execute(array(
+            'id_joueur' => $id_joueur
+        ));
+        $groupes = $req->fetchAll();
+        $req->closeCursor();
+        return $groupes;
+    }
+
+    // recupere les groupes d'un joueur membre
+    public static function getGroupesByJoueurMembre($bdd,$id_joueur) {
         $req = $bdd->prepare('SELECT groupes.id_groupe,groupes.nom FROM groupes INNER JOIN groupes_joueurs ON groupes_joueurs.id_groupe = groupes.id_groupe WHERE groupes_joueurs.id_joueur = :id_joueur');
         $req->execute(array(
             'id_joueur' => $id_joueur

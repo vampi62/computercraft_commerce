@@ -19,7 +19,7 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','useraction','mdp','jeton1','jeto
     if(!empty($donneesJoueurUserAction['pseudo']) && !empty($donneesJoueurPseudo['pseudo'])) {
         if(checkdroits::CheckPassword($donneesJoueurUserAction['mdp'], $_GET['mdp'])) {
             if(checkdroits::CheckRole($_GET['useraction'], array('admin'))) {
-                if(!empty(Jeton::getjeton($bddConnection, $donneesJoueurPseudo['id_joueur']))) {
+                if(!empty(Jeton::getjetonByJoueur($bddConnection, $donneesJoueurPseudo['id_joueur']))) {
                     Jeton::setSyncJeton($bddConnection, $donneesJoueurPseudo['id_joueur'], array("1" => $_GET['jeton1'], "10" => $_GET['jeton10'], "100" => $_GET['jeton100'], "1k" => $_GET['jeton1k'], "10k" => $_GET['jeton10k']));
                     $printmessage = array('status_code' => 200, 'message' => 'Le jeton a ete synchronise.');
                 } else {

@@ -46,6 +46,17 @@ class Adresses {
         return $adresses;
     }
 
+    // recupere les adresses d'un joueur
+    public static function getAdresses($bdd,$id_joueur) {
+        $req = $bdd->prepare('SELECT * FROM adresses WHERE id_joueur = :id_joueur');
+        $req->execute(array(
+            'id_joueur' => $id_joueur
+        ));
+        $adresses = $req->fetchAll();
+        $req->closeCursor();
+        return $adresses;
+    }
+
     // recupere l'adresse
     public static function getAdresse($bdd,$id_adresse) {
         $req = $bdd->prepare('SELECT * FROM adresses WHERE id_adresse = :id_adresse');

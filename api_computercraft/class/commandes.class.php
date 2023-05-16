@@ -13,6 +13,16 @@
 // set commande/add
 
 class Commandes {
+    // recupere les commandes ayant ce compte comme vendeur ou client
+    public static function getCommandesByCompte($bdd,$id_compte) {
+        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_compte_vendeur = :id_compte OR id_compte_client = :id_compte');
+        $req->execute(array(
+            'id_compte' => $id_compte
+        ));
+        $commandes = $req->fetchAll();
+        $req->closeCursor();
+        return $commandes;
+    }
 
     // recupere les commandes ayant ce compte vendeur
     public static function getCommandesByCompteVendeur($bdd,$id_compte_vendeur) {
@@ -66,6 +76,17 @@ class Commandes {
         ));
         $commandes = $req->fetchAll();
 		$req->closeCursor();
+        return $commandes;
+    }
+
+    // recupere les commandes ayant cette offre
+    public static function getCommandesByOffre($bdd,$id_offre) {
+        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_offre = :id_offre');
+        $req->execute(array(
+            'id_offre' => $id_offre
+        ));
+        $commandes = $req->fetchAll();
+        $req->closeCursor();
         return $commandes;
     }
 

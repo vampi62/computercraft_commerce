@@ -15,45 +15,45 @@
 class Joueurs {
 	// recupere les infos des joueurs
 	public static function getJoueurs($bdd) {
-		$reponseConnection = $bdd->prepare('SELECT joueurs.id_joueur,joueurs.pseudo,joueurs.email,joueurs.max_offres,liste_type_role.nom FROM joueurs
-		INNER JOIN liste_type_role ON joueurs.id_table_select_role = liste_type_role.id_table_select_role');
-		$reponseConnection->execute();
-		return $reponseConnection->fetchAll();
+		$req = $bdd->prepare('SELECT id_joueur,pseudo,email,max_offres,last_login,id_table_select_role FROM joueurs');
+		$req->execute();
+		$joueurs = $req->fetchAll();
+		$req->closeCursor();
+		return $joueurs;
 	}
 
 	// recupere les infos du joueurs via son id
 	public static function getJoueurbyId($bdd,$id_joueur) {
-		$reponseConnection = $bdd->prepare('SELECT * FROM joueurs INNER JOIN liste_type_role ON joueurs.id_table_select_role = liste_type_role.id_table_select_role WHERE joueurs.id_joueur = :id_joueur');
-		$reponseConnection->execute(array(
+		$req = $bdd->prepare('SELECT * FROM joueurs INNER JOIN liste_type_role ON joueurs.id_table_select_role = liste_type_role.id_table_select_role WHERE joueurs.id_joueur = :id_joueur');
+		$req->execute(array(
 			'id_joueur' => $id_joueur
 			));
-		return $reponseConnection->fetch(PDO::FETCH_ASSOC);
+		$joueurs = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
+		return $joueurs;
 	}
 
 	// recupere les infos du joueurs via son pseudo
 	public static function getJoueurbyPseudo($bdd,$pseudo) {
-		$reponseConnection = $bdd->prepare('SELECT * FROM joueurs INNER JOIN liste_type_role ON joueurs.id_table_select_role = liste_type_role.id_table_select_role WHERE joueurs.pseudo = :pseudo');
-		$reponseConnection->execute(array(
+		$req = $bdd->prepare('SELECT * FROM joueurs INNER JOIN liste_type_role ON joueurs.id_table_select_role = liste_type_role.id_table_select_role WHERE joueurs.pseudo = :pseudo');
+		$req->execute(array(
 			'pseudo' => $pseudo
 			));
-		return $reponseConnection->fetch(PDO::FETCH_ASSOC);
+			$joueurs = $req->fetch(PDO::FETCH_ASSOC);
+			$req->closeCursor();
+			return $joueurs;
 	}
 
 	// recupere les infos du joueurs via son email
 	public static function getJoueurByMail($bdd,$pseudo,$email) {
-		$reponseConnection = $bdd->prepare('SELECT * FROM joueurs WHERE email = :email AND pseudo = :pseudo');
-		$reponseConnection->execute(array(
+		$req = $bdd->prepare('SELECT * FROM joueurs WHERE email = :email AND pseudo = :pseudo');
+		$req->execute(array(
 			'email' => $email,
 			'pseudo' => $pseudo
 			));
-		return $reponseConnection->fetch(PDO::FETCH_ASSOC);
-	}
-
-	// recupere les infos de tous les joueurs
-	public static function getAllJoueurs($bdd) {
-		$reponseConnection = $bdd->prepare('SELECT * FROM joueurs');
-		$reponseConnection->execute();
-		return $reponseConnection->fetchAll();
+			$joueurs = $req->fetch(PDO::FETCH_ASSOC);
+			$req->closeCursor();
+			return $joueurs;
 	}
 
 	// creer un nouveau joueur

@@ -28,6 +28,17 @@ class Keyapis {
         return $keyapis;
     }
 
+    // recupere les keyapis d'un joueur
+    public static function getKeyApisByJoueur($bdd,$id_joueur) {
+        $req = $bdd->prepare('SELECT * FROM keyapis WHERE id_joueur = :id_joueur');
+        $req->execute(array(
+            'id_joueur' => $id_joueur
+        ));
+        $keyapis = $req->fetchAll();
+        $req->closeCursor();
+        return $keyapis;
+    }
+
     // recupere les info d'une keyapi
     public static function getKeyapi($bdd,$id_keyapi) {
         $req = $bdd->prepare('SELECT * FROM keyapis WHERE id_keyapi = :id_keyapi');

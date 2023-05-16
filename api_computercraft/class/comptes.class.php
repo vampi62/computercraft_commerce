@@ -42,6 +42,17 @@ class Comptes {
 		$req->closeCursor();
         return $comptes;
     }
+
+    // recupere les comptes d'un joueur
+    public static function getComptesByJoueur($bdd,$id_joueur) {
+        $req = $bdd->prepare('SELECT * FROM comptes WHERE id_joueur = :id_joueur');
+        $req->execute(array(
+            'id_joueur' => $id_joueur
+        ));
+        $comptes = $req->fetchAll();
+        $req->closeCursor();
+        return $comptes;
+    }
     
     // recupere le compte
     public static function getCompte($bdd,$id_compte) {

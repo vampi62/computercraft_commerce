@@ -14,7 +14,7 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','useraction','mdp'))) {
     if(!empty($donneesJoueurUserAction['pseudo']) && !empty($donneesJoueurPseudo['pseudo'])) {
         if(checkdroits::CheckPassword($donneesJoueurUserAction['mdp'], $_GET['mdp'])) {
             if(checkdroits::CheckRole($_GET['useraction'], array('admin'))) {
-                if(!empty(Jeton::getjeton($bddConnection, $donneesJoueurPseudo['id_joueur']))) {
+                if(!empty(Jeton::getjetonByJoueur($bddConnection, $donneesJoueurPseudo['id_joueur']))) {
                     $jeton = Jeton::delJeton($bddConnection, $donneesJoueurPseudo['id_joueur']);
                     $printmessage = array('status_code' => 200, 'message' => 'Le jeton a bien ete supprime.');
                 } else {
