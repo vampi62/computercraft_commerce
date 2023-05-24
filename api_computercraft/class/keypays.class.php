@@ -6,11 +6,11 @@
 
 class Keypay {
     // recupere une keypay par sa cle
-    public static function getKeypayByKey($bdd,$cle) {
+    public static function getKeypayByKey($bdd,$cle_keypay) {
         // recupere la keypay
-        $req = $bdd->prepare('SELECT * FROM keypay WHERE cle = :cle');
+        $req = $bdd->prepare('SELECT * FROM keypay WHERE cle_keypay = :cle_keypay');
         $req->execute(array(
-            'cle' => $cle
+            'cle_keypay' => $cle_keypay
         ));
         $keypay = $req->fetch(PDO::FETCH_ASSOC);
 		$req->closeCursor();
@@ -18,11 +18,11 @@ class Keypay {
     }
 
     // recupere une keypay
-    public static function getKeypay($bdd,$keypay_id) {
+    public static function getKeypay($bdd,$id_keypay) {
         // recupere la keypay
-        $req = $bdd->prepare('SELECT * FROM keypay WHERE id = :keypay_id');
+        $req = $bdd->prepare('SELECT * FROM keypay WHERE id_keypay = :id_keypay');
         $req->execute(array(
-            'keypay_id' => $keypay_id
+            'id_keypay' => $id_keypay
         ));
         $keypay = $req->fetch(PDO::FETCH_ASSOC);
 		$req->closeCursor();
@@ -30,11 +30,11 @@ class Keypay {
     }
 
     // recupere les keypays d'une offre
-    public static function getKeypayByOffre($bdd,$offre_id) {
+    public static function getKeypayByOffre($bdd,$id_offre) {
         // recupere la keypay
-        $req = $bdd->prepare('SELECT * FROM keypay WHERE id_offre = :offre_id');
+        $req = $bdd->prepare('SELECT * FROM keypay WHERE id_offre = :id_offre');
         $req->execute(array(
-            'offre_id' => $offre_id
+            'id_offre' => $id_offre
         ));
         $keypay = $req->fetchAll();
 		$req->closeCursor();
@@ -42,15 +42,14 @@ class Keypay {
     }
 
     // ajoute une keypay
-    public static function addKeypay($bdd,$offre_id,$cle,$quantite,$date_expire,$prix_unitaire,$id_offre) {
+    public static function addKeypay($bdd,$id_offre,$cle_keypay,$quantite_keypay,$prix_unitaire_keypay) {
         // ajoute une keypay
-        $req = $bdd->prepare('INSERT INTO keypay(id_offre,cle,quantite,date_expire,prix_unitaire,id_offre) VALUES(:offre_id,:cle,:quantite,:date_expire,:prix_unitaire,:id_offre)');
+        $req = $bdd->prepare('INSERT INTO keypay(id_offre,cle_keypay,quantite_keypay,date_expire_keypay,prix_unitaire_keypay) VALUES(:id_offre,:cle_keypay,:quantite_keypay,:date_expire_keypay,:prix_unitaire_keypay)');
         $req->execute(array(
-            'offre_id' => $offre_id,
-            'cle' => $cle,
-            'quantite' => $quantite,
-            'date_expire' => $date_expire,
-            'prix_unitaire' => $prix_unitaire,
+            'cle_keypay' => $cle_keypay,
+            'quantite_keypay' => $quantite_keypay,
+            'date_expire_keypay' => date("Y-m-d H:i:s", strtotime('+2 minutes')),
+            'prix_unitaire_keypay' => $prix_unitaire_keypay,
             'id_offre' => $id_offre
         ));
         return $bdd->lastInsertId();

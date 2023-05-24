@@ -5,7 +5,7 @@
 class Droits {
     // recupere les droits
     public static function getDroits($bdd) {
-        $req = $bdd->prepare('SELECT * FROM liste_droits');
+        $req = $bdd->prepare('SELECT * FROM droits');
         $req->execute();
         $droits = $req->fetchAll();
 		$req->closeCursor();
@@ -13,10 +13,10 @@ class Droits {
     }
 
     // recupere un droit par son id
-    public static function getDroit($bdd,$id) {
-        $req = $bdd->prepare('SELECT * FROM liste_droits WHERE id_droit = :id');
+    public static function getDroit($bdd,$id_droit) {
+        $req = $bdd->prepare('SELECT * FROM droits WHERE id_droit = :id_droit');
         $req->execute(array(
-            'id' => $id
+            'id_droit' => $id_droit
         ));
         $droit = $req->fetch(PDO::FETCH_ASSOC);
 		$req->closeCursor();

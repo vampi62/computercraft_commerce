@@ -102,11 +102,11 @@ class Commandes {
     }
 
     // modifie le status de la commande
-    public static function setCommandeStatus($bdd,$id_commande,$id_status) {
-        $req = $bdd->prepare('UPDATE commandes SET id_status = :id_status WHERE id_commande = :id_commande');
+    public static function setCommandeStatus($bdd,$id_commande,$id_status_commande) {
+        $req = $bdd->prepare('UPDATE commandes SET id_status_commande = :id_status_commande WHERE id_commande = :id_commande');
         $req->execute(array(
             'id_commande' => $id_commande,
-            'id_status' => $id_status
+            'id_status_commande' => $id_status_commande
         ));
     }
 
@@ -120,46 +120,45 @@ class Commandes {
     }
 
     // modifie le suivi de la commande
-    public static function setCommandeSuivi($bdd,$id_commande,$suivi) {
-        $req = $bdd->prepare('UPDATE commandes SET suivi = :suivi WHERE id = :id_commande');
+    public static function setCommandeSuivi($bdd,$id_commande,$suivi_commande) {
+        $req = $bdd->prepare('UPDATE commandes SET suivi_commande = :suivi_commande WHERE id = :id_commande');
         $req->execute(array(
             'id_commande' => $id_commande,
-            'suivi' => $suivi
+            'suivi_commande' => $suivi_commande
         ));
     }
 
     // modifie date de livraison de la commande
-    public static function setCommandeDateLivraison($bdd,$id_commande,$date_livraison) {
-        $req = $bdd->prepare('UPDATE commandes SET date_livraison = :date_livraison WHERE id = :id_commande');
+    public static function setCommandeDateLivraison($bdd,$id_commande,$date_livraison_commande) {
+        $req = $bdd->prepare('UPDATE commandes SET date_livraison_commande = :date_livraison_commande WHERE id = :id_commande');
         $req->execute(array(
             'id_commande' => $id_commande,
-            'date_livraison' => $date_livraison
+            'date_livraison_commande' => $date_livraison_commande
         ));
     }
 
     // modifie le code de retrait de la commande
-    public static function setCommandeCodeRetrait($bdd,$id_commande,$code_retrait) {
-        $req = $bdd->prepare('UPDATE commandes SET code_retrait = :code_retrait WHERE id = :id_commande');
+    public static function setCommandeCodeRetrait($bdd,$id_commande,$code_retrait_commande) {
+        $req = $bdd->prepare('UPDATE commandes SET code_retrait_commande = :code_retrait_commande WHERE id = :id_commande');
         $req->execute(array(
             'id_commande' => $id_commande,
-            'code_retrait' => $code_retrait
+            'code_retrait_commande' => $code_retrait_commande
         ));
     }
 
     // ajoute une commande
-    public static function setCommande($bdd,$nom_produit,$quantite,$prix_unitaire,$frait_livraison,$description,$suivi,$date_livraison,$code_retrait,$id_adresse_vendeur,$id_adresse_client,$id_offre,$id_transaction,$id_compte_vendeur,$id_compte_client,$id_types_status_commande,$id_livreur) {
-        $date_commande = date("Y-m-d H:i:s");
+    public static function setCommande($bdd,$nom_produit_commande,$quantite_commande,$prix_unitaire_commande,$frait_livraison_commande,$description_commande,$suivi_commande,$date_livraison_commande,$code_retrait_commande,$id_adresse_vendeur,$id_adresse_client,$id_offre,$id_transaction,$id_compte_vendeur,$id_compte_client,$id_types_status_commande,$id_livreur) {
         $req = $bdd->prepare('INSERT INTO commandes(nom_produit,quantite,prix_unitaire,frait_livraison,description,suivi,date_commande,date_livraison,code_retrait,id_adresse_vendeur,id_adresse_client,id_offre,id_transaction,id_compte_vendeur,id_compte_client,id_types_status_commande,id_livreur) VALUES(:nom_produit,:quantite,:prix_unitaire,:frait_livraison,:description,:suivi,:date_commande,:date_livraison,:code_retrait,:id_adresse_vendeur,:id_adresse_client,:id_offre,:id_transaction,:id_compte_vendeur,:id_compte_client,:id_types_status_commande,:id_livreur)');
         $req->execute(array(
-            'nom_produit' => $nom_produit,
-            'quantite' => $quantite,
-            'prix_unitaire' => $prix_unitaire,
-            'frait_livraison' => $frait_livraison,
-            'description' => $description,
-            'suivi' => $suivi,
-            'date_commande' => $date_commande,
-            'date_livraison' => $date_livraison,
-            'code_retrait' => $code_retrait,
+            'nom_produit_commande' => $nom_produit_commande,
+            'quantite_commande' => $quantite_commande,
+            'prix_unitaire_commande' => $prix_unitaire_commande,
+            'frait_livraison_commande' => $frait_livraison_commande,
+            'description_commande' => $description_commande,
+            'suivi_commande' => $suivi_commande,
+            'date_commande_commande' => date("Y-m-d H:i:s"),
+            'date_livraison_commande' => $date_livraison_commande,
+            'code_retrait_commande' => $code_retrait_commande,
             'id_adresse_vendeur' => $id_adresse_vendeur,
             'id_adresse_client' => $id_adresse_client,
             'id_offre' => $id_offre,
@@ -169,6 +168,5 @@ class Commandes {
             'id_types_status_commande' => $id_types_status_commande,
             'id_livreur' => $id_livreur
         ));
-    
     }
 }

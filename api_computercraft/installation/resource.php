@@ -30,12 +30,11 @@ function SetHtpasswd() {
 	}
 }
 function SetAdmin($pseudo, $mdp, $email, $bdd) {
-	$date = date("Y-m-d");
 	$req = $bdd->prepare('INSERT INTO joueurs(pseudo, mdp, email, last_login, id_table_select_role, max_offres) VALUES(:player, :mdp, :email, :last_login, 1, 0)');
 	$req->execute(array(
 		'player' => $pseudo,
 		'mdp' => password_hash($mdp, PASSWORD_DEFAULT),
-		'last_login' => $date,
+		'last_login' => date("Y-m-d H:i:s"),
 		'email' => $email
 	));
 	$req->closeCursor();

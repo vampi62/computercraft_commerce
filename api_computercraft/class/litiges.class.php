@@ -5,11 +5,11 @@
 
 class Litiges {
     // recupere le fil de discution litige par rapport a l'id de commande
-    public static function getLitigesByCommande($bdd,$commande_id) {
+    public static function getLitigesMsgByCommande($bdd,$id_commande) {
         // recupere les litiges de la commande
-        $req = $bdd->prepare('SELECT * FROM litiges WHERE id_commande = :commande_id');
+        $req = $bdd->prepare('SELECT * FROM litigesmsg WHERE id_commande = :id_commande');
         $req->execute(array(
-            'commande_id' => $commande_id
+            'id_commande' => $id_commande
         ));
         $litiges = $req->fetchAll();
 		$req->closeCursor();
@@ -17,21 +17,20 @@ class Litiges {
     }
 
     // ajoute un message au fil de discution litige
-    public static function addLitige($bdd,$commande_id,$description,$id_status_litige) {
-        $date = date("Y-m-d H:i:s");
-        $req = $bdd->prepare('INSERT INTO litiges(id_commande,date,description,id_status_litige) VALUES(:commande_id,:date,:description,:id_status_litige)');
+    public static function addLitigeMsg($bdd,$id_commande,$description_litige,$id_status_litige) {
+        $req = $bdd->prepare('INSERT INTO litigesmsg(id_commande,date_litige,description_litige,id_status_litige) VALUES(:id_commande,:date_litige,:description_litige,:id_status_litige)');
         $req->execute(array(
-            'commande_id' => $commande_id,
-            'date' => $date,
-            'description' => $description,
+            'id_commande' => $id_commande,
+            'date_litige' => date("Y-m-d H:i:s"),
+            'description_litige' => $description_litige,
             'id_status_litige' => $id_status_litige
         ));
         return $bdd->lastInsertId();
     }
     
     // supprime le message du fil de discution litige
-    public static function deleteLitige($bdd,$id_litige) {
-        $req = $bdd->prepare('DELETE FROM litiges WHERE id_litige = :id_litige');
+    public static function deleteLitigeMsg($bdd,$id_litige) {
+        $req = $bdd->prepare('DELETE FROM litigesmsg WHERE id_litige = :id_litige');
         $req->execute(array(
             'id_litige' => $id_litige
         ));

@@ -13,15 +13,16 @@
 class Livreurs {
     // recupere les livreurs accessible par le joueur (lui a partient ou groupe en communs qui permet le getLivreurs)
     public static function getLivreursByUser($bdd,$id_joueur) {
-        $req = $bdd->prepare('SELECT * FROM livreurs 
+        $req = $bdd->prepare('SELECT livreurs.*,joueurs.pseudo_joueur FROM livreurs 
         INNER JOIN groupes_livreurs ON livreurs.id_livreur = groupes_livreurs.id_livreur
         INNER JOIN groupes_joueurs ON groupes_livreurs.id_groupe = groupes_joueurs.id_groupe
         INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_livreurs.id_groupe
         INNER JOIN liste_droits     ON liste_droits.id_droit = groupes_droits.id_droit
-        WHERE (groupes_joueurs.id_joueur = :id_joueur AND liste_droits.nom = :action) OR (livreurs.id_joueur = :id_joueur)');
+        INNER JOIN joueurs ON livreurs.id_joueur = joueurs.id_joueur
+        WHERE (groupes_joueurs.id_joueur = :id_joueur AND liste_droits.nom_droit = :nom_droit) OR (livreurs.id_joueur = :id_joueur)');
         $req->execute(array(
             'id_joueur' => $id_joueur,
-            'action' => "getlivreurs"
+            'nom_droit' => "getlivreurs"
         ));
         $livreurs = $req->fetchAll();
 		$req->closeCursor();
@@ -30,7 +31,7 @@ class Livreurs {
 
     // recupere les livreurs accessible par la keyapi (groupe en communs qui permet le getlivreurs)
     public static function getLivreursByKeyApi($bdd,$id_keyapi) {
-        $req = $bdd->prepare('SELECT * FROM livreurs
+        $req = $bdd->prepare('SELECT livreurs.*,joueurs.pseudo_joueur FROM livreurs
         INNER JOIN groupes_livreurs ON livreurs.id_livreur = groupes_livreurs.id_livreur
         INNER JOIN groupes_keyapis ON groupes_livreurs.id_groupe = groupes_keyapis.id_groupe
         INNER JOIN keyapis ON groupes_keyapis.id_keyapi = keyapis.id_keyapi
@@ -38,10 +39,11 @@ class Livreurs {
         INNER JOIN liste_droits     ON liste_droits.id_droit = groupes_droits.id_droit
         INNER JOIN keyapis_droits    ON keyapis_droits.id_keyapi = groupes_keyapis.id_groupe
         INNER JOIN liste_droits     ON liste_droits.id_droit = keyapis_droits.id_droit
-        WHERE keyapis.id_keyapi = :id_keyapi AND liste_droits.nom = :action');
+        INNER JOIN joueurs ON livreurs.id_joueur = joueurs.id_joueur
+        WHERE keyapis.id_keyapi = :id_keyapi AND liste_droits.nom_droit = :nom_droit');
         $req->execute(array(
             'id_keyapi' => $id_keyapi,
-            'action' => "getlivreurs"
+            'nom_droit' => "getlivreurs"
         ));
         $livreurs = $req->fetchAll();
 		$req->closeCursor();
@@ -106,18 +108,18 @@ class Livreurs {
     }
 
     // ajoute un livreur
-    public static function addLivreur($bdd,$id_joueur,$id_compte,$id_adresse,$nom_groupe) {
-        $req = $bdd->prepare('INSERT INTO livreurs(id_joueur,id_compte,id_adresse,nom_groupe) VALUES(:id_joueur,:id_compte,:id_adresse,:nom_groupe)');
+    public static function addLivreur($bdd,$id_joueur,$id_compte,$id_adresse,$nom_livreur) {
+        $req = $bdd->prepare('INSERT INTO livreurs(id_joueur,id_compte,id_adresse,nom_livreur) VALUES(:id_joueur,:id_compte,:id_adresse,:nom_livreur)');
         $req->execute(array(
             'id_joueur' => $id_joueur,
             'id_compte' => $id_compte,
             'id_adresse' => $id_adresse,
-            'nom_groupe' => $nom_groupe
+            'nom_livreur' => $nom_livreur
         ));
     }
 
     // modifie le compte d'un livreur
-    public static function setLivreur_compte($bdd,$id_livreur,$id_compte) {
+    public static function setLivreurCompte($bdd,$id_livreur,$id_compte) {
         $req = $bdd->prepare('UPDATE livreurs SET id_compte = :id_compte WHERE id_livreur = :id_livreur');
         $req->execute(array(
             'id_livreur' => $id_livreur,
@@ -126,7 +128,7 @@ class Livreurs {
     }
 
     // modifie l'adresse d'un livreur
-    public static function setLivreur_adresse($bdd,$id_livreur,$id_adresse) {
+    public static function setLivreurAdresse($bdd,$id_livreur,$id_adresse) {
         $req = $bdd->prepare('UPDATE livreurs SET id_adresse = :id_adresse WHERE id_livreur = :id_livreur');
         $req->execute(array(
             'id_livreur' => $id_livreur,
@@ -135,11 +137,11 @@ class Livreurs {
     }
 
     // modifie le nom d'un livreur
-    public static function setLivreur_nom_groupe($bdd,$id_livreur,$nom_groupe) {
-        $req = $bdd->prepare('UPDATE livreurs SET nom_groupe = :nom_groupe WHERE id_livreur = :id_livreur');
+    public static function setLivreurNom($bdd,$id_livreur,$nom_livreur) {
+        $req = $bdd->prepare('UPDATE livreurs SET nom_livreur = :nom_livreur WHERE id_livreur = :id_livreur');
         $req->execute(array(
             'id_livreur' => $id_livreur,
-            'nom_groupe' => $nom_groupe
+            'nom_livreur' => $nom_livreur
         ));
     }
 }

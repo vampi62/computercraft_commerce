@@ -2,13 +2,13 @@
 class Checkdroits {
     // verifie si le compte a un des role requis
     public static function CheckRole($bdd, $pseudo, $array_role_requis) {
-        $req = $bdd->prepare('SELECT liste_type_role.nom FROM liste_type_role INNER JOIN joueurs ON joueurs.id_table_select_role = liste_type_role.id_table_select_role WHERE joueurs.pseudo = :pseudo');
+        $req = $bdd->prepare('SELECT joueur_roles.* FROM joueur_roles INNER JOIN joueurs ON joueurs.id_joueur_role = joueur_roles.id_joueur_role WHERE joueurs.pseudo = :pseudo');
         $req->execute(array(
             'pseudo' => $pseudo
         ));
         $login = $req->fetch(PDO::FETCH_ASSOC);
         $req->closeCursor();
-        if (in_array($login['id_table_select_role'], $array_role_requis)) {
+        if (in_array($login['nom_joueur_roles'], $array_role_requis)) {
             return true;
         }
         return false;
@@ -16,7 +16,7 @@ class Checkdroits {
 
     // verifie si l'id indiquer est dans la table
     public static function CheckId($bdd, $id, $table) {
-        $req = $bdd->prepare('SELECT id FROM '.$table.' WHERE id = :id');
+        $req = $bdd->prepare('SELECT id_'.$table.' FROM '.$table.' WHERE id_'.$table.' = :id');
         $req->execute(array(
             'id' => $id
         ));
@@ -35,9 +35,9 @@ class Checkdroits {
         #autre compare avec la table livreurs
 
         if ($isapikey) {
-            $req = $bdd->prepare('SELECT mdp FROM keyapi WHERE nom = :nom');
+            $req = $bdd->prepare('SELECT mdp_keyapi FROM keyapis WHERE nom_keyapi = :nom');
         } else {
-            $req = $bdd->prepare('SELECT mdp FROM joueurs WHERE pseudo = :nom');
+            $req = $bdd->prepare('SELECT mdp_joueur FROM joueurs WHERE pseudo_joueur = :nom');
         }
         $req->execute(array(
             'nom' => $nom
@@ -54,7 +54,7 @@ class Checkdroits {
 
     // verifie le token du compte 
 	public function CheckToken($bdd, $nom, $token) {
-        $req = $bdd->prepare('SELECT resettoken FROM joueurs WHERE pseudo = :pseudo');
+        $req = $bdd->prepare('SELECT resettoken_joueur FROM joueurs WHERE pseudo = :pseudo');
         $req->execute(array(
             'pseudo' => $pseudo
         ));
@@ -72,8 +72,8 @@ class Checkdroits {
     public static function CheckPermApi($bdd, $nom, $action) {
         $req = $bdd->prepare('SELECT * FROM keyapis 
         INNER JOIN keyapis_droits ON keyapis.id_keyapi = keyapis_droits.id_keyapi 
-        INNER JOIN liste_droits ON liste_droits.id_droit = keyapis_droits.id_droit 
-        WHERE keyapis.nom = :nom AND liste_droits.nom = :action');
+        INNER JOIN droits ON droits.id_droit = keyapis_droits.id_droit 
+        WHERE keyapis.nom = :nom AND droits.nom_droit = :action');
         $req->execute(array(
             'nom' => $nom,
             'action' => $action
@@ -99,8 +99,8 @@ class Checkdroits {
             INNER JOIN groupes_keyapis    ON groupes_'.$type.'.id_groupe = groupes_keyapis.id_groupe
             INNER JOIN keyapis           ON keyapis.id_keyapi = groupes_keyapis.id_keyapi
             INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_'.$type.'.id_groupe
-            INNER JOIN liste_droits     ON liste_droits.id_droit = groupes_droits.id_droit
-            WHERE '.$type.'s.id_'.$type.' = :idobjet AND liste_droits.nom = :action AND keyapis.id_keyapi = :idnom');
+            INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
+            WHERE '.$type.'s.id_'.$type.' = :idobjet AND droits.nom_droit = :action AND keyapis.id_keyapi = :idnom');
             $req->execute(array(
                 'idobjet' => $idobjet,
                 'idnom' => $idnom,
@@ -137,8 +137,8 @@ class Checkdroits {
             INNER JOIN groupes_joueur    ON groupes_'.$type.'.id_groupe = groupes_joueur.id_groupe
             INNER JOIN joueurs           ON joueurs.id_joueur = groupes_joueur.id_joueur
             INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_'.$type.'.id_groupe
-            INNER JOIN liste_droits     ON liste_droits.id_droit = groupes_droits.id_droit
-            WHERE '.$type.'s.id_'.$type.' = :idobjet AND liste_droits.nom = :action AND joueurs.id_joueur = :idnom');
+            INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
+            WHERE '.$type.'s.id_'.$type.' = :idobjet AND droits.nom_droit = :action AND joueurs.id_joueur = :idnom');
             $req->execute(array(
                 'idobjet' => $idobjet,
                 'idnom' => $idnom,
@@ -154,10 +154,18 @@ class Checkdroits {
     }
 
     // verifie si tous les arguments sont present
+    // true si empty est permis
+    // exemple --> $args_need = array('mdp' => false, 'email' => true) // mdp obligatoire, email facultatif
     public static function CheckArgs($args_send, $args_need) {
-        foreach ($args_need as $arg) {
-            if (!isset($args_send[$arg])) {
+        foreach ($args_need as $key => $value) {
+            if (!isset($args_send[$key])) {
                 return false;
+            } else {
+                if (!$value) {
+                    if (empty($args_send[$key])) {
+                        return false;
+                    }
+                }
             }
         }
         return true;
@@ -195,10 +203,10 @@ class Checkdroits {
     }
 
     // verification code retire_commande
-    public static function CheckCodeRetraitCommande($bdd,$code_retrait,$id_commande) {
-        $req = $bdd->prepare('SELECT * FROM commandes WHERE code_retrait = :code_retrait AND id_commande = :id_commande');
+    public static function CheckCodeRetraitCommande($bdd,$code_retrait_commande,$id_commande) {
+        $req = $bdd->prepare('SELECT * FROM commandes WHERE code_retrait_commande = :code_retrait_commande AND id_commande = :id_commande');
         $req->execute(array(
-            'code_retrait' => $code_retrait,
+            'code_retrait_commande' => $code_retrait_commande,
             'id_commande' => $id_commande
         ));
         if (mysql_num_rows($req) > 0) {

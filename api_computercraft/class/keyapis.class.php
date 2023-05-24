@@ -13,15 +13,16 @@
 class Keyapis {
     // recupere les keyapis visible pour un joueur (si groupe a les droits)
     public static function getKeyApisByUser($bdd,$id_joueur) {
-        $req = $bdd->prepare('SELECT * FROM keyapis 
+        $req = $bdd->prepare('SELECT keyapis.*,joueurs.pseudo_joueur FROM keyapis 
         INNER JOIN groupes_keyapis ON keyapis.id_keyapi = groupes_keyapis.id_keyapi
         INNER JOIN groupes_joueurs ON groupes_keyapis.id_groupe = groupes_joueurs.id_groupe
         INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_keyapis.id_groupe
         INNER JOIN liste_droits     ON liste_droits.id_droit = groupes_droits.id_droit
-        WHERE (groupes_joueurs.id_joueur = :id_joueur AND liste_droits.nom = :action) OR (keyapis.id_joueur = :id_joueur)');
+        INNER JOIN joueurs ON keyapis.id_joueur = joueurs.id_joueur
+        WHERE (groupes_joueurs.id_joueur = :id_joueur AND liste_droits.nom_droit = :nom_droit) OR (keyapis.id_joueur = :id_joueur)');
         $req->execute(array(
             'id_joueur' => $id_joueur,
-            'action' => "getkeyapis"
+            'nom_droit' => "getkeyapis"
         ));
         $keyapis = $req->fetchAll();
 		$req->closeCursor();
@@ -51,8 +52,8 @@ class Keyapis {
     }
 
     // recupere les droits d'une keyapi
-    public static function getKeyApiDroits($bdd,$id_keyapi) {
-        $req = $bdd->prepare('SELECT liste_droits.* FROM liste_droits INNER JOIN keyapis_droits ON liste_droits.id_droit = keyapis_droits.id_droit WHERE id_keyapi = :id_keyapi');
+    public static function getDroitsByKeyApi($bdd,$id_keyapi) {
+        $req = $bdd->prepare('SELECT * FROM liste_droits INNER JOIN keyapis_droits ON liste_droits.id_droit = keyapis_droits.id_droit WHERE id_keyapi = :id_keyapi');
         $req->execute(array(
             'id_keyapi' => $id_keyapi
         ));
@@ -62,21 +63,21 @@ class Keyapis {
     }
 
     // change le nom d'une keyapi
-    public static function setKeyapiNom($bdd,$id_keyapi,$nom) {
-        $req = $bdd->prepare('UPDATE keyapis SET nom = :nom WHERE id_keyapi = :id_keyapi');
+    public static function setKeyapiNom($bdd,$id_keyapi,$nom_keyapi) {
+        $req = $bdd->prepare('UPDATE keyapis SET nom_keyapi = :nom_keyapi WHERE id_keyapi = :id_keyapi');
         $req->execute(array(
             'id_keyapi' => $id_keyapi,
-            'nom' => $nom
+            'nom_keyapi' => $nom_keyapi
         ));
         return true;
     }
 
     //change le mdp d'une keyapi
-    public static function setKeyapiMdp($bdd,$id_keyapi,$mdp) {
-        $req = $bdd->prepare('UPDATE keyapis SET mdp = :mdp WHERE id_keyapi = :id_keyapi');
+    public static function setKeyapiMdp($bdd,$id_keyapi,$mdp_keyapi) {
+        $req = $bdd->prepare('UPDATE keyapis SET mdp_keyapi = :mdp_keyapi WHERE id_keyapi = :id_keyapi');
         $req->execute(array(
             'id_keyapi' => $id_keyapi,
-            'mdp' => password_hash($mdp, PASSWORD_DEFAULT)
+            'mdp_keyapi' => password_hash($mdp_keyapi, PASSWORD_DEFAULT)
         ));
         return true;
     }
@@ -111,11 +112,11 @@ class Keyapis {
     }
 
     // creer une keyapi
-    public static function setKeyapi($bdd,$nom,$mdp,$id_joueur) {
-        $req = $bdd->prepare('INSERT INTO keyapis(nom,mdp,id_joueur) VALUES(:nom,:mdp,:id_joueur)');
+    public static function setKeyapi($bdd,$nom_keyapi,$mdp_keyapi,$id_joueur) {
+        $req = $bdd->prepare('INSERT INTO keyapis(nom_keyapi,mdp_keyapi,id_joueur) VALUES(:nom_keyapi,:mdp_keyapi,:id_joueur)');
         $req->execute(array(
-            'nom' => $nom,
-            'mdp' => password_hash($mdp, PASSWORD_DEFAULT),
+            'nom_keyapi' => $nom_keyapi,
+            'mdp_keyapi' => password_hash($mdp_keyapi, PASSWORD_DEFAULT),
             'id_joueur' => $id_joueur
         ));
         return true;

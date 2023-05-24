@@ -7,7 +7,7 @@
 class Jetons {
 	// recuperation le tableau de jeton
 	public static function getJetons($bdd) {
-		$req = $bdd->query('SELECT joueurs.pseudo, jeton_banque.* FROM jeton_banque INNER JOIN joueurs ON joueurs.id_joueur = jeton_banque.id_jeton');
+		$req = $bdd->query('SELECT jeton.*,joueurs.pseudo_joueur FROM jeton INNER JOIN joueurs ON joueurs.id_joueur = jeton.id_jeton');
 		$list_jetons = $req->fetchAll();
 		$req->closeCursor();
         return $list_jetons;
@@ -15,7 +15,7 @@ class Jetons {
 
 	// recuperation le tableau de jeton
 	public static function getJetonByJoueur($bdd,$id_joueur) {
-		$req = $bdd->prepare('SELECT * FROM jeton_banque WHERE id_joueur = :id_joueur');
+		$req = $bdd->prepare('SELECT jeton.*,joueurs.pseudo_joueur FROM jeton INNER JOIN joueurs ON joueurs.id_joueur = jeton.id_jeton WHERE jeton.id_joueur = :id_joueur');
 		$req->execute(array(
 			'id_joueur' => $id_joueur
 		));
@@ -24,33 +24,31 @@ class Jetons {
 		return $jeton;
 	}
 
-	// creer une nouvelle entre dans la table jeton_banque
+	// creer une nouvelle entre dans la table jeton
 	public static function setInitJeton($bdd,$id_joueur,$jeton) {
-		$date = date("Y-m-d H:i:s");
-		$req = $bdd->prepare('INSERT INTO jeton_banque(jeton1, jeton10, jeton100, jeton1k, jeton10k, id_joueur, date, heure) VALUES(:jeton1, :jeton10, :jeton100, :jeton1k, :jeton10k, :id_joueur, :date, :heure)');
+		$req = $bdd->prepare('INSERT INTO jeton(jeton1_jeton, jeton10_jeton, jeton100_jeton, jeton1k_jeton, jeton10k_jeton, id_joueur, last_update_jeton) VALUES(:jeton1_jeton, :jeton10_jeton, :jeton100_jeton, :jeton1k_jeton, :jeton10k_jeton, :id_joueur, :last_update_jeton)');
 		$req->execute(array(
-			'jeton1' => $jeton["1"],
-			'jeton10' => $jeton["10"],
-			'jeton100' => $jeton["100"],
-			'jeton1k' => $jeton["1k"],
-			'jeton10k' => $jeton["10k"],
+			'jeton1_jeton' => $jeton["1"],
+			'jeton10_jeton' => $jeton["10"],
+			'jeton100_jeton' => $jeton["100"],
+			'jeton1k_jeton' => $jeton["1k"],
+			'jeton10k_jeton' => $jeton["10k"],
 			'id_joueur' => $id_joueur,
-			'date' => $date
+			'last_update_jeton' => date("Y-m-d H:i:s")
 		));
 	}
 
-	// modifier une entre dans la table jeton_banque
+	// modifier une entre dans la table jeton
 	public static function setSyncJeton($bdd,$id_joueur,$jeton) {
-		$date = date("Y-m-d H:i:s");
-		$req = $bdd->prepare('UPDATE jeton_banque SET jeton1 = :jeton1, jeton10 = :jeton10, jeton100 = :jeton100, jeton1k = :jeton1k, jeton10k = :jeton10k, date = :date, heure = :heure WHERE id_joueur = :id_joueur');
+		$req = $bdd->prepare('UPDATE jeton SET jeton1_jeton = :jeton1_jeton, jeton10_jeton = :jeton10_jeton, jeton100_jeton = :jeton100_jeton, jeton1k_jeton = :jeton1k_jeton, jeton10k_jeton = :jeton10k_jeton, last_update_jeton = :last_update_jeton WHERE id_joueur = :id_joueur');
 		$req->execute(array(
-			'jeton1' => intval($jeton["1"]),
-			'jeton10' => intval($jeton["10"]),
-			'jeton100' => intval($jeton["100"]),
-			'jeton1k' => intval($jeton["1k"]),
-			'jeton10k' => intval($jeton["10k"]),
+			'jeton1_jeton' => intval($jeton["1"]),
+			'jeton10_jeton' => intval($jeton["10"]),
+			'jeton100_jeton' => intval($jeton["100"]),
+			'jeton1k_jeton' => intval($jeton["1k"]),
+			'jeton10k_jeton' => intval($jeton["10k"]),
 			'id_joueur' => $id_joueur,
-			'date' => $date
+			'last_update_jeton' => date("Y-m-d H:i:s")
 		));
 	}
 }

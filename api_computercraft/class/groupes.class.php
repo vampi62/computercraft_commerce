@@ -34,7 +34,9 @@
 class Groupes {
     // recupere les groupes d'un joueur
     public static function getGroupesByJoueur($bdd,$id_joueur) {
-        $req = $bdd->prepare('SELECT * FROM groupes WHERE id_joueur = :id_joueur');
+        $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo_joueur FROM groupes
+        INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur
+        WHERE groupes.id_joueur = :id_joueur');
         $req->execute(array(
             'id_joueur' => $id_joueur
         ));
@@ -45,7 +47,10 @@ class Groupes {
 
     // recupere les groupes d'un joueur membre
     public static function getGroupesByJoueurMembre($bdd,$id_joueur) {
-        $req = $bdd->prepare('SELECT groupes.id_groupe,groupes.nom FROM groupes INNER JOIN groupes_joueurs ON groupes_joueurs.id_groupe = groupes.id_groupe WHERE groupes_joueurs.id_joueur = :id_joueur');
+        $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo_joueur FROM groupes 
+        INNER JOIN groupes_joueurs ON groupes_joueurs.id_groupe = groupes.id_groupe 
+        INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur 
+        WHERE groupes_joueurs.id_joueur = :id_joueur');
         $req->execute(array(
             'id_joueur' => $id_joueur
         ));
@@ -56,7 +61,10 @@ class Groupes {
 
     // recupere les groupes d'un compte
     public static function getGroupesByCompte($bdd,$id_compte) {
-        $req = $bdd->prepare('SELECT groupes.id_groupe,groupes.nom FROM groupes INNER JOIN groupes_comptes ON groupes_comptes.id_groupe = groupes.id_groupe WHERE groupes_comptes.id_compte = :id_compte');
+        $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo_joueur FROM groupes 
+        INNER JOIN groupes_comptes ON groupes_comptes.id_groupe = groupes.id_groupe 
+        INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur 
+        WHERE groupes_comptes.id_compte = :id_compte');
         $req->execute(array(
             'id_compte' => $id_compte
         ));
@@ -67,7 +75,10 @@ class Groupes {
 
     // recupere les groupes d'une offre
     public static function getGroupesByOffre($bdd,$id_offre) {
-        $req = $bdd->prepare('SELECT groupes.id_groupe,groupes.nom FROM groupes INNER JOIN groupes_offres ON groupes_offres.id_groupe = groupes.id_groupe WHERE groupes_offres.id_offre = :id_offre');
+        $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo_joueur FROM groupes 
+        INNER JOIN groupes_offres ON groupes_offres.id_groupe = groupes.id_groupe 
+        INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur 
+        WHERE groupes_offres.id_offre = :id_offre');
         $req->execute(array(
             'id_offre' => $id_offre
         ));
@@ -78,7 +89,10 @@ class Groupes {
 
     // recupere les groupes d'une adresse
     public static function getGroupesByAdresse($bdd,$id_adresse) {
-        $req = $bdd->prepare('SELECT groupes.id_groupe,groupes.nom FROM groupes INNER JOIN groupes_adresses ON groupes_adresses.id_groupe = groupes.id_groupe WHERE groupes_adresses.id_adresse = :id_adresse');
+        $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo_joueur FROM groupes 
+        INNER JOIN groupes_adresses ON groupes_adresses.id_groupe = groupes.id_groupe 
+        INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur 
+        WHERE groupes_adresses.id_adresse = :id_adresse');
         $req->execute(array(
             'id_adresse' => $id_adresse
         ));
@@ -89,7 +103,10 @@ class Groupes {
 
     // recupere les groupes d'un livreur
     public static function getGroupesByLivreur($bdd,$id_livreur) {
-        $req = $bdd->prepare('SELECT groupes.id_groupe,groupes.nom FROM groupes INNER JOIN groupes_livreurs ON groupes_livreurs.id_groupe = groupes.id_groupe WHERE groupes_livreurs.id_livreur = :id_livreur');
+        $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo_joueur FROM groupes 
+        INNER JOIN groupes_livreurs ON groupes_livreurs.id_groupe = groupes.id_groupe 
+        INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur 
+        WHERE groupes_livreurs.id_livreur = :id_livreur');
         $req->execute(array(
             'id_livreur' => $id_livreur
         ));
@@ -100,7 +117,10 @@ class Groupes {
 
     // recupere les groupes d'une keyapi
     public static function getGroupesByKeyapi($bdd,$id_keyapi) {
-        $req = $bdd->prepare('SELECT groupes.id_groupe,groupes.nom FROM groupes INNER JOIN groupes_keyapis ON groupes_keyapis.id_groupe = groupes.id_groupe WHERE groupes_keyapis.id_keyapi = :id_keyapi');
+        $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo_joueur FROM groupes 
+        INNER JOIN groupes_keyapis ON groupes_keyapis.id_groupe = groupes.id_groupe 
+        INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur 
+        WHERE groupes_keyapis.id_keyapi = :id_keyapi');
         $req->execute(array(
             'id_keyapi' => $id_keyapi
         ));
@@ -111,7 +131,9 @@ class Groupes {
 
     // recupere les joueurs d'un groupe
     public static function getJoueursByGroupe($bdd,$id_groupe) {
-        $req = $bdd->prepare('SELECT groupes_joueurs.*,joueurs.pseudo FROM groupes_joueurs INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur WHERE id_groupe = :id_groupe');
+        $req = $bdd->prepare('SELECT groupes_joueurs.*,joueurs.pseudo_joueur FROM groupes_joueurs 
+        INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur 
+        WHERE groupes_joueurs.id_groupe = :id_groupe');
         $req->execute(array(
             'id_groupe' => $id_groupe
         ));
@@ -122,7 +144,10 @@ class Groupes {
 
     // recupere les comptes d'un groupe
     public static function getComptesByGroupe($bdd,$id_groupe) {
-        $req = $bdd->prepare('SELECT groupes_comptes.*,comptes.nom FROM groupes_comptes INNER JOIN comptes ON groupes.id_compte = comptes.id_compte WHERE id_groupe = :id_groupe');
+        $req = $bdd->prepare('SELECT groupes_comptes.*,comptes.nom_compte,joueurs.pseudo_joueur FROM groupes_comptes 
+        INNER JOIN comptes ON groupes_comptes.id_compte = comptes.id_compte 
+        INNER JOIN joueurs ON comptes.id_joueur = joueurs.id_joueur 
+        WHERE groupes_comptes.id_groupe = :id_groupe');
         $req->execute(array(
             'id_groupe' => $id_groupe
         ));
@@ -133,7 +158,10 @@ class Groupes {
 
     // recupere les offres d'un groupe
     public static function getOffresByGroupe($bdd,$id_groupe) {
-        $req = $bdd->prepare('SELECT groupes_offres.*,offres.nom FROM groupes_offres INNER JOIN offres ON groupes.id_offre = offres.id_offre WHERE id_groupe = :id_groupe');
+        $req = $bdd->prepare('SELECT groupes_offres.*,offres.nom_offre,joueurs.pseudo_joueur FROM groupes_offres 
+        INNER JOIN offres ON groupes_offres.id_offre = offres.id_offre 
+        INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur 
+        WHERE groupes_offres.id_groupe = :id_groupe');
         $req->execute(array(
             'id_groupe' => $id_groupe
         ));
@@ -144,7 +172,10 @@ class Groupes {
 
     // recupere les adresses d'un groupe
     public static function getAdressesByGroupe($bdd,$id_groupe) {
-        $req = $bdd->prepare('SELECT groupes_adresses.*,adresses.nom FROM groupes_adresses INNER JOIN adresses ON groupes.id_adresse = adresses.id_adresse WHERE id_groupe = :id_groupe');
+        $req = $bdd->prepare('SELECT groupes_adresses.*,adresses.nom_adresse,joueurs.pseudo_joueur FROM groupes_adresses 
+        INNER JOIN adresses ON groupes_adresses.id_adresse = adresses.id_adresse 
+        INNER JOIN joueurs ON adresses.id_joueur = joueurs.id_joueur
+        WHERE groupes_adresses.id_groupe = :id_groupe');
         $req->execute(array(
             'id_groupe' => $id_groupe
         ));
@@ -155,7 +186,10 @@ class Groupes {
 
     // recupere les comptes d'un groupe
     public static function getLivreursByGroupe($bdd,$id_groupe) {
-        $req = $bdd->prepare('SELECT groupes_livreurs.*,livreurs.nom FROM groupes_livreurs INNER JOIN livreurs ON groupes.id_livreur = livreurs.id_livreur WHERE id_groupe = :id_groupe');
+        $req = $bdd->prepare('SELECT groupes_livreurs.*,livreurs.nom_livreur,joueurs.pseudo_joueur FROM groupes_livreurs 
+        INNER JOIN livreurs ON groupes_livreurs.id_livreur = livreurs.id_livreur 
+        INNER JOIN joueurs ON livreurs.id_joueur = joueurs.id_joueur
+        WHERE groupes_livreurs.id_groupe = :id_groupe');
         $req->execute(array(
             'id_groupe' => $id_groupe
         ));
@@ -166,9 +200,11 @@ class Groupes {
 
     // recupere les keyapis d'un groupe
     public static function getKeyapisByGroupe($bdd,$id_groupe) {
-        $req = $bdd->prepare('SELECT groupes_keyapi.*,keyapis.nom FROM groupes_keyapis INNER JOIN keyapis ON groupes.id_keyapi = keyapis.id_keyapi WHERE id_keyapi = :id_keyapi');
+        $req = $bdd->prepare('SELECT groupes_keyapi.*,keyapis.nom_keyapi,joueurs.pseudo_joueur FROM groupes_keyapis 
+        INNER JOIN keyapis ON groupes.id_keyapi = keyapis.id_keyapi 
+        WHERE groupes_keyapi.id_groupe = :id_groupe');
         $req->execute(array(
-            'id_keyapi' => $id_keyapi
+            'id_groupe' => $id_keyapi
         ));
         $groupes = $req->fetchAll();
 		$req->closeCursor();
@@ -177,7 +213,9 @@ class Groupes {
 
     // recupere les droits d'un groupe
     public static function getDroitsByGroupe($bdd,$id_groupe) {
-        $req = $bdd->prepare('SELECT liste_droits.* FROM liste_droits INNER JOIN groupes_droits ON liste_droits.id_droit = groupes_droits.id_droit WHERE id_groupe = :id_groupe');
+        $req = $bdd->prepare('SELECT * FROM liste_droits 
+        INNER JOIN groupes_droits ON liste_droits.id_droit = groupes_droits.id_droit 
+        WHERE groupes_droits.id_groupe = :id_groupe');
         $req->execute(array(
             'id_groupe' => $id_groupe
         ));
@@ -187,8 +225,10 @@ class Groupes {
     }
 
     // recupere les infos d'un groupe
-    public static function getGroupeInfo($bdd,$id_groupe) {
-        $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo FROM groupes INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur WHERE id_groupe = :id_groupe');
+    public static function getGroupe($bdd,$id_groupe) {
+        $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo_joueur FROM groupes 
+        INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur 
+        WHERE id_groupe = :id_groupe');
         $req->execute(array(
             'id_groupe' => $id_groupe
         ));
