@@ -57,7 +57,7 @@ class Comptes {
     }
 
     // recupere le compte
-    public static function getCompte($bdd,$id_compte) {
+    public static function getCompteById($bdd,$id_compte) {
         $req = $bdd->prepare('SELECT comptes.*,joueurs.pseudo_joueur FROM comptes INNER JOIN joueurs ON joueurs.id_joueur = comptes.id_joueur WHERE id_compte = :id_compte');
         $req->execute(array(
             'id_compte' => $id_compte
@@ -93,7 +93,7 @@ class Comptes {
     }
 
     // ajoute un compte
-    public static function setCompte($bdd,$id_joueur,$id_type_compte,$nom_compte) {
+    public static function addCompte($bdd,$id_joueur,$id_type_compte,$nom_compte) {
         $req = $bdd->prepare('INSERT INTO comptes(id_joueur,id_type_compte,nom_compte,solde_compte) VALUES(:id_joueur,:id_type_compte,:nom_compte, 0)');
         $req->execute(array(
             'id_joueur' => $id_joueur,

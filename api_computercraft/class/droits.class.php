@@ -13,7 +13,7 @@ class Droits {
     }
 
     // recupere un droit par son id
-    public static function getDroit($bdd,$id_droit) {
+    public static function getDroitById($bdd,$id_droit) {
         $req = $bdd->prepare('SELECT * FROM droits WHERE id_droit = :id_droit');
         $req->execute(array(
             'id_droit' => $id_droit

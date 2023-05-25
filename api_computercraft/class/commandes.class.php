@@ -24,6 +24,17 @@ class Commandes {
         return $commandes;
     }
 
+    // recupere les commandes ayant cette adresse comme vendeur ou client
+    public static function getCommandesByAdresse($bdd,$id_adresse) {
+        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_adresse_client = :id_adresse OR id_adresse_vendeur = :id_adresse');
+        $req->execute(array(
+            'id_adresse' => $id_adresse
+        ));
+        $commandes = $req->fetchAll();
+        $req->closeCursor();
+        return $commandes;
+    }
+
     // recupere les commandes ayant ce compte vendeur
     public static function getCommandesByCompteVendeur($bdd,$id_compte_vendeur) {
         $req = $bdd->prepare('SELECT * FROM commandes WHERE id_compte_vendeur = :id_compte_vendeur');
@@ -91,7 +102,7 @@ class Commandes {
     }
 
     // recupere la commande
-    public static function getCommande($bdd,$id_commande) {
+    public static function getCommandeById($bdd,$id_commande) {
         $req = $bdd->prepare('SELECT * FROM commandes WHERE id_commande = :id_commande');
         $req->execute(array(
             'id_commande' => $id_commande
@@ -147,26 +158,24 @@ class Commandes {
     }
 
     // ajoute une commande
-    public static function setCommande($bdd,$nom_produit_commande,$quantite_commande,$prix_unitaire_commande,$frait_livraison_commande,$description_commande,$suivi_commande,$date_livraison_commande,$code_retrait_commande,$id_adresse_vendeur,$id_adresse_client,$id_offre,$id_transaction,$id_compte_vendeur,$id_compte_client,$id_types_status_commande,$id_livreur) {
-        $req = $bdd->prepare('INSERT INTO commandes(nom_produit,quantite,prix_unitaire,frait_livraison,description,suivi,date_commande,date_livraison,code_retrait,id_adresse_vendeur,id_adresse_client,id_offre,id_transaction,id_compte_vendeur,id_compte_client,id_types_status_commande,id_livreur) VALUES(:nom_produit,:quantite,:prix_unitaire,:frait_livraison,:description,:suivi,:date_commande,:date_livraison,:code_retrait,:id_adresse_vendeur,:id_adresse_client,:id_offre,:id_transaction,:id_compte_vendeur,:id_compte_client,:id_types_status_commande,:id_livreur)');
+    public static function addCommande($bdd,$nom_produit_commande,$quantite_commande,$prix_unitaire_commande,$frait_livraison_commande,$description_commande,$code_retrait_commande,$id_adresse_vendeur,$id_adresse_client,$id_offre,$id_compte_vendeur,$id_compte_client,$id_types_status_commande) {
+        $req = $bdd->prepare('INSERT INTO commandes(nom_produit_commande,quantite_commande,prix_unitaire_commande,frait_livraison_commande,description_commande,suivi_commande,date_commande,code_retrait_commande,id_adresse_vendeur,id_adresse_client,id_offre,id_compte_vendeur,id_compte_client,id_types_status_commande) VALUES(:nom_produit_commande,:quantite_commande,:prix_unitaire_commande,:frait_livraison_commande,:description_commande,:suivi_commande,:date_commande,:code_retrait_commande,:id_adresse_vendeur,:id_adresse_client,:id_offre,:id_compte_vendeur,:id_compte_client,:id_types_status_commande)');
         $req->execute(array(
             'nom_produit_commande' => $nom_produit_commande,
             'quantite_commande' => $quantite_commande,
             'prix_unitaire_commande' => $prix_unitaire_commande,
             'frait_livraison_commande' => $frait_livraison_commande,
             'description_commande' => $description_commande,
-            'suivi_commande' => $suivi_commande,
+            'suivi_commande' => "",
             'date_commande_commande' => date("Y-m-d H:i:s"),
-            'date_livraison_commande' => $date_livraison_commande,
             'code_retrait_commande' => $code_retrait_commande,
             'id_adresse_vendeur' => $id_adresse_vendeur,
             'id_adresse_client' => $id_adresse_client,
             'id_offre' => $id_offre,
-            'id_transaction' => $id_transaction,
             'id_compte_vendeur' => $id_compte_vendeur,
             'id_compte_client' => $id_compte_client,
-            'id_types_status_commande' => $id_types_status_commande,
-            'id_livreur' => $id_livreur
+            'id_types_status_commande' => $id_types_status_commande
         ));
+        return $bdd->lastInsertId();
     }
 }

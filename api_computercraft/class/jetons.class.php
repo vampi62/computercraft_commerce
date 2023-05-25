@@ -25,7 +25,7 @@ class Jetons {
 	}
 
 	// creer une nouvelle entre dans la table jeton
-	public static function setInitJeton($bdd,$id_joueur,$jeton) {
+	public static function addJeton($bdd,$id_joueur,$jeton) {
 		$req = $bdd->prepare('INSERT INTO jeton(jeton1_jeton, jeton10_jeton, jeton100_jeton, jeton1k_jeton, jeton10k_jeton, id_joueur, last_update_jeton) VALUES(:jeton1_jeton, :jeton10_jeton, :jeton100_jeton, :jeton1k_jeton, :jeton10k_jeton, :id_joueur, :last_update_jeton)');
 		$req->execute(array(
 			'jeton1_jeton' => $jeton["1"],
@@ -39,7 +39,7 @@ class Jetons {
 	}
 
 	// modifier une entre dans la table jeton
-	public static function setSyncJeton($bdd,$id_joueur,$jeton) {
+	public static function setJeton($bdd,$id_joueur,$jeton) {
 		$req = $bdd->prepare('UPDATE jeton SET jeton1_jeton = :jeton1_jeton, jeton10_jeton = :jeton10_jeton, jeton100_jeton = :jeton100_jeton, jeton1k_jeton = :jeton1k_jeton, jeton10k_jeton = :jeton10k_jeton, last_update_jeton = :last_update_jeton WHERE id_joueur = :id_joueur');
 		$req->execute(array(
 			'jeton1_jeton' => intval($jeton["1"]),

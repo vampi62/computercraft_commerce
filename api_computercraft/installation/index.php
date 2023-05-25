@@ -9,13 +9,9 @@ require_once('../class/config/yml.class.php');
 require_once('../class/checkdroits.class.php');
 $configLecture = new Lire('../class/config/config.yml');
 $_Serveur_ = $configLecture->GetTableau();
-if ($_Serveur_['Install'] != true) {
+if (!$_Serveur_['Install']) {
 	if (isset($_Serveur_['DataBase']['dbAdress']) AND isset($_Serveur_['DataBase']['dbName']) AND isset($_Serveur_['DataBase']['dbUser']) AND isset($_Serveur_['DataBase']['dbPassword']) AND isset($_Serveur_['DataBase']['dbPort'])) {
-		if(checkdroits::CheckArgs($_GET,array('pseudo','mdpconfirm','mdp','email'))) {
-			$_GET['pseudo'] = htmlspecialchars($_GET['pseudo']);
-			$_GET['mdp'] = htmlspecialchars($_GET['mdp']);
-			$_GET['mdpconfirm'] = htmlspecialchars($_GET['mdpconfirm']);
-			$_GET['email'] = htmlspecialchars($_GET['email']);
+		if(checkdroits::CheckArgs($_GET,array('pseudo' => false,'mdpconfirm' => false,'mdp' => false,'email' => false))) {
 			if (preg_match('@[A-Z]@', $_GET['mdp']) AND preg_match('@[a-z]@', $_GET['mdp']) AND preg_match('@[0-9]@', $_GET['mdp']) AND strlen($_GET['mdp']) > 8) {
 				if($_GET['mdp'] == $_GET['mdpconfirm']) {
 					if(filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)) {
@@ -23,7 +19,7 @@ if ($_Serveur_['Install'] != true) {
 							$sql = getPDO($_Serveur_['DataBase']['dbAdress'],$_Serveur_['DataBase']['dbName'],$_Serveur_['DataBase']['dbUser'],$_Serveur_['DataBase']['dbPassword'],$_Serveur_['DataBase']['dbPort']);
 							$sql->exec(file_get_contents('install.sql'));
 							SetHtpasswd();
-							SetAdmin($_GET['pseudo'], $_GET['mdp'], $_GET['email'], $sql);
+							SetAdmin($sql, $_GET['pseudo'], $_GET['mdp'], $_GET['email']);
 							$_Serveur_['Install'] = true;
 							$ecriture = new Ecrire('../class/config/config.yml', $_Serveur_);
 							// 'installation terminer vous pouvez supprimer le repertoire installation';
@@ -54,7 +50,7 @@ if ($_Serveur_['Install'] != true) {
 	}
 } else {
 	// 'dejà installer';
-	$printmessage = array('status_code' => 400, 'message' => 'Dejà installer.');
+	$printmessage = array('status_code' => 400, 'message' => 'Deja installer.');
 }
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json; charset=utf-8');

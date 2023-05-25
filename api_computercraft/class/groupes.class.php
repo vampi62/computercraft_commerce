@@ -225,7 +225,7 @@ class Groupes {
     }
 
     // recupere les infos d'un groupe
-    public static function getGroupe($bdd,$id_groupe) {
+    public static function getGroupeById($bdd,$id_groupe) {
         $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo_joueur FROM groupes 
         INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur 
         WHERE id_groupe = :id_groupe');
@@ -363,7 +363,7 @@ class Groupes {
     }
 
     // ajoute un droit à un groupe
-    public static function setGroupeDroits($bdd,$id_groupe,$id_droits) {
+    public static function addGroupeDroits($bdd,$id_groupe,$id_droits) {
         $req = $bdd->prepare('INSERT INTO groupes_droits(id_groupe,id_droits) VALUES(:id_groupe,:id_droits)');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -381,7 +381,7 @@ class Groupes {
     }
 
     // ajoute un groupe
-    public static function setGroupe($bdd,$nom,$id_joueur) {
+    public static function addGroupe($bdd,$nom,$id_joueur) {
         $req = $bdd->prepare('INSERT INTO groupes(nom,id_joueur) VALUES(:nom,:id_joueur)');
         $req->execute(array(
             'nom' => $nom,

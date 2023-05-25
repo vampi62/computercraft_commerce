@@ -87,7 +87,7 @@ class Livreurs {
     }
 
     // recupere un livreur precis
-    public static function getLivreur($bdd,$id_livreur) {
+    public static function getLivreurById($bdd,$id_livreur) {
         $req = $bdd->prepare('SELECT * FROM livreurs
         WHERE id_livreur = :id_livreur');
         $req->execute(array(

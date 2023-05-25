@@ -18,7 +18,7 @@ class Keypay {
     }
 
     // recupere une keypay
-    public static function getKeypay($bdd,$id_keypay) {
+    public static function getKeypayById($bdd,$id_keypay) {
         // recupere la keypay
         $req = $bdd->prepare('SELECT * FROM keypay WHERE id_keypay = :id_keypay');
         $req->execute(array(

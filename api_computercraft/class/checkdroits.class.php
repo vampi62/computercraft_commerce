@@ -156,7 +156,7 @@ class Checkdroits {
     // verifie si tous les arguments sont present
     // true si empty est permis
     // exemple --> $args_need = array('mdp' => false, 'email' => true) // mdp obligatoire, email facultatif
-    public static function CheckArgs($args_send, $args_need) {
+    public static function CheckArgs($args_send, $args_need, $bool_post=false) {
         foreach ($args_need as $key => $value) {
             if (!isset($args_send[$key])) {
                 return false;
@@ -165,6 +165,11 @@ class Checkdroits {
                     if (empty($args_send[$key])) {
                         return false;
                     }
+                }
+                if ($bool_post) {
+                    $_POST[$key] = htmlspecialchars($_POST[$key]);
+                } else {
+                    $_GET[$key] = htmlspecialchars($_GET[$key]);
                 }
             }
         }

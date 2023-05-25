@@ -49,8 +49,9 @@ class Adresses {
     }
 
     // recupere les adresses d'un joueur
-    public static function getAdresses($bdd,$id_joueur) {
-        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur WHERE id_joueur = :id_joueur');
+    public static function getAdressesByJoueur($bdd,$id_joueur) {
+        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses 
+        INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur WHERE id_joueur = :id_joueur');
         $req->execute(array(
             'id_joueur' => $id_joueur
         ));
@@ -59,8 +60,20 @@ class Adresses {
         return $adresses;
     }
 
+    // recupere les adresse d'un livreur
+    public static function getAdressesByLivreur($bdd,$id_livreur) {
+        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses 
+        INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur WHERE adresses.id_livreur = :id_livreur');
+        $req->execute(array(
+            'id_livreur' => $id_livreur
+        ));
+        $adresses = $req->fetchAll();
+        $req->closeCursor();
+        return $adresses;
+    }
+
     // recupere l'adresse
-    public static function getAdresse($bdd,$id_adresse) {
+    public static function getAdresseById($bdd,$id_adresse) {
         $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur WHERE id_adresse = :id_adresse');
         $req->execute(array(
             'id_adresse' => $id_adresse
@@ -97,6 +110,15 @@ class Adresses {
         ));
     }
 
+    // modifie le livreur de l'adresse
+    public static function setAdresseLivreur($bdd,$id_adresse,$id_livreur) {
+        $req = $bdd->prepare('UPDATE adresses SET id_livreur = :id_livreur WHERE id_adresse = :id_adresse');
+        $req->execute(array(
+            'id_livreur' => $id_livreur,
+            'id_adresse' => $id_adresse
+        ));
+    }
+
     // modifie le type de l'adresse
     public static function setAdresseType($bdd,$id_adresse,$id_type_adresse) {
         $req = $bdd->prepare('UPDATE adresses SET id_type_adresse = :id_type_adresse WHERE id_adresse = :id_adresse');
@@ -107,14 +129,15 @@ class Adresses {
     }
 
     // ajoute une adresse
-    public static function setAdresse($bdd,$id_joueur,$coo_adresse,$nom_adresse,$description_adresse,$id_type_adresse) {
-        $req = $bdd->prepare('INSERT INTO adresses (id_joueur,coo_adresse,nom_adresse,description_adresse,id_type_adresse) VALUES (:id_joueur,:coo_adresse,:nom_adresse,:description_adresse,:id_type_adresse)');
+    public static function addAdresse($bdd,$id_joueur,$coo_adresse,$nom_adresse,$description_adresse,$id_type_adresse,$id_livreur) {
+        $req = $bdd->prepare('INSERT INTO adresses (id_joueur,coo_adresse,nom_adresse,description_adresse,id_type_adresse,id_livreur) VALUES (:id_joueur,:coo_adresse,:nom_adresse,:description_adresse,:id_type_adresse,:id_livreur)');
         $req->execute(array(
             'id_joueur' => $id_joueur,
             'coo_adresse' => $coo_adresse,
             'nom_adresse' => $nom_adresse,
             'description_adresse' => $description_adresse,
-            'id_type_adresse' => $id_type_adresse
+            'id_type_adresse' => $id_type_adresse,
+            'id_livreur' => $id_livreur
         ));
     }
 

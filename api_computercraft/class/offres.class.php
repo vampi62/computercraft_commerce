@@ -87,7 +87,7 @@ class Offres {
     }
 
     // recupere l'offre
-    public static function getOffre($bdd,$id_offre) {
+    public static function getOffreById($bdd,$id_offre) {
         $req = $bdd->prepare("SELECT offres.*,joueur.pseudo_joueur,compte.nom_compte,adresse.nom_adresse FROM offres 
         INNER JOIN joueur ON offres.id_joueur = joueur.id_joueur
         INNER JOIN compte ON offres.id_compte = compte.id_compte
