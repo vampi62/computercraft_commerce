@@ -3,7 +3,7 @@
 // set litige/add
 // set litige/{id}/delete
 
-class Litiges {
+class LitigesMsg {
     // recupere le fil de discution litige par rapport a l'id de commande
     public static function getLitigesMsgByCommande($bdd,$id_commande) {
         // recupere les litiges de la commande

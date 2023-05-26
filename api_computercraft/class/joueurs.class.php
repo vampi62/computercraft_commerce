@@ -57,14 +57,14 @@ class Joueurs {
 	}
 
 	// creer un nouveau joueur
-	public static function inscription($bdd,$pseudo_joueur,$email_joueur,$mdp_joueur,$offre_depart) {
+	public static function addJoueur($bdd,$pseudo_joueur,$email_joueur,$mdp_joueur,$offre_depart,$id_role=2) {
 		$req = $bdd->prepare('INSERT INTO joueurs(pseudo_joueur, email_joueur, mdp_joueur, last_login_joueur, id_joueur_role, max_offres_joueur) VALUES(:pseudo_joueur, :email_joueur, :mdp_joueur, :last_login_joueur, :id_joueur_role, :max_offres_joueur)');
 		$req->execute(array(
 			'pseudo_joueur' => $pseudo_joueur,
 			'email_joueur' => $email_joueur,
 			'mdp_joueur' => password_hash($mdp_joueur, PASSWORD_DEFAULT),
 			'last_login_joueur' => date('Y-m-d H:i:s'),
-			'id_joueur_role' => 2,
+			'id_joueur_role' => $id_role,
 			'max_offres_joueur' => $offre_depart
 			));
 	}
@@ -77,8 +77,17 @@ class Joueurs {
 			));
 	}
 
+	// modifie le pseudo du joueur
+	public static function setJoueurPseudo($bdd,$id_joueur,$pseudo_joueur) {
+		$req = $bdd->prepare('UPDATE joueurs SET pseudo_joueur = :pseudo_joueur WHERE id_joueur = :id_joueur');
+		$req->execute(array(
+			'pseudo_joueur' => $pseudo_joueur,
+			'id_joueur' => $id_joueur
+			));
+	}
+
 	// modifie le mot de passe du joueur
-	public static function setMdp($bdd,$id_joueur,$mdp_joueur) {
+	public static function setJoueurMdp($bdd,$id_joueur,$mdp_joueur) {
 		$req = $bdd->prepare('UPDATE joueurs SET mdp_joueur = :mdp_joueur WHERE id_joueur = :id_joueur');
 		$req->execute(array(
 			'mdp_joueur' => password_hash($mdp_joueur, PASSWORD_DEFAULT),
@@ -87,7 +96,7 @@ class Joueurs {
 	}
 
 	// modifie l'email
-	public static function setEmail($bdd,$id_joueur,$email_joueur) {
+	public static function setJoueurEmail($bdd,$id_joueur,$email_joueur) {
 		$req = $bdd->prepare('UPDATE joueurs SET email_joueur = :email_joueur WHERE id_joueur = :id_joueur');
 		$req->execute(array(
 			'email_joueur' => $email_joueur,
@@ -96,7 +105,7 @@ class Joueurs {
 	}
 
 	// modifie le resettoken du joueur
-	public static function setResetToken($bdd,$id_joueur,$token_joueur) {
+	public static function setJoueurResetToken($bdd,$id_joueur,$token_joueur) {
 		$req = $bdd->prepare('UPDATE joueurs SET expire_resettoken_joueur = :expire_joueur, resettoken_joueur = :token_joueur WHERE id_joueur = :id_joueur');
 		$req->execute(array(
 			'token_joueur' => $token_joueur,
@@ -106,7 +115,7 @@ class Joueurs {
 	}
 
 	// change le role du joueur
-	public static function setRole($bdd,$id_joueur,$role) {
+	public static function setJoueurRole($bdd,$id_joueur,$role) {
 		$req = $bdd->prepare('UPDATE joueurs SET id_joueur_role = :id_joueur_role WHERE id_joueur = :id_joueur');
 		$req->execute(array(
 			'id_joueur_role' => $role,
@@ -115,7 +124,7 @@ class Joueurs {
 	}
 
 	// change le nombre d'offre maximum du joueur
-	public static function setNbrOffre($bdd,$id_joueur,$max_offres_joueur) {
+	public static function setJoueurNbrOffre($bdd,$id_joueur,$max_offres_joueur) {
 		$req = $bdd->prepare('UPDATE joueurs SET max_offres_joueur = :max_offres_joueur WHERE id_joueur = :id_joueur');
 		$req->execute(array(
 			'max_offres_joueur' => $max_offres_joueur,
@@ -124,7 +133,7 @@ class Joueurs {
 	}
 
 	// change la date de derniere connexion du joueur
-	public static function setLastLogin($bdd,$id_joueur) {
+	public static function setJoueurLastLogin($bdd,$id_joueur) {
 		$req = $bdd->prepare('UPDATE joueurs SET last_login_joueur = :last_login_joueur WHERE id_joueur = :id_joueur');
 		$req->execute(array(
 			'last_login_joueur' => date('Y-m-d H:i:s'),

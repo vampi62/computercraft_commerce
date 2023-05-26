@@ -15,7 +15,7 @@
 
 class Offres {
     // recupere toutes les offres
-    public static function getOffres($bdd) {
+    public static function getOffres($bdd,$bool_remove_inactive=FALSE) {
         $req = $bdd->prepare('SELECT offres.*,joueur.pseudo_joueur,compte.nom_compte,adresse.nom_adresse FROM offres
         INNER JOIN joueur ON offres.id_joueur = joueur.id_joueur
         INNER JOIN compte ON offres.id_compte = compte.id_compte
@@ -23,11 +23,16 @@ class Offres {
         $req->execute();
         $offres = $req->fetchAll();
 		$req->closeCursor();
-        return $offres;
+        if ($bool_remove_inactive) {
+            return self::removeInactiveOffre($offres);
+        }
+        else {
+            return $offres;
+        }
     }
 
     // recupere les offres d'un joueur
-    public static function getOffresByJoueur($bdd,$id_joueur,$bool_remove_inactive=TRUE) {
+    public static function getOffresByJoueur($bdd,$id_joueur,$bool_remove_inactive=FALSE) {
         $req = $bdd->prepare("SELECT offres.*,joueur.pseudo_joueur,compte.nom_compte,adresse.nom_adresse FROM offres 
         INNER JOIN joueur ON offres.id_joueur = joueur.id_joueur
         INNER JOIN compte ON offres.id_compte = compte.id_compte
@@ -47,7 +52,7 @@ class Offres {
     }
 
     // recupere les offres associer a un compte
-    public static function getOffresByCompte($bdd,$id_compte,$bool_remove_inactive=TRUE) {
+    public static function getOffresByCompte($bdd,$id_compte,$bool_remove_inactive=FALSE) {
         $req = $bdd->prepare("SELECT offres.*,joueur.pseudo_joueur,compte.nom_compte,adresse.nom_adresse FROM offres 
         INNER JOIN joueur ON offres.id_joueur = joueur.id_joueur
         INNER JOIN compte ON offres.id_compte = compte.id_compte
@@ -67,7 +72,7 @@ class Offres {
     }
 
     // recupere les offres associer a une adresse
-    public static function getOffresByAdresse($bdd,$id_adresse,$bool_remove_inactive=TRUE) {
+    public static function getOffresByAdresse($bdd,$id_adresse,$bool_remove_inactive=FALSE) {
         $req = $bdd->prepare("SELECT offres.*,joueur.pseudo_joueur,compte.nom_compte,adresse.nom_adresse FROM offres 
         INNER JOIN joueur ON offres.id_joueur = joueur.id_joueur
         INNER JOIN compte ON offres.id_compte = compte.id_compte
@@ -142,7 +147,7 @@ class Offres {
     }
 
     // modifie le type de livraison associer a l'offre
-    public static function setOffreTypeOffre($bdd,$id_offre,$id_type_offre) {
+    public static function setOffreType($bdd,$id_offre,$id_type_offre) {
         $req = $bdd->prepare("UPDATE offres SET id_type_offre = :id_type_offre WHERE id_offre = :id_offre");
         $req->execute(array(
             'id_offre' => $id_offre,

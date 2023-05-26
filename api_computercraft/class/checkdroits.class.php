@@ -29,12 +29,12 @@ class Checkdroits {
     }
 
     // verifie le mot de passe du compte
-    public static function CheckPassword($bdd, $nom, $mdp,$isapikey=false) {
-        #si isapikey=TRUE compare avec la table api
-        #si isapikey=FALSE compare avec la table joueurs
+    public static function CheckPassword($bdd, $nom, $mdp,$iskeyapi=false) {
+        #si iskeyapi=TRUE compare avec la table api
+        #si iskeyapi=FALSE compare avec la table joueurs
         #autre compare avec la table livreurs
 
-        if ($isapikey) {
+        if ($iskeyapi) {
             $req = $bdd->prepare('SELECT mdp_keyapi FROM keyapis WHERE nom_keyapi = :nom');
         } else {
             $req = $bdd->prepare('SELECT mdp_joueur FROM joueurs WHERE pseudo_joueur = :nom');

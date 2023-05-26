@@ -40,11 +40,22 @@ class Keyapis {
         return $keyapis;
     }
 
-    // recupere les info d'une keyapi
+    // recupere les info d'une keyapi avec son id
     public static function getKeyapiById($bdd,$id_keyapi) {
         $req = $bdd->prepare('SELECT * FROM keyapis WHERE id_keyapi = :id_keyapi');
         $req->execute(array(
             'id_keyapi' => $id_keyapi
+        ));
+        $keyapi = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
+        return $keyapi;
+    }
+
+    // recupere les info d'une keyapi avec son nom
+    public static function getKeyapiByNom($bdd,$nom_keyapi) {
+        $req = $bdd->prepare('SELECT * FROM keyapis WHERE nom_keyapi = :nom_keyapi');
+        $req->execute(array(
+            'nom_keyapi' => $nom_keyapi
         ));
         $keyapi = $req->fetch(PDO::FETCH_ASSOC);
 		$req->closeCursor();

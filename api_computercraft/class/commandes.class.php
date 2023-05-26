@@ -121,7 +121,7 @@ class Commandes {
         ));
     }
 
-    // lier une transaction à la commande
+    // lier une transaction a la commande
     public static function setCommandeTransaction($bdd,$id_commande,$id_transaction) {
         $req = $bdd->prepare('UPDATE commandes SET id_transaction = :id_transaction WHERE id_commande = :id_commande');
         $req->execute(array(
@@ -130,18 +130,23 @@ class Commandes {
         ));
     }
 
+    // le suivi n'est a modifier qu'avec une mise a jour du status de la commande
     // modifie le suivi de la commande
     public static function setCommandeSuivi($bdd,$id_commande,$suivi_commande) {
-        $req = $bdd->prepare('UPDATE commandes SET suivi_commande = :suivi_commande WHERE id = :id_commande');
+        // recuperation du suivi de la commande
+        $commande = Commande::getCommandeById($bdd,$id_commande);
+        $suivi_commandep1 = $commande['suivi_commande'];
+        $suivi_commandenext = $suivi_commandep1 . "-br-" . $suivi_commande . "-+-" . date("Y-m-d H:i:s");
+        $req = $bdd->prepare('UPDATE commandes SET suivi_commande = :suivi_commande WHERE id_commande = :id_commande');
         $req->execute(array(
             'id_commande' => $id_commande,
-            'suivi_commande' => $suivi_commande
+            'suivi_commande' => $suivi_commandenext
         ));
     }
 
     // modifie date de livraison de la commande
     public static function setCommandeDateLivraison($bdd,$id_commande,$date_livraison_commande) {
-        $req = $bdd->prepare('UPDATE commandes SET date_livraison_commande = :date_livraison_commande WHERE id = :id_commande');
+        $req = $bdd->prepare('UPDATE commandes SET date_livraison_commande = :date_livraison_commande WHERE id_commande = :id_commande');
         $req->execute(array(
             'id_commande' => $id_commande,
             'date_livraison_commande' => $date_livraison_commande
@@ -150,7 +155,7 @@ class Commandes {
 
     // modifie le code de retrait de la commande
     public static function setCommandeCodeRetrait($bdd,$id_commande,$code_retrait_commande) {
-        $req = $bdd->prepare('UPDATE commandes SET code_retrait_commande = :code_retrait_commande WHERE id = :id_commande');
+        $req = $bdd->prepare('UPDATE commandes SET code_retrait_commande = :code_retrait_commande WHERE id_commande = :id_commande');
         $req->execute(array(
             'id_commande' => $id_commande,
             'code_retrait_commande' => $code_retrait_commande

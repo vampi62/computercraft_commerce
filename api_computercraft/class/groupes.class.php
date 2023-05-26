@@ -238,7 +238,7 @@ class Groupes {
     }
 
     // ajoute une offre au groupe
-    public static function setGroupeOffre($bdd,$id_groupe,$id_offre) {
+    public static function addGroupeOffre($bdd,$id_groupe,$id_offre) {
         $req = $bdd->prepare('INSERT INTO groupes_offres(id_groupe,id_offre) VALUES(:id_groupe,:id_offre)');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -256,7 +256,7 @@ class Groupes {
     }
 
     // ajoute une adresse au groupe
-    public static function setGroupeAdresse($bdd,$id_groupe,$id_adresse) {
+    public static function addGroupeAdresse($bdd,$id_groupe,$id_adresse) {
         $req = $bdd->prepare('INSERT INTO groupes_adresses(id_groupe,id_adresse) VALUES(:id_groupe,:id_adresse)');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -274,7 +274,7 @@ class Groupes {
     }
 
     // ajoute un compte au groupe
-    public static function setGroupeCompte($bdd,$id_groupe,$id_compte) {
+    public static function addGroupeCompte($bdd,$id_groupe,$id_compte) {
         $req = $bdd->prepare('INSERT INTO groupes_comptes(id_groupe,id_compte) VALUES(:id,:id_compte)');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -292,7 +292,7 @@ class Groupes {
     }
 
     // ajoute une keyapi au groupe
-    public static function setGroupeKeyApi($bdd,$id_groupe,$id_keyapi) {
+    public static function addGroupeKeyApi($bdd,$id_groupe,$id_keyapi) {
         $req = $bdd->prepare('INSERT INTO groupes_keyapis(id_groupe,id_keyapi) VALUES(:id,:id_keyapi)');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -310,7 +310,7 @@ class Groupes {
     }
 
     // ajoute un joueur au groupe
-    public static function setGroupeJoueur($bdd,$id_groupe,$id_joueur) {
+    public static function addGroupeJoueur($bdd,$id_groupe,$id_joueur) {
         $req = $bdd->prepare('INSERT INTO groupes_joueurs(id_groupe,id_joueur) VALUES(:id,:id_joueur)');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -328,7 +328,7 @@ class Groupes {
     }
 
     // ajoute un livreur au groupe
-    public static function setGroupeLivreur($bdd,$id_groupe,$id_livreur) {
+    public static function addGroupeLivreur($bdd,$id_groupe,$id_livreur) {
         $req = $bdd->prepare('INSERT INTO groupes_livreurs(id_groupe,id_livreur) VALUES(:id_groupe,:id_livreur)');
         $req->execute(array(
             'id_groupe' => $id_groupe,
@@ -362,7 +362,7 @@ class Groupes {
         ));
     }
 
-    // ajoute un droit à un groupe
+    // ajoute un droit a un groupe
     public static function addGroupeDroits($bdd,$id_groupe,$id_droits) {
         $req = $bdd->prepare('INSERT INTO groupes_droits(id_groupe,id_droits) VALUES(:id_groupe,:id_droits)');
         $req->execute(array(

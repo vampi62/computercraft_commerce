@@ -66,6 +66,7 @@ class Comptes {
         return $compte;
     }
 
+    // le solde ne peut être modifier qu'avec une transaction pour garder une trace des mouvements
     // modifie le solde du compte
     public static function setCompteSolde($bdd,$id_compte,$solde_compte) {
         $req = $bdd->prepare('UPDATE comptes SET solde_compte = :solde_compte WHERE id_compte = :id_compte');
