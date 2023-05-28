@@ -22,7 +22,7 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id'], 'joueur')) {
 if(Joueurs::getJoueurbyPseudo($bddConnection, $_GET['pseudo'])['id_joueur'] != null) {
     return array('status_code' => 404, 'message' => 'Le pseudo est deja pris.');
 }
-if (!preg_match('@[A-Z]@', $_GET['mdp']) || !preg_match('@[a-z]@', $_GET['mdp']) || !preg_match('@[0-9]@', $_GET['mdp']) || strlen($_GET['mdp']) < 8) {
+if (!Checkdroits::CheckPasswordSecu($_GET['newmdp'])) {
     return array('status_code' => 400, 'message' => 'Le mot de passe doit contenir au moins 8 caracteres, une majuscule, une minuscule et un chiffre.');
 }
 if(!filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)) {

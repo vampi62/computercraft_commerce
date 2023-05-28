@@ -16,7 +16,7 @@ class Checkdroits {
 
     // verifie si l'id indiquer est dans la table
     public static function CheckId($bdd, $id, $table) {
-        $req = $bdd->prepare('SELECT id_'.$table.' FROM '.$table.' WHERE id_'.$table.' = :id');
+        $req = $bdd->prepare('SELECT id_'.$table.' FROM '.$table.'s WHERE id_'.$table.' = :id');
         $req->execute(array(
             'id' => $id
         ));
@@ -50,6 +50,20 @@ class Checkdroits {
 			}
 		}
         return false;
+    }
+
+    // verifie si le mot de passe respect les regle de securite
+    public static function CheckPasswordSecu($mdp) {
+        if (strlen($mdp) < 8) {
+            return false;
+        }
+        if (!preg_match("#[0-9]+#", $mdp)) {
+            return false;
+        }
+        if (!preg_match("#[a-zA-Z]+#", $mdp)) {
+            return false;
+        }
+        return true;
     }
 
     // verifie le token du compte 
@@ -95,10 +109,10 @@ class Checkdroits {
                     // -- permet l'action
             # si api et obj sont dans un meme groupe qui permet l'action alors return true
             $req = $bdd->prepare('SELECT * FROM '.$type.'s
-            INNER JOIN groupes_'.$type.' ON '.$type.'s.id_'.$type.' = groupes_'.$type.'.id_'.$type.'
-            INNER JOIN groupes_keyapis    ON groupes_'.$type.'.id_groupe = groupes_keyapis.id_groupe
+            INNER JOIN groupes_'.$type.'s ON '.$type.'s.id_'.$type.' = groupes_'.$type.'s.id_'.$type.'
+            INNER JOIN groupes_keyapis    ON groupes_'.$type.'s.id_groupe = groupes_keyapis.id_groupe
             INNER JOIN keyapis           ON keyapis.id_keyapi = groupes_keyapis.id_keyapi
-            INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_'.$type.'.id_groupe
+            INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_'.$type.'s.id_groupe
             INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
             WHERE '.$type.'s.id_'.$type.' = :idobjet AND droits.nom_droit = :action AND keyapis.id_keyapi = :idnom');
             $req->execute(array(
@@ -133,10 +147,10 @@ class Checkdroits {
             $req->closeCursor();
             # si user et obj sont dans un meme groupe qui permet l'action alors return true
             $req = $bdd->prepare('SELECT * FROM '.$type.'s
-            INNER JOIN groupes_'.$type.' ON '.$type.'s.id_'.$type.' = groupes_'.$type.'.id_'.$type.'
-            INNER JOIN groupes_joueur    ON groupes_'.$type.'.id_groupe = groupes_joueur.id_groupe
+            INNER JOIN groupes_'.$type.'s ON '.$type.'s.id_'.$type.' = groupes_'.$type.'s.id_'.$type.'
+            INNER JOIN groupes_joueur    ON groupes_'.$type.'s.id_groupe = groupes_joueur.id_groupe
             INNER JOIN joueurs           ON joueurs.id_joueur = groupes_joueur.id_joueur
-            INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_'.$type.'.id_groupe
+            INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_'.$type.'s.id_groupe
             INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
             WHERE '.$type.'s.id_'.$type.' = :idobjet AND droits.nom_droit = :action AND joueurs.id_joueur = :idnom');
             $req->execute(array(

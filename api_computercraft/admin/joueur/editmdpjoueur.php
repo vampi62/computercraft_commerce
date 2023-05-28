@@ -19,5 +19,8 @@ if(!Checkdroits::CheckRole($bddConnection, $_GET['useraction'], array('admin')))
 if(!Checkdroits::CheckId($bddConnection, $_GET['id'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
+if (!Checkdroits::CheckPasswordSecu($_GET['newmdp'])) {
+    return array('status_code' => 400, 'message' => 'Le mot de passe doit contenir au moins 8 caracteres, une majuscule, une minuscule et un chiffre.');
+}
 Joueurs::setJoueurMdp($bddConnection, $_GET['id'], $_GET['newmdp']);
 return array('status_code' => 200, 'message' => 'Le mot de passe a bien ete modifie.');

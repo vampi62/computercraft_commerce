@@ -7,10 +7,13 @@ setlocale(LC_TIME, "fr_FR");
 require ('controleur/config.php');
 require ('controleur/connection_base.php');
 if (!$_Serveur_['Install']) {
-	header('Location: installation/');
-}
-if (isset($_GET['action'])) {
-	require ('controleur/action.php');
+	$printmessage = require('installation/index.php');
+} else {
+	if (isset($_GET['action'])) {
+		$printmessage = require('controleur/action.php');
+	} else {
+		$printmessage = array('status_code' => 400, 'message' => 'Action non definie.');
+	}
 }
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json; charset=utf-8');

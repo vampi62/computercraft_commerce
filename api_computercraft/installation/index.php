@@ -9,52 +9,38 @@ require_once('../class/config/yml.class.php');
 require_once('../class/checkdroits.class.php');
 $configLecture = new Lire('../class/config/config.yml');
 $_Serveur_ = $configLecture->GetTableau();
-if (!$_Serveur_['Install']) {
-	if (isset($_Serveur_['DataBase']['dbAdress']) AND isset($_Serveur_['DataBase']['dbName']) AND isset($_Serveur_['DataBase']['dbUser']) AND isset($_Serveur_['DataBase']['dbPassword']) AND isset($_Serveur_['DataBase']['dbPort'])) {
-		if(checkdroits::CheckArgs($_GET,array('pseudo' => false,'mdpconfirm' => false,'mdp' => false,'email' => false))) {
-			if (preg_match('@[A-Z]@', $_GET['mdp']) AND preg_match('@[a-z]@', $_GET['mdp']) AND preg_match('@[0-9]@', $_GET['mdp']) AND strlen($_GET['mdp']) > 8) {
-				if($_GET['mdp'] == $_GET['mdpconfirm']) {
-					if(filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)) {
-						if ((verifyPDO($_Serveur_['DataBase']['dbAdress'],$_Serveur_['DataBase']['dbName'],$_Serveur_['DataBase']['dbUser'],$_Serveur_['DataBase']['dbPassword'],$_Serveur_['DataBase']['dbPort'])) === TRUE) {
-							$sql = getPDO($_Serveur_['DataBase']['dbAdress'],$_Serveur_['DataBase']['dbName'],$_Serveur_['DataBase']['dbUser'],$_Serveur_['DataBase']['dbPassword'],$_Serveur_['DataBase']['dbPort']);
-							$sql->exec(file_get_contents('install.sql'));
-							SetHtpasswd();
-							SetAdmin($sql, $_GET['pseudo'], $_GET['mdp'], $_GET['email']);
-							$_Serveur_['Install'] = true;
-							$ecriture = new Ecrire('../class/config/config.yml', $_Serveur_);
-							// 'installation terminer vous pouvez supprimer le repertoire installation';
-							$printmessage = array('status_code' => 200, 'message' => 'Installation terminee, vous pouvez supprimer le repertoire installation.');
-						} else {
-							// 'identifiant base de donnee incorect';
-							$printmessage = array('status_code' => 500, 'message' => 'Identifiant base de donnee incorrect.');
-						}
-					} else {
-						// 'email invalide';
-						$printmessage = array('status_code' => 400, 'message' => 'Email invalide.');
-					}
-				} else {
-					// "le mot de passe n'est pas identique";
-					$printmessage = array('status_code' => 400, 'message' => 'Le mot de passe n\'est pas identique.');
-				}
-			} else {
-				// 'le mot de passe ne respecte pas les regles de securite';
-				$printmessage = array('status_code' => 400, 'message' => 'Le mot de passe ne respecte pas les regles de securite.');
-			}
-		} else {
-			// 'il manque des parametres';
-			$printmessage = array('status_code' => 400, 'message' => 'Il manque des parametres.');
-		}
-	} else {
-		// 'fichier config incorrect';
-		$printmessage = array('status_code' => 400, 'message' => 'Fichier config incorrect.');
-	}
-} else {
+if ($_Serveur_['Install']) {
 	// 'dejà installer';
-	$printmessage = array('status_code' => 400, 'message' => 'Deja installer.');
+	return array('status_code' => 400, 'message' => 'Deja installer.');
 }
-header('Access-Control-Allow-Origin: *');
-header('Content-Type: application/json; charset=utf-8');
-if (isset($printmessage) && !empty($printmessage)) {
-	http_response_code($printmessage['status_code']);
-	echo json_encode($printmessage);
+if (!isset($_Serveur_['DataBase']['dbAdress']) || !isset($_Serveur_['DataBase']['dbName']) || !isset($_Serveur_['DataBase']['dbUser']) || !isset($_Serveur_['DataBase']['dbPassword']) || !isset($_Serveur_['DataBase']['dbPort'])) {
+	// 'fichier config incorrect';
+	return array('status_code' => 400, 'message' => 'Fichier config incorrect.');
 }
+
+if(!checkdroits::CheckArgs($_GET,array('pseudo' => false,'mdp' => false,'email' => false))) {
+	// 'il manque des parametres';
+	return array('status_code' => 400, 'message' => 'Il manque des parametres.');
+}
+if (!Checkdroits::CheckPasswordSecu($_GET['newmdp'])) {
+	// 'le mot de passe ne respecte pas les regles de securite';
+    return array('status_code' => 400, 'message' => 'Le mot de passe doit contenir au moins 8 caracteres, une majuscule, une minuscule et un chiffre.');
+}
+if(!filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)) {
+	// 'email invalide';
+	return array('status_code' => 400, 'message' => 'Email invalide.');
+}
+
+
+if (!(verifyPDO($_Serveur_['DataBase']['dbAdress'],$_Serveur_['DataBase']['dbName'],$_Serveur_['DataBase']['dbUser'],$_Serveur_['DataBase']['dbPassword'],$_Serveur_['DataBase']['dbPort']))) {
+	// 'identifiant base de donnee incorect';
+	return array('status_code' => 500, 'message' => 'Identifiant base de donnee incorrect.');
+}
+$sql = getPDO($_Serveur_['DataBase']['dbAdress'],$_Serveur_['DataBase']['dbName'],$_Serveur_['DataBase']['dbUser'],$_Serveur_['DataBase']['dbPassword'],$_Serveur_['DataBase']['dbPort']);
+$sql->exec(file_get_contents('install.sql'));
+SetHtpasswd();
+SetAdmin($sql, $_GET['pseudo'], $_GET['mdp'], $_GET['email']);
+$_Serveur_['Install'] = true;
+$ecriture = new Ecrire('../class/config/config.yml', $_Serveur_);
+// 'installation terminer vous pouvez supprimer le repertoire installation';
+return array('status_code' => 200, 'message' => 'Installation terminee, vous pouvez supprimer le repertoire installation.');
