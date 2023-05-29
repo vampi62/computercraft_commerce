@@ -19,4 +19,4 @@ if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) 
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_groupe'], 'groupe')) {
     return array('status_code' => 404, 'message' => 'Le groupe n\'existe pas.');
 }
-return array('status_code' => 200 , 'message' => '', 'data' => Groupe::getJoueursByGroupe($bddConnection, $_GET['id_groupe']));
+return array('status_code' => 200, 'message' => '', 'donnees' => Groupe::getGroupeById($bddConnection, $_GET['id_groupe']));

@@ -4,12 +4,12 @@ require_once('class/keyapis.class.php');
 require_once('class/jetons.class.php');
 require_once('class/checkdroits.class.php');
 
-if(checkdroits::CheckArgs($_GET,array('idkeyapi','mdp'))) {
+if(Checkdroits::CheckArgs($_GET,array('idkeyapi','mdp'))) {
     $_GET['idkeyapi'] = $_GET['idkeyapi'];
     $_GET['mdp'] = $_GET['mdp'];
     $donneesKeyapi = Keyapis::getKeyapi($bddConnection, $_GET['idkeyapi']);
     if(!empty($donneesKeyapi['nom'])) {
-        if(checkdroits::CheckPassword($donneesKeyapi['mdp'], $_GET['mdp'],true)) {
+        if(Checkdroits::CheckPassword($donneesKeyapi['mdp'], $_GET['mdp'],true)) {
             $jetons = Jeton::getJetons($bddConnection);
             if(!empty($jetons)) {
                 $printmessage = array('status_code' => 200, 'message' => 'Les jetons ont ete recupere.', 'data' => $jetons);
@@ -25,13 +25,13 @@ if(checkdroits::CheckArgs($_GET,array('idkeyapi','mdp'))) {
         $printmessage = array('status_code' => 403, 'message' => 'L\'apikey n\'existe pas.');
     }
 }
-elseif(checkdroits::CheckArgs($_GET,array('pseudo','mdp'))) {
+elseif(Checkdroits::CheckArgs($_GET,array('pseudo','mdp'))) {
     $_GET['pseudo'] = $_GET['pseudo'];
     $_GET['mdp'] = $_GET['mdp'];
     $donneesJoueur = Joueurs::getJoueur($bddConnection, $_GET['pseudo']);
     if(!empty($donneesJoueur['pseudo'])) {
-        if(checkdroits::CheckPassword($donneesJoueur['mdp'], $_GET['mdp'])) {
-            if(checkdroits::CheckRole($donneesJoueur['role'], array('terminal'))) {
+        if(Checkdroits::CheckPassword($donneesJoueur['mdp'], $_GET['mdp'])) {
+            if(Checkdroits::CheckRole($donneesJoueur['role'], array('terminal'))) {
                 $jetons = Jeton::getJetons($bddConnection);
                 if(!empty($jetons)) {
                     $printmessage = array('status_code' => 200, 'message' => 'Les jetons ont ete recupere.', 'data' => $jetons);

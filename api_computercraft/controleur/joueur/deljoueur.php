@@ -3,17 +3,17 @@ require_once('class/joueurs.class.php');
 require_once('include/phpmailer/MailSender.php');
 require_once('class/checkdroits.class.php');
 
-if(checkdroits::CheckArgs($_GET,array('pseudo','mdp'))) {
+if(Checkdroits::CheckArgs($_GET,array('pseudo','mdp'))) {
     $_GET['pseudo'] = htmlspecialchars($_GET['pseudo']);
     $_GET['mdp'] = htmlspecialchars($_GET['mdp']);
-    $donneesJoueurPseudo = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
+    $donneesJoueurPseudo = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
     if(!empty($donneesJoueurPseudo['pseudo'])) {
         if(password_verify($_GET['mdp'], $donneesJoueurPseudo['mdp'])) {
-            if(checkdroits::CheckRole($_GET['pseudo'], array('admin'))) {
+            if(Checkdroits::CheckRole($_GET['pseudo'], array('admin'))) {
                 // modif - le compte cible est admin
                 $printmessage = array('status_code' => 403, 'message' => 'Vous ne pouvez pas supprimer votre compte admin.');
             } else {
-                Joueur::delJoueur($bddConnection, $_GET['pseudo']);
+                Joueurs::delJoueur($bddConnection, $_GET['pseudo']);
                 $printmessage = array('status_code' => 200, 'message' => 'Le compte a bien ete supprime.');
             }
         } else {

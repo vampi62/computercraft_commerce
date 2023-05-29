@@ -205,16 +205,16 @@ class Checkdroits {
         return false;
     }
 
-    // verifie le chemin_status de la commande
-    public static function CheckCheminStatus($bdd,$id_status_depart,$id_status_arriver,$type_user) {
-        $req = $bdd->prepare('SELECT * FROM chemin_status WHERE id_status_depart = :id_status_depart AND id_status_arriver = :id_status_arriver');
+    // verifie le chemin_status_commandes de la commande
+    public static function CheckCheminStatusCommande($bdd,$id_status_depart,$id_status_arriver,$type_user) {
+        $req = $bdd->prepare('SELECT * FROM chemin_status_commandes WHERE id_status_depart = :id_status_depart AND id_status_arriver = :id_status_arriver');
         $req->execute(array(
             'id_status_arriver' => $id_status_arriver,
             'id_status_depart' => $id_status_depart
         ));
-        $chemin_status = $req->fetch(PDO::FETCH_ASSOC);
+        $chemin_status_commandes = $req->fetch(PDO::FETCH_ASSOC);
         $req->closeCursor();
-        if ($chemin_status[$type_user] == "1") {
+        if ($chemin_status_commandes[$type_user] == "1") {
             return true;
         } else {
             return false;

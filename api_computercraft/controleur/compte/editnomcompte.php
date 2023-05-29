@@ -3,12 +3,12 @@ require_once('class/joueurs.class.php');
 require_once('class/comptes.class.php');
 require_once('class/checkdroits.class.php');
 
-if(checkdroits::CheckArgs($_GET,array('pseudo','mdp','idcompte','newnom'))) {
+if(Checkdroits::CheckArgs($_GET,array('pseudo','mdp','idcompte','newnom'))) {
     $_GET['pseudo']= htmlspecialchars($_GET['pseudo']);
     $_GET['mdp'] = htmlspecialchars($_GET['mdp']);
     $_GET['idcompte'] = htmlspecialchars($_GET['idcompte']);
     $_GET['newnom'] = htmlspecialchars($_GET['newnom']);
-    $donneesJoueurPseudo = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
+    $donneesJoueurPseudo = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
     if(!empty($donneesJoueurPseudo['pseudo'])) {
         if(password_verify($_GET['mdp'], $donneesJoueurPseudo['mdp'])) {
             if(!empty($_GET['idcompte'])){
@@ -17,7 +17,7 @@ if(checkdroits::CheckArgs($_GET,array('pseudo','mdp','idcompte','newnom'))) {
                     if ($compte["id_joueur"] == $donneesJoueurPseudo["id_joueur"]) { // proprio du compte
                         Comptes::setCompteNom($bddConnection, $_GET['idcompte'], $_GET['newnom']);
                         $printmessage = array('status_code' => 200, 'message' => 'Le compte a bien ete modifie.');
-                    } elseif (checkdroits::CheckPermObj($bddConnection, $_GET['idcompte'], $donneesJoueurPseudo['pseudo'], 'compte', 'setnomcompte')){ // membre d'un groupe avec les droits
+                    } elseif (Checkdroits::CheckPermObj($bddConnection, $_GET['idcompte'], $donneesJoueurPseudo['pseudo'], 'compte', 'setnomcompte')){ // membre d'un groupe avec les droits
                         Comptes::setCompteNom($bddConnection, $_GET['idcompte'], $_GET['newnom']);
                         $printmessage = array('status_code' => 200, 'message' => 'Le compte a bien ete modifie.');
                     } else {

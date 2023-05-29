@@ -39,10 +39,10 @@ CREATE TABLE `adresses` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `chemin_status`
+-- Structure de la table `chemin_status_commandes`
 --
 
-CREATE TABLE `chemin_status` (
+CREATE TABLE `chemin_status_commandes` (
   `id_chemin_status` int(11) NOT NULL,
   `client_chemin_status` tinyint(1) NOT NULL,
   `vendeur_chemin_status` tinyint(1) NOT NULL,
@@ -53,10 +53,10 @@ CREATE TABLE `chemin_status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `chemin_status`
+-- Déchargement des données de la table `chemin_status_commandes`
 --
 
-INSERT INTO `chemin_status` (`id_chemin_status`, `client_chemin_status`, `vendeur_chemin_status`, `livreur_chemin_status`, `admin_chemin_status`, `id_type_status_commande`, `id_type_status_commande_type_status_commandes`) VALUES
+INSERT INTO `chemin_status_commandes` (`id_chemin_status`, `client_chemin_status`, `vendeur_chemin_status`, `livreur_chemin_status`, `admin_chemin_status`, `id_type_status_commande`, `id_type_status_commande_type_status_commandes`) VALUES
 (1, 0, 1, 0, 0, 1, 2),
 (2, 0, 1, 0, 0, 1, 3),
 (3, 0, 0, 0, 1, 3, 4),
@@ -558,9 +558,9 @@ ALTER TABLE `adresses`
   ADD KEY `adresses_type_adresses1_FK` (`id_type_adresse`);
 
 --
--- Index pour la table `chemin_status`
+-- Index pour la table `chemin_status_commandes`
 --
-ALTER TABLE `chemin_status`
+ALTER TABLE `chemin_status_commandes`
   ADD PRIMARY KEY (`id_chemin_status`),
   ADD KEY `chemin_status_type_status_commandes0_FK` (`id_type_status_commande`),
   ADD KEY `chemin_status_type_status_commandes1_FK` (`id_type_status_commande_type_status_commandes`);
@@ -783,9 +783,9 @@ ALTER TABLE `adresses`
   MODIFY `id_adresse` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `chemin_status`
+-- AUTO_INCREMENT pour la table `chemin_status_commandes`
 --
-ALTER TABLE `chemin_status`
+ALTER TABLE `chemin_status_commandes`
   MODIFY `id_chemin_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
@@ -920,9 +920,9 @@ ALTER TABLE `adresses`
   ADD CONSTRAINT `adresses_type_adresses1_FK` FOREIGN KEY (`id_type_adresse`) REFERENCES `type_adresses` (`id_type_adresse`) ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `chemin_status`
+-- Contraintes pour la table `chemin_status_commandes`
 --
-ALTER TABLE `chemin_status`
+ALTER TABLE `chemin_status_commandes`
   ADD CONSTRAINT `chemin_status_type_status_commandes0_FK` FOREIGN KEY (`id_type_status_commande`) REFERENCES `type_status_commandes` (`id_type_status_commande`) ON UPDATE CASCADE,
   ADD CONSTRAINT `chemin_status_type_status_commandes1_FK` FOREIGN KEY (`id_type_status_commande_type_status_commandes`) REFERENCES `type_status_commandes` (`id_type_status_commande`) ON UPDATE CASCADE;
 

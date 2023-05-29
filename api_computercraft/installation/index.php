@@ -17,8 +17,7 @@ if (!isset($_Serveur_['DataBase']['dbAdress']) || !isset($_Serveur_['DataBase'][
 	// 'fichier config incorrect';
 	return array('status_code' => 400, 'message' => 'Fichier config incorrect.');
 }
-
-if(!checkdroits::CheckArgs($_GET,array('pseudo' => false,'mdp' => false,'email' => false))) {
+if(!Checkdroits::CheckArgs($_GET,array('pseudo' => false,'mdp' => false,'email' => false))) {
 	// 'il manque des parametres';
 	return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
@@ -30,8 +29,6 @@ if(!filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)) {
 	// 'email invalide';
 	return array('status_code' => 400, 'message' => 'Email invalide.');
 }
-
-
 if (!(verifyPDO($_Serveur_['DataBase']['dbAdress'],$_Serveur_['DataBase']['dbName'],$_Serveur_['DataBase']['dbUser'],$_Serveur_['DataBase']['dbPassword'],$_Serveur_['DataBase']['dbPort']))) {
 	// 'identifiant base de donnee incorect';
 	return array('status_code' => 500, 'message' => 'Identifiant base de donnee incorrect.');
@@ -42,5 +39,4 @@ SetHtpasswd();
 SetAdmin($sql, $_GET['pseudo'], $_GET['mdp'], $_GET['email']);
 $_Serveur_['Install'] = true;
 $ecriture = new Ecrire('../class/config/config.yml', $_Serveur_);
-// 'installation terminer vous pouvez supprimer le repertoire installation';
-return array('status_code' => 200, 'message' => 'Installation terminee, vous pouvez supprimer le repertoire installation.');
+return array('status_code' => 200, 'message' => 'Installation terminer');

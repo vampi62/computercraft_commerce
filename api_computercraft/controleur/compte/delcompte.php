@@ -3,11 +3,11 @@ require_once('class/joueurs.class.php');
 require_once('class/comptes.class.php');
 require_once('class/checkdroits.class.php');
 
-if(checkdroits::CheckArgs($_GET,array('pseudo','mdp','idcompte'))) {
+if(Checkdroits::CheckArgs($_GET,array('pseudo','mdp','idcompte'))) {
     $_GET['pseudo']= htmlspecialchars($_GET['pseudo']);
     $_GET['mdp'] = htmlspecialchars($_GET['mdp']);
     $_GET['idcompte'] = htmlspecialchars($_GET['idcompte']);
-    $donneesJoueurPseudo = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
+    $donneesJoueurPseudo = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
     if(!empty($donneesJoueurPseudo['pseudo'])) {
         if(password_verify($_GET['mdp'], $donneesJoueurPseudo['mdp'])) {
             if(!empty($_GET['idcompte'])){

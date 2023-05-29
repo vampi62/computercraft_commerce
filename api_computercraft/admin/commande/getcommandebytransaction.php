@@ -1,9 +1,9 @@
 <?php
 require_once('class/joueurs.class.php');
 require_once('class/checkdroits.class.php');
-require_once('class/groupes.class.php');
+require_once('class/commandes.class.php');
 
-if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_groupe' => false))) {
+if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_transaction' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
@@ -16,7 +16,7 @@ if(!Checkdroits::CheckMdp($bddConnection, $_GET['useradmin'], $_GET['mdpadmin'])
 if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) {
     return array('status_code' => 403, 'message' => 'Le compte n\'a pas les droits.');
 }
-if(!Checkdroits::CheckId($bddConnection, $_GET['id_groupe'], 'groupe')) {
-    return array('status_code' => 404, 'message' => 'Le groupe n\'existe pas.');
+if(!Checkdroits::CheckId($bddConnection, $_GET['id_transaction'], 'transaction')) {
+    return array('status_code' => 404, 'message' => 'La transaction n\'existe pas.');
 }
-return array('status_code' => 200 , 'message' => '', 'data' => Groupe::getJoueursByGroupe($bddConnection, $_GET['id_groupe']));
+return array('status_code' => 200, 'message' => '', 'data' => Commandes::getCommandesByTransaction($bddConnection, $_GET['id_transaction']));

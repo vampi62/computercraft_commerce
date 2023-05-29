@@ -3,27 +3,36 @@ require_once('class/joueurs.class.php');
 require_once('class/checkdroits.class.php');
 require_once('class/adresses.class.php');
 
-if(!Checkdroits::CheckArgs($_GET,array('useraction' => false,'mdp' => false, 'id' => false, 'coo' => false, 'nom' => false, 'description' => false, 'type' => false, 'livreur' => true))) {
+if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_joueur' => false, 'coo' => false, 'nom' => false, 'description' => false, 'id_type_adresse' => false, 'id_livreur' => true))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-$donneesJoueurUserAction = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useraction']);
-if(empty($donneesJoueurUserAction['pseudo'])) {
-    return array('status_code' => 404, 'message' => 'Le compte useraction n\'existe pas.');
+$donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
+if(empty($donneesJoueurUserAdmin['pseudo'])) {
+    return array('status_code' => 404, 'message' => 'Le compte useradmin n\'existe pas.');
 }
-if(!Checkdroits::CheckMdp($bddConnection, $_GET['useraction'], $_GET['mdp'])) {
+if(!Checkdroits::CheckMdp($bddConnection, $_GET['useradmin'], $_GET['mdpadmin'])) {
     return array('status_code' => 403, 'message' => 'Le mot de passe est incorrect.');
 }
-if(!Checkdroits::CheckRole($bddConnection, $_GET['useraction'], array('admin'))) {
+if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) {
     return array('status_code' => 403, 'message' => 'Le compte n\'a pas les droits.');
 }
-if(!Checkdroits::CheckId($bddConnection, $_GET['type'], 'type_adresse')) {
+if(!Checkdroits::CheckId($bddConnection, $_GET['id_type_adresse'], 'type_adresse')) {
     return array('status_code' => 404, 'message' => 'Le type n\'existe pas.');
 }
-if(!Checkdroits::CheckId($bddConnection, $_GET['id'], 'joueur')) {
+if(!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
-if (!empty($_GET['livreur']) && !Checkdroits::CheckId($bddConnection, $_GET['livreur'], 'livreur')) {
+if (!empty($_GET['id_livreur']) && !Checkdroits::CheckId($bddConnection, $_GET['id_livreur'], 'livreur')) {
     return array('status_code' => 404, 'message' => 'Le livreur n\'existe pas.');
 }
-Adresses::addAdresse($bddConnection, $_GET['id'], $_GET['coo'], $_GET['nom'], $_GET['description'], $_GET['type'], $_GET['livreur']);
+if (!len($_GET['nom']) <= 50) {
+    return array('status_code' => 400, 'message' => 'Le nom de l\'adresse est trop long.');
+}
+if (!len($_GET['description']) <= 450) {
+    return array('status_code' => 400, 'message' => 'La description est trop longue.');
+}
+if (!len($_GET['coo']) <= 50) {
+    return array('status_code' => 400, 'message' => 'Les coordonnees sont trop longues.');
+}
+Adresses::addAdresse($bddConnection, $_GET['id_joueur'], $_GET['coo'], $_GET['nom'], $_GET['description'], $_GET['id_type_adresse'], $_GET['id_livreur']);
 return array('status_code' => 200, 'message' => 'L\'adresse a bien ete ajoutee.');

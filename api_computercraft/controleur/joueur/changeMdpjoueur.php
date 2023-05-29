@@ -3,16 +3,16 @@ require_once('class/joueurs.class.php');
 require_once('include/phpmailer/MailSender.php');
 require_once('class/checkdroits.class.php');
 
-if(checkdroits::CheckArgs($_GET,array('pseudo','mdp','newmdp','confirmnewmdp'))) {
+if(Checkdroits::CheckArgs($_GET,array('pseudo','mdp','newmdp','confirmnewmdp'))) {
     $_GET['pseudo']= htmlspecialchars($_GET['pseudo']);
     $_GET['mdp'] = htmlspecialchars($_GET['mdp']);
     $_GET['newmdp'] = htmlspecialchars($_GET['newmdp']);
     $_GET['confirmnewmdp'] = htmlspecialchars($_GET['confirmnewmdp']);
-    $donneesJoueurPseudo = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
+    $donneesJoueurPseudo = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
     if(!empty($donneesJoueurPseudo['pseudo'])) {
         if(password_verify($_GET['mdp'], $donneesJoueurPseudo['mdp'])) {
             if ($_GET['newmdp'] == $_GET['confirmnewmdp']) {
-                Joueur::setMdp($bddConnection, $_GET['pseudo'], $_GET['newmdp']);
+                Joueurs::setMdp($bddConnection, $_GET['pseudo'], $_GET['newmdp']);
                 $printmessage = array('status_code' => 200, 'message' => 'Le mot de passe a bien ete modifie.');    
             } else {
                 // modif - le mot de passe n'est pas identique

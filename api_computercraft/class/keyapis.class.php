@@ -74,11 +74,11 @@ class Keyapis {
     }
 
     // change le nom d'une keyapi
-    public static function setKeyapiNom($bdd,$id_keyapi,$nom_keyapi) {
+    public static function setKeyapiNom($bdd,$id_keyapi,$nom_keyapi,$id_joueur) {
         $req = $bdd->prepare('UPDATE keyapis SET nom_keyapi = :nom_keyapi WHERE id_keyapi = :id_keyapi');
         $req->execute(array(
             'id_keyapi' => $id_keyapi,
-            'nom_keyapi' => $nom_keyapi
+            'nom_keyapi' => $id_joueur . "-" . $nom_keyapi,
         ));
         return true;
     }
@@ -123,10 +123,10 @@ class Keyapis {
     }
 
     // creer une keyapi
-    public static function addKeyapi($bdd,$nom_keyapi,$mdp_keyapi,$id_joueur,$pseudo_proprio) {
+    public static function addKeyapi($bdd,$nom_keyapi,$mdp_keyapi,$id_joueur) {
         $req = $bdd->prepare('INSERT INTO keyapis(nom_keyapi,mdp_keyapi,id_joueur) VALUES(:nom_keyapi,:mdp_keyapi,:id_joueur)');
         $req->execute(array(
-            'nom_keyapi' => $pseudo_proprio . "-" . $nom_keyapi,
+            'nom_keyapi' => $id_joueur . "-" . $nom_keyapi,
             'mdp_keyapi' => password_hash($mdp_keyapi, PASSWORD_DEFAULT),
             'id_joueur' => $id_joueur
         ));

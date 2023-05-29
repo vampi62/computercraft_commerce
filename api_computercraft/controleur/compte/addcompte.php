@@ -3,16 +3,16 @@ require_once('class/joueurs.class.php');
 require_once('class/comptes.class.php');
 require_once('class/checkdroits.class.php');
 
-if(checkdroits::CheckArgs($_GET,array('pseudo','mdp','nom','idtype'))) {
+if(Checkdroits::CheckArgs($_GET,array('pseudo','mdp','nom','idtype'))) {
     $_GET['pseudo']= htmlspecialchars($_GET['pseudo']);
     $_GET['mdp'] = htmlspecialchars($_GET['mdp']);
     $_GET['nom'] = htmlspecialchars($_GET['nom']);
     $_GET['idtype'] = htmlspecialchars($_GET['idtype']);
-    $donneesJoueurPseudo = Joueur::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
+    $donneesJoueurPseudo = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['pseudo']);
     if(!empty($donneesJoueurPseudo['pseudo'])) {
         if(password_verify($_GET['mdp'], $donneesJoueurPseudo['mdp'])) {
             if(!empty($_GET['nom'])){
-                if (checkdroits::CheckId($bddConnection,'liste_types_compte',$_GET['idtype'])) {
+                if (Checkdroits::CheckId($bddConnection,'liste_types_compte',$_GET['idtype'])) {
                     Comptes::setCompte($bddConnection, $donneesJoueurPseudo['id_joueur'], $_GET['nom'], $_GET['type']);
                     $printmessage = array('status_code' => 200, 'message' => 'Le compte a bien ete ajoute.');
                 } else {

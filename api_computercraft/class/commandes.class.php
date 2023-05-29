@@ -101,6 +101,17 @@ class Commandes {
         return $commandes;
     }
 
+    // recupere les commandes ayant cette transaction
+    public static function getCommandesByTransaction($bdd,$id_transaction) {
+        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_transaction = :id_transaction');
+        $req->execute(array(
+            'id_transaction' => $id_transaction
+        ));
+        $commandes = $req->fetchAll();
+        $req->closeCursor();
+        return $commandes;
+    }
+
     // recupere la commande
     public static function getCommandeById($bdd,$id_commande) {
         $req = $bdd->prepare('SELECT * FROM commandes WHERE id_commande = :id_commande');
