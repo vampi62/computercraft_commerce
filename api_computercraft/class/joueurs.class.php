@@ -24,7 +24,7 @@ class Joueurs {
 
 	// recupere les infos du joueurs via son id
 	public static function getJoueurbyId($bdd,$id_joueur) {
-		$req = $bdd->prepare('SELECT * FROM vw_joueurs INNER JOIN joueur_roles ON vw_joueurs.id_joueur_role = joueur_roles.id_joueur_role WHERE vw_joueurs.id_joueur = :id_joueur');
+		$req = $bdd->prepare('SELECT * FROM vw_joueurs WHERE id_joueur = :id_joueur');
 		$req->execute(array(
 			'id_joueur' => $id_joueur
 			));
@@ -35,7 +35,7 @@ class Joueurs {
 
 	// recupere les infos du joueurs via son pseudo
 	public static function getJoueurbyPseudo($bdd,$pseudo_joueur) {
-		$req = $bdd->prepare('SELECT * FROM vw_joueurs INNER JOIN joueur_roles ON vw_joueurs.id_joueur_role = joueur_roles.id_joueur_role WHERE vw_joueurs.pseudo_joueur = :pseudo_joueur');
+		$req = $bdd->prepare('SELECT * FROM vw_joueurs WHERE pseudo_joueur = :pseudo_joueur');
 		$req->execute(array(
 			'pseudo_joueur' => $pseudo_joueur
 			));

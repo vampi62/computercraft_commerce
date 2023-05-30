@@ -34,6 +34,12 @@ if (!empty($_GET['id_commande'])) {
         return array('status_code' => 404, 'message' => 'La commande n\'existe pas.');
     }
 }
+if (len($_GET['nom']) > $_Serveur_['General']['MaxLengthChamps']['nom']) {
+    return array('status_code' => 400, 'message' => 'Le nom de la transaction est trop long.');
+}
+if (len($_GET['description']) > $_Serveur_['General']['MaxLengthChamps']['description']) {
+    return array('status_code' => 400, 'message' => 'La description est trop longue.');
+}
 if (!is_numeric($_GET['montant'])) {
     return array('status_code' => 400, 'message' => 'Le montant n\'est pas un nombre.');
 }

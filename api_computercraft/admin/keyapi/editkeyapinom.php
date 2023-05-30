@@ -1,9 +1,9 @@
 <?php
 require_once('class/joueurs.class.php');
 require_once('class/checkdroits.class.php');
-require_once('class/groupes.class.php');
+require_once('class/keyapis.class.php');
 
-if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_groupe' => false, 'id_keyapi' => false))) {
+if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_keyapi' => false, 'nom' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
@@ -16,11 +16,15 @@ if(!Checkdroits::CheckMdp($bddConnection, $_GET['useradmin'], $_GET['mdpadmin'])
 if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) {
     return array('status_code' => 403, 'message' => 'Le compte n\'a pas les droits.');
 }
-if(!Checkdroits::CheckId($bddConnection, $_GET['id_groupe'], 'groupe')) {
-    return array('status_code' => 404, 'message' => 'Le groupe n\'existe pas.');
-}
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_keyapi'], 'keyapi')) {
     return array('status_code' => 404, 'message' => 'La keyapi n\'existe pas.');
 }
-Groupes::deletekeyapi($bddConnection, $_GET['id_groupe'], $_GET['id_keyapi']);
-return array('status_code' => 200, 'message' => 'La keyapi a bien ete supprime du groupe.');
+$idJoueur = Keyapis::getKeyapiById($bddConnection, $_GET['id_keyapi'])['id_joueur'];
+if(Keyapis::getKeyapiByNom($bddConnection,$idJoueur . '-' . $_GET['nom'])['nom_keyapi'] != null) {
+    return array('status_code' => 404, 'message' => 'Le nom de la keyapi existe deja.');
+}
+if (!len($_GET['nom']) <= $_Serveur_['General']['MaxLengthChamps']['nom']) {
+    return array('status_code' => 400, 'message' => 'Le nom de la keyapi est trop long.');
+}
+Keyapis::setKeyapiNom($bddConnection, $_GET['id_keyapi'], $_GET['nom'], $idJoueur);
+return array('status_code' => 200, 'message' => 'Le nom de la keyapi a bien ete modifie.');

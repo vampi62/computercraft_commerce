@@ -1,9 +1,9 @@
 <?php
 require_once('class/joueurs.class.php');
 require_once('class/checkdroits.class.php');
-require_once('class/litigemsgs.class.php');
+require_once('class/commandes.class.php');
 
-if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_commande' => false, 'description' => false, 'id_status_litigemsg' => false))) {
+if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_commande' => false, 'code_retrait' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
@@ -19,11 +19,11 @@ if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) 
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_commande'], 'commande')) {
     return array('status_code' => 404, 'message' => 'La commande n\'existe pas.');
 }
-if(!Checkdroits::CheckId($bddConnection, $_GET['id_status_litigemsg'], 'status_litigemsg')) {
-    return array('status_code' => 404, 'message' => 'Le status n\'existe pas.');
+if(!Checkdroits::CheckPasswordSecu($_GET['code_retrait'])) {
+    return array('status_code' => 400, 'message' => 'Le code de retrait n\'est pas securise.');
 }
-if (!len($_GET['description']) <= $_Serveur_['General']['MaxLengthChamps']['description']) {
-    return array('status_code' => 400, 'message' => 'Le message est trop long.');
+if (!len($_GET['code_retrait']) <= $_Serveur_['General']['MaxLengthChamps']['code_retrait']) {
+    return array('status_code' => 400, 'message' => 'Le code retrait est trop long.');
 }
-LitigeMsgs::addLitigeMsg($bddConnection,$_GET['id_commande'],$_GET['description'],$_GET['id_status_litigemsg']);
-return array('status_code' => 200, 'message' => 'Le message a bien ete ajoute.');
+Commandes::setCommandeCodeRetrait($bddConnection, $_GET['id_commande'], $_GET['code_retrait']);
+return array('status_code' => 200, 'message' => '');

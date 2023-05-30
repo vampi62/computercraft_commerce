@@ -28,14 +28,14 @@ if (!Checkdroits::CheckPasswordSecu($_GET['mdp'])) {
 if(!filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)) {
     return array('status_code' => 400, 'message' => 'L\'adresse mail est invalide.');
 }
-if (!len($_GET['pseudo']) <= 50) {
+if (!len($_GET['pseudo']) <= $_Serveur_['General']['MaxLengthChamps']['pseudo']) {
     return array('status_code' => 400, 'message' => 'Le pseudo est trop long.');
 }
-if (!len($_GET['email']) <= 50) {
+if (!len($_GET['email']) <= $_Serveur_['General']['MaxLengthChamps']['email']) {
     return array('status_code' => 400, 'message' => 'L\'email est trop long.');
 }
 if (empty($nbr_offre) || $nbr_offre < 0) {
-    $nbr_offre = 0;
+    $nbr_offre = $_Serveur_['General']['nbr_offre_defaut'];
 } else {
     if ($nbr_offre > $_Serveur_['General']['nbr_offre_max']) {
         $nbr_offre = $_Serveur_['General']['nbr_offre_max'];

@@ -1,9 +1,9 @@
 <?php
 require_once('class/joueurs.class.php');
 require_once('class/checkdroits.class.php');
-require_once('class/groupes.class.php');
+require_once('class/offres.class.php');
 
-if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_groupe' => false, 'id_offre' => false))) {
+if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_offre' => false, 'description' => true))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
@@ -16,11 +16,11 @@ if(!Checkdroits::CheckMdp($bddConnection, $_GET['useradmin'], $_GET['mdpadmin'])
 if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) {
     return array('status_code' => 403, 'message' => 'Le compte n\'a pas les droits.');
 }
-if(!Checkdroits::CheckId($bddConnection, $_GET['id_groupe'], 'groupe')) {
-    return array('status_code' => 404, 'message' => 'Le groupe n\'existe pas.');
-}
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_offre'], 'offre')) {
     return array('status_code' => 404, 'message' => 'L\'offre n\'existe pas.');
 }
-Groupes::deleteOffre($bddConnection, $_GET['id_groupe'], $_GET['id_offre']);
-return array('status_code' => 200, 'message' => 'L\'offre a bien ete supprime du groupe.');
+if (len($_GET['description']) > $_Serveur_['General']['MaxLengthChamps']['description']) {
+    return array('status_code' => 400, 'message' => 'La description est trop longue.');
+}
+Offres::setOffreDescription($bddConnection, $_GET['id_offre'], $_GET['description']);
+return array('status_code' => 200, 'message' => 'La description de l\'offre a bien ete modifiee.');

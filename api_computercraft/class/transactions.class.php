@@ -37,6 +37,16 @@ class Transactions {
 		$req->closeCursor();
         return $transaction;
     }
+
+    public static function getTransactionsbyCommande($bdd,$id_commande) {
+        $req = $bdd->prepare('SELECT * FROM transactions WHERE id_commande = :id_commande');
+        $req->execute(array(
+            'id_commande' => $id_commande
+        ));
+        $transactions = $req->fetchAll();
+        $req->closeCursor();
+        return $transactions;
+    }
     
     // ajoute une transaction
     public static function addTransaction($bdd,$id_compte_debiteur,$id_compte_crediteur,$id_admin,$somme_compte,$nom,$description,$id_status_transaction,$id_type_transaction,$id_commande) {

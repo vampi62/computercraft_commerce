@@ -22,7 +22,7 @@ if(Checkdroits::CheckArgs($_GET,array('idkeyapi','mdp'))) {
         }
     } else {
         // modif - le compte n'existe pas
-        $printmessage = array('status_code' => 403, 'message' => 'L\'apikey n\'existe pas.');
+        $printmessage = array('status_code' => 403, 'message' => 'L\'keyapi n\'existe pas.');
     }
 }
 elseif(Checkdroits::CheckArgs($_GET,array('pseudo','mdp'))) {

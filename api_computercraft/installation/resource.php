@@ -22,6 +22,7 @@ function SetHtpasswd() {
 	$dir[0] = '../class/.htpasswd';
 	$dir[1] = '../controleur/.htpasswd';
 	$dir[2] = '../admin/.htpasswd';
+	$dir[3] = '../init/.htpasswd';
 	$rand = md5(uniqid(rand(), true));
 	for($i = 0; $i < count($dir); $i++) {
 		$htaccess = fopen($dir[$i], 'r+');

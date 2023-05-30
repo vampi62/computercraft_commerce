@@ -143,11 +143,11 @@ class Commandes {
 
     // le suivi n'est a modifier qu'avec une mise a jour du status de la commande
     // modifie le suivi de la commande
-    public static function setCommandeSuivi($bdd,$id_commande,$suivi_commande) {
+    public static function setCommandeSuivi($bdd,$id_commande,$suivi_commande,$saut_de_ligne) {
         // recuperation du suivi de la commande
         $commande = Commande::getCommandeById($bdd,$id_commande);
         $suivi_commandep1 = $commande['suivi_commande'];
-        $suivi_commandenext = $suivi_commandep1 . "-br-" . $suivi_commande . "-+-" . date("Y-m-d H:i:s");
+        $suivi_commandenext = $suivi_commandep1 . $saut_de_ligne . $suivi_commande . "-+-" . date("Y-m-d H:i:s");
         $req = $bdd->prepare('UPDATE commandes SET suivi_commande = :suivi_commande WHERE id_commande = :id_commande');
         $req->execute(array(
             'id_commande' => $id_commande,

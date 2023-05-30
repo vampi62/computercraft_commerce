@@ -1,9 +1,9 @@
 <?php
 require_once('class/joueurs.class.php');
 require_once('class/checkdroits.class.php');
-require_once('class/joueurs.class.php');
+require_once('class/groupes.class.php');
 
-if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_joueur' => false, 'nbrOffre' => false))) {
+if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_groupe' => false, 'id_livreur' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
@@ -16,11 +16,11 @@ if(!Checkdroits::CheckMdp($bddConnection, $_GET['useradmin'], $_GET['mdpadmin'])
 if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) {
     return array('status_code' => 403, 'message' => 'Le compte n\'a pas les droits.');
 }
-if(!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
-    return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
+if(!Checkdroits::CheckId($bddConnection, $_GET['id_groupe'], 'groupe')) {
+    return array('status_code' => 404, 'message' => 'Le groupe n\'existe pas.');
 }
-if ($_GET['nbrOffre'] < 0) {
-    return array('status_code' => 400, 'message' => 'Le nombre d\'offre ne peut pas être negatif.');
+if(!Checkdroits::CheckId($bddConnection, $_GET['id_livreur'], 'livreur')) {
+    return array('status_code' => 404, 'message' => 'Le livreur n\'existe pas.');
 }
-Joueurs::setJoueurNbrOffre($bddConnection, $_GET['id_joueur'], $_GET['nbrOffre']);
-return array('status_code' => 200, 'message' => 'Le nombre d\'offre a bien ete modifie.');
+Groupes::deleteGroupeLivreur($bddConnection, $_GET['id_groupe'], $_GET['id_livreur']);
+return array('status_code' => 200, 'message' => 'Le livreur a bien ete supprime du groupe.');

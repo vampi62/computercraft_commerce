@@ -26,7 +26,7 @@ if(Checkdroits::CheckArgs($_GET,array('idkeyapi','mdp','jeton1','jeton10','jeton
         }
     } else {
         // modif - le compte n'existe pas
-        $printmessage = array('status_code' => 403, 'message' => 'L\'apikey n\'existe pas.');
+        $printmessage = array('status_code' => 403, 'message' => 'L\'keyapi n\'existe pas.');
     }
 } else {
     // modif - il manque des parametres

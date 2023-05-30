@@ -22,7 +22,7 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
 if(Keyapis::getKeyapiByNom($bddConnection, $_GET['id_joueur'] . '-' . $_GET['nom'])['nom_keyapi'] != null) {
     return array('status_code' => 403, 'message' => 'Le nom de la keyapi est deja utilise.');
 }
-if (!len($_GET['nom']) <= 50) {
+if (!len($_GET['nom']) <= $_Serveur_['General']['MaxLengthChamps']['nom']) {
     return array('status_code' => 400, 'message' => 'Le nom est trop long.');
 }
 if (!Checkdroits::CheckPasswordSecu($_GET['mdp'])) {
