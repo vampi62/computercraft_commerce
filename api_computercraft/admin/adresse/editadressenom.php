@@ -19,7 +19,7 @@ if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) 
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_adresse'], 'adresse')) {
     return array('status_code' => 404, 'message' => 'L\'adresse n\'existe pas.');
 }
-if (!len($_GET['nom']) <= 50) {
+if (len($_GET['nom']) > $_Serveur_['General']['MaxLengthChamps']['nom']) {
     return array('status_code' => 400, 'message' => 'Le nom de l\'adresse est trop long.');
 }
 Adresses::setAdresseNom($bddConnection, $_GET['id_adresse'], $_GET['nom']);

@@ -19,7 +19,7 @@ if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) 
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_adresse'], 'adresse')) {
     return array('status_code' => 404, 'message' => 'L\'adresse n\'existe pas.');
 }
-if (!len($_GET['description']) <= 450) {
+if (len($_GET['description']) > $_Serveur_['General']['MaxLengthChamps']['description']) {
     return array('status_code' => 400, 'message' => 'La description est trop longue.');
 }
 Adresses::setAdresseDescription($bddConnection, $_GET['id_adresse'], $_GET['description']);

@@ -1,5 +1,16 @@
 <?php
 switch(strtolower($_GET['action']))	{
+    //getconfig
+    //getntp
+    case 'getconfig':
+        $printmessage = require('getconfig.php');
+    break;
+    case 'getntp':
+        $printmessage = require('getntp.php');
+    break;
+
+    //addadresse
+    //deleteadresse
     //editadressecoo
     //editadressedescription
     //editadresselivreur
@@ -279,6 +290,7 @@ switch(strtolower($_GET['action']))	{
     //editjoueurpseudo
     //editjoueurrole
     //getjoueurbyid
+    //getjoueurbypseudo
     //getjoueurs
     case 'addjoueur':
         $printmessage = require('joueur/addjoueur.php');
@@ -304,6 +316,9 @@ switch(strtolower($_GET['action']))	{
     case 'getjoueurbyid':
         $printmessage = require('joueur/getjoueurbyid.php');
     break;
+    case 'getjoueurbypseudo':
+        $printmessage = require('joueur/getjoueurbypseudo.php');
+    break;
     case 'getjoueurs':
         $printmessage = require('joueur/getjoueurs.php');
     break;
@@ -315,6 +330,7 @@ switch(strtolower($_GET['action']))	{
     //editkeyapimdp
     //editkeyapinom
     //getkeyapibyid
+    //getkeyapidroitsbyid
     //getkeyapisbyjoueur
     case 'addkeyapi':
         $printmessage = require('keyapi/addkeyapi.php');
@@ -336,6 +352,9 @@ switch(strtolower($_GET['action']))	{
     break;
     case 'getkeyapibyid':
         $printmessage = require('keyapi/getkeyapibyid.php');
+    break;
+    case 'getkeyapidroitsbyid':
+        $printmessage = require('keyapi/getkeyapidroitsbyid.php');
     break;
     case 'getkeyapisbyjoueur':
         $printmessage = require('keyapi/getkeyapisbyjoueur.php');

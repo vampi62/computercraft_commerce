@@ -22,7 +22,7 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id_commande'], 'commande')) {
 if(!Checkdroits::CheckPasswordSecu($_GET['code_retrait'])) {
     return array('status_code' => 400, 'message' => 'Le code de retrait n\'est pas securise.');
 }
-if (!len($_GET['code_retrait']) <= $_Serveur_['General']['MaxLengthChamps']['code_retrait']) {
+if (len($_GET['code_retrait']) > $_Serveur_['General']['MaxLengthChamps']['code_retrait']) {
     return array('status_code' => 400, 'message' => 'Le code retrait est trop long.');
 }
 Commandes::setCommandeCodeRetrait($bddConnection, $_GET['id_commande'], $_GET['code_retrait']);

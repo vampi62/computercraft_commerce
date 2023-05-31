@@ -23,7 +23,7 @@ $idJoueur = Keyapis::getKeyapiById($bddConnection, $_GET['id_keyapi'])['id_joueu
 if(Keyapis::getKeyapiByNom($bddConnection,$idJoueur . '-' . $_GET['nom'])['nom_keyapi'] != null) {
     return array('status_code' => 404, 'message' => 'Le nom de la keyapi existe deja.');
 }
-if (!len($_GET['nom']) <= $_Serveur_['General']['MaxLengthChamps']['nom']) {
+if (len($_GET['nom']) > $_Serveur_['General']['MaxLengthChamps']['nom']) {
     return array('status_code' => 400, 'message' => 'Le nom de la keyapi est trop long.');
 }
 Keyapis::setKeyapiNom($bddConnection, $_GET['id_keyapi'], $_GET['nom'], $idJoueur);

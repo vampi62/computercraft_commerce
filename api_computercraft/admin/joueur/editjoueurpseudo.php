@@ -22,7 +22,7 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
 if (Joueurs::getJoueurbyPseudo($bddConnection, $_GET['pseudo'])['pseudo'] != null) {
     return array('status_code' => 400, 'message' => 'Le pseudo est deja utilise.');
 }
-if (!len($_GET['pseudo']) <= $_Serveur_['General']['MaxLengthChamps']['pseudo']) {
+if (len($_GET['pseudo']) > $_Serveur_['General']['MaxLengthChamps']['pseudo']) {
     return array('status_code' => 400, 'message' => 'Le pseudo est trop long.');
 }
 Joueurs::setJoueurPseudo($bddConnection, $_GET['id_joueur'], $_GET['pseudo']);

@@ -22,7 +22,7 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id_commande'], 'commande')) {
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_status_litigemsg'], 'status_litigemsg')) {
     return array('status_code' => 404, 'message' => 'Le status n\'existe pas.');
 }
-if (!len($_GET['description']) <= $_Serveur_['General']['MaxLengthChamps']['description']) {
+if (len($_GET['description']) > $_Serveur_['General']['MaxLengthChamps']['description']) {
     return array('status_code' => 400, 'message' => 'Le message est trop long.');
 }
 LitigeMsgs::addLitigeMsg($bddConnection,$_GET['id_commande'],$_GET['description'],$_GET['id_status_litigemsg']);
