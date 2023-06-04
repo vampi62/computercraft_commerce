@@ -58,13 +58,13 @@ class Joueurs {
 
 	// creer un nouveau joueur
 	public static function addJoueur($bdd,$pseudo_joueur,$email_joueur,$mdp_joueur,$offre_depart,$id_role=2) {
-		$req = $bdd->prepare('INSERT INTO joueurs(pseudo_joueur, email_joueur, mdp_joueur, last_login_joueur, id_joueur_role, max_offres_joueur) VALUES(:pseudo_joueur, :email_joueur, :mdp_joueur, :last_login_joueur, :id_joueur_role, :max_offres_joueur)');
+		$req = $bdd->prepare('INSERT INTO joueurs(pseudo_joueur, email_joueur, mdp_joueur, last_login_joueur, id_type_role, max_offres_joueur) VALUES(:pseudo_joueur, :email_joueur, :mdp_joueur, :last_login_joueur, :id_type_role, :max_offres_joueur)');
 		$req->execute(array(
 			'pseudo_joueur' => $pseudo_joueur,
 			'email_joueur' => $email_joueur,
 			'mdp_joueur' => password_hash($mdp_joueur, PASSWORD_DEFAULT),
 			'last_login_joueur' => date('Y-m-d H:i:s'),
-			'id_joueur_role' => $id_role,
+			'id_type_role' => $id_role,
 			'max_offres_joueur' => $offre_depart
 			));
 	}
@@ -116,9 +116,9 @@ class Joueurs {
 
 	// change le role du joueur
 	public static function setJoueurRole($bdd,$id_joueur,$role) {
-		$req = $bdd->prepare('UPDATE joueurs SET id_joueur_role = :id_joueur_role WHERE id_joueur = :id_joueur');
+		$req = $bdd->prepare('UPDATE joueurs SET id_type_role = :id_type_role WHERE id_joueur = :id_joueur');
 		$req->execute(array(
-			'id_joueur_role' => $role,
+			'id_type_role' => $role,
 			'id_joueur' => $id_joueur
 		));
 	}

@@ -7,7 +7,7 @@ if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false,
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
-if(empty($donneesJoueurUserAdmin['pseudo'])) {
+if(empty($donneesJoueurUserAdmin['pseudo_joueur'])) {
     return array('status_code' => 404, 'message' => 'Le compte useradmin n\'existe pas.');
 }
 if(!Checkdroits::CheckMdp($bddConnection, $_GET['useradmin'], $_GET['mdpadmin'])) {
@@ -23,7 +23,7 @@ $idJoueur = Keyapis::getKeyapiById($bddConnection, $_GET['id_keyapi'])['id_joueu
 if(Keyapis::getKeyapiByNom($bddConnection,$idJoueur . '-' . $_GET['nom'])['nom_keyapi'] != null) {
     return array('status_code' => 404, 'message' => 'Le nom de la keyapi existe deja.');
 }
-if (len($_GET['nom']) > $_Serveur_['General']['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
     return array('status_code' => 400, 'message' => 'Le nom de la keyapi est trop long.');
 }
 Keyapis::setKeyapiNom($bddConnection, $_GET['id_keyapi'], $_GET['nom'], $idJoueur);

@@ -19,8 +19,6 @@ if (!$_Serveur_['Install']) {
 		$printmessage = array('status_code' => 400, 'message' => 'Action non definie.');
 	}
 }
-header('Access-Control-Allow-Origin: *');
-header('Content-Type: application/json; charset=utf-8');
 if (isset($printmessage) && !empty($printmessage)) {
 	http_response_code($printmessage['status_code']);
 	echo json_encode($printmessage);

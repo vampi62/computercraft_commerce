@@ -7,7 +7,7 @@ if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false,
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
-if(empty($donneesJoueurUserAdmin['pseudo'])) {
+if(empty($donneesJoueurUserAdmin['pseudo_joueur'])) {
     return array('status_code' => 404, 'message' => 'Le compte useradmin n\'existe pas.');
 }
 if(!Checkdroits::CheckMdp($bddConnection, $_GET['useradmin'], $_GET['mdpadmin'])) {
@@ -19,7 +19,7 @@ if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) 
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_compte'], 'compte')) {
     return array('status_code' => 404, 'message' => 'Le compte n\'existe pas.');
 }
-if (len($_GET['nom']) > $_Serveur_['General']['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
     return array('status_code' => 400, 'message' => 'Le nom du compte est trop long.');
 }
 Compte::setCompteNom($bddConnection, $_GET['id_compte'],$_GET['nom']);

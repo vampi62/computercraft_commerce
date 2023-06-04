@@ -7,7 +7,7 @@ if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false,
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
-if(empty($donneesJoueurUserAdmin['pseudo'])) {
+if(empty($donneesJoueurUserAdmin['pseudo_joueur'])) {
     return array('status_code' => 404, 'message' => 'Le compte useradmin n\'existe pas.');
 }
 if(!Checkdroits::CheckMdp($bddConnection, $_GET['useradmin'], $_GET['mdpadmin'])) {
@@ -58,13 +58,13 @@ if($_GET['frait'] <= 0) {
 if(!Checkdroits::CheckPasswordSecu($_GET['code_retrait'])) {
     return array('status_code' => 400, 'message' => 'Le code de retrait n\'est pas securise.');
 }
-if (len($_GET['nom']) > $_Serveur_['General']['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
     return array('status_code' => 400, 'message' => 'Le nom de la commande est trop long.');
 }
-if (len($_GET['description']) > $_Serveur_['General']['MaxLengthChamps']['description']) {
+if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description']) {
     return array('status_code' => 400, 'message' => 'Le nom de la commande est trop long.');
 }
-if (len($_GET['code_retrait']) > $_Serveur_['General']['MaxLengthChamps']['code_retrait']) {
+if (strlen($_GET['code_retrait']) > $_Serveur_['MaxLengthChamps']['code_retrait']) {
     return array('status_code' => 400, 'message' => 'Le code retrait est trop long.');
 }
 Commandes::addCommande($bddConnection,$_GET['nom'],$_GET['quant'],$_GET['prixu'],$_GET['frait'],$_GET['description'],$_GET['code_retrait'],$_GET['id_adresse_vendeur'],$_GET['id_adresse_client'],$_GET['id_offre'],$_GET['id_compte_vendeur'],$_GET['id_compte_client'],$_GET['id_type_status_commande']);

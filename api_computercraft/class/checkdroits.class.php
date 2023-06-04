@@ -1,14 +1,14 @@
 <?php
 class Checkdroits {
     // verifie si le compte a un des role requis
-    public static function CheckRole($bdd, $pseudo, $array_role_requis) {
-        $req = $bdd->prepare('SELECT joueur_roles.* FROM joueur_roles INNER JOIN joueurs ON joueurs.id_joueur_role = joueur_roles.id_joueur_role WHERE joueurs.pseudo = :pseudo');
+    public static function CheckRole($bdd, $pseudo_joueur, $array_role_requis) {
+        $req = $bdd->prepare('SELECT * FROM vw_joueurs WHERE pseudo_joueur = :pseudo_joueur');
         $req->execute(array(
-            'pseudo' => $pseudo
+            'pseudo_joueur' => $pseudo_joueur
         ));
         $login = $req->fetch(PDO::FETCH_ASSOC);
         $req->closeCursor();
-        if (in_array($login['nom_joueur_roles'], $array_role_requis)) {
+        if (in_array($login['nom_type_role'], $array_role_requis)) {
             return true;
         }
         return false;
@@ -29,7 +29,7 @@ class Checkdroits {
     }
 
     // verifie le mot de passe du compte
-    public static function CheckPassword($bdd, $nom, $mdp,$iskeyapi=false) {
+    public static function CheckMdp($bdd, $nom, $mdp,$iskeyapi=false) {
         #si iskeyapi=TRUE compare avec la table api
         #si iskeyapi=FALSE compare avec la table joueurs
         #autre compare avec la table livreurs
@@ -45,7 +45,7 @@ class Checkdroits {
         $login = $req->fetch(PDO::FETCH_ASSOC);
         $req->closeCursor();
 		if(!empty($login)) {
-			if(password_verify($mdp, $login['mdp'])) {
+			if(password_verify($mdp, $login['mdp_joueur'])) {
 				return true;
 			}
 		}
@@ -67,10 +67,10 @@ class Checkdroits {
     }
 
     // verifie le token du compte 
-	public function CheckToken($bdd, $nom, $token) {
-        $req = $bdd->prepare('SELECT resettoken_joueur FROM joueurs WHERE pseudo = :pseudo');
+	public function CheckToken($bdd, $pseudo_joueur, $token) {
+        $req = $bdd->prepare('SELECT resettoken_joueur FROM joueurs WHERE pseudo_joueur = :pseudo_joueur');
         $req->execute(array(
-            'pseudo' => $pseudo
+            'pseudo_joueur' => $pseudo_joueur
         ));
         $reset = $req->fetch(PDO::FETCH_ASSOC);
 		$req->closeCursor();

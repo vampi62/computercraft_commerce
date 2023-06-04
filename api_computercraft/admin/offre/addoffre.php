@@ -7,7 +7,7 @@ if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false,
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
-if(empty($donneesJoueurUserAdmin['pseudo'])) {
+if(empty($donneesJoueurUserAdmin['pseudo_joueur'])) {
     return array('status_code' => 404, 'message' => 'Le compte useradmin n\'existe pas.');
 }
 if(!Checkdroits::CheckMdp($bddConnection, $_GET['useradmin'], $_GET['mdpadmin'])) {
@@ -40,10 +40,10 @@ if($_GET['prix'] < 0) {
 if($_GET['stock'] < 0) {
     return array('status_code' => 400, 'message' => 'Le stock ne peut pas etre negatif.');
 }
-if (len($_GET['nom']) > $_Serveur_['General']['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
     return array('status_code' => 400, 'message' => 'Le nom de l\'offre est trop long.');
 }
-if (len($_GET['description']) > $_Serveur_['General']['MaxLengthChamps']['description']) {
+if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description']) {
     return array('status_code' => 400, 'message' => 'La description est trop longue.');
 }
 Offres::addOffre($bddConnection,$_GET['id_joueur'],$_GET['id_compte'],$_GET['id_adresse'],$_GET['id_type_offre'],$_GET['prix'],$_GET['description'],$_GET['nom'],$_GET['stock']);

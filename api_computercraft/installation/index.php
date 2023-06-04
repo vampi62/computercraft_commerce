@@ -5,9 +5,9 @@ date_default_timezone_set('Europe/Paris');
 setlocale(LC_TIME, "fr_FR");
 
 require_once('resource.php');
-require_once('../class/config/yml.class.php');
-require_once('../class/checkdroits.class.php');
-$configLecture = new Lire('../class/config/config.yml');
+require_once('init/config/yml.class.php');
+require_once('class/checkdroits.class.php');
+$configLecture = new Lire('init/config/config.yml');
 $_Serveur_ = $configLecture->GetTableau();
 if ($_Serveur_['Install']) {
 	// 'dejà installer';
@@ -21,7 +21,7 @@ if(!Checkdroits::CheckArgs($_GET,array('pseudo' => false,'mdp' => false,'email' 
 	// 'il manque des parametres';
 	return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-if (!Checkdroits::CheckPasswordSecu($_GET['newmdp'])) {
+if (!Checkdroits::CheckPasswordSecu($_GET['mdp'])) {
 	// 'le mot de passe ne respecte pas les regles de securite';
     return array('status_code' => 400, 'message' => 'Le mot de passe doit contenir au moins 8 caracteres, une majuscule, une minuscule et un chiffre.');
 }
@@ -34,9 +34,9 @@ if (!(verifyPDO($_Serveur_['DataBase']['dbAdress'],$_Serveur_['DataBase']['dbNam
 	return array('status_code' => 500, 'message' => 'Identifiant base de donnee incorrect.');
 }
 $sql = getPDO($_Serveur_['DataBase']['dbAdress'],$_Serveur_['DataBase']['dbName'],$_Serveur_['DataBase']['dbUser'],$_Serveur_['DataBase']['dbPassword'],$_Serveur_['DataBase']['dbPort']);
-$sql->exec(file_get_contents('install.sql'));
+//$sql->exec(file_get_contents('install.sql'));
 SetHtpasswd();
 SetAdmin($sql, $_GET['pseudo'], $_GET['mdp'], $_GET['email']);
 $_Serveur_['Install'] = true;
-$ecriture = new Ecrire('../class/config/config.yml', $_Serveur_);
+$ecriture = new Ecrire('init/config/config.yml', $_Serveur_);
 return array('status_code' => 200, 'message' => 'Installation terminer');
