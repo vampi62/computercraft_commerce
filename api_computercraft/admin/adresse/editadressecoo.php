@@ -20,7 +20,7 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id_adresse'], 'adresse')) {
     return array('status_code' => 404, 'message' => 'L\'adresse n\'existe pas.');
 }
 if (strlen($_GET['coo']) > $_Serveur_['MaxLengthChamps']['coo']) {
-    return array('status_code' => 400, 'message' => 'Les coordonnees sont trop longues.');
+    return array('status_code' => 413, 'message' => 'Les coordonnees sont trop longues.');
 }
 Adresses::setAdresseCoordonnees($bddConnection, $_GET['id_adresse'], $_GET['coo']);
 return array('status_code' => 200, 'message' => '');

@@ -19,5 +19,8 @@ if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) 
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_groupe'], 'groupe')) {
     return array('status_code' => 404, 'message' => 'Le groupe n\'existe pas.');
 }
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
+    return array('status_code' => 413, 'message' => 'Le nom du groupe est trop long.');
+}
 Groupes::setGroupeNom($bddConnection, $_GET['id_groupe'], $_GET['nom']);
 return array('status_code' => 200, 'message' => '');

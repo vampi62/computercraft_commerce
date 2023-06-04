@@ -23,7 +23,7 @@ if (!empty(Joueurs::getJoueurbyPseudo($bddConnection, $_GET['pseudo'])['pseudo_j
     return array('status_code' => 400, 'message' => 'Le pseudo est deja utilise.');
 }
 if (strlen($_GET['pseudo']) > $_Serveur_['MaxLengthChamps']['pseudo']) {
-    return array('status_code' => 400, 'message' => 'Le pseudo est trop long.');
+    return array('status_code' => 413, 'message' => 'Le pseudo est trop long.');
 }
 Joueurs::setJoueurPseudo($bddConnection, $_GET['id_joueur'], $_GET['pseudo']);
 return array('status_code' => 200, 'message' => 'Le pseudo a bien ete modifie.');

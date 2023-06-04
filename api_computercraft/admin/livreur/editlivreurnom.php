@@ -20,7 +20,7 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id_livreur'], 'livreur')) {
     return array('status_code' => 404, 'message' => 'Le livreur n\'existe pas.');
 }
 if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
-    return array('status_code' => 400, 'message' => 'Le nom du livreur est trop long.');
+    return array('status_code' => 413, 'message' => 'Le nom du livreur est trop long.');
 }
 Livreurs::setLivreurNom($bddConnection, $_GET['id_livreur'], $_GET['nom']);
 return array('status_code' => 200, 'message' => 'Le nom du livreur a bien ete modifie.');

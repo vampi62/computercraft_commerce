@@ -41,10 +41,10 @@ if($_GET['stock'] < 0) {
     return array('status_code' => 400, 'message' => 'Le stock ne peut pas etre negatif.');
 }
 if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
-    return array('status_code' => 400, 'message' => 'Le nom de l\'offre est trop long.');
+    return array('status_code' => 413, 'message' => 'Le nom de l\'offre est trop long.');
 }
 if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description']) {
-    return array('status_code' => 400, 'message' => 'La description est trop longue.');
+    return array('status_code' => 413, 'message' => 'La description est trop longue.');
 }
-Offres::addOffre($bddConnection,$_GET['id_joueur'],$_GET['id_compte'],$_GET['id_adresse'],$_GET['id_type_offre'],$_GET['prix'],$_GET['description'],$_GET['nom'],$_GET['stock']);
-return array('status_code' => 200, 'message' => '');
+$newid = Offres::addOffre($bddConnection,$_GET['id_joueur'],$_GET['id_compte'],$_GET['id_adresse'],$_GET['id_type_offre'],$_GET['prix'],$_GET['description'],$_GET['nom'],$_GET['stock']);
+return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newid));

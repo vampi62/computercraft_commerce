@@ -24,7 +24,7 @@ if(Keyapis::getKeyapiByNom($bddConnection,$idJoueur . '-' . $_GET['nom'])['nom_k
     return array('status_code' => 404, 'message' => 'Le nom de la keyapi existe deja.');
 }
 if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
-    return array('status_code' => 400, 'message' => 'Le nom de la keyapi est trop long.');
+    return array('status_code' => 413, 'message' => 'Le nom de la keyapi est trop long.');
 }
 Keyapis::setKeyapiNom($bddConnection, $_GET['id_keyapi'], $_GET['nom'], $idJoueur);
 return array('status_code' => 200, 'message' => 'Le nom de la keyapi a bien ete modifie.');

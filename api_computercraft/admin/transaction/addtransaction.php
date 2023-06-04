@@ -4,7 +4,7 @@ require_once('class/checkdroits.class.php');
 require_once('class/transactions.class.php');
 require_once('class/comptes.class.php');
 
-if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'idcomptecrediteur' => false, 'idcomptedebiteur' => false, 'montant' => false, 'nom' => false, 'description' => false, 'id_status_transaction' => false, 'id_type_transaction' => false, 'id_commande' => true))) {
+if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_compte_crediteur' => false, 'id_compte_debiteur' => false, 'montant' => false, 'nom' => false, 'description' => false, 'id_status_transaction' => false, 'id_type_transaction' => false, 'id_commande' => true))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
@@ -35,10 +35,10 @@ if (!empty($_GET['id_commande'])) {
     }
 }
 if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
-    return array('status_code' => 400, 'message' => 'Le nom de la transaction est trop long.');
+    return array('status_code' => 413, 'message' => 'Le nom de la transaction est trop long.');
 }
 if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description']) {
-    return array('status_code' => 400, 'message' => 'La description est trop longue.');
+    return array('status_code' => 413, 'message' => 'La description est trop longue.');
 }
 if (!is_numeric($_GET['montant'])) {
     return array('status_code' => 400, 'message' => 'Le montant n\'est pas un nombre.');
@@ -50,7 +50,8 @@ $comptedeb = Comptes::getCompteById($bddConnection,$_GET['id_compte_debiteur']);
 if ($comptedeb['solde'] < $_GET['montant']) {
     return array('status_code' => 400, 'message' => 'Le montant est superieur au solde du compte debiteur.');
 }
-Transactions::addTransaction($bddConnection,$_GET['id_compte_debiteur'],$_GET['id_compte_crediteur'],$donneesJoueurUserAdmin['id_joueur'],$_GET['montant'],$_GET['nom'],$_GET['description'],$_GET['id_status_transaction'],$_GET['id_type_transaction'],$_GET['id_commande']);
+$comptecred = Comptes::getCompteById($bddConnection,$_GET['id_compte_crediteur']);
+$newid = Transactions::addTransaction($bddConnection,$_GET['id_compte_debiteur'],$_GET['id_compte_crediteur'],$donneesJoueurUserAdmin['id_joueur'],$_GET['montant'],$_GET['nom'],$_GET['description'],$_GET['id_status_transaction'],$_GET['id_type_transaction'],$_GET['id_commande']);
 Comptes::setSoldeCompte($bddConnection,$_GET['id_compte_debiteur'],($comptedeb['solde'] - $_GET['montant']));
 Comptes::setSoldeCompte($bddConnection,$_GET['id_compte_crediteur'],($comptecred['solde'] + $_GET['montant']));
-return array('status_code' => 200, 'message' => 'La transaction a bien ete ajoutee.');
+return array('status_code' => 200, 'message' => 'La transaction a bien ete ajoutee.', 'data' => array('id' => $newid));

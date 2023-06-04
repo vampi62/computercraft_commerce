@@ -139,6 +139,7 @@ class Adresses {
             'id_type_adresse' => $id_type_adresse,
             'id_livreur' => $id_livreur
         ));
+        return $bdd->lastInsertId();
     }
 
     // supprime l'adresse

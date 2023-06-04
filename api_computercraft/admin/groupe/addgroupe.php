@@ -20,7 +20,7 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
 if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
-    return array('status_code' => 400, 'message' => 'Le nom du groupe est trop long.');
+    return array('status_code' => 413, 'message' => 'Le nom du groupe est trop long.');
 }
-Groupes::addGroupe($bddConnection, $_GET['nom'], $_GET['id_joueur']);
-return array('status_code' => 200, 'message' => 'Le groupe a bien ete ajoute.');
+$newid = Groupes::addGroupe($bddConnection, $_GET['nom'], $_GET['id_joueur']);
+return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newid));

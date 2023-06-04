@@ -116,6 +116,7 @@ class Livreurs {
             'id_adresse' => $id_adresse,
             'nom_livreur' => $nom_livreur
         ));
+        return $bdd->lastInsertId();
     }
 
     // modifie le compte d'un livreur

@@ -1,4 +1,4 @@
-api http acces via GET
+# api_installation_maintenance
 
 
 ## nom_action (exemple)
@@ -19,7 +19,7 @@ function http_get(action)
 	return textutils.unserialise(source_text)
 end
 
-action="listuserdata&mdp=__mdp__&pseudo=__pseudo__" -- exemple d'action
+action="getjoueurbypseudo&mdp=__mdp__&pseudo=__pseudo__" -- exemple d'action
 list_ou_code_retour = http_get(action)
 print(list_ou_code_retour.status_code())-- =200 si la commande a ete effectuer
 print(list_ou_code_retour.message())
@@ -28,30 +28,19 @@ print(list_ou_code_retour.data())-- n'est retourner que si une action get.. est 
 
 # installation
 
-http://ipserveur/api_computercraft/installation/index.php?
+http://__global_url__:__global_port__/__global_uri__/index.php?
 
 - mdp			:(string) le mot de passe doit faire : plus de 8 caractère - une maj et une minuscule et un chiffre
-- pseudo		:(string) le role de ce compte est d'administer le site via le panel admin (voir section en bas de cette page)
-- mdpconfirm	:(string) doit être identique à __mdp__
+- pseudo		:(string) le role de ce compte est d'administrer le serveur
 - email			:(string) l'email doit etre valide
 
-http://0.0.0.0:9081/api_computercraft/index.php?action=install&mdp=__mdp__&pseudo=__pseudo__&mdpconfirm=__mdpconfirm__&email=__email__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=install&mdp=__mdp__&pseudo=__pseudo__&email=__email__
 
-return (string)
+un code 200 est retourner si l'installation a reussi
 
-# fonctionnement
+# maintenance / mise a jour
 
-http://ipserveur/api_computercraft/index.php?
-
-
-## listntp
-
-http://0.0.0.0:9081/api_computercraft/index.php?action=listntp
-
-return (array)
-
-## listconfig
-
-http://0.0.0.0:9081/api_computercraft/index.php?action=listconfig
-
-return (array)
+sauf indication il suffira de :
+- ! avant faite une sauvegarde de la base de donnée et des fichiers php !
+- remplacer les fichiers php par les nouveaux en prenant soin de ne pas ecraser le fichier config.yml (verifier qu'il n'y a pas de nouvelle variable a ajouter)
+- executer un script sql en cas de changement dans la base de donnée.

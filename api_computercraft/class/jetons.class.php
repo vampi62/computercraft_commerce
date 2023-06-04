@@ -36,6 +36,7 @@ class Jetons {
 			'id_joueur' => $id_joueur,
 			'last_update_jeton' => date("Y-m-d H:i:s")
 		));
+		return $bdd->lastInsertId();
 	}
 
 	// modifier une entre dans la table jeton

@@ -59,13 +59,13 @@ if(!Checkdroits::CheckPasswordSecu($_GET['code_retrait'])) {
     return array('status_code' => 400, 'message' => 'Le code de retrait n\'est pas securise.');
 }
 if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
-    return array('status_code' => 400, 'message' => 'Le nom de la commande est trop long.');
+    return array('status_code' => 413, 'message' => 'Le nom de la commande est trop long.');
 }
 if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description']) {
-    return array('status_code' => 400, 'message' => 'Le nom de la commande est trop long.');
+    return array('status_code' => 413, 'message' => 'Le nom de la commande est trop long.');
 }
 if (strlen($_GET['code_retrait']) > $_Serveur_['MaxLengthChamps']['code_retrait']) {
-    return array('status_code' => 400, 'message' => 'Le code retrait est trop long.');
+    return array('status_code' => 413, 'message' => 'Le code retrait est trop long.');
 }
-Commandes::addCommande($bddConnection,$_GET['nom'],$_GET['quant'],$_GET['prixu'],$_GET['frait'],$_GET['description'],$_GET['code_retrait'],$_GET['id_adresse_vendeur'],$_GET['id_adresse_client'],$_GET['id_offre'],$_GET['id_compte_vendeur'],$_GET['id_compte_client'],$_GET['id_type_status_commande']);
-return array('status_code' => 200, 'message' => '');
+$newid = Commandes::addCommande($bddConnection,$_GET['nom'],$_GET['quant'],$_GET['prixu'],$_GET['frait'],$_GET['description'],$_GET['code_retrait'],$_GET['id_adresse_vendeur'],$_GET['id_adresse_client'],$_GET['id_offre'],$_GET['id_compte_vendeur'],$_GET['id_compte_client'],$_GET['id_type_status_commande']);
+return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newid));

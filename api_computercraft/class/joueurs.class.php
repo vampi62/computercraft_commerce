@@ -50,23 +50,24 @@ class Joueurs {
 		$req->execute(array(
 			'email_joueur' => $email_joueur,
 			'pseudo_joueur' => $pseudo_joueur
-			));
-			$joueurs = $req->fetch(PDO::FETCH_ASSOC);
-			$req->closeCursor();
-			return $joueurs;
+		));
+		$joueurs = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
+		return $joueurs;
 	}
 
 	// creer un nouveau joueur
 	public static function addJoueur($bdd,$pseudo_joueur,$email_joueur,$mdp_joueur,$offre_depart,$id_role=2) {
-		$req = $bdd->prepare('INSERT INTO joueurs(pseudo_joueur, email_joueur, mdp_joueur, last_login_joueur, id_type_role, max_offres_joueur) VALUES(:pseudo_joueur, :email_joueur, :mdp_joueur, :last_login_joueur, :id_type_role, :max_offres_joueur)');
+		$req = $bdd->prepare('INSERT INTO joueurs(pseudo_joueur, email_joueur, mdp_joueur, last_login_joueur, id_joueur_role, max_offres_joueur) VALUES(:pseudo_joueur, :email_joueur, :mdp_joueur, :last_login_joueur, :id_joueur_role, :max_offres_joueur)');
 		$req->execute(array(
 			'pseudo_joueur' => $pseudo_joueur,
 			'email_joueur' => $email_joueur,
 			'mdp_joueur' => password_hash($mdp_joueur, PASSWORD_DEFAULT),
 			'last_login_joueur' => date('Y-m-d H:i:s'),
-			'id_type_role' => $id_role,
+			'id_joueur_role' => $id_role,
 			'max_offres_joueur' => $offre_depart
-			));
+		));
+		return $bdd->lastInsertId();
 	}
 
 	// supprime le joueur
@@ -74,7 +75,7 @@ class Joueurs {
 		$req = $bdd->prepare('DELETE FROM joueurs WHERE id_joueur = :id_joueur');
 		$req->execute(array(
 			'id_joueur' => $id_joueur
-			));
+		));
 	}
 
 	// modifie le pseudo du joueur
@@ -83,7 +84,7 @@ class Joueurs {
 		$req->execute(array(
 			'pseudo_joueur' => $pseudo_joueur,
 			'id_joueur' => $id_joueur
-			));
+		));
 	}
 
 	// modifie le mot de passe du joueur
@@ -92,7 +93,7 @@ class Joueurs {
 		$req->execute(array(
 			'mdp_joueur' => password_hash($mdp_joueur, PASSWORD_DEFAULT),
 			'id_joueur' => $id_joueur
-			));
+		));
 	}
 
 	// modifie l'email
@@ -101,7 +102,7 @@ class Joueurs {
 		$req->execute(array(
 			'email_joueur' => $email_joueur,
 			'id_joueur' => $id_joueur
-			));
+		));
 	}
 
 	// modifie le resettoken du joueur
@@ -111,7 +112,7 @@ class Joueurs {
 			'token_joueur' => $token_joueur,
 			'expire_joueur' => date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' + 1 hour')),
 			'id_joueur' => $id_joueur
-			));
+		));
 	}
 
 	// change le role du joueur
@@ -138,7 +139,7 @@ class Joueurs {
 		$req->execute(array(
 			'last_login_joueur' => date('Y-m-d H:i:s'),
 			'id_joueur' => $id_joueur
-			));
+		));
 	}
 }
 ?>

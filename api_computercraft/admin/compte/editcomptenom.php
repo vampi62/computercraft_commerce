@@ -20,7 +20,7 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id_compte'], 'compte')) {
     return array('status_code' => 404, 'message' => 'Le compte n\'existe pas.');
 }
 if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
-    return array('status_code' => 400, 'message' => 'Le nom du compte est trop long.');
+    return array('status_code' => 413, 'message' => 'Le nom du compte est trop long.');
 }
 Compte::setCompteNom($bddConnection, $_GET['id_compte'],$_GET['nom']);
 return array('status_code' => 200, 'message' => 'Le nom du compte a bien ete modifie.');

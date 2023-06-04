@@ -34,5 +34,5 @@ if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description'])
 if (strlen($_GET['coo']) > $_Serveur_['MaxLengthChamps']['coo']) {
     return array('status_code' => 400, 'message' => 'Les coordonnees sont trop longues.');
 }
-Adresses::addAdresse($bddConnection, $_GET['id_joueur'], $_GET['coo'], $_GET['nom'], $_GET['description'], $_GET['id_type_adresse'], $_GET['id_livreur']);
-return array('status_code' => 200, 'message' => 'L\'adresse a bien ete ajoutee.');
+$newid = Adresses::addAdresse($bddConnection, $_GET['id_joueur'], $_GET['coo'], $_GET['nom'], $_GET['description'], $_GET['id_type_adresse'], $_GET['id_livreur']);
+return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newid));

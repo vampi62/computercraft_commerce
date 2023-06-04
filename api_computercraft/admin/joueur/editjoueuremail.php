@@ -20,7 +20,7 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
 if (strlen($_GET['email']) > $_Serveur_['MaxLengthChamps']['email']) {
-    return array('status_code' => 400, 'message' => 'L\'email est trop long.');
+    return array('status_code' => 413, 'message' => 'L\'email est trop long.');
 }
 Joueurs::setJoueurEmail($bddConnection, $_GET['id_joueur'], $_GET['email']);
 return array('status_code' => 200, 'message' => 'L\'email a bien ete modifie.');

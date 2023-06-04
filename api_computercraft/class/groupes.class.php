@@ -387,5 +387,6 @@ class Groupes {
             'nom' => $nom,
             'id_joueur' => $id_joueur
         ));
+        return $bdd->lastInsertId();
     }
 }

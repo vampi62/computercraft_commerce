@@ -22,5 +22,5 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
 if(Jetons::getJetonByJoueur($bddConnection, $_GET['id_joueur'])['id_joueur'] != null) {
     return array('status_code' => 404, 'message' => 'Le joueur a deja un jeton creer.');
 }
-Jetons::addJeton($bddConnection, $_GET['id_joueur']);
-return array('status_code' => 200, 'message' => 'Le jeton a bien ete ajoute.');
+$newid = Jetons::addJeton($bddConnection, $_GET['id_joueur']);
+return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newid));

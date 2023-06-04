@@ -26,13 +26,13 @@ if (!Checkdroits::CheckPasswordSecu($_GET['mdp'])) {
     return array('status_code' => 400, 'message' => 'Le mot de passe doit contenir au moins 8 caracteres, une majuscule, une minuscule et un chiffre.');
 }
 if(!filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)) {
-    return array('status_code' => 400, 'message' => 'L\'adresse mail est invalide.');
+    return array('status_code' => 413, 'message' => 'L\'adresse mail est invalide.');
 }
 if (strlen($_GET['pseudo']) > $_Serveur_['MaxLengthChamps']['pseudo']) {
-    return array('status_code' => 400, 'message' => 'Le pseudo est trop long.');
+    return array('status_code' => 413, 'message' => 'Le pseudo est trop long.');
 }
 if (strlen($_GET['email']) > $_Serveur_['MaxLengthChamps']['email']) {
-    return array('status_code' => 400, 'message' => 'L\'email est trop long.');
+    return array('status_code' => 413, 'message' => 'L\'email est trop long.');
 }
 if (empty($_GET['nbr_offre']) || $nbr_offre < 0) {
     $_GET['nbr_offre'] = $_Serveur_['General']['nbr_offre_defaut'];
@@ -42,4 +42,4 @@ if (empty($_GET['nbr_offre']) || $nbr_offre < 0) {
     }
 }
 Joueurs::addJoueur($bddConnection, $_GET['pseudo'], $_GET['email'], $_GET['mdp'], $_GET['nbr_offre'], $_GET['id_type_role']);
-return array('status_code' => 200, 'message' => 'Le joueur a bien ete ajoute.');
+return array('status_code' => 200, 'message' => 'Le joueur a bien ete ajoute.');return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newid));

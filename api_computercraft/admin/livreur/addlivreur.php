@@ -26,7 +26,7 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id_adresse'], 'adresse')) {
     return array('status_code' => 404, 'message' => 'L\'adresse n\'existe pas.');
 }
 if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
-    return array('status_code' => 400, 'message' => 'Le nom du livreur est trop long.');
+    return array('status_code' => 413, 'message' => 'Le nom du livreur est trop long.');
 }
-Livreurs::addLivreur($bddConnection, $_GET['id_joueur'], $_GET['id_compte'], $_GET['id_adresse'], $_GET['nom']);
-return array('status_code' => 200, 'message' => 'Le livreur a bien ete ajoute.');
+$newid = Livreurs::addLivreur($bddConnection, $_GET['id_joueur'], $_GET['id_compte'], $_GET['id_adresse'], $_GET['nom']);
+return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newid));

@@ -101,5 +101,6 @@ class Comptes {
             'id_type_compte' => $id_type_compte,
             'nom_compte' => $nom_compte
         ));
+        return $bdd->lastInsertId();
     }
 }

@@ -4,7 +4,6 @@ require_once('include/phpmailer/MailSender.php');
 require_once('class/checkdroits.class.php');
 
 if (Checkdroits::CheckArgs($_GET, array('pseudo', 'token'))) {
-	$_GET['pseudo'] = htmlspecialchars($_GET['pseudo']);
 	$token = urldecode($_GET['token']);
 	$donneesJoueur = Joueurs::getJoueurByToken($bddConnection, $_GET['pseudo'], $token);
 	if(empty($donneesJoueur)) {

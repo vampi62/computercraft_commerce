@@ -23,10 +23,10 @@ if(Keyapis::getKeyapiByNom($bddConnection, $_GET['id_joueur'] . '-' . $_GET['nom
     return array('status_code' => 403, 'message' => 'Le nom de la keyapi est deja utilise.');
 }
 if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
-    return array('status_code' => 400, 'message' => 'Le nom est trop long.');
+    return array('status_code' => 413, 'message' => 'Le nom est trop long.');
 }
 if (!Checkdroits::CheckPasswordSecu($_GET['mdp'])) {
     return array('status_code' => 400, 'message' => 'Le mot de passe doit contenir au moins 8 caracteres, une majuscule, une minuscule et un chiffre.');
 }
-Keyapis::addKeyapi($bddConnection,$_GET['nom'], $_GET['mdp'], $_GET['id_joueur']);
-return array('status_code' => 200, 'message' => '');
+$newid = Keyapis::addKeyapi($bddConnection,$_GET['nom'], $_GET['mdp'], $_GET['id_joueur']);
+return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newid));

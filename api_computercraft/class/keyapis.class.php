@@ -80,7 +80,6 @@ class Keyapis {
             'id_keyapi' => $id_keyapi,
             'nom_keyapi' => $id_joueur . "-" . $nom_keyapi,
         ));
-        return true;
     }
 
     //change le mdp d'une keyapi
@@ -90,7 +89,6 @@ class Keyapis {
             'id_keyapi' => $id_keyapi,
             'mdp_keyapi' => password_hash($mdp_keyapi, PASSWORD_DEFAULT)
         ));
-        return true;
     }
 
     // supprime une keyapi
@@ -99,7 +97,6 @@ class Keyapis {
         $req->execute(array(
             'id_keyapi' => $id_keyapi
         ));
-        return true;
     }
 
     // ajoute un droit a une keyapi
@@ -109,7 +106,6 @@ class Keyapis {
             'id_keyapi' => $id_keyapi,
             'id_droit' => $id_droit
         ));
-        return true;
     }
 
     // supprime un droit d'une keyapi
@@ -119,7 +115,6 @@ class Keyapis {
             'id_keyapi' => $id_keyapi,
             'id_droit' => $id_droit
         ));
-        return true;
     }
 
     // creer une keyapi
@@ -130,6 +125,6 @@ class Keyapis {
             'mdp_keyapi' => password_hash($mdp_keyapi, PASSWORD_DEFAULT),
             'id_joueur' => $id_joueur
         ));
-        return true;
+        return $bdd->lastInsertId();
     }
 }
