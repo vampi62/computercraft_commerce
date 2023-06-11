@@ -9,7 +9,7 @@
 // set commande/{id}/transaction/{id}/add
 // set commande/{id}/suivi
 // set commande/{id}/date_livraison
-// set commande/{id}/code_retrait
+// set commande/{id}/code_retrait_commande
 // set commande/add
 
 class Commandes {
@@ -19,7 +19,7 @@ class Commandes {
         $req->execute(array(
             'id_compte' => $id_compte
         ));
-        $commandes = $req->fetchAll();
+        $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $commandes;
     }
@@ -30,7 +30,7 @@ class Commandes {
         $req->execute(array(
             'id_adresse' => $id_adresse
         ));
-        $commandes = $req->fetchAll();
+        $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $commandes;
     }
@@ -41,7 +41,7 @@ class Commandes {
         $req->execute(array(
             'id_compte_vendeur' => $id_compte_vendeur
         ));
-        $commandes = $req->fetchAll();
+        $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $commandes;
     }
@@ -52,7 +52,7 @@ class Commandes {
         $req->execute(array(
             'id_compte_client' => $id_compte_client
         ));
-        $commandes = $req->fetchAll();
+        $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $commandes;
     }
@@ -63,7 +63,7 @@ class Commandes {
         $req->execute(array(
             'id_adresse_vendeur' => $id_adresse_vendeur
         ));
-        $commandes = $req->fetchAll();
+        $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $commandes;
     }
@@ -74,7 +74,7 @@ class Commandes {
         $req->execute(array(
             'id_adresse_client' => $id_adresse_client
         ));
-        $commandes = $req->fetchAll();
+        $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $commandes;
     }
@@ -85,7 +85,7 @@ class Commandes {
         $req->execute(array(
             'id_livreur' => $id_livreur
         ));
-        $commandes = $req->fetchAll();
+        $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $commandes;
     }
@@ -96,7 +96,7 @@ class Commandes {
         $req->execute(array(
             'id_offre' => $id_offre
         ));
-        $commandes = $req->fetchAll();
+        $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $commandes;
     }
@@ -107,7 +107,7 @@ class Commandes {
         $req->execute(array(
             'id_transaction' => $id_transaction
         ));
-        $commandes = $req->fetchAll();
+        $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $commandes;
     }
@@ -145,9 +145,9 @@ class Commandes {
     // modifie le suivi de la commande
     public static function setCommandeSuivi($bdd,$id_commande,$suivi_commande,$saut_de_ligne) {
         // recuperation du suivi de la commande
-        $commande = Commande::getCommandeById($bdd,$id_commande);
+        $commande = Commandes::getCommandeById($bdd,$id_commande);
         $suivi_commandep1 = $commande['suivi_commande'];
-        $suivi_commandenext = $suivi_commandep1 . $saut_de_ligne . $suivi_commande . "-+-" . date("Y-m-d H:i:s");
+        $suivi_commandenext = $suivi_commandep1 . $suivi_commande . "-+-" . date("Y-m-d H:i:s") . $saut_de_ligne;
         $req = $bdd->prepare('UPDATE commandes SET suivi_commande = :suivi_commande WHERE id_commande = :id_commande');
         $req->execute(array(
             'id_commande' => $id_commande,
@@ -173,9 +173,18 @@ class Commandes {
         ));
     }
 
+    // modifile l'id du livreur de la commande
+    public static function setCommandeLivreur($bdd,$id_commande,$id_livreur) {
+        $req = $bdd->prepare('UPDATE commandes SET id_livreur = :id_livreur WHERE id_commande = :id_commande');
+        $req->execute(array(
+            'id_commande' => $id_commande,
+            'id_livreur' => $id_livreur
+        ));
+    }
+
     // ajoute une commande
-    public static function addCommande($bdd,$nom_produit_commande,$quantite_commande,$prix_unitaire_commande,$frait_livraison_commande,$description_commande,$code_retrait_commande,$id_adresse_vendeur,$id_adresse_client,$id_offre,$id_compte_vendeur,$id_compte_client,$id_types_status_commande) {
-        $req = $bdd->prepare('INSERT INTO commandes(nom_produit_commande,quantite_commande,prix_unitaire_commande,frait_livraison_commande,description_commande,suivi_commande,date_commande,code_retrait_commande,id_adresse_vendeur,id_adresse_client,id_offre,id_compte_vendeur,id_compte_client,id_types_status_commande) VALUES(:nom_produit_commande,:quantite_commande,:prix_unitaire_commande,:frait_livraison_commande,:description_commande,:suivi_commande,:date_commande,:code_retrait_commande,:id_adresse_vendeur,:id_adresse_client,:id_offre,:id_compte_vendeur,:id_compte_client,:id_types_status_commande)');
+    public static function addCommande($bdd,$nom_produit_commande,$quantite_commande,$prix_unitaire_commande,$frait_livraison_commande,$description_commande,$code_retrait_commande,$id_adresse_vendeur,$id_adresse_client,$id_offre,$id_compte_vendeur,$id_compte_client) {
+        $req = $bdd->prepare('INSERT INTO commandes(nom_produit_commande,quantite_commande,prix_unitaire_commande,frait_livraison_commande,description_commande,suivi_commande,date_commande_commande,code_retrait_commande,id_adresse_vendeur,id_adresse_client,id_offre,id_compte_vendeur,id_compte_client,id_type_status_commande) VALUES(:nom_produit_commande,:quantite_commande,:prix_unitaire_commande,:frait_livraison_commande,:description_commande,:suivi_commande,:date_commande_commande,:code_retrait_commande,:id_adresse_vendeur,:id_adresse_client,:id_offre,:id_compte_vendeur,:id_compte_client,1)');
         $req->execute(array(
             'nom_produit_commande' => $nom_produit_commande,
             'quantite_commande' => $quantite_commande,
@@ -189,9 +198,20 @@ class Commandes {
             'id_adresse_client' => $id_adresse_client,
             'id_offre' => $id_offre,
             'id_compte_vendeur' => $id_compte_vendeur,
-            'id_compte_client' => $id_compte_client,
-            'id_types_status_commande' => $id_types_status_commande
+            'id_compte_client' => $id_compte_client
         ));
         return $bdd->lastInsertId();
+    }
+
+    // on recupere les chemins possible dans la table chemin_status_commandes
+    public static function getCheminStatusCommande($bdd,$id_type_status_commande_debut,$id_type_status_commande_suite) {
+        $req = $bdd->prepare('SELECT * FROM chemin_status_commandes WHERE id_type_status_commande_debut = :id_type_status_commande_debut AND id_type_status_commande_suite = :id_type_status_commande_suite');
+        $req->execute(array(
+            'id_types_statusid_type_status_commande_debut_commande' => $id_type_status_commande_debut,
+            'id_type_status_commande_suite' => $id_type_status_commande_suite
+        ));
+        $chemin_status_commande = $req->fetchall(PDO::FETCH_ASSOC);
+        $req->closeCursor();
+        return $chemin_status_commande;
     }
 }

@@ -24,25 +24,25 @@ class Keyapis {
             'id_joueur' => $id_joueur,
             'nom_droit' => "getkeyapis"
         ));
-        $keyapis = $req->fetchAll();
+        $keyapis = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $keyapis;
     }
 
     // recupere les keyapis d'un joueur
     public static function getKeyApisByJoueur($bdd,$id_joueur) {
-        $req = $bdd->prepare('SELECT * FROM keyapis WHERE id_joueur = :id_joueur');
+        $req = $bdd->prepare('SELECT keyapis.*,joueurs.pseudo_joueur FROM keyapis INNER JOIN joueurs ON keyapis.id_joueur = joueurs.id_joueur WHERE keyapis.id_joueur = :id_joueur');
         $req->execute(array(
             'id_joueur' => $id_joueur
         ));
-        $keyapis = $req->fetchAll();
+        $keyapis = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $keyapis;
     }
 
     // recupere les info d'une keyapi avec son id
     public static function getKeyapiById($bdd,$id_keyapi) {
-        $req = $bdd->prepare('SELECT * FROM keyapis WHERE id_keyapi = :id_keyapi');
+        $req = $bdd->prepare('SELECT keyapis.*,joueurs.pseudo_joueur FROM keyapis INNER JOIN joueurs ON keyapis.id_joueur = joueurs.id_joueur WHERE keyapis.id_keyapi = :id_keyapi');
         $req->execute(array(
             'id_keyapi' => $id_keyapi
         ));
@@ -53,7 +53,7 @@ class Keyapis {
 
     // recupere les info d'une keyapi avec son nom
     public static function getKeyapiByNom($bdd,$nom_keyapi) {
-        $req = $bdd->prepare('SELECT * FROM keyapis WHERE nom_keyapi = :nom_keyapi');
+        $req = $bdd->prepare('SELECT keyapis.*,joueurs.pseudo_joueur FROM keyapis INNER JOIN joueurs ON keyapis.id_joueur = joueurs.id_joueur WHERE keyapis.nom_keyapi = :nom_keyapi');
         $req->execute(array(
             'nom_keyapi' => $nom_keyapi
         ));
@@ -64,11 +64,11 @@ class Keyapis {
 
     // recupere les droits d'une keyapi
     public static function getDroitsByKeyApi($bdd,$id_keyapi) {
-        $req = $bdd->prepare('SELECT * FROM liste_droits INNER JOIN keyapis_droits ON liste_droits.id_droit = keyapis_droits.id_droit WHERE id_keyapi = :id_keyapi');
+        $req = $bdd->prepare('SELECT * FROM liste_droits INNER JOIN keyapis_droits ON liste_droits.id_droit = keyapis_droits.id_droit WHERE keyapis_droits.id_keyapi = :id_keyapi');
         $req->execute(array(
             'id_keyapi' => $id_keyapi
         ));
-        $droits = $req->fetchAll();
+        $droits = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $droits;
     }
@@ -87,7 +87,7 @@ class Keyapis {
         $req = $bdd->prepare('UPDATE keyapis SET mdp_keyapi = :mdp_keyapi WHERE id_keyapi = :id_keyapi');
         $req->execute(array(
             'id_keyapi' => $id_keyapi,
-            'mdp_keyapi' => password_hash($mdp_keyapi, PASSWORD_DEFAULT)
+            'mdp_keyapi' => $mdp_keyapi
         ));
     }
 
@@ -122,7 +122,7 @@ class Keyapis {
         $req = $bdd->prepare('INSERT INTO keyapis(nom_keyapi,mdp_keyapi,id_joueur) VALUES(:nom_keyapi,:mdp_keyapi,:id_joueur)');
         $req->execute(array(
             'nom_keyapi' => $id_joueur . "-" . $nom_keyapi,
-            'mdp_keyapi' => password_hash($mdp_keyapi, PASSWORD_DEFAULT),
+            'mdp_keyapi' => $mdp_keyapi,
             'id_joueur' => $id_joueur
         ));
         return $bdd->lastInsertId();

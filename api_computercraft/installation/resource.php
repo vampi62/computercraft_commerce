@@ -31,7 +31,6 @@ function SetHtpasswd() {
 	}
 }
 function SetAdmin($bdd, $pseudo_joueur, $mdp_joueur, $email_joueur) {
-	echo "install";
 	$req = $bdd->prepare('INSERT INTO joueurs(pseudo_joueur, mdp_joueur, email_joueur, last_login_joueur, id_type_role, max_offres_joueur) VALUES(:pseudo_joueur, :mdp_joueur, :email_joueur, :last_login_joueur, 2, 0)');
 	$req->execute(array(
 		'pseudo_joueur' => $pseudo_joueur,

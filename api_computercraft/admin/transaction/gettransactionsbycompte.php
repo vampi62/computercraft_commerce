@@ -19,4 +19,4 @@ if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) 
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_compte'], 'compte')) {
     return array('status_code' => 404, 'message' => 'Le compte n\'existe pas.');
 }
-return array('status_code' => 200, 'message' => '', 'data' => Transaction::getTransactionsbyCompte($bddConnection, $_GET['id_compte']));
+return array('status_code' => 200, 'message' => '', 'data' => Transactions::getTransactionsByCompte($bddConnection, $_GET['id_compte']));

@@ -3,7 +3,7 @@ require_once('class/joueurs.class.php');
 require_once('class/checkdroits.class.php');
 require_once('class/transactions.class.php');
 
-if(!Checkdroits::CheckArgsss($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_transaction' => false))) {
+if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_transaction' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
@@ -19,4 +19,4 @@ if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) 
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_transaction'], 'transaction')) {
     return array('status_code' => 404, 'message' => 'La transaction n\'existe pas.');
 }
-return array('status_code' => 200, 'message' => '', 'data' => Transaction::getTransactionById($bddConnection, $_GET['id_transaction']));
+return array('status_code' => 200, 'message' => '', 'data' => Transactions::getTransactionById($bddConnection, $_GET['id_transaction']));

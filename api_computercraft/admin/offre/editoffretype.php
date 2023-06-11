@@ -23,3 +23,4 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id_type_offre'], 'type_offre')) 
     return array('status_code' => 404, 'message' => 'Le type n\'existe pas.');
 }
 Offres::setOffreType($bddConnection, $_GET['id_offre'], $_GET['id_type_offre']);
+return array('status_code' => 200, 'message' => 'Le type de l\'offre a bien ete modifie.');

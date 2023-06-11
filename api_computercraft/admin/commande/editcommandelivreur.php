@@ -3,7 +3,7 @@ require_once('class/joueurs.class.php');
 require_once('class/checkdroits.class.php');
 require_once('class/commandes.class.php');
 
-if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_commande' => false, 'id_transaction' => true))) {
+if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_commande' => false, 'id_livreur' => true))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
@@ -19,11 +19,13 @@ if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) 
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_commande'], 'commande')) {
     return array('status_code' => 404, 'message' => 'La commande n\'existe pas.');
 }
-if(!empty($_GET['id_transaction']) && !Checkdroits::CheckId($bddConnection, $_GET['id_transaction'], 'transaction')) {
-    return array('status_code' => 404, 'message' => 'La transaction n\'existe pas.');
+if(!empty($_GET['id_livreur']) && !Checkdroits::CheckId($bddConnection, $_GET['id_livreur'], 'livreur')) {
+    return array('status_code' => 404, 'message' => 'Le livreur n\'existe pas.');
 }
-if (empty($_GET['id_transaction'])) {
-    $_GET['id_transaction'] = null;
+if (empty($_GET['id_livreur'])) {
+    $_GET['id_livreur'] = null;
 }
-Commandes::setCommandeTransaction($bddConnection, $_GET['id_commande'], $_GET['id_transaction']);
+$suivi = $donneesJoueurUserAdmin['pseudo_joueur'].' a changer le livreur : '. $_GET['id_livreur'] . ' via panel admin.';
+Commandes::setCommandeSuivi($bddConnection, $_GET['id_commande'], $suivi, $_Serveur_['General']['case_ligne_suite']);
+Commandes::setCommandeLivreur($bddConnection, $_GET['id_commande'], $_GET['id_livreur']);
 return array('status_code' => 200, 'message' => '');

@@ -36,7 +36,7 @@ class Keypay {
         $req->execute(array(
             'id_offre' => $id_offre
         ));
-        $keypay = $req->fetchAll();
+        $keypay = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $keypay;
     }

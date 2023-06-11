@@ -17,7 +17,7 @@ class Joueurs {
 	public static function getJoueurs($bdd) {
 		$req = $bdd->prepare('SELECT * FROM vw_joueurs');
 		$req->execute();
-		$joueurs = $req->fetchAll();
+		$joueurs = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
 		return $joueurs;
 	}
@@ -57,14 +57,14 @@ class Joueurs {
 	}
 
 	// creer un nouveau joueur
-	public static function addJoueur($bdd,$pseudo_joueur,$email_joueur,$mdp_joueur,$offre_depart,$id_role=2) {
-		$req = $bdd->prepare('INSERT INTO joueurs(pseudo_joueur, email_joueur, mdp_joueur, last_login_joueur, id_joueur_role, max_offres_joueur) VALUES(:pseudo_joueur, :email_joueur, :mdp_joueur, :last_login_joueur, :id_joueur_role, :max_offres_joueur)');
+	public static function addJoueur($bdd,$pseudo_joueur,$email_joueur,$mdp_joueur,$offre_depart,$id_type_role=2) {
+		$req = $bdd->prepare('INSERT INTO joueurs(pseudo_joueur, email_joueur, mdp_joueur, last_login_joueur, id_type_role, max_offres_joueur) VALUES(:pseudo_joueur, :email_joueur, :mdp_joueur, :last_login_joueur, :id_type_role, :max_offres_joueur)');
 		$req->execute(array(
 			'pseudo_joueur' => $pseudo_joueur,
 			'email_joueur' => $email_joueur,
 			'mdp_joueur' => password_hash($mdp_joueur, PASSWORD_DEFAULT),
 			'last_login_joueur' => date('Y-m-d H:i:s'),
-			'id_joueur_role' => $id_role,
+			'id_type_role' => $id_type_role,
 			'max_offres_joueur' => $offre_depart
 		));
 		return $bdd->lastInsertId();

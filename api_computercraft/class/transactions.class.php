@@ -11,7 +11,7 @@ class Transactions {
         $req->execute(array(
             'id_compte' => $id_compte
         ));
-        $transactions = $req->fetchAll();
+        $transactions = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $transactions;
     }
@@ -22,13 +22,13 @@ class Transactions {
         $req->execute(array(
             'id_admin' => $id_admin
         ));
-        $transactions = $req->fetchAll();
+        $transactions = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $transactions;
     }
 
     // recupere la transaction
-    public static function getTransaction($bdd,$id_transaction) {
+    public static function getTransactionById($bdd,$id_transaction) {
         $req = $bdd->prepare('SELECT * FROM transactions WHERE id_transaction = :id_transaction');
         $req->execute(array(
             'id_transaction' => $id_transaction
@@ -38,28 +38,28 @@ class Transactions {
         return $transaction;
     }
 
-    public static function getTransactionsbyCommande($bdd,$id_commande) {
+    public static function getTransactionsByCommande($bdd,$id_commande) {
         $req = $bdd->prepare('SELECT * FROM transactions WHERE id_commande = :id_commande');
         $req->execute(array(
             'id_commande' => $id_commande
         ));
-        $transactions = $req->fetchAll();
+        $transactions = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $transactions;
     }
     
     // ajoute une transaction
-    public static function addTransaction($bdd,$id_compte_debiteur,$id_compte_crediteur,$id_admin,$somme_compte,$nom,$description,$id_status_transaction,$id_type_transaction,$id_commande) {
-        $req = $bdd->prepare('INSERT INTO transactions(id_compte_debiteur,id_compte_crediteur,id_admin,somme_compte,date_compte,nom_compte,description_compte,id_status_transaction,id_type_transaction,id_commande) VALUES(:id_compte_debiteur,:id_compte_crediteur,:id_admin,:somme,:date_compte,:nom_compte,:description_compte,:id_status_transaction,:id_type_transaction,:id_commande)');
+    public static function addTransaction($bdd,$id_compte_debiteur,$id_compte_crediteur,$id_admin,$somme_transaction,$nom_transaction,$description_transaction,$id_type_status_transaction,$id_type_transaction,$id_commande) {
+        $req = $bdd->prepare('INSERT INTO transactions(id_compte_debiteur,id_compte_crediteur,id_admin,somme_transaction,date_transaction,nom_transaction,description_transaction,id_type_status_transaction,id_type_transaction,id_commande) VALUES(:id_compte_debiteur,:id_compte_crediteur,:id_admin,:somme_transaction,:date_transaction,:nom_transaction,:description_transaction,:id_type_status_transaction,:id_type_transaction,:id_commande)');
         $req->execute(array(
             'id_compte_debiteur' => $id_compte_debiteur,
             'id_compte_crediteur' => $id_compte_crediteur,
             'id_admin' => $id_admin,
-            'somme_compte' => $somme_compte,
-            'date_compte' => date("Y-m-d H:i:s"),
-            'nom_compte' => $nom_compte,
-            'description_compte' => $description_compte,
-            'id_status_transaction' => $id_status_transaction,
+            'somme_transaction' => $somme_transaction,
+            'date_transaction' => date("Y-m-d H:i:s"),
+            'nom_transaction' => $nom_transaction,
+            'description_transaction' => $description_transaction,
+            'id_type_status_transaction' => $id_type_status_transaction,
             'id_type_transaction' => $id_type_transaction,
             'id_commande' => $id_commande
         ));

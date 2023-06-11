@@ -19,5 +19,8 @@ if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) 
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
+if($_GET['id_joueur'] == $donneesJoueurUserAdmin['id_joueur']) {
+    return array('status_code' => 403, 'message' => 'Vous ne pouvez pas supprimer votre compte.');
+}
 Joueurs::deleteJoueur($bddConnection, $_GET['id_joueur']);
 return array('status_code' => 200, 'message' => 'Le joueur a bien ete supprime.');

@@ -11,7 +11,7 @@ class LitigeMsgs {
         $req->execute(array(
             'id_commande' => $id_commande
         ));
-        $litiges = $req->fetchAll();
+        $litiges = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $litiges;
     }

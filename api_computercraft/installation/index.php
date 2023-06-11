@@ -34,7 +34,7 @@ if (!(verifyPDO($_Serveur_['DataBase']['dbAdress'],$_Serveur_['DataBase']['dbNam
 	return array('status_code' => 500, 'message' => 'Identifiant base de donnee incorrect.');
 }
 $sql = getPDO($_Serveur_['DataBase']['dbAdress'],$_Serveur_['DataBase']['dbName'],$_Serveur_['DataBase']['dbUser'],$_Serveur_['DataBase']['dbPassword'],$_Serveur_['DataBase']['dbPort']);
-//$sql->exec(file_get_contents('install.sql'));
+$sql->exec(file_get_contents('install.sql'));
 SetHtpasswd();
 SetAdmin($sql, $_GET['pseudo'], $_GET['mdp'], $_GET['email']);
 $_Serveur_['Install'] = true;

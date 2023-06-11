@@ -16,7 +16,7 @@ if(!Checkdroits::CheckMdp($bddConnection, $_GET['useradmin'], $_GET['mdpadmin'])
 if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) {
     return array('status_code' => 403, 'message' => 'Le compte n\'a pas les droits.');
 }
-if(!empty(Joueurs::getJoueurbyPseudo($bddConnection, $_GET['pseudo'])['pseudo_joueur'])) {
+if(!empty(Joueurs::getJoueurbyPseudo($bddConnection, $_GET['pseudo']))) {
     return array('status_code' => 404, 'message' => 'Le pseudo est deja pris.');
 }
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_type_role'], 'type_role')) {
@@ -34,12 +34,16 @@ if (strlen($_GET['pseudo']) > $_Serveur_['MaxLengthChamps']['pseudo']) {
 if (strlen($_GET['email']) > $_Serveur_['MaxLengthChamps']['email']) {
     return array('status_code' => 413, 'message' => 'L\'email est trop long.');
 }
-if (empty($_GET['nbr_offre']) || $nbr_offre < 0) {
-    $_GET['nbr_offre'] = $_Serveur_['General']['nbr_offre_defaut'];
+if (empty($_GET['nbr_offre']) || $_GET['nbr_offre'] <= 0) {
+    if ($_Serveur_['General']['nbr_offre_defaut'] <= 0) {
+        $_GET['nbr_offre'] = 0;
+    } else {
+        $_GET['nbr_offre'] = $_Serveur_['General']['nbr_offre_defaut'];
+    }
 } else {
     if ($_GET['nbr_offre'] > $_Serveur_['General']['nbr_offre_max']) {
         $_GET['nbr_offre'] = $_Serveur_['General']['nbr_offre_max'];
     }
 }
 Joueurs::addJoueur($bddConnection, $_GET['pseudo'], $_GET['email'], $_GET['mdp'], $_GET['nbr_offre'], $_GET['id_type_role']);
-return array('status_code' => 200, 'message' => 'Le joueur a bien ete ajoute.');return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newid));
+return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newid));

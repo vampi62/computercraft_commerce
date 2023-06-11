@@ -22,7 +22,7 @@ class Adresses {
             'id_joueur' => $id_joueur,
             'nom_droit' => "getAdresses"
         ));
-        $adresses = $req->fetchAll();
+        $adresses = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $adresses;
     }
@@ -43,7 +43,7 @@ class Adresses {
             'id_keyapi' => $id_keyapi,
             'nom_droit' => "getAdresses"
         ));
-        $adresses = $req->fetchAll();
+        $adresses = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $adresses;
     }
@@ -51,11 +51,11 @@ class Adresses {
     // recupere les adresses d'un joueur
     public static function getAdressesByJoueur($bdd,$id_joueur) {
         $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses 
-        INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur WHERE id_joueur = :id_joueur');
+        INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur WHERE adresses.id_joueur = :id_joueur');
         $req->execute(array(
             'id_joueur' => $id_joueur
         ));
-        $adresses = $req->fetchAll();
+        $adresses = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $adresses;
     }
@@ -67,14 +67,14 @@ class Adresses {
         $req->execute(array(
             'id_livreur' => $id_livreur
         ));
-        $adresses = $req->fetchAll();
+        $adresses = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $adresses;
     }
 
     // recupere l'adresse
     public static function getAdresseById($bdd,$id_adresse) {
-        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur WHERE id_adresse = :id_adresse');
+        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur WHERE adresses.id_adresse = :id_adresse');
         $req->execute(array(
             'id_adresse' => $id_adresse
         ));
@@ -130,6 +130,9 @@ class Adresses {
 
     // ajoute une adresse
     public static function addAdresse($bdd,$id_joueur,$coo_adresse,$nom_adresse,$description_adresse,$id_type_adresse,$id_livreur) {
+        if ($id_livreur == "") {
+            $id_livreur = NULL;
+        }
         $req = $bdd->prepare('INSERT INTO adresses (id_joueur,coo_adresse,nom_adresse,description_adresse,id_type_adresse,id_livreur) VALUES (:id_joueur,:coo_adresse,:nom_adresse,:description_adresse,:id_type_adresse,:id_livreur)');
         $req->execute(array(
             'id_joueur' => $id_joueur,

@@ -3,7 +3,7 @@ require_once('class/joueurs.class.php');
 require_once('class/checkdroits.class.php');
 require_once('class/livreurs.class.php');
 
-if(!Checkdroits::CheckArgss($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_livreur' => false, 'id_adresse' => true))) {
+if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_livreur' => false, 'id_adresse' => true))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);

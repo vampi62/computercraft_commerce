@@ -22,5 +22,5 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id_keyapi'], 'keyapi')) {
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_droit'], 'droit')) {
     return array('status_code' => 404, 'message' => 'Le droit n\'existe pas.');
 }
-Keyapis::deleteDroitKeyapi($bddConnection, $_GET['id_keyapi'], $_GET['id_droit']);
+Keyapis::deleteKeyapiDroits($bddConnection, $_GET['id_keyapi'], $_GET['id_droit']);
 return array('status_code' => 200, 'message' => 'Le droit a bien ete supprime de la keyapi.');

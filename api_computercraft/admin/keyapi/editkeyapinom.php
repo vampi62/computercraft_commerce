@@ -20,7 +20,7 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id_keyapi'], 'keyapi')) {
     return array('status_code' => 404, 'message' => 'La keyapi n\'existe pas.');
 }
 $idJoueur = Keyapis::getKeyapiById($bddConnection, $_GET['id_keyapi'])['id_joueur'];
-if(Keyapis::getKeyapiByNom($bddConnection,$idJoueur . '-' . $_GET['nom'])['nom_keyapi'] != null) {
+if(Keyapis::getKeyapiByNom($bddConnection,$idJoueur . '-' . $_GET['nom'])) {
     return array('status_code' => 404, 'message' => 'Le nom de la keyapi existe deja.');
 }
 if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {

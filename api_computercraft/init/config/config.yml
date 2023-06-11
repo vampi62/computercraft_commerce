@@ -25,6 +25,6 @@ MaxLengthChamps:
     nom: 50
     description: 450
     coo: 50
-    code_retrait: 50
+    code: 50
     pseudo: 50
     email: 50

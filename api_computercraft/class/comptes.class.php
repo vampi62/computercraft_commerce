@@ -19,7 +19,7 @@ class Comptes {
             'id_joueur' => $id_joueur,
             'nom_droit' => "getcomptes"
         ));
-        $comptes = $req->fetchAll();
+        $comptes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $comptes;
     }
@@ -40,25 +40,25 @@ class Comptes {
             'id_keyapi' => $id_keyapi,
             'nom_droit' => "getcomptes"
         ));
-        $comptes = $req->fetchAll();
+        $comptes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $comptes;
     }
 
     // recupere les comptes d'un joueur
     public static function getComptesByJoueur($bdd,$id_joueur) {
-        $req = $bdd->prepare('SELECT comptes.*,joueurs.pseudo_joueur FROM comptes INNER JOIN joueurs ON joueurs.id_joueur = comptes.id_joueur WHERE id_joueur = :id_joueur');
+        $req = $bdd->prepare('SELECT comptes.*,joueurs.pseudo_joueur FROM comptes INNER JOIN joueurs ON joueurs.id_joueur = comptes.id_joueur WHERE comptes.id_joueur = :id_joueur');
         $req->execute(array(
             'id_joueur' => $id_joueur
         ));
-        $comptes = $req->fetchAll();
+        $comptes = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $comptes;
     }
 
     // recupere le compte
     public static function getCompteById($bdd,$id_compte) {
-        $req = $bdd->prepare('SELECT comptes.*,joueurs.pseudo_joueur FROM comptes INNER JOIN joueurs ON joueurs.id_joueur = comptes.id_joueur WHERE id_compte = :id_compte');
+        $req = $bdd->prepare('SELECT comptes.*,joueurs.pseudo_joueur FROM comptes INNER JOIN joueurs ON joueurs.id_joueur = comptes.id_joueur WHERE comptes.id_compte = :id_compte');
         $req->execute(array(
             'id_compte' => $id_compte
         ));

@@ -3,7 +3,7 @@ require_once('class/joueurs.class.php');
 require_once('class/checkdroits.class.php');
 require_once('class/offres.class.php');
 
-if(!Checkdroits::CheckArgss($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_offre' => false, 'nom' => false))) {
+if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_offre' => false, 'nom' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
@@ -22,5 +22,5 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id_offre'], 'offre')) {
 if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
     return array('status_code' => 413, 'message' => 'Le nom de l\'offre est trop long.');
 }
-Offres::setNomOffre($bddConnection, $_GET['id_offre'], $_GET['nom']);
+Offres::setOffreNom($bddConnection, $_GET['id_offre'], $_GET['nom']);
 return array('status_code' => 200, 'message' => 'Le nom de l\'offre a bien ete modifie.');

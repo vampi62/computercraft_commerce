@@ -28,12 +28,13 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `adresses` (
-  `id_adresse` int(11) NOT NULL,
+  `id_adresse` int(11) UNSIGNED NOT NULL,
   `nom_adresse` varchar(50) NOT NULL,
   `coo_adresse` varchar(50) NOT NULL,
   `description_adresse` varchar(450) NOT NULL,
-  `id_joueur` int(11) NOT NULL,
-  `id_type_adresse` int(11) NOT NULL
+  `id_joueur` int(11) UNSIGNED NOT NULL,
+  `id_type_adresse` int(11) UNSIGNED NOT NULL,
+  `id_livreur` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -43,20 +44,20 @@ CREATE TABLE `adresses` (
 --
 
 CREATE TABLE `chemin_status_commandes` (
-  `id_chemin_status` int(11) NOT NULL,
-  `client_chemin_status` tinyint(1) NOT NULL,
-  `vendeur_chemin_status` tinyint(1) NOT NULL,
-  `livreur_chemin_status` tinyint(1) NOT NULL,
-  `admin_chemin_status` tinyint(1) NOT NULL,
-  `id_type_status_commande` int(11) NOT NULL,
-  `id_type_status_commande_type_status_commandes` int(11) NOT NULL
+  `id_chemin_status` int(11) UNSIGNED NOT NULL,
+  `client_chemin_status` tinyint(1) UNSIGNED NOT NULL,
+  `vendeur_chemin_status` tinyint(1) UNSIGNED NOT NULL,
+  `livreur_chemin_status` tinyint(1) UNSIGNED NOT NULL,
+  `admin_chemin_status` tinyint(1) UNSIGNED NOT NULL,
+  `id_type_status_commande_debut` int(11) UNSIGNED NOT NULL,
+  `id_type_status_commande_suite` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `chemin_status_commandes`
 --
 
-INSERT INTO `chemin_status_commandes` (`id_chemin_status`, `client_chemin_status`, `vendeur_chemin_status`, `livreur_chemin_status`, `admin_chemin_status`, `id_type_status_commande`, `id_type_status_commande_type_status_commandes`) VALUES
+INSERT INTO `chemin_status_commandes` (`id_chemin_status`, `client_chemin_status`, `vendeur_chemin_status`, `livreur_chemin_status`, `admin_chemin_status`, `id_type_status_commande_debut`, `id_type_status_commande_suite`) VALUES
 (1, 0, 1, 0, 0, 1, 2),
 (2, 0, 1, 0, 0, 1, 3),
 (3, 0, 0, 0, 1, 3, 4),
@@ -82,24 +83,24 @@ INSERT INTO `chemin_status_commandes` (`id_chemin_status`, `client_chemin_status
 --
 
 CREATE TABLE `commandes` (
-  `id_commande` int(11) NOT NULL,
+  `id_commande` int(11) UNSIGNED NOT NULL,
   `nom_produit_commande` varchar(50) NOT NULL,
-  `quantite_commande` int(11) NOT NULL,
+  `quantite_commande` int(11) UNSIGNED NOT NULL,
   `prix_unitaire_commande` float NOT NULL,
   `frait_livraison_commande` float NOT NULL,
   `description_commande` varchar(450) NOT NULL,
   `suivi_commande` varchar(4096) NOT NULL,
   `date_commande_commande` datetime NOT NULL,
   `date_livraison_commande` datetime DEFAULT NULL,
-  `code_retrait` varchar(50) NOT NULL,
-  `id_offre` int(11) DEFAULT NULL,
-  `id_transaction` int(11) DEFAULT NULL,
-  `id_compte` int(11) DEFAULT NULL,
-  `id_compte_comptes` int(11) DEFAULT NULL,
-  `id_type_status_commande` int(11) NOT NULL,
-  `id_livreur` int(11) DEFAULT NULL,
-  `id_adresse` int(11) DEFAULT NULL,
-  `id_adresse_adresses` int(11) DEFAULT NULL
+  `code_retrait_commande` varchar(50) NOT NULL,
+  `id_offre` int(11) UNSIGNED DEFAULT NULL,
+  `id_transaction` int(11) UNSIGNED DEFAULT NULL,
+  `id_compte_client` int(11) UNSIGNED DEFAULT NULL,
+  `id_compte_vendeur` int(11) UNSIGNED DEFAULT NULL,
+  `id_type_status_commande` int(11) UNSIGNED NOT NULL,
+  `id_livreur` int(11) UNSIGNED DEFAULT NULL,
+  `id_adresse_client` int(11) UNSIGNED DEFAULT NULL,
+  `id_adresse_vendeur` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -109,11 +110,11 @@ CREATE TABLE `commandes` (
 --
 
 CREATE TABLE `comptes` (
-  `id_compte` int(11) NOT NULL,
+  `id_compte` int(11) UNSIGNED NOT NULL,
   `nom_compte` varchar(50) NOT NULL,
   `solde_compte` double NOT NULL,
-  `id_joueur` int(11) NOT NULL,
-  `id_type_compte` int(11) NOT NULL
+  `id_joueur` int(11) UNSIGNED NOT NULL,
+  `id_type_compte` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -123,11 +124,11 @@ CREATE TABLE `comptes` (
 --
 
 CREATE TABLE `droits` (
-  `id_droit` int(11) NOT NULL,
+  `id_droit` int(11) UNSIGNED NOT NULL,
   `nom_droit` varchar(50) NOT NULL,
   `fonction_droit` varchar(50) NOT NULL,
-  `groupe_droit` tinyint(1) NOT NULL,
-  `api_droit` tinyint(1) NOT NULL
+  `groupe_droit` tinyint(1) UNSIGNED NOT NULL,
+  `api_droit` tinyint(1) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -137,9 +138,9 @@ CREATE TABLE `droits` (
 --
 
 CREATE TABLE `groupes` (
-  `id_groupe` int(11) NOT NULL,
+  `id_groupe` int(11) UNSIGNED NOT NULL,
   `nom_groupe` varchar(50) NOT NULL,
-  `id_joueur` int(11) NOT NULL
+  `id_joueur` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -149,8 +150,8 @@ CREATE TABLE `groupes` (
 --
 
 CREATE TABLE `groupes_adresses` (
-  `id_groupe` int(11) NOT NULL,
-  `id_adresse` int(11) NOT NULL
+  `id_groupe` int(11) UNSIGNED NOT NULL,
+  `id_adresse` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -160,8 +161,8 @@ CREATE TABLE `groupes_adresses` (
 --
 
 CREATE TABLE `groupes_comptes` (
-  `id_groupe` int(11) NOT NULL,
-  `id_compte` int(11) NOT NULL
+  `id_groupe` int(11) UNSIGNED NOT NULL,
+  `id_compte` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -171,8 +172,8 @@ CREATE TABLE `groupes_comptes` (
 --
 
 CREATE TABLE `groupes_keyapis` (
-  `id_groupe` int(11) NOT NULL,
-  `id_keyapi` int(11) NOT NULL
+  `id_groupe` int(11) UNSIGNED NOT NULL,
+  `id_keyapi` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -182,8 +183,8 @@ CREATE TABLE `groupes_keyapis` (
 --
 
 CREATE TABLE `groupes_livreurs` (
-  `id_livreur` int(11) NOT NULL,
-  `id_groupe` int(11) NOT NULL
+  `id_livreur` int(11) UNSIGNED NOT NULL,
+  `id_groupe` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -193,8 +194,8 @@ CREATE TABLE `groupes_livreurs` (
 --
 
 CREATE TABLE `groupes_offres` (
-  `id_groupe` int(11) NOT NULL,
-  `id_offre` int(11) NOT NULL
+  `id_groupe` int(11) UNSIGNED NOT NULL,
+  `id_offre` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -204,8 +205,8 @@ CREATE TABLE `groupes_offres` (
 --
 
 CREATE TABLE `groupes_utilisateurs` (
-  `id_joueur` int(11) NOT NULL,
-  `id_groupe` int(11) NOT NULL
+  `id_joueur` int(11) UNSIGNED NOT NULL,
+  `id_groupe` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -215,8 +216,8 @@ CREATE TABLE `groupes_utilisateurs` (
 --
 
 CREATE TABLE `groupe_droits` (
-  `id_droit` int(11) NOT NULL,
-  `id_groupe` int(11) NOT NULL
+  `id_droit` int(11) UNSIGNED NOT NULL,
+  `id_groupe` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -226,14 +227,14 @@ CREATE TABLE `groupe_droits` (
 --
 
 CREATE TABLE `jeton` (
-  `id_jeton` int(11) NOT NULL,
-  `jeton1_jeton` int(11) NOT NULL,
-  `jeton10_jeton` int(11) NOT NULL,
-  `jeton100_jeton` int(11) NOT NULL,
-  `jeton1k_jeton` int(11) NOT NULL,
-  `jeton10k_jeton` int(11) NOT NULL,
+  `id_jeton` int(11) UNSIGNED NOT NULL,
+  `jeton1_jeton` int(11) UNSIGNED NOT NULL,
+  `jeton10_jeton` int(11) UNSIGNED NOT NULL,
+  `jeton100_jeton` int(11) UNSIGNED NOT NULL,
+  `jeton1k_jeton` int(11) UNSIGNED NOT NULL,
+  `jeton10k_jeton` int(11) UNSIGNED NOT NULL,
   `last_update_jeton` datetime NOT NULL,
-  `id_joueur` int(11) NOT NULL
+  `id_joueur` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -243,15 +244,15 @@ CREATE TABLE `jeton` (
 --
 
 CREATE TABLE `joueurs` (
-  `id_joueur` int(11) NOT NULL,
+  `id_joueur` int(11) UNSIGNED NOT NULL,
   `pseudo_joueur` varchar(50) NOT NULL,
-  `mdp_joueur` varchar(50) NOT NULL,
+  `mdp_joueur` varchar(200) NOT NULL,
   `email_joueur` varchar(50) NOT NULL,
   `resettoken_joueur` varchar(50) DEFAULT NULL,
   `last_login_joueur` datetime NOT NULL,
   `expire_resettoken_joueur` datetime DEFAULT NULL,
-  `max_offres_joueur` int(11) NOT NULL,
-  `id_type_role` int(11) NOT NULL
+  `max_offres_joueur` int(11) UNSIGNED NOT NULL,
+  `id_type_role` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -261,21 +262,21 @@ CREATE TABLE `joueurs` (
 --
 
 CREATE TABLE `keyapis` (
-  `id_keyapi` int(11) NOT NULL,
+  `id_keyapi` int(11) UNSIGNED NOT NULL,
   `nom_keyapi` varchar(50) NOT NULL,
-  `mdp_keyapi` varchar(50) NOT NULL,
-  `id_joueur` int(11) NOT NULL
+  `mdp_keyapi` varchar(200) NOT NULL,
+  `id_joueur` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `keyapi_droits`
+-- Structure de la table `keyapis_droits`
 --
 
-CREATE TABLE `keyapi_droits` (
-  `id_droit` int(11) NOT NULL,
-  `id_keyapi` int(11) NOT NULL
+CREATE TABLE `keyapis_droits` (
+  `id_droit` int(11) UNSIGNED NOT NULL,
+  `id_keyapi` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -285,12 +286,12 @@ CREATE TABLE `keyapi_droits` (
 --
 
 CREATE TABLE `keypay` (
-  `id_keypay` int(11) NOT NULL,
+  `id_keypay` int(11) UNSIGNED NOT NULL,
   `cle_keypay` varchar(50) NOT NULL,
   `date_expire_keypay` date NOT NULL,
-  `quantite_keypay` int(11) NOT NULL,
+  `quantite_keypay` int(11) UNSIGNED NOT NULL,
   `prix_unitaire_keypay` float NOT NULL,
-  `id_offre` int(11) NOT NULL
+  `id_offre` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -300,12 +301,12 @@ CREATE TABLE `keypay` (
 --
 
 CREATE TABLE `litiges` (
-  `id_litige` int(11) NOT NULL,
+  `id_litige` int(11) UNSIGNED NOT NULL,
   `texte_litige` varchar(450) NOT NULL,
   `date_litige` datetime NOT NULL,
-  `id_commande` int(11) NOT NULL,
-  `id_joueur` int(11) DEFAULT NULL,
-  `id_type_status_litige` int(11) NOT NULL
+  `id_commande` int(11) UNSIGNED NOT NULL,
+  `id_joueur` int(11) UNSIGNED DEFAULT NULL,
+  `id_type_status_litige` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -315,11 +316,11 @@ CREATE TABLE `litiges` (
 --
 
 CREATE TABLE `livreurs` (
-  `id_livreur` int(11) NOT NULL,
+  `id_livreur` int(11) UNSIGNED NOT NULL,
   `nom_livreur` varchar(50) NOT NULL,
-  `id_joueur` int(11) NOT NULL,
-  `id_compte` int(11) DEFAULT NULL,
-  `id_adresse` int(11) DEFAULT NULL
+  `id_joueur` int(11) UNSIGNED NOT NULL,
+  `id_compte` int(11) UNSIGNED DEFAULT NULL,
+  `id_adresse` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -329,16 +330,16 @@ CREATE TABLE `livreurs` (
 --
 
 CREATE TABLE `offres` (
-  `id_offre` int(11) NOT NULL,
+  `id_offre` int(11) UNSIGNED NOT NULL,
   `prix_offre` float NOT NULL,
-  `stock_offre` int(11) NOT NULL,
+  `stock_offre` int(11) UNSIGNED NOT NULL,
   `nom_offre` varchar(50) NOT NULL,
   `description_offre` varchar(450) NOT NULL,
   `last_update_offre` datetime NOT NULL,
-  `id_joueur` int(11) NOT NULL,
-  `id_compte` int(11) DEFAULT NULL,
-  `id_adresse` int(11) DEFAULT NULL,
-  `id_type_offre` int(11) NOT NULL
+  `id_joueur` int(11) UNSIGNED NOT NULL,
+  `id_compte` int(11) UNSIGNED DEFAULT NULL,
+  `id_adresse` int(11) UNSIGNED DEFAULT NULL,
+  `id_type_offre` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -348,17 +349,17 @@ CREATE TABLE `offres` (
 --
 
 CREATE TABLE `transactions` (
-  `id_transaction` int(11) NOT NULL,
+  `id_transaction` int(11) UNSIGNED NOT NULL,
   `nom_transaction` varchar(50) NOT NULL,
   `somme_transaction` double NOT NULL,
   `description_transaction` varchar(450) NOT NULL,
   `date_transaction` datetime NOT NULL,
-  `id_type_status_transaction` int(11) NOT NULL,
-  `id_type_transaction` int(11) NOT NULL,
-  `id_joueur` int(11) DEFAULT NULL,
-  `id_compte` int(11) DEFAULT NULL,
-  `id_compte_comptes` int(11) DEFAULT NULL,
-  `id_commande` int(11) DEFAULT NULL
+  `id_type_status_transaction` int(11) UNSIGNED NOT NULL,
+  `id_type_transaction` int(11) UNSIGNED NOT NULL,
+  `id_admin` int(11) UNSIGNED DEFAULT NULL,
+  `id_compte_debiteur` int(11) UNSIGNED DEFAULT NULL,
+  `id_compte_crediteur` int(11) UNSIGNED DEFAULT NULL,
+  `id_commande` int(11)  UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -368,7 +369,7 @@ CREATE TABLE `transactions` (
 --
 
 CREATE TABLE `type_adresses` (
-  `id_type_adresse` int(11) NOT NULL,
+  `id_type_adresse` int(11) UNSIGNED NOT NULL,
   `nom_type_adresse` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -390,7 +391,7 @@ INSERT INTO `type_adresses` (`id_type_adresse`, `nom_type_adresse`) VALUES
 --
 
 CREATE TABLE `type_comptes` (
-  `id_type_compte` int(11) NOT NULL,
+  `id_type_compte` int(11) UNSIGNED NOT NULL,
   `nom_type_compte` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -410,7 +411,7 @@ INSERT INTO `type_comptes` (`id_type_compte`, `nom_type_compte`) VALUES
 --
 
 CREATE TABLE `type_offres` (
-  `id_type_offre` int(11) NOT NULL,
+  `id_type_offre` int(11) UNSIGNED NOT NULL,
   `nom_type_offre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -431,7 +432,7 @@ INSERT INTO `type_offres` (`id_type_offre`, `nom_type_offre`) VALUES
 --
 
 CREATE TABLE `type_roles` (
-  `id_type_role` int(11) NOT NULL,
+  `id_type_role` int(11) UNSIGNED NOT NULL,
   `nom_type_role` varchar(50) NOT NULL,
   `description_type_role` varchar(450) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -452,7 +453,7 @@ INSERT INTO `type_roles` (`id_type_role`, `nom_type_role`, `description_type_rol
 --
 
 CREATE TABLE `type_status_commandes` (
-  `id_type_status_commande` int(11) NOT NULL,
+  `id_type_status_commande` int(11) UNSIGNED NOT NULL,
   `nom_type_status_commande` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -483,7 +484,7 @@ INSERT INTO `type_status_commandes` (`id_type_status_commande`, `nom_type_status
 --
 
 CREATE TABLE `type_status_litiges` (
-  `id_type_status_litige` int(11) NOT NULL,
+  `id_type_status_litige` int(11) UNSIGNED NOT NULL,
   `nom_type_status_litige` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -506,7 +507,7 @@ INSERT INTO `type_status_litiges` (`id_type_status_litige`, `nom_type_status_lit
 --
 
 CREATE TABLE `type_status_transactions` (
-  `id_type_status_transaction` int(11) NOT NULL,
+  `id_type_status_transaction` int(11) UNSIGNED NOT NULL,
   `nom_type_status_transaction` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -526,7 +527,7 @@ INSERT INTO `type_status_transactions` (`id_type_status_transaction`, `nom_type_
 --
 
 CREATE TABLE `type_transactions` (
-  `id_type_transaction` int(11) NOT NULL,
+  `id_type_transaction` int(11) UNSIGNED NOT NULL,
   `nom_type_transaction` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -562,18 +563,18 @@ ALTER TABLE `adresses`
 --
 ALTER TABLE `chemin_status_commandes`
   ADD PRIMARY KEY (`id_chemin_status`),
-  ADD KEY `chemin_status_type_status_commandes0_FK` (`id_type_status_commande`),
-  ADD KEY `chemin_status_type_status_commandes1_FK` (`id_type_status_commande_type_status_commandes`);
+  ADD KEY `chemin_status_type_status_commandes0_FK` (`id_type_status_commande_debut`),
+  ADD KEY `chemin_status_type_status_commandes1_FK` (`id_type_status_commande_suite`);
 
 --
 -- Index pour la table `commandes`
 --
 ALTER TABLE `commandes`
   ADD PRIMARY KEY (`id_commande`),
-  ADD KEY `commandes_adresses6_FK` (`id_adresse`),
-  ADD KEY `commandes_adresses7_FK` (`id_adresse_adresses`),
-  ADD KEY `commandes_comptes2_FK` (`id_compte`),
-  ADD KEY `commandes_comptes3_FK` (`id_compte_comptes`),
+  ADD KEY `commandes_adresses6_FK` (`id_adresse_client`),
+  ADD KEY `commandes_adresses7_FK` (`id_adresse_vendeur`),
+  ADD KEY `commandes_comptes2_FK` (`id_compte_client`),
+  ADD KEY `commandes_comptes3_FK` (`id_compte_vendeur`),
   ADD KEY `commandes_livreurs5_FK` (`id_livreur`),
   ADD KEY `commandes_offres0_FK` (`id_offre`),
   ADD KEY `commandes_transactions1_FK` (`id_transaction`),
@@ -671,9 +672,9 @@ ALTER TABLE `keyapis`
   ADD KEY `keyapis_joueurs0_FK` (`id_joueur`);
 
 --
--- Index pour la table `keyapi_droits`
+-- Index pour la table `keyapis_droits`
 --
-ALTER TABLE `keyapi_droits`
+ALTER TABLE `keyapis_droits`
   ADD PRIMARY KEY (`id_droit`,`id_keyapi`),
   ADD KEY `keyapi_droits_keyapis1_FK` (`id_keyapi`);
 
@@ -718,9 +719,9 @@ ALTER TABLE `offres`
 ALTER TABLE `transactions`
   ADD PRIMARY KEY (`id_transaction`),
   ADD KEY `transactions_commandes5_FK` (`id_commande`),
-  ADD KEY `transactions_comptes3_FK` (`id_compte`),
-  ADD KEY `transactions_comptes4_FK` (`id_compte_comptes`),
-  ADD KEY `transactions_joueurs2_FK` (`id_joueur`),
+  ADD KEY `transactions_comptes3_FK` (`id_compte_debiteur`),
+  ADD KEY `transactions_comptes4_FK` (`id_compte_crediteur`),
+  ADD KEY `transactions_joueurs2_FK` (`id_admin`),
   ADD KEY `transactions_type_status_transactions0_FK` (`id_type_status_transaction`),
   ADD KEY `transactions_type_transactions1_FK` (`id_type_transaction`);
 
@@ -780,133 +781,133 @@ ALTER TABLE `type_transactions`
 -- AUTO_INCREMENT pour la table `adresses`
 --
 ALTER TABLE `adresses`
-  MODIFY `id_adresse` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_adresse` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `chemin_status_commandes`
 --
 ALTER TABLE `chemin_status_commandes`
-  MODIFY `id_chemin_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_chemin_status` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT pour la table `commandes`
 --
 ALTER TABLE `commandes`
-  MODIFY `id_commande` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_commande` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `comptes`
 --
 ALTER TABLE `comptes`
-  MODIFY `id_compte` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_compte` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `droits`
 --
 ALTER TABLE `droits`
-  MODIFY `id_droit` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_droit` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `groupes`
 --
 ALTER TABLE `groupes`
-  MODIFY `id_groupe` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_groupe` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `jeton`
 --
 ALTER TABLE `jeton`
-  MODIFY `id_jeton` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jeton` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `joueurs`
 --
 ALTER TABLE `joueurs`
-  MODIFY `id_joueur` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_joueur` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `keyapis`
 --
 ALTER TABLE `keyapis`
-  MODIFY `id_keyapi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_keyapi` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `keypay`
 --
 ALTER TABLE `keypay`
-  MODIFY `id_keypay` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_keypay` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `litiges`
 --
 ALTER TABLE `litiges`
-  MODIFY `id_litige` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_litige` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `livreurs`
 --
 ALTER TABLE `livreurs`
-  MODIFY `id_livreur` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_livreur` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `offres`
 --
 ALTER TABLE `offres`
-  MODIFY `id_offre` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_offre` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_transaction` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `type_adresses`
 --
 ALTER TABLE `type_adresses`
-  MODIFY `id_type_adresse` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_type_adresse` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `type_comptes`
 --
 ALTER TABLE `type_comptes`
-  MODIFY `id_type_compte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_type_compte` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `type_offres`
 --
 ALTER TABLE `type_offres`
-  MODIFY `id_type_offre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_type_offre` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `type_roles`
 --
 ALTER TABLE `type_roles`
-  MODIFY `id_type_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_type_role` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `type_status_commandes`
 --
 ALTER TABLE `type_status_commandes`
-  MODIFY `id_type_status_commande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_type_status_commande` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT pour la table `type_status_litiges`
 --
 ALTER TABLE `type_status_litiges`
-  MODIFY `id_type_status_litige` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_type_status_litige` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `type_status_transactions`
 --
 ALTER TABLE `type_status_transactions`
-  MODIFY `id_type_status_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_type_status_transaction` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `type_transactions`
 --
 ALTER TABLE `type_transactions`
-  MODIFY `id_type_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_type_transaction` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Contraintes pour les tables déchargées
@@ -918,22 +919,23 @@ ALTER TABLE `type_transactions`
 ALTER TABLE `adresses`
   ADD CONSTRAINT `adresses_joueurs0_FK` FOREIGN KEY (`id_joueur`) REFERENCES `joueurs` (`id_joueur`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `adresses_type_adresses1_FK` FOREIGN KEY (`id_type_adresse`) REFERENCES `type_adresses` (`id_type_adresse`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `adresses_id_livreur2_FK` FOREIGN KEY (`id_livreur`) REFERENCES `livreurs`(`id_livreur`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `chemin_status_commandes`
 --
 ALTER TABLE `chemin_status_commandes`
-  ADD CONSTRAINT `chemin_status_type_status_commandes0_FK` FOREIGN KEY (`id_type_status_commande`) REFERENCES `type_status_commandes` (`id_type_status_commande`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `chemin_status_type_status_commandes1_FK` FOREIGN KEY (`id_type_status_commande_type_status_commandes`) REFERENCES `type_status_commandes` (`id_type_status_commande`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `chemin_status_type_status_commandes0_FK` FOREIGN KEY (`id_type_status_commande_debut`) REFERENCES `type_status_commandes` (`id_type_status_commande`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `chemin_status_type_status_commandes1_FK` FOREIGN KEY (`id_type_status_commande_suite`) REFERENCES `type_status_commandes` (`id_type_status_commande`) ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `commandes`
 --
 ALTER TABLE `commandes`
-  ADD CONSTRAINT `commandes_adresses6_FK` FOREIGN KEY (`id_adresse`) REFERENCES `adresses` (`id_adresse`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `commandes_adresses7_FK` FOREIGN KEY (`id_adresse_adresses`) REFERENCES `adresses` (`id_adresse`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `commandes_comptes2_FK` FOREIGN KEY (`id_compte`) REFERENCES `comptes` (`id_compte`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `commandes_comptes3_FK` FOREIGN KEY (`id_compte_comptes`) REFERENCES `comptes` (`id_compte`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `commandes_adresses6_FK` FOREIGN KEY (`id_adresse_client`) REFERENCES `adresses` (`id_adresse`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `commandes_adresses7_FK` FOREIGN KEY (`id_adresse_vendeur`) REFERENCES `adresses` (`id_adresse`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `commandes_comptes2_FK` FOREIGN KEY (`id_compte_client`) REFERENCES `comptes` (`id_compte`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `commandes_comptes3_FK` FOREIGN KEY (`id_compte_vendeur`) REFERENCES `comptes` (`id_compte`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `commandes_livreurs5_FK` FOREIGN KEY (`id_livreur`) REFERENCES `livreurs` (`id_livreur`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `commandes_offres0_FK` FOREIGN KEY (`id_offre`) REFERENCES `offres` (`id_offre`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `commandes_transactions1_FK` FOREIGN KEY (`id_transaction`) REFERENCES `transactions` (`id_transaction`) ON DELETE SET NULL ON UPDATE CASCADE,
@@ -1020,9 +1022,9 @@ ALTER TABLE `keyapis`
   ADD CONSTRAINT `keyapis_joueurs0_FK` FOREIGN KEY (`id_joueur`) REFERENCES `joueurs` (`id_joueur`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `keyapi_droits`
+-- Contraintes pour la table `keyapis_droits`
 --
-ALTER TABLE `keyapi_droits`
+ALTER TABLE `keyapis_droits`
   ADD CONSTRAINT `keyapi_droits_droits0_FK` FOREIGN KEY (`id_droit`) REFERENCES `droits` (`id_droit`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `keyapi_droits_keyapis1_FK` FOREIGN KEY (`id_keyapi`) REFERENCES `keyapis` (`id_keyapi`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -1062,11 +1064,14 @@ ALTER TABLE `offres`
 --
 ALTER TABLE `transactions`
   ADD CONSTRAINT `transactions_commandes5_FK` FOREIGN KEY (`id_commande`) REFERENCES `commandes` (`id_commande`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `transactions_comptes3_FK` FOREIGN KEY (`id_compte`) REFERENCES `comptes` (`id_compte`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `transactions_comptes4_FK` FOREIGN KEY (`id_compte_comptes`) REFERENCES `comptes` (`id_compte`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `transactions_joueurs2_FK` FOREIGN KEY (`id_joueur`) REFERENCES `joueurs` (`id_joueur`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `transactions_comptes3_FK` FOREIGN KEY (`id_compte_debiteur`) REFERENCES `comptes` (`id_compte`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `transactions_comptes4_FK` FOREIGN KEY (`id_compte_crediteur`) REFERENCES `comptes` (`id_compte`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `transactions_joueurs2_FK` FOREIGN KEY (`id_admin`) REFERENCES `joueurs` (`id_joueur`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `transactions_type_status_transactions0_FK` FOREIGN KEY (`id_type_status_transaction`) REFERENCES `type_status_transactions` (`id_type_status_transaction`) ON UPDATE CASCADE,
   ADD CONSTRAINT `transactions_type_transactions1_FK` FOREIGN KEY (`id_type_transaction`) REFERENCES `type_transactions` (`id_type_transaction`) ON UPDATE CASCADE;
+
+CREATE VIEW vw_joueurs AS SELECT joueurs.id_joueur, joueurs.pseudo_joueur, joueurs.email_joueur , joueurs.last_login_joueur, joueurs.max_offres_joueur, joueurs.id_type_role, type_roles.nom_type_role FROM joueurs INNER JOIN type_roles ON joueurs.id_type_role = type_roles.id_type_role;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

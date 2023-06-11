@@ -7,7 +7,7 @@ class Droits {
     public static function getDroits($bdd) {
         $req = $bdd->prepare('SELECT * FROM droits');
         $req->execute();
-        $droits = $req->fetchAll();
+        $droits = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $droits;
     }
@@ -27,7 +27,7 @@ class Droits {
     public static function getTypeAdresses($bdd) {
         $req = $bdd->prepare('SELECT * FROM type_adresses');
         $req->execute();
-        $type_adresses = $req->fetchAll();
+        $type_adresses = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $type_adresses;
     }
@@ -36,7 +36,7 @@ class Droits {
     public static function getTypeComptes($bdd) {
         $req = $bdd->prepare('SELECT * FROM type_comptes');
         $req->execute();
-        $type_comptes = $req->fetchAll();
+        $type_comptes = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $type_comptes;
     }
@@ -45,7 +45,7 @@ class Droits {
     public static function getTypeOffres($bdd) {
         $req = $bdd->prepare('SELECT * FROM type_offres');
         $req->execute();
-        $type_offres = $req->fetchAll();
+        $type_offres = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $type_offres;
     }
@@ -54,7 +54,7 @@ class Droits {
     public static function getTypeRoles($bdd) {
         $req = $bdd->prepare('SELECT * FROM type_roles');
         $req->execute();
-        $type_roles = $req->fetchAll();
+        $type_roles = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $type_roles;
     }
@@ -63,7 +63,7 @@ class Droits {
     public static function getTypeStatusCommandes($bdd) {
         $req = $bdd->prepare('SELECT * FROM type_status_commandes');
         $req->execute();
-        $type_status_commandes = $req->fetchAll();
+        $type_status_commandes = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $type_status_commandes;
     }
@@ -72,7 +72,7 @@ class Droits {
     public static function getTypeStatusLitiges($bdd) {
         $req = $bdd->prepare('SELECT * FROM type_status_litiges');
         $req->execute();
-        $type_status_litiges = $req->fetchAll();
+        $type_status_litiges = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $type_status_litiges;
     }
@@ -81,7 +81,7 @@ class Droits {
     public static function getTypeStatusTransactions($bdd) {
         $req = $bdd->prepare('SELECT * FROM type_status_transactions');
         $req->execute();
-        $type_status_transactions = $req->fetchAll();
+        $type_status_transactions = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $type_status_transactions;
     }
@@ -90,7 +90,7 @@ class Droits {
     public static function getTypeTransactions($bdd) {
         $req = $bdd->prepare('SELECT * FROM type_transactions');
         $req->execute();
-        $type_transactions = $req->fetchAll();
+        $type_transactions = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $type_transactions;
     }
@@ -99,7 +99,7 @@ class Droits {
     public static function getCheminStatusCommandes($bdd) {
         $req = $bdd->prepare('SELECT * FROM chemin_status_commandes');
         $req->execute();
-        $chemin_status_commandes = $req->fetchAll();
+        $chemin_status_commandes = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $chemin_status_commandes;
     }

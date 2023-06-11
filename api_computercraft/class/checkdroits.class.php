@@ -29,16 +29,8 @@ class Checkdroits {
     }
 
     // verifie le mot de passe du compte
-    public static function CheckMdp($bdd, $nom, $mdp,$iskeyapi=false) {
-        #si iskeyapi=TRUE compare avec la table api
-        #si iskeyapi=FALSE compare avec la table joueurs
-        #autre compare avec la table livreurs
-
-        if ($iskeyapi) {
-            $req = $bdd->prepare('SELECT mdp_keyapi FROM keyapis WHERE nom_keyapi = :nom');
-        } else {
-            $req = $bdd->prepare('SELECT mdp_joueur FROM joueurs WHERE pseudo_joueur = :nom');
-        }
+    public static function CheckMdp($bdd, $nom, $mdp) {
+        $req = $bdd->prepare('SELECT mdp_joueur FROM joueurs WHERE pseudo_joueur = :nom');
         $req->execute(array(
             'nom' => $nom
         ));
@@ -68,7 +60,7 @@ class Checkdroits {
 
     // verifie le token du compte 
 	public function CheckToken($bdd, $pseudo_joueur, $token) {
-        $req = $bdd->prepare('SELECT resettoken_joueur FROM joueurs WHERE pseudo_joueur = :pseudo_joueur');
+        $req = $bdd->prepare('SELECT resettoken_joueur FROM joueurs WHERE pseudo_joueur = :pseudo_joueur AND resettoken_joueur IS NOT NULL');
         $req->execute(array(
             'pseudo_joueur' => $pseudo_joueur
         ));
@@ -223,16 +215,34 @@ class Checkdroits {
 
     // verification code retire_commande
     public static function CheckCodeRetraitCommande($bdd,$code_retrait_commande,$id_commande) {
-        $req = $bdd->prepare('SELECT * FROM commandes WHERE code_retrait_commande = :code_retrait_commande AND id_commande = :id_commande');
+        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_commande = :id_commande');
         $req->execute(array(
-            'code_retrait_commande' => $code_retrait_commande,
             'id_commande' => $id_commande
         ));
-        if (mysql_num_rows($req) > 0) {
-            $req->closeCursor();
-            return true;
+        $commande = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
+
+        if(!empty($commande)) {
+            if ($commande['code_retrait_commande'] == $code_retrait_commande) {
+                return true;
+            }
         }
-        $req->closeCursor();
+        return false;
+    }
+
+    // verification du code api
+    public static function CheckCodeApi($bdd,$nom_api,$mdp_keyapi) {
+        $req = $bdd->prepare('SELECT * FROM keyapis WHERE nom_api = :nom_api');
+        $req->execute(array(
+            'nom_api' => $nom_api
+        ));
+        $api = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
+        if(!empty($api)) {
+            if ($api['mdp_keyapi'] == $mdp_keyapi) {
+                return true;
+            }
+        }
         return false;
     }
 }

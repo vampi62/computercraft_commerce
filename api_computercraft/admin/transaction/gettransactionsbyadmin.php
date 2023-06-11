@@ -19,4 +19,4 @@ if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) 
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_admin'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
-return array('status_code' => 200, 'message' => '', 'data' => Transaction::getTransactionsByAdmin($bddConnection, $_GET['id_admin']));
+return array('status_code' => 200, 'message' => '', 'data' => Transactions::getTransactionsByAdmin($bddConnection, $_GET['id_admin']));

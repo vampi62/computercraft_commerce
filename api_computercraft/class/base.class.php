@@ -7,7 +7,7 @@ class Base {
 			$this->bdd = $bdd;
 		}
 		catch (Exception $e) {
-			die(array('status_code' => 500, 'message' => 'Erreur : ' .$e->getMessage() .'<br />Veuillez contacter un administrateur'));
+			die('Erreur : ' .$e->getMessage() .'<br />Veuillez contacter un administrateur');
 		}
 	}
 	public function getConnection() {

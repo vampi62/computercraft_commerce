@@ -26,6 +26,7 @@
             * [editcommandedatelivraison](#editcommandedatelivraison)
             * [editcommandestatus](#editcommandestatus)
             * [editcommandetransaction](#editcommandetransaction)
+            * [editcommandelivreur](#editcommandelivreur)
             * [getcommandebyid](#getcommandebyid)
             * [getcommandebytransaction](#getcommandebytransaction)
             * [getcommandesbyadresse](#getcommandesbyadresse)
@@ -293,22 +294,22 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getadresse
 - id_compte_vendeur	        :(int) id du compte du vendeur
 - id_compte_client	        :(int) id du compte du client
 - id_type_status_commande	:(int) id du type de status de la commande
-- code_retrait	            :(str) code de retrait de la commande
+- code_retrait_commande	    :(str) code de retrait de la commande
 - description	            :(str) description de la commande
 - frait	                    :(float) frait de la commande
 - prixu	                    :(float) prix unitaire de la commande
 - quant	                    :(int) quantité de la commande
 - nom	                    :(str) nom de la commande
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=addcommande&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_offre=__id_offre__&id_adresse_vendeur=__id_adresse_vendeur__&id_adresse_client=__id_adresse_client__&id_compte_vendeur=__id_compte_vendeur__&id_compte_client=__id_compte_client__&id_type_status_commande=__id_type_status_commande__&code_retrait=__code_retrait__&description=__description__&frait=__frait__&prixu=__prixu__&quant=__quant__&nom=__nom__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=addcommande&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_offre=__id_offre__&id_adresse_vendeur=__id_adresse_vendeur__&id_adresse_client=__id_adresse_client__&id_compte_vendeur=__id_compte_vendeur__&id_compte_client=__id_compte_client__&id_type_status_commande=__id_type_status_commande__&code_retrait_commande=__code_retrait__&description=__description__&frait=__frait__&prixu=__prixu__&quant=__quant__&nom=__nom__
 
 #### editcommandecoderetrait
 - useradmin	    :(str) pseudo du compte admin
 - mdpadmin	    :(str) mdp du compte admin
 - id_commande	:(int) id de la commande à modifier
-- code_retrait	:(str) nouveau code de retrait de la commande
+- code_retrait_commande	:(str) nouveau code de retrait de la commande
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=editcommandecoderetrait&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_commande=__id_commande__&code_retrait=__code_retrait__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=editcommandecoderetrait&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_commande=__id_commande__&code_retrait_commande=__code_retrait__
 
 #### editcommandedatelivraison
 - useradmin	    :(str) pseudo du compte admin
@@ -332,6 +333,13 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=editcomman
 - id_transaction	:(int) nouvelle id de la transaction de la commande
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=editcommandetransaction&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_commande=__id_commande__&id_transaction=__id_transaction__
+#### editcommandelivreur
+- useradmin	    :(str) pseudo du compte admin
+- mdpadmin	    :(str) mdp du compte admin
+- id_commande	:(int) id de la commande à modifier
+- id_livreur	:(int) id du livreur de la commande
+
+http://__global_url__:__global_port__/__global_uri__/index.php?action=editcommandelivreur&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_commande=__id_commande__&id_livreur=__id_livreur__
 
 #### getcommandebyid
 - useradmin	    :(str) pseudo du compte admin

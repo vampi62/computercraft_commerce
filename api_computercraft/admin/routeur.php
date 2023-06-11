@@ -55,6 +55,7 @@ switch(strtolower($_GET['action']))	{
     //editcommandedatelivraison
     //editcommandestatus
     //editcommandetransaction
+    //editcommandelivreur
     //getcommandebyid
     //getcommandebytransaction
     //getcommandesbyadresse
@@ -79,6 +80,9 @@ switch(strtolower($_GET['action']))	{
     break;
     case 'editcommandetransaction':
         $printmessage = require('commande/editcommandetransaction.php');
+    break;
+    case 'editcommandelivreur':
+        $printmessage = require('commande/editcommandelivreur.php');
     break;
     case 'getcommandebyid':
         $printmessage = require('commande/getcommandebyid.php');
@@ -115,7 +119,7 @@ switch(strtolower($_GET['action']))	{
     //deletecompte
     //editcomptenom
     //getcomptebyid
-    //getcomptebyjoueur
+    //getcomptesbyjoueur
     case 'addcompte':
         $printmessage = require('compte/addcompte.php');
     break;
@@ -128,8 +132,8 @@ switch(strtolower($_GET['action']))	{
     case 'getcomptebyid':
         $printmessage = require('compte/getcomptebyid.php');
     break;
-    case 'getcomptebyjoueur':
-        $printmessage = require('compte/getcomptebyjoueur.php');
+    case 'getcomptesbyjoueur':
+        $printmessage = require('compte/getcomptesbyjoueur.php');
     break;
 
     //addgroupeadresse

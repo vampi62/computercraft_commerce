@@ -40,7 +40,7 @@ class Groupes {
         $req->execute(array(
             'id_joueur' => $id_joueur
         ));
-        $groupes = $req->fetchAll();
+        $groupes = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $groupes;
     }
@@ -54,7 +54,7 @@ class Groupes {
         $req->execute(array(
             'id_joueur' => $id_joueur
         ));
-        $groupes = $req->fetchAll();
+        $groupes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $groupes;
     }
@@ -68,7 +68,7 @@ class Groupes {
         $req->execute(array(
             'id_compte' => $id_compte
         ));
-        $groupes = $req->fetchAll();
+        $groupes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $groupes;
     }
@@ -82,7 +82,7 @@ class Groupes {
         $req->execute(array(
             'id_offre' => $id_offre
         ));
-        $groupes = $req->fetchAll();
+        $groupes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $groupes;
     }
@@ -96,7 +96,7 @@ class Groupes {
         $req->execute(array(
             'id_adresse' => $id_adresse
         ));
-        $groupes = $req->fetchAll();
+        $groupes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $groupes;
     }
@@ -110,7 +110,7 @@ class Groupes {
         $req->execute(array(
             'id_livreur' => $id_livreur
         ));
-        $groupes = $req->fetchAll();
+        $groupes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $groupes;
     }
@@ -124,7 +124,7 @@ class Groupes {
         $req->execute(array(
             'id_keyapi' => $id_keyapi
         ));
-        $groupes = $req->fetchAll();
+        $groupes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $groupes;
     }
@@ -137,7 +137,7 @@ class Groupes {
         $req->execute(array(
             'id_groupe' => $id_groupe
         ));
-        $groupes = $req->fetchAll();
+        $groupes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $groupes;
     }
@@ -151,7 +151,7 @@ class Groupes {
         $req->execute(array(
             'id_groupe' => $id_groupe
         ));
-        $groupes = $req->fetchAll();
+        $groupes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $groupes;
     }
@@ -165,7 +165,7 @@ class Groupes {
         $req->execute(array(
             'id_groupe' => $id_groupe
         ));
-        $groupes = $req->fetchAll();
+        $groupes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $groupes;
     }
@@ -179,7 +179,7 @@ class Groupes {
         $req->execute(array(
             'id_groupe' => $id_groupe
         ));
-        $groupes = $req->fetchAll();
+        $groupes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $groupes;
     }
@@ -193,7 +193,7 @@ class Groupes {
         $req->execute(array(
             'id_groupe' => $id_groupe
         ));
-        $groupes = $req->fetchAll();
+        $groupes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $groupes;
     }
@@ -206,7 +206,7 @@ class Groupes {
         $req->execute(array(
             'id_groupe' => $id_keyapi
         ));
-        $groupes = $req->fetchAll();
+        $groupes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $groupes;
     }
@@ -219,7 +219,7 @@ class Groupes {
         $req->execute(array(
             'id_groupe' => $id_groupe
         ));
-        $droits = $req->fetchAll();
+        $droits = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $droits;
     }

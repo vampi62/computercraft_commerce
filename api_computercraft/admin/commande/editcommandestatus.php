@@ -22,6 +22,7 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id_commande'], 'commande')) {
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_type_status_commande'], 'type_status_commande')) {
     return array('status_code' => 404, 'message' => 'Le type n\'existe pas.');
 }
-Commandes::setCommandeSuivi($bddConnection, $_GET['id_commande'], $_GET['id_type_status_commande'], $_Serveur_['General']['case_ligne_suite']);
+$suivi = $donneesJoueurUserAdmin['pseudo_joueur'].' a changer le status a '. $_GET['id_type_status_commande'] . ' via panel admin.';
+Commandes::setCommandeSuivi($bddConnection, $_GET['id_commande'], $suivi, $_Serveur_['General']['case_ligne_suite']);
 Commandes::setCommandeStatus($bddConnection, $_GET['id_commande'], $_GET['id_type_status_commande']);
 return array('status_code' => 200, 'message' => '');

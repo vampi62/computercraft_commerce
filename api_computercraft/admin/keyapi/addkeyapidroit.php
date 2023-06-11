@@ -22,5 +22,5 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id_droit'], 'droit')) {
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_keyapi'], 'keyapi')) {
     return array('status_code' => 404, 'message' => 'La keyapi n\'existe pas.');
 }
-Keyapis::addDroit($bddConnection, $_GET['id_keyapi'], $_GET['id_droit']);
+Keyapis::addKeyapiDroits($bddConnection, $_GET['id_keyapi'], $_GET['id_droit']);
 return array('status_code' => 200, 'message' => '');

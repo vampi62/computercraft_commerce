@@ -19,4 +19,4 @@ if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) 
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_adresse'], 'adresse')) {
     return array('status_code' => 404, 'message' => 'L\'adresse n\'existe pas.');
 }
-return array('status_code' => 200, 'message' => '', 'data' => Livreur::getLivreursbyAdresse($bddConnection, $_GET['iid_adressed']));
+return array('status_code' => 200, 'message' => '', 'data' => Livreurs::getLivreursbyAdresse($bddConnection, $_GET['id_adresse']));

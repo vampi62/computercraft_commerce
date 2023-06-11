@@ -16,4 +16,4 @@ if(!Checkdroits::CheckMdp($bddConnection, $_GET['useradmin'], $_GET['mdpadmin'])
 if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) {
     return array('status_code' => 403, 'message' => 'Le compte n\'a pas les droits.');
 }
-return array('status_code' => 200, 'message' => '', 'data' => Jeton::getJetons($bddConnection));
+return array('status_code' => 200, 'message' => '', 'data' => Jetons::getJetons($bddConnection));

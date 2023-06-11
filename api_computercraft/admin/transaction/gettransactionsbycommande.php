@@ -19,4 +19,4 @@ if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) 
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_commande'], 'commande')) {
     return array('status_code' => 404, 'message' => 'La commande n\'existe pas.');
 }
-return array('status_code' => 200, 'message' => '', 'data' => Transaction::getTransactionsbyCommande($bddConnection, $_GET['id_commande']));
+return array('status_code' => 200, 'message' => '', 'data' => Transactions::getTransactionsByCommande($bddConnection, $_GET['id_commande']));

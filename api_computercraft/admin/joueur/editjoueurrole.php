@@ -19,6 +19,9 @@ if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) 
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
+if($_GET['id_joueur'] == $donneesJoueurUserAdmin['id_joueur']) {
+    return array('status_code' => 403, 'message' => 'Vous ne pouvez pas modifier votre role.');
+}
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_type_role'], 'type_role')) {
     return array('status_code' => 404, 'message' => 'Le role n\'existe pas.');
 }

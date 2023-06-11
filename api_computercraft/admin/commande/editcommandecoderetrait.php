@@ -3,7 +3,7 @@ require_once('class/joueurs.class.php');
 require_once('class/checkdroits.class.php');
 require_once('class/commandes.class.php');
 
-if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_commande' => false, 'code_retrait' => false))) {
+if(!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_commande' => false, 'code_retrait_commande' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
@@ -19,11 +19,11 @@ if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) 
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_commande'], 'commande')) {
     return array('status_code' => 404, 'message' => 'La commande n\'existe pas.');
 }
-if(!Checkdroits::CheckPasswordSecu($_GET['code_retrait'])) {
+if(!Checkdroits::CheckPasswordSecu($_GET['code_retrait_commande'])) {
     return array('status_code' => 400, 'message' => 'Le code de retrait n\'est pas securise.');
 }
-if (strlen($_GET['code_retrait']) > $_Serveur_['MaxLengthChamps']['code_retrait']) {
+if (strlen($_GET['code_retrait_commande']) > $_Serveur_['MaxLengthChamps']['code']) {
     return array('status_code' => 413, 'message' => 'Le code retrait est trop long.');
 }
-Commandes::setCommandeCodeRetrait($bddConnection, $_GET['id_commande'], $_GET['code_retrait']);
+Commandes::setCommandeCodeRetrait($bddConnection, $_GET['id_commande'], $_GET['code_retrait_commande']);
 return array('status_code' => 200, 'message' => '');

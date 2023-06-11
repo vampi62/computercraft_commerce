@@ -24,7 +24,7 @@ class Livreurs {
             'id_joueur' => $id_joueur,
             'nom_droit' => "getlivreurs"
         ));
-        $livreurs = $req->fetchAll();
+        $livreurs = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $livreurs;
     }
@@ -45,51 +45,63 @@ class Livreurs {
             'id_keyapi' => $id_keyapi,
             'nom_droit' => "getlivreurs"
         ));
-        $livreurs = $req->fetchAll();
+        $livreurs = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $livreurs;
     }
 
     // recupere les livreurs d'un joueur
     public static function getLivreursByJoueur($bdd,$id_joueur) {
-        $req = $bdd->prepare('SELECT * FROM livreurs
-        WHERE id_joueur = :id_joueur');
+        $req = $bdd->prepare('SELECT livreurs.*, joueurs.pseudo_joueur,comptes.nom_compte, adresses.nom_adresse  FROM livreurs
+        INNER JOIN joueurs ON livreurs.id_joueur = joueurs.id_joueur
+        INNER JOIN comptes ON livreurs.id_compte = comptes.id_compte
+        INNER JOIN adresses ON livreurs.id_adresse = adresses.id_adresse
+        WHERE livreurs.id_joueur = :id_joueur');
         $req->execute(array(
             'id_joueur' => $id_joueur
         ));
-        $livreurs = $req->fetchAll();
+        $livreurs = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $livreurs;
     }
 
     // recupere les livreurs utilisant un compte precis
     public static function getLivreursByCompte($bdd,$id_compte) {
-        $req = $bdd->prepare('SELECT * FROM livreurs
-        WHERE id_compte = :id_compte');
+        $req = $bdd->prepare('SELECT livreurs.*, joueurs.pseudo_joueur,comptes.nom_compte, adresses.nom_adresse  FROM livreurs
+        INNER JOIN joueurs ON livreurs.id_joueur = joueurs.id_joueur
+        INNER JOIN comptes ON livreurs.id_compte = comptes.id_compte
+        INNER JOIN adresses ON livreurs.id_adresse = adresses.id_adresse
+        WHERE livreurs.id_compte = :id_compte');
         $req->execute(array(
             'id_compte' => $id_compte
         ));
-        $livreurs = $req->fetchAll();
+        $livreurs = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $livreurs;
     }
 
     // recupere les livreurs utilisant une adresse precis
     public static function getLivreursByAdresse($bdd,$id_adresse) {
-        $req = $bdd->prepare('SELECT * FROM livreurs
-        WHERE id_adresse = :id_adresse');
+        $req = $bdd->prepare('SELECT livreurs.*, joueurs.pseudo_joueur,comptes.nom_compte, adresses.nom_adresse  FROM livreurs
+        INNER JOIN joueurs ON livreurs.id_joueur = joueurs.id_joueur
+        INNER JOIN comptes ON livreurs.id_compte = comptes.id_compte
+        INNER JOIN adresses ON livreurs.id_adresse = adresses.id_adresse
+        WHERE livreurs.id_adresse = :id_adresse');
         $req->execute(array(
             'id_adresse' => $id_adresse
         ));
-        $livreurs = $req->fetchAll();
+        $livreurs = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $livreurs;
     }
 
     // recupere un livreur precis
     public static function getLivreurById($bdd,$id_livreur) {
-        $req = $bdd->prepare('SELECT * FROM livreurs
-        WHERE id_livreur = :id_livreur');
+        $req = $bdd->prepare('SELECT livreurs.*, joueurs.pseudo_joueur,comptes.nom_compte, adresses.nom_adresse  FROM livreurs
+        INNER JOIN joueurs ON livreurs.id_joueur = joueurs.id_joueur
+        INNER JOIN comptes ON livreurs.id_compte = comptes.id_compte
+        INNER JOIN adresses ON livreurs.id_adresse = adresses.id_adresse
+        WHERE livreurs.id_livreur = :id_livreur');
         $req->execute(array(
             'id_livreur' => $id_livreur
         ));

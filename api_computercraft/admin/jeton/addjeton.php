@@ -19,7 +19,7 @@ if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) 
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
-if(Jetons::getJetonByJoueur($bddConnection, $_GET['id_joueur'])['id_joueur'] != null) {
+if(Jetons::getJetonByJoueur($bddConnection, $_GET['id_joueur'])) {
     return array('status_code' => 404, 'message' => 'Le joueur a deja un jeton creer.');
 }
 $newid = Jetons::addJeton($bddConnection, $_GET['id_joueur']);

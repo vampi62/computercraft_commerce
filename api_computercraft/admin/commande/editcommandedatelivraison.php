@@ -20,9 +20,13 @@ if(!Checkdroits::CheckId($bddConnection, $_GET['id_commande'], 'commande')) {
     return array('status_code' => 404, 'message' => 'La commande n\'existe pas.');
 }
 if (!empty($_GET['date'])) {
-    if (!(strtotime($date) !== false)) {
+    if (!(strtotime($_GET['date']) !== false)) {
         return array('status_code' => 400, 'message' => 'La date est invalide.');
     }
+} else {
+    $_GET['date'] = null;
 }
+$suivi = $donneesJoueurUserAdmin['pseudo_joueur'].' a changer la date de livraison a '. $_GET['date'] . ' via panel admin.';
+Commandes::setCommandeSuivi($bddConnection, $_GET['id_commande'], $suivi, $_Serveur_['General']['case_ligne_suite']);
 Commandes::setCommandeDateLivraison($bddConnection, $_GET['id_commande'], $_GET['date']);
 return array('status_code' => 200, 'message' => '');

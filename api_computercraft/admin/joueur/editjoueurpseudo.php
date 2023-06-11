@@ -19,7 +19,7 @@ if(!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) 
 if(!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
-if (!empty(Joueurs::getJoueurbyPseudo($bddConnection, $_GET['pseudo'])['pseudo_joueur'])) {
+if (!empty(Joueurs::getJoueurbyPseudo($bddConnection, $_GET['pseudo']))) {
     return array('status_code' => 400, 'message' => 'Le pseudo est deja utilise.');
 }
 if (strlen($_GET['pseudo']) > $_Serveur_['MaxLengthChamps']['pseudo']) {
