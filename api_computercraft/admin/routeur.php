@@ -54,10 +54,8 @@ switch(strtolower($_GET['action']))	{
     //editcommandecoderetrait
     //editcommandedatelivraison
     //editcommandestatus
-    //editcommandetransaction
     //editcommandelivreur
     //getcommandebyid
-    //getcommandebytransaction
     //getcommandesbyadresse
     //getcommandesbyadresseclient
     //getcommandesbyadressevendeur
@@ -78,17 +76,11 @@ switch(strtolower($_GET['action']))	{
     case 'editcommandestatus':
         $printmessage = require('commande/editcommandestatus.php');
     break;
-    case 'editcommandetransaction':
-        $printmessage = require('commande/editcommandetransaction.php');
-    break;
     case 'editcommandelivreur':
         $printmessage = require('commande/editcommandelivreur.php');
     break;
     case 'getcommandebyid':
         $printmessage = require('commande/getcommandebyid.php');
-    break;
-    case 'getcommandebytransaction':
-        $printmessage = require('commande/getcommandebytransaction.php');
     break;
     case 'getcommandesbyadresse':
         $printmessage = require('commande/getcommandesbyadresse.php');

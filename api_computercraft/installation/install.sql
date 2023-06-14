@@ -571,14 +571,13 @@ ALTER TABLE `chemin_status_commandes`
 --
 ALTER TABLE `commandes`
   ADD PRIMARY KEY (`id_commande`),
-  ADD KEY `commandes_adresses6_FK` (`id_adresse_client`),
-  ADD KEY `commandes_adresses7_FK` (`id_adresse_vendeur`),
-  ADD KEY `commandes_comptes2_FK` (`id_compte_client`),
-  ADD KEY `commandes_comptes3_FK` (`id_compte_vendeur`),
-  ADD KEY `commandes_livreurs5_FK` (`id_livreur`),
+  ADD KEY `commandes_adresses5_FK` (`id_adresse_client`),
+  ADD KEY `commandes_adresses6_FK` (`id_adresse_vendeur`),
+  ADD KEY `commandes_comptes1_FK` (`id_compte_client`),
+  ADD KEY `commandes_comptes2_FK` (`id_compte_vendeur`),
+  ADD KEY `commandes_livreurs4_FK` (`id_livreur`),
   ADD KEY `commandes_offres0_FK` (`id_offre`),
-  ADD KEY `commandes_transactions1_FK` (`id_transaction`),
-  ADD KEY `commandes_type_status_commandes4_FK` (`id_type_status_commande`);
+  ADD KEY `commandes_type_status_commandes3_FK` (`id_type_status_commande`);
 
 --
 -- Index pour la table `comptes`
@@ -932,14 +931,13 @@ ALTER TABLE `chemin_status_commandes`
 -- Contraintes pour la table `commandes`
 --
 ALTER TABLE `commandes`
-  ADD CONSTRAINT `commandes_adresses6_FK` FOREIGN KEY (`id_adresse_client`) REFERENCES `adresses` (`id_adresse`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `commandes_adresses7_FK` FOREIGN KEY (`id_adresse_vendeur`) REFERENCES `adresses` (`id_adresse`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `commandes_comptes2_FK` FOREIGN KEY (`id_compte_client`) REFERENCES `comptes` (`id_compte`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `commandes_comptes3_FK` FOREIGN KEY (`id_compte_vendeur`) REFERENCES `comptes` (`id_compte`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `commandes_livreurs5_FK` FOREIGN KEY (`id_livreur`) REFERENCES `livreurs` (`id_livreur`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `commandes_adresses5_FK` FOREIGN KEY (`id_adresse_client`) REFERENCES `adresses` (`id_adresse`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `commandes_adresses6_FK` FOREIGN KEY (`id_adresse_vendeur`) REFERENCES `adresses` (`id_adresse`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `commandes_comptes1_FK` FOREIGN KEY (`id_compte_client`) REFERENCES `comptes` (`id_compte`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `commandes_comptes2_FK` FOREIGN KEY (`id_compte_vendeur`) REFERENCES `comptes` (`id_compte`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `commandes_livreurs4_FK` FOREIGN KEY (`id_livreur`) REFERENCES `livreurs` (`id_livreur`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `commandes_offres0_FK` FOREIGN KEY (`id_offre`) REFERENCES `offres` (`id_offre`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `commandes_transactions1_FK` FOREIGN KEY (`id_transaction`) REFERENCES `transactions` (`id_transaction`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `commandes_type_status_commandes4_FK` FOREIGN KEY (`id_type_status_commande`) REFERENCES `type_status_commandes` (`id_type_status_commande`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `commandes_type_status_commandes3_FK` FOREIGN KEY (`id_type_status_commande`) REFERENCES `type_status_commandes` (`id_type_status_commande`) ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `comptes`

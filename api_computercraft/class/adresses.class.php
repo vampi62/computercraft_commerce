@@ -50,8 +50,9 @@ class Adresses {
 
     // recupere les adresses d'un joueur
     public static function getAdressesByJoueur($bdd,$id_joueur) {
-        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses 
-        INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur WHERE adresses.id_joueur = :id_joueur');
+        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur,livreurs.nom_livreur FROM adresses 
+        INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur
+        LEFT JOIN livreurs ON livreurs.id_livreur = adresses.id_livreur WHERE adresses.id_joueur = :id_joueur');
         $req->execute(array(
             'id_joueur' => $id_joueur
         ));
@@ -62,8 +63,9 @@ class Adresses {
 
     // recupere les adresse d'un livreur
     public static function getAdressesByLivreur($bdd,$id_livreur) {
-        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses 
-        INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur WHERE adresses.id_livreur = :id_livreur');
+        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur,livreurs.nom_livreur FROM adresses 
+        INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur
+        LEFT JOIN livreurs ON livreurs.id_livreur = adresses.id_livreur WHERE adresses.id_livreur = :id_livreur');
         $req->execute(array(
             'id_livreur' => $id_livreur
         ));
@@ -74,7 +76,9 @@ class Adresses {
 
     // recupere l'adresse
     public static function getAdresseById($bdd,$id_adresse) {
-        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur WHERE adresses.id_adresse = :id_adresse');
+        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur,livreurs.nom_livreur FROM adresses
+        INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur
+        LEFT JOIN livreurs ON livreurs.id_livreur = adresses.id_livreur WHERE adresses.id_adresse = :id_adresse');
         $req->execute(array(
             'id_adresse' => $id_adresse
         ));

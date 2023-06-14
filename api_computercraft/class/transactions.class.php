@@ -7,7 +7,12 @@
 class Transactions {
     // recupere les transactions du compte
     public static function getTransactionsByCompte($bdd,$id_compte) {
-        $req = $bdd->prepare('SELECT * FROM transactions WHERE id_compte_debiteur = :id_compte OR id_compte_crediteur = :id_compte');
+        $req = $bdd->prepare('SELECT transactions.*, codebit.nom_compte as nom_compte_debiteur, cocred.nom_compte as nom_compte_crediteur, commandes.nom_commande FROM transactions 
+        LEFT JOIN comptes AS codebit ON transactions.id_compte_debiteur = codebit.id_compte
+        LEFT JOIN comptes AS cocred ON transactions.id_compte_crediteur = cocred.id_compte
+        LEFT JOIN admins ON transactions.id_admin = admins.id_admin
+        LEFT JOIN commandes ON transactions.id_commande = commandes.id_commande
+        WHERE transactions.id_compte_debiteur = :id_compte OR transactions.id_compte_crediteur = :id_compte');
         $req->execute(array(
             'id_compte' => $id_compte
         ));
@@ -18,7 +23,12 @@ class Transactions {
 
     // recupere les transactions executer par un admin
     public static function getTransactionsByAdmin($bdd,$id_admin) {
-        $req = $bdd->prepare('SELECT * FROM transactions WHERE id_admin = :id_admin');
+        $req = $bdd->prepare('SELECT transactions.*, codebit.nom_compte as nom_compte_debiteur, cocred.nom_compte as nom_compte_crediteur, commandes.nom_commande FROM transactions 
+        LEFT JOIN comptes AS codebit ON transactions.id_compte_debiteur = codebit.id_compte
+        LEFT JOIN comptes AS cocred ON transactions.id_compte_crediteur = cocred.id_compte
+        INNER JOIN admins ON transactions.id_admin = admins.id_admin
+        LEFT JOIN commandes ON transactions.id_commande = commandes.id_commande
+        WHERE transactions.id_admin = :id_admin');
         $req->execute(array(
             'id_admin' => $id_admin
         ));
@@ -29,7 +39,12 @@ class Transactions {
 
     // recupere la transaction
     public static function getTransactionById($bdd,$id_transaction) {
-        $req = $bdd->prepare('SELECT * FROM transactions WHERE id_transaction = :id_transaction');
+        $req = $bdd->prepare('SELECT transactions.*, codebit.nom_compte as nom_compte_debiteur, cocred.nom_compte as nom_compte_crediteur, commandes.nom_commande FROM transactions 
+        LEFT JOIN comptes AS codebit ON transactions.id_compte_debiteur = codebit.id_compte
+        LEFT JOIN comptes AS cocred ON transactions.id_compte_crediteur = cocred.id_compte
+        LEFT JOIN admins ON transactions.id_admin = admins.id_admin
+        LEFT JOIN commandes ON transactions.id_commande = commandes.id_commande
+        WHERE transactions.id_transaction = :id_transaction');
         $req->execute(array(
             'id_transaction' => $id_transaction
         ));
@@ -39,7 +54,12 @@ class Transactions {
     }
 
     public static function getTransactionsByCommande($bdd,$id_commande) {
-        $req = $bdd->prepare('SELECT * FROM transactions WHERE id_commande = :id_commande');
+        $req = $bdd->prepare('SELECT transactions.*, codebit.nom_compte as nom_compte_debiteur, cocred.nom_compte as nom_compte_crediteur, commandes.nom_commande FROM transactions 
+        LEFT JOIN comptes AS codebit ON transactions.id_compte_debiteur = codebit.id_compte
+        LEFT JOIN comptes AS cocred ON transactions.id_compte_crediteur = cocred.id_compte
+        LEFT JOIN admins ON transactions.id_admin = admins.id_admin
+        INNER JOIN commandes ON transactions.id_commande = commandes.id_commande
+        WHERE transactions.id_commande = :id_commande');
         $req->execute(array(
             'id_commande' => $id_commande
         ));

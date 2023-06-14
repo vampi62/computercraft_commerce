@@ -15,7 +15,14 @@
 class Commandes {
     // recupere les commandes ayant ce compte comme vendeur ou client
     public static function getCommandesByCompte($bdd,$id_compte) {
-        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_compte_vendeur = :id_compte OR id_compte_client = :id_compte');
+        $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
+        LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
+        LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
+        LEFT JOIN adresses AS advendeur ON commandes.id_adresse_vendeur = advendeur.id_adresse
+        LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
+        LEFT JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
+        LEFT JOIN offres ON commandes.id_offre = offres.id_offre
+        WHERE commandes.id_compte_vendeur = :id_compte OR commandes.id_compte_client = :id_compte');
         $req->execute(array(
             'id_compte' => $id_compte
         ));
@@ -26,7 +33,14 @@ class Commandes {
 
     // recupere les commandes ayant cette adresse comme vendeur ou client
     public static function getCommandesByAdresse($bdd,$id_adresse) {
-        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_adresse_client = :id_adresse OR id_adresse_vendeur = :id_adresse');
+        $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
+        LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
+        LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
+        LEFT JOIN adresses AS advendeur ON commandes.id_adresse_vendeur = advendeur.id_adresse
+        LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
+        LEFT JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
+        LEFT JOIN offres ON commandes.id_offre = offres.id_offre
+        WHERE commandes.id_adresse_client = :id_adresse OR commandes.id_adresse_vendeur = :id_adresse');
         $req->execute(array(
             'id_adresse' => $id_adresse
         ));
@@ -37,7 +51,14 @@ class Commandes {
 
     // recupere les commandes ayant ce compte vendeur
     public static function getCommandesByCompteVendeur($bdd,$id_compte_vendeur) {
-        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_compte_vendeur = :id_compte_vendeur');
+        $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
+        INNER JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
+        LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
+        LEFT JOIN adresses AS advendeur ON commandes.id_adresse_vendeur = advendeur.id_adresse
+        LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
+        LEFT JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
+        LEFT JOIN offres ON commandes.id_offre = offres.id_offre
+        WHERE commandes.id_compte_vendeur = :id_compte_vendeur');
         $req->execute(array(
             'id_compte_vendeur' => $id_compte_vendeur
         ));
@@ -48,7 +69,14 @@ class Commandes {
 
     // recupere les commandes ayant ce compte client
     public static function getCommandesByCompteClient($bdd,$id_compte_client) {
-        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_compte_client = :id_compte_client');
+        $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
+        LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
+        INNER JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
+        LEFT JOIN adresses AS advendeur ON commandes.id_adresse_vendeur = advendeur.id_adresse
+        LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
+        LEFT JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
+        LEFT JOIN offres ON commandes.id_offre = offres.id_offre
+        WHERE commandes.id_compte_client = :id_compte_client');
         $req->execute(array(
             'id_compte_client' => $id_compte_client
         ));
@@ -59,7 +87,14 @@ class Commandes {
 
     // recupere les commandes ayant cette adresse vendeur
     public static function getCommandesByAdresseVendeur($bdd,$id_adresse_vendeur) {
-        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_adresse_vendeur = :id_adresse_vendeur');
+        $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
+        LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
+        LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
+        INNER JOIN adresses AS advendeur ON commandes.id_adresse_vendeur = advendeur.id_adresse
+        LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
+        LEFT JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
+        LEFT JOIN offres ON commandes.id_offre = offres.id_offre
+        WHERE commandes.id_adresse_vendeur = :id_adresse_vendeur');
         $req->execute(array(
             'id_adresse_vendeur' => $id_adresse_vendeur
         ));
@@ -70,7 +105,14 @@ class Commandes {
 
     // recupere les commandes ayant cette adresse client
     public static function getCommandesByAdresseClient($bdd,$id_adresse_client) {
-        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_adresse_client = :id_adresse_client');
+        $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
+        LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
+        LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
+        LEFT JOIN adresses AS advendeur ON commandes.id_adresse_vendeur = advendeur.id_adresse
+        INNER JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
+        LEFT JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
+        LEFT JOIN offres ON commandes.id_offre = offres.id_offre
+        WHERE commandes.id_adresse_client = :id_adresse_client');
         $req->execute(array(
             'id_adresse_client' => $id_adresse_client
         ));
@@ -81,7 +123,14 @@ class Commandes {
 
     // recupere les commandes ayant ce livreur
     public static function getCommandesByLivreur($bdd,$id_livreur) {
-        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_livreur = :id_livreur');
+        $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
+        LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
+        LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
+        LEFT JOIN adresses AS advendeur ON commandes.id_adresse_vendeur = advendeur.id_adresse
+        LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
+        INNER JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
+        LEFT JOIN offres ON commandes.id_offre = offres.id_offre
+        WHERE commandes.id_livreur = :id_livreur');
         $req->execute(array(
             'id_livreur' => $id_livreur
         ));
@@ -92,7 +141,14 @@ class Commandes {
 
     // recupere les commandes ayant cette offre
     public static function getCommandesByOffre($bdd,$id_offre) {
-        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_offre = :id_offre');
+        $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
+        LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
+        LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
+        LEFT JOIN adresses AS advendeur ON commandes.id_adresse_vendeur = advendeur.id_adresse
+        LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
+        LEFT JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
+        INNER JOIN offres ON commandes.id_offre = offres.id_offre
+        WHERE commandes.id_offre = :id_offre');
         $req->execute(array(
             'id_offre' => $id_offre
         ));
@@ -101,20 +157,16 @@ class Commandes {
         return $commandes;
     }
 
-    // recupere les commandes ayant cette transaction
-    public static function getCommandesByTransaction($bdd,$id_transaction) {
-        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_transaction = :id_transaction');
-        $req->execute(array(
-            'id_transaction' => $id_transaction
-        ));
-        $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
-        $req->closeCursor();
-        return $commandes;
-    }
-
     // recupere la commande
     public static function getCommandeById($bdd,$id_commande) {
-        $req = $bdd->prepare('SELECT * FROM commandes WHERE id_commande = :id_commande');
+        $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
+        LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
+        LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
+        LEFT JOIN adresses AS advendeur ON commandes.id_adresse_vendeur = advendeur.id_adresse
+        LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
+        LEFT JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
+        LEFT JOIN offres ON commandes.id_offre = offres.id_offre
+        WHERE commandes.id_commande = :id_commande');
         $req->execute(array(
             'id_commande' => $id_commande
         ));
@@ -129,15 +181,6 @@ class Commandes {
         $req->execute(array(
             'id_commande' => $id_commande,
             'id_status_commande' => $id_status_commande
-        ));
-    }
-
-    // lier une transaction a la commande
-    public static function setCommandeTransaction($bdd,$id_commande,$id_transaction) {
-        $req = $bdd->prepare('UPDATE commandes SET id_transaction = :id_transaction WHERE id_commande = :id_commande');
-        $req->execute(array(
-            'id_commande' => $id_commande,
-            'id_transaction' => $id_transaction
         ));
     }
 

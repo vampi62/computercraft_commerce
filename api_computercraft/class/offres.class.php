@@ -18,8 +18,8 @@ class Offres {
     public static function getOffres($bdd,$bool_remove_inactive=FALSE) {
         $req = $bdd->prepare('SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
-        INNER JOIN comptes ON offres.id_compte = comptes.id_compte
-        INNER JOIN adresses ON offres.id_adresse = adresses.id_adresse');
+        LEFT JOIN comptes ON offres.id_compte = comptes.id_compte
+        LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse');
         $req->execute();
         $offres = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
@@ -35,8 +35,8 @@ class Offres {
     public static function getOffresByJoueur($bdd,$id_joueur,$bool_remove_inactive=FALSE) {
         $req = $bdd->prepare("SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres 
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
-        INNER JOIN comptes ON offres.id_compte = comptes.id_compte
-        INNER JOIN adresses ON offres.id_adresse = adresses.id_adresse
+        LEFT JOIN comptes ON offres.id_compte = comptes.id_compte
+        LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse
         WHERE offres.id_joueur = :id_joueur");
         $req->execute(array(
             'id_joueur' => $id_joueur
@@ -56,7 +56,7 @@ class Offres {
         $req = $bdd->prepare("SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres 
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
         INNER JOIN comptes ON offres.id_compte = comptes.id_compte
-        INNER JOIN adresses ON offres.id_adresse = adresses.id_adresse
+        LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse
         WHERE offres.id_compte = :id_compte");
         $req->execute(array(
             'id_compte' => $id_compte
@@ -75,7 +75,7 @@ class Offres {
     public static function getOffresByAdresse($bdd,$id_adresse,$bool_remove_inactive=FALSE) {
         $req = $bdd->prepare("SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres 
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
-        INNER JOIN comptes ON offres.id_compte = comptes.id_compte
+        LEFT JOIN comptes ON offres.id_compte = comptes.id_compte
         INNER JOIN adresses ON offres.id_adresse = adresses.id_adresse
         WHERE offres.id_adresse = :id_adresse");
         $req->execute(array(
@@ -95,8 +95,8 @@ class Offres {
     public static function getOffreById($bdd,$id_offre) {
         $req = $bdd->prepare("SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres 
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
-        INNER JOIN comptes ON offres.id_compte = comptes.id_compte
-        INNER JOIN adresses ON offres.id_adresse = adresses.id_adresse
+        LEFT JOIN comptes ON offres.id_compte = comptes.id_compte
+        LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse
         WHERE offres.id_offre = :id_offre");
         $req->execute(array(
             'id_offre' => $id_offre

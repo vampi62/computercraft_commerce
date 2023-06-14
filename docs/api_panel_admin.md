@@ -326,13 +326,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=editcomman
 - id_type_status_commande	:(int) nouvelle id du type de status de la commande
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=editcommandestatus&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_commande=__id_commande__&id_type_status_commande=__id_type_status_commande__
-#### editcommandetransaction
-- useradmin	    :(str) pseudo du compte admin
-- mdpadmin	    :(str) mdp du compte admin
-- id_commande	:(int) id de la commande à modifier
-- id_transaction	:(int) nouvelle id de la transaction de la commande
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=editcommandetransaction&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_commande=__id_commande__&id_transaction=__id_transaction__
 #### editcommandelivreur
 - useradmin	    :(str) pseudo du compte admin
 - mdpadmin	    :(str) mdp du compte admin
@@ -347,13 +341,6 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=editcomman
 - id_commande	:(int) id de la commande à obtenir
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=getcommandebyid&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_commande=__id_commande__
-
-#### getcommandebytransaction
-- useradmin	    :(str) pseudo du compte admin
-- mdpadmin	    :(str) mdp du compte admin
-- id_transaction	:(int) id de la transaction de la commande à obtenir
-
-http://__global_url__:__global_port__/__global_uri__/index.php?action=getcommandebytransaction&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_transaction=__id_transaction__
 
 #### getcommandesbyadresse
 - useradmin	    :(str) pseudo du compte admin
