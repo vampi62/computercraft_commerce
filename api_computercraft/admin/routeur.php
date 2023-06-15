@@ -15,7 +15,6 @@ switch(strtolower($_GET['action']))	{
     //editadressedescription
     //editadresselivreur
     //editadressenom
-    //editadressetype
     //getadressebyid
     //getadressesbyjoueur
     //getadressesbylivreur
@@ -36,9 +35,6 @@ switch(strtolower($_GET['action']))	{
     break;
     case 'editadressenom':
         $printmessage = require('adresse/editadressenom.php');
-    break;
-    case 'editadressetype':
-        $printmessage = require('adresse/editadressetype.php');
     break;
     case 'getadressebyid':
         $printmessage = require('adresse/getadressebyid.php');
@@ -64,6 +60,7 @@ switch(strtolower($_GET['action']))	{
     //getcommandesbycomptevendeur
     //getcommandesbylivreur
     //getcommandesbyoffre
+    //getcommandesbystatus
     case 'addcommande':
         $printmessage = require('commande/addcommande.php');
     break;
@@ -105,6 +102,9 @@ switch(strtolower($_GET['action']))	{
     break;
     case 'getcommandesbyoffre':
         $printmessage = require('commande/getcommandesbyoffre.php');
+    break;
+    case 'getcommandesbystatus':
+        $printmessage = require('commande/getcommandesbystatus.php');
     break;
 
     //addcompte

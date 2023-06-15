@@ -175,6 +175,24 @@ class Commandes {
         return $commande;
     }
 
+    // recupere les commande via le status
+    public static function getCommandesByStatus($bdd,$id_status_commande) {
+        $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
+        LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
+        LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
+        LEFT JOIN adresses AS advendeur ON commandes.id_adresse_vendeur = advendeur.id_adresse
+        LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
+        LEFT JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
+        LEFT JOIN offres ON commandes.id_offre = offres.id_offre
+        WHERE commandes.id_status_commande = :id_status_commande');
+        $req->execute(array(
+            'id_status_commande' => $id_status_commande
+        ));
+        $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
+        $req->closeCursor();
+        return $commandes;
+    }
+    
     // modifie le status de la commande
     public static function setCommandeStatus($bdd,$id_commande,$id_status_commande) {
         $req = $bdd->prepare('UPDATE commandes SET id_status_commande = :id_status_commande WHERE id_commande = :id_commande');

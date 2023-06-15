@@ -2,7 +2,7 @@
 /*
 	Ce fichier PHP effectue telle ou telle action selon le contenu des gets envoyés
 */
-if(isset($_GET['action']))
+if (isset($_GET['action']))
 {
 	switch(strtolower($_GET['action']))	{
 		//// config

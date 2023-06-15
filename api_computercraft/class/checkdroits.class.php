@@ -22,7 +22,7 @@ class Checkdroits {
         ));
         $liste = $req->fetch(PDO::FETCH_ASSOC);
         $req->closeCursor();
-        if(!empty($liste)) {
+        if (!empty($liste)) {
             return true;
         }
         return false;
@@ -36,8 +36,8 @@ class Checkdroits {
         ));
         $login = $req->fetch(PDO::FETCH_ASSOC);
         $req->closeCursor();
-		if(!empty($login)) {
-			if(password_verify($mdp, $login['mdp_joueur'])) {
+		if (!empty($login)) {
+			if (password_verify($mdp, $login['mdp_joueur'])) {
 				return true;
 			}
 		}
@@ -66,8 +66,8 @@ class Checkdroits {
         ));
         $reset = $req->fetch(PDO::FETCH_ASSOC);
 		$req->closeCursor();
-        if(!empty($reset)) {
-            if($token == $reset['resettoken']) {
+        if (!empty($reset)) {
+            if ($token == $reset['resettoken']) {
                 return true;
             }
         }
@@ -222,7 +222,7 @@ class Checkdroits {
         $commande = $req->fetch(PDO::FETCH_ASSOC);
 		$req->closeCursor();
 
-        if(!empty($commande)) {
+        if (!empty($commande)) {
             if ($commande['code_retrait_commande'] == $code_retrait_commande) {
                 return true;
             }
@@ -238,7 +238,7 @@ class Checkdroits {
         ));
         $api = $req->fetch(PDO::FETCH_ASSOC);
 		$req->closeCursor();
-        if(!empty($api)) {
+        if (!empty($api)) {
             if ($api['mdp_keyapi'] == $mdp_keyapi) {
                 return true;
             }

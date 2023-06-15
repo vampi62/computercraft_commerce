@@ -516,9 +516,11 @@ CREATE TABLE `type_status_transactions` (
 --
 
 INSERT INTO `type_status_transactions` (`id_type_status_transaction`, `nom_type_status_transaction`) VALUES
-(1, 'valider'),
-(2, 'refuser'),
-(3, 'rembourser');
+(1, 'en attente')
+(2, 'valider'),
+(3, 'refuser'),
+(4, 'rembourser');
+(5, 'annuler');
 
 -- --------------------------------------------------------
 
@@ -1070,6 +1072,11 @@ ALTER TABLE `transactions`
 
 CREATE VIEW vw_joueurs AS SELECT joueurs.id_joueur, joueurs.pseudo_joueur, joueurs.email_joueur , joueurs.last_login_joueur, joueurs.max_offres_joueur, joueurs.id_type_role, type_roles.nom_type_role FROM joueurs INNER JOIN type_roles ON joueurs.id_type_role = type_roles.id_type_role;
 
+-- tache planifiée tous les jours pour supprimer les keypay expirées
+CREATE EVENT IF NOT EXISTS `event_keypay` ON SCHEDULE EVERY 1 DAY STARTS '2019-12-01 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM keypay WHERE date_expire_keypay < NOW();
+
+-- tache planifiée tous les 5 min pour recuperer les transaction en attente
+CREATE EVENT IF NOT EXISTS `event_transaction` ON SCHEDULE EVERY 5 MINUTE STARTS '2019-12-01 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE transactions SET id_type_status_transaction = 2 WHERE id_type_status_transaction = 1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

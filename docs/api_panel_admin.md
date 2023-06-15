@@ -254,14 +254,6 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=editadress
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=editadressenom&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_adresse=__id_adresse__&nom=__nom__
 
-#### editadressetype
-- useradmin	        :(str) pseudo du compte admin
-- mdpadmin	        :(str) mdp du compte admin
-- id_adresse	    :(int) id de l'adresse à modifier
-- id_type_adresse	:(int) nouvelle id du type d'adresse
-
-http://__global_url__:__global_port__/__global_uri__/index.php?action=editadressetype&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_adresse=__id_adresse__&id_type_adresse=__id_type_adresse__
-
 #### getadressebyid
 - useradmin	    :(str) pseudo du compte admin
 - mdpadmin	    :(str) mdp du compte admin
@@ -289,9 +281,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getadresse
 - useradmin	                :(str) pseudo du compte admin
 - mdpadmin	                :(str) mdp du compte admin
 - id_offre	                :(int) id de l'offre
-- id_adresse_vendeur	    :(int) id de l'adresse du vendeur
 - id_adresse_client	        :(int) id de l'adresse du client
-- id_compte_vendeur	        :(int) id du compte du vendeur
 - id_compte_client	        :(int) id du compte du client
 - id_type_status_commande	:(int) id du type de status de la commande
 - code_retrait_commande	    :(str) code de retrait de la commande
@@ -301,7 +291,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getadresse
 - quant	                    :(int) quantité de la commande
 - nom	                    :(str) nom de la commande
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=addcommande&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_offre=__id_offre__&id_adresse_vendeur=__id_adresse_vendeur__&id_adresse_client=__id_adresse_client__&id_compte_vendeur=__id_compte_vendeur__&id_compte_client=__id_compte_client__&id_type_status_commande=__id_type_status_commande__&code_retrait_commande=__code_retrait__&description=__description__&frait=__frait__&prixu=__prixu__&quant=__quant__&nom=__nom__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=addcommande&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_offre=__id_offre__&id_adresse_client=__id_adresse_client__&id_compte_client=__id_compte_client__&id_type_status_commande=__id_type_status_commande__&code_retrait_commande=__code_retrait__&description=__description__&frait=__frait__&prixu=__prixu__&quant=__quant__&nom=__nom__
 
 #### editcommandecoderetrait
 - useradmin	    :(str) pseudo du compte admin
@@ -398,6 +388,12 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getcommand
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=getcommandesbyoffre&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_offre=__id_offre__
 
+#### getcommandesbystatus
+- useradmin	    :(str) pseudo du compte admin
+- mdpadmin	    :(str) mdp du compte admin
+- id_type_status_commande	:(int) id du type de status des commandes à obtenir
+
+http://__global_url__:__global_port__/__global_uri__/index.php?action=getcommandesbystatus&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_type_status_commande=__id_type_status_commande__
 
 ### gestion des comptes
 #### addcompte

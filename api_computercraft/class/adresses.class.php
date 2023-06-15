@@ -11,12 +11,13 @@
 class Adresses {
     // recupere les adresses accessible par le joueur (lui a partient ou groupes en communs qui permet le getadresses)
     public static function getAdressesWithUser($bdd,$id_joueur) {
-        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses 
+        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur, livreurs.nom_livreur FROM adresses 
         INNER JOIN groupes_adresses ON adresses.id_adresse = groupes_adresses.id_adresse
         INNER JOIN groupes_joueurs ON groupes_adresses.id_groupe = groupes_joueurs.id_groupe
         INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_adresses.id_groupe
         INNER JOIN liste_droits     ON liste_droits.id_droit = groupes_droits.id_droit
         INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur
+        LEFT JOIN livreurs ON livreurs.id_adresse = adresses.id_adresse
         WHERE (groupes_joueurs.id_joueur = :id_joueur AND liste_droits.nom = :nom_droit) OR (adresses.id_joueur = :id_joueur)');
         $req->execute(array(
             'id_joueur' => $id_joueur,
@@ -29,7 +30,7 @@ class Adresses {
 
     // recupere les adresses accessible par la keyapi (groupe en communs qui permet le getadresses)
     public static function getAdressesWithKeyApi($bdd,$id_keyapi) {
-        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses
+        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur, livreurs.nom_livreur FROM adresses
         INNER JOIN groupes_adresses ON adresses.id_adresse = groupes_adresses.id_adresse
         INNER JOIN groupes_keyapis ON groupes_adresses.id_groupe = groupes_keyapis.id_groupe
         INNER JOIN keyapis ON groupes_keyapis.id_keyapi = keyapis.id_keyapi
@@ -38,6 +39,7 @@ class Adresses {
         INNER JOIN keyapis_droits    ON keyapis_droits.id_keyapi = groupes_keyapis.id_groupe
         INNER JOIN liste_droits     ON liste_droits.id_droit = keyapis_droits.id_droit
         INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur
+        LEFT JOIN livreurs ON livreurs.id_adresse = adresses.id_adresse
         WHERE keyapis.id_keyapi = :id_keyapi AND liste_droits.nom = :nom_droit');
         $req->execute(array(
             'id_keyapi' => $id_keyapi,
