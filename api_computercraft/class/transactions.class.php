@@ -84,4 +84,13 @@ class Transactions {
         ));
         return $bdd->lastInsertId();
     }
+
+    // modifie le status d'une transaction
+    public static function setStatusTransaction($bdd,$id_transaction,$id_type_status_transaction) {
+        $req = $bdd->prepare('UPDATE transactions SET id_type_status_transaction = :id_type_status_transaction WHERE id_transaction = :id_transaction');
+        $req->execute(array(
+            'id_transaction' => $id_transaction,
+            'id_type_status_transaction' => $id_type_status_transaction
+        ));
+    }
 }

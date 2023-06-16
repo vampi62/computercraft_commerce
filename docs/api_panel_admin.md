@@ -16,7 +16,6 @@
             * [editadressedescription](#editadressedescription)
             * [editadresselivreur](#editadresselivreur)
             * [editadressenom](#editadressenom)
-            * [editadressetype](#editadressetype)
             * [getadressebyid](#getadressebyid)
             * [getadressesbyjoueur](#getadressesbyjoueur)
             * [getadressesbylivreur](#getadressesbylivreur)
@@ -25,10 +24,8 @@
             * [editcommandecoderetrait](#editcommandecoderetrait)
             * [editcommandedatelivraison](#editcommandedatelivraison)
             * [editcommandestatus](#editcommandestatus)
-            * [editcommandetransaction](#editcommandetransaction)
             * [editcommandelivreur](#editcommandelivreur)
             * [getcommandebyid](#getcommandebyid)
-            * [getcommandebytransaction](#getcommandebytransaction)
             * [getcommandesbyadresse](#getcommandesbyadresse)
             * [getcommandesbyadresseclient](#getcommandesbyadresseclient)
             * [getcommandesbyadressevendeur](#getcommandesbyadressevendeur)
@@ -37,6 +34,7 @@
             * [getcommandesbycomptevendeur](#getcommandesbycomptevendeur)
             * [getcommandesbylivreur](#getcommandesbylivreur)
             * [getcommandesbyoffre](#getcommandesbyoffre)
+            * [getcommandesbystatus](#getcommandesbystatus)
         * [gestion des comptes](#gestion-des-comptes)
             * [addcompte](#addcompte)
             * [deletecompte](#deletecompte)
@@ -137,6 +135,8 @@
             * [getoffresbyjoueur](#getoffresbyjoueur)
         * [gestion des transactions](#gestion-des-transactions)
             * [addtransaction](#addtransaction)
+            * [edittransactionstatus](#edittransactionstatus)
+            * [exectransaction](#exectransaction)
             * [gettransactionbyid](#gettransactionbyid)
             * [gettransactionsbyadmin](#gettransactionsbyadmin)
             * [gettransactionsbycommande](#gettransactionsbycommande)
@@ -171,7 +171,7 @@ les chaine de caractere sont limiter a 450 caractere pour les champs "descriptio
 
 ### nom_action (exemple)
 - param1	:(type) parametre obligatoire
-- param2    :(type)(optionnel) parametre non obligatoire
+- param2    :(type)(vide) parametre non obligatoire --> doit être envoyer mais la valeur peut être vide
 
 http://0.0.0.0:9081/api_computercraft/index.php?action=__nom_action__&__param1__=__param1_val__&__param2__=__param2_val__
 
@@ -211,7 +211,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getconfig&
 - id_type_adresse	:(int) id du type d'adresse (obtenir les type existant avec la commande getconfig)
 - description	    :(str) description de l'adresse
 - coo	            :(str) coordonnée de l'adresse
-- id_livreur	    :(int) vide si l'adresse n'est pas un point de livraison, sinon id du livreur qui livre à cette adresse
+- id_livreur	    :(int)(vide) si l'adresse n'est pas un point de livraison, sinon id du livreur qui livre à cette adresse
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=addadresse&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_joueur=__id_joueur__&nom=__nom__&id_type_adresse=__id_type_adresse__&description=__description__&coo=__coo__&id_livreur=__id_livreur__
 
@@ -242,7 +242,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=editadress
 - useradmin	    :(str) pseudo du compte admin
 - mdpadmin	    :(str) mdp du compte admin
 - id_adresse	:(int) id de l'adresse à modifier
-- id_livreur	:(int) nouvelle id du livreur qui livre à cette adresse
+- id_livreur	:(int)(vide) nouvelle id du livreur qui livre à cette adresse (envoyer "" pour supprimer le lien au livreur)
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=editadresselivreur&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_adresse=__id_adresse__&id_livreur=__id_livreur__
 
@@ -305,7 +305,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=editcomman
 - useradmin	    :(str) pseudo du compte admin
 - mdpadmin	    :(str) mdp du compte admin
 - id_commande	:(int) id de la commande à modifier
-- date_livraison	:(str) nouvelle date de livraison de la commande
+- date_livraison	:(str)(vide) nouvelle date de livraison de la commande (envoyer "" pour supprimer la date de livraison)
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=editcommandedatelivraison&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_commande=__id_commande__&date_livraison=__date_livraison__
 
@@ -321,7 +321,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=editcomman
 - useradmin	    :(str) pseudo du compte admin
 - mdpadmin	    :(str) mdp du compte admin
 - id_commande	:(int) id de la commande à modifier
-- id_livreur	:(int) id du livreur de la commande
+- id_livreur	:(int)(vide) id du livreur de la commande (envoyer "" pour supprimer le lien au livreur)
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=editcommandelivreur&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_commande=__id_commande__&id_livreur=__id_livreur__
 
@@ -723,7 +723,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getjetons&
 - mdpadmin	:(str) mdp du compte admin
 - email 	:(str) email du joueur
 - mdp 		:(str) mdp du joueur
-- nbroffre 	:(int) nombre d'offre du joueur
+- nbroffre 	:(int)(vide) nombre d'offre du joueur (defaut nbr prevu dans le fichier config)
 - pseudo 	:(str) pseudo du joueur
 - id_type_role 	:(str) id role du joueur
 
@@ -914,8 +914,8 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getlitigem
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
 - id_joueur :(int) id du joueur qui est livreur
-- id_adresse :(int) id de l'adresse du livreur
-- id_compte :(int) id du compte du livreur
+- id_adresse :(int)(vide) id de l'adresse du livreur
+- id_compte :(int)(vide) id du compte du livreur
 - nom 		:(str) nom du livreur
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=addlivreur&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_joueur=__id_joueur__&id_adresse=__id_adresse__&id_compte=__id_compte__&nom=__nom__
@@ -931,7 +931,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=deletelivr
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
 - id_livreur :(int) id du livreur a modifier
-- id_adresse :(int) id de la nouvelle adresse du livreur
+- id_adresse :(int)(vide) id de la nouvelle adresse du livreur , si vide alors le lien entre le livreur et l'adresse est supprime (le livreur n'a plus actif tant qu'il n'a pas d'adresse)
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=editlivreuradresse&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_livreur=__id_livreur__&id_adresse=__id_adresse__
 
@@ -939,7 +939,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=editlivreu
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
 - id_livreur :(int) id du livreur a modifier
-- id_compte :(int) id du nouveau compte du livreur
+- id_compte :(int)(vide) id du nouveau compte du livreur, si vide alors le lien entre le livreur et le compte est supprime (le livreur n'a plus actif tant qu'il n'a pas de compte)
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=editlivreurcompte&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_livreur=__id_livreur__&id_compte=__id_compte__
 
@@ -985,13 +985,15 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getlivreur
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
 - id_joueur :(int) id du joueur qui propose l'offre
-- id_adresse :(int) id de l'adresse de l'offre
-- id_compte :(int) id du compte de l'offre
-- nom 		:(str) nom de l'offre
-- description :(str) description de l'offre
-- prix 		:(float) prix de l'offre
-- stock 	:(int) stock de l'offre
+- id_adresse :(int)(vide) id de l'adresse de l'offre
+- id_compte :(int)(vide) id du compte de l'offre
+- nom 		:(str)(vide) nom de l'offre
+- description :(str)(vide) description de l'offre
+- prix 		:(float)(vide) prix de l'offre
+- stock 	:(int)(vide) stock de l'offre
 - id_type_offre :(str) id type de l'offre
+
+les champs peuvent etre vide, mais l'offre ne sera active que si les champs sont tous remplis
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=addoffre&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_joueur=__id_joueur__&id_adresse=__id_adresse__&id_compte=__id_compte__&nom=__nom__&description=__description__&prix=__prix__&stock=__stock__&id_type_offre=__id_type_offre__
 
@@ -1006,7 +1008,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=deleteoffr
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
 - id_offre :(int) id de l'offre a modifier
-- id_adresse :(int) id de la nouvelle adresse de l'offre
+- id_adresse :(int)(vide) id de la nouvelle adresse de l'offre
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=editoffreadresse&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_offre=__id_offre__&id_adresse=__id_adresse__
 
@@ -1014,7 +1016,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=editoffrea
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
 - id_offre :(int) id de l'offre a modifier
-- id_compte :(int) id du nouveau compte de l'offre
+- id_compte :(int)(vide) id du nouveau compte de l'offre
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=editoffrecompte&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_offre=__id_offre__&id_compte=__id_compte__
 
@@ -1022,7 +1024,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=editoffrec
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
 - id_offre :(int) id de l'offre a modifier
-- description :(str) nouvelle description de l'offre
+- description :(str)(vide) nouvelle description de l'offre
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=editoffredescription&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_offre=__id_offre__&description=__description__
 
@@ -1030,7 +1032,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=editoffred
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
 - id_offre :(int) id de l'offre a modifier
-- nom :(str) nouveau nom de l'offre
+- nom :(str)(vide) nouveau nom de l'offre
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=editoffrenom&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_offre=__id_offre__&nom=__nom__
 
@@ -1038,7 +1040,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=editoffren
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
 - id_offre :(int) id de l'offre a modifier
-- prix :(float) nouveau prix de l'offre
+- prix :(float)(vide) nouveau prix de l'offre
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=editoffreprix&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_offre=__id_offre__&prix=__prix__
 
@@ -1046,7 +1048,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=editoffrep
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
 - id_offre :(int) id de l'offre a modifier
-- stock :(int) nouveau stock de l'offre
+- stock :(int)(vide) nouveau stock de l'offre
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=editoffrestock&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_offre=__id_offre__&stock=__stock__
 
@@ -1097,16 +1099,32 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getoffresb
 #### addtransaction
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_commande :(int) id de la commande de la transaction (peut etre null)
+- id_commande :(int)(vide) id de la commande de la transaction (peut etre null)
 - id_type_transaction :(int) id du type de la transaction
-- id_compte_crediteur :(int) id du compte crediteur
-- id_compte_debiteur :(int) id du compte debiteur
+- id_compte_crediteur :(int)(vide) id du compte crediteur
+- id_compte_debiteur :(int)(vide) id du compte debiteur
 - montant :(float) montant de la transaction
 - nom :(str) nom de la transaction
 - description :(str) description de la transaction
-- id_status_transaction :(int) id du status de la transaction
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=addtransaction&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_commande=__id_commande__&id_type_transaction=__id_type_transaction__&id_compte_crediteur=__id_compte_crediteur__&id_compte_debiteur=__id_compte_debiteur__&montant=__montant__&nom=__nom__&description=__description__&id_status_transaction=__id_status_transaction__
+au moins un des deux compte peut etre "vide"
+
+http://__global_url__:__global_port__/__global_uri__/index.php?action=addtransaction&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_commande=__id_commande__&id_type_transaction=__id_type_transaction__&id_compte_crediteur=__id_compte_crediteur__&id_compte_debiteur=__id_compte_debiteur__&montant=__montant__&nom=__nom__&description=__description__
+
+#### edittransactionstatus
+- useradmin	:(str) pseudo du compte admin
+- mdpadmin	:(str) mdp du compte admin
+- id_transaction :(int) id de la transaction a modifier
+- id_type_status_transaction :(int) id du status de la transaction
+
+http://__global_url__:__global_port__/__global_uri__/index.php?action=edittransactionstatus&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_transaction=__id_transaction__&id_type_status_transaction=__id_type_status_transaction__
+
+#### exectransaction
+- useradmin	:(str) pseudo du compte admin
+- mdpadmin	:(str) mdp du compte admin
+- id_transaction :(int) id de la transaction a executer
+
+http://__global_url__:__global_port__/__global_uri__/index.php?action=exectransaction&admin=true&useradmin=__user__&mdpadmin=__mdp__&id_transaction=__id_transaction__
 
 #### gettransactionbyid
 - useradmin	:(str) pseudo du compte admin

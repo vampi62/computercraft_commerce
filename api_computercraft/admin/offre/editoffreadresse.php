@@ -20,15 +20,17 @@ if (!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin')))
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_offre'], 'offre')) {
     return array('status_code' => 404, 'message' => 'L\'offre n\'existe pas.');
 }
-if (!Checkdroits::CheckId($bddConnection, $_GET['id_adresse'], 'adresse')) {
-    return array('status_code' => 404, 'message' => 'L\'adresse n\'existe pas.');
-}
 // le type d'adresse doit etre un point de vente pour pouvoir etre defini comme adresse de l'offre
 if (!empty($_GET['id_adresse'])) {
+    if (!Checkdroits::CheckId($bddConnection, $_GET['id_adresse'], 'adresse')) {
+        return array('status_code' => 404, 'message' => 'L\'adresse n\'existe pas.');
+    }
     $adresse = Adresses::getAdresseById($bddConnection, $_GET['id_adresse']);
     if (!$adresse['id_type_adresse'] >= 3) {
         return array('status_code' => 400, 'message' => 'Le type d\'adresse n\'est pas valide pour une offre.');
     }
+} else {
+    $_GET['id_adresse'] = null;
 }
 Offres::setOffreAdresse($bddConnection, $_GET['id_offre'], $_GET['id_adresse']);
 return array('status_code' => 200, 'message' => 'L\'adresse de l\'offre a bien ete modifie.');

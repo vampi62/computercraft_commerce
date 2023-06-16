@@ -33,7 +33,7 @@ CREATE TABLE `adresses` (
   `coo_adresse` varchar(50) NOT NULL,
   `description_adresse` varchar(450) NOT NULL,
   `id_joueur` int(11) UNSIGNED NOT NULL,
-  `id_type_adresse` int(11) UNSIGNED NOT NULL,
+  `id_type_adresse` tinyint(3) UNSIGNED NOT NULL,
   `id_livreur` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -49,8 +49,8 @@ CREATE TABLE `chemin_status_commandes` (
   `vendeur_chemin_status` tinyint(1) UNSIGNED NOT NULL,
   `livreur_chemin_status` tinyint(1) UNSIGNED NOT NULL,
   `admin_chemin_status` tinyint(1) UNSIGNED NOT NULL,
-  `id_type_status_commande_debut` int(11) UNSIGNED NOT NULL,
-  `id_type_status_commande_suite` int(11) UNSIGNED NOT NULL
+  `id_type_status_commande_debut` tinyint(3) UNSIGNED NOT NULL,
+  `id_type_status_commande_suite` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -97,7 +97,7 @@ CREATE TABLE `commandes` (
   `id_transaction` int(11) UNSIGNED DEFAULT NULL,
   `id_compte_client` int(11) UNSIGNED DEFAULT NULL,
   `id_compte_vendeur` int(11) UNSIGNED DEFAULT NULL,
-  `id_type_status_commande` int(11) UNSIGNED NOT NULL,
+  `id_type_status_commande` tinyint(3) UNSIGNED NOT NULL,
   `id_livreur` int(11) UNSIGNED DEFAULT NULL,
   `id_adresse_client` int(11) UNSIGNED DEFAULT NULL,
   `id_adresse_vendeur` int(11) UNSIGNED DEFAULT NULL
@@ -114,7 +114,7 @@ CREATE TABLE `comptes` (
   `nom_compte` varchar(50) NOT NULL,
   `solde_compte` double NOT NULL,
   `id_joueur` int(11) UNSIGNED NOT NULL,
-  `id_type_compte` int(11) UNSIGNED NOT NULL
+  `id_type_compte` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -252,7 +252,7 @@ CREATE TABLE `joueurs` (
   `last_login_joueur` datetime NOT NULL,
   `expire_resettoken_joueur` datetime DEFAULT NULL,
   `max_offres_joueur` int(11) UNSIGNED NOT NULL,
-  `id_type_role` int(11) UNSIGNED NOT NULL
+  `id_type_role` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -306,7 +306,7 @@ CREATE TABLE `litiges` (
   `date_litige` datetime NOT NULL,
   `id_commande` int(11) UNSIGNED NOT NULL,
   `id_joueur` int(11) UNSIGNED DEFAULT NULL,
-  `id_type_status_litige` int(11) UNSIGNED NOT NULL
+  `id_type_status_litige` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -339,7 +339,7 @@ CREATE TABLE `offres` (
   `id_joueur` int(11) UNSIGNED NOT NULL,
   `id_compte` int(11) UNSIGNED DEFAULT NULL,
   `id_adresse` int(11) UNSIGNED DEFAULT NULL,
-  `id_type_offre` int(11) UNSIGNED NOT NULL
+  `id_type_offre` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -354,8 +354,8 @@ CREATE TABLE `transactions` (
   `somme_transaction` double NOT NULL,
   `description_transaction` varchar(450) NOT NULL,
   `date_transaction` datetime NOT NULL,
-  `id_type_status_transaction` int(11) UNSIGNED NOT NULL,
-  `id_type_transaction` int(11) UNSIGNED NOT NULL,
+  `id_type_status_transaction` tinyint(3) UNSIGNED NOT NULL,
+  `id_type_transaction` tinyint(3) UNSIGNED NOT NULL,
   `id_admin` int(11) UNSIGNED DEFAULT NULL,
   `id_compte_debiteur` int(11) UNSIGNED DEFAULT NULL,
   `id_compte_crediteur` int(11) UNSIGNED DEFAULT NULL,
@@ -369,7 +369,7 @@ CREATE TABLE `transactions` (
 --
 
 CREATE TABLE `type_adresses` (
-  `id_type_adresse` int(11) UNSIGNED NOT NULL,
+  `id_type_adresse` tinyint(3) UNSIGNED NOT NULL,
   `nom_type_adresse` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -391,7 +391,7 @@ INSERT INTO `type_adresses` (`id_type_adresse`, `nom_type_adresse`) VALUES
 --
 
 CREATE TABLE `type_comptes` (
-  `id_type_compte` int(11) UNSIGNED NOT NULL,
+  `id_type_compte` tinyint(3) UNSIGNED NOT NULL,
   `nom_type_compte` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -411,7 +411,7 @@ INSERT INTO `type_comptes` (`id_type_compte`, `nom_type_compte`) VALUES
 --
 
 CREATE TABLE `type_offres` (
-  `id_type_offre` int(11) UNSIGNED NOT NULL,
+  `id_type_offre` tinyint(3) UNSIGNED NOT NULL,
   `nom_type_offre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -432,7 +432,7 @@ INSERT INTO `type_offres` (`id_type_offre`, `nom_type_offre`) VALUES
 --
 
 CREATE TABLE `type_roles` (
-  `id_type_role` int(11) UNSIGNED NOT NULL,
+  `id_type_role` tinyint(3) UNSIGNED NOT NULL,
   `nom_type_role` varchar(50) NOT NULL,
   `description_type_role` varchar(450) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -453,7 +453,7 @@ INSERT INTO `type_roles` (`id_type_role`, `nom_type_role`, `description_type_rol
 --
 
 CREATE TABLE `type_status_commandes` (
-  `id_type_status_commande` int(11) UNSIGNED NOT NULL,
+  `id_type_status_commande` tinyint(3) UNSIGNED NOT NULL,
   `nom_type_status_commande` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -484,7 +484,7 @@ INSERT INTO `type_status_commandes` (`id_type_status_commande`, `nom_type_status
 --
 
 CREATE TABLE `type_status_litiges` (
-  `id_type_status_litige` int(11) UNSIGNED NOT NULL,
+  `id_type_status_litige` tinyint(3) UNSIGNED NOT NULL,
   `nom_type_status_litige` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -507,7 +507,7 @@ INSERT INTO `type_status_litiges` (`id_type_status_litige`, `nom_type_status_lit
 --
 
 CREATE TABLE `type_status_transactions` (
-  `id_type_status_transaction` int(11) UNSIGNED NOT NULL,
+  `id_type_status_transaction` tinyint(3) UNSIGNED NOT NULL,
   `nom_type_status_transaction` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -529,7 +529,7 @@ INSERT INTO `type_status_transactions` (`id_type_status_transaction`, `nom_type_
 --
 
 CREATE TABLE `type_transactions` (
-  `id_type_transaction` int(11) UNSIGNED NOT NULL,
+  `id_type_transaction` tinyint(3) UNSIGNED NOT NULL,
   `nom_type_transaction` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -866,49 +866,49 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT pour la table `type_adresses`
 --
 ALTER TABLE `type_adresses`
-  MODIFY `id_type_adresse` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_type_adresse` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `type_comptes`
 --
 ALTER TABLE `type_comptes`
-  MODIFY `id_type_compte` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_type_compte` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `type_offres`
 --
 ALTER TABLE `type_offres`
-  MODIFY `id_type_offre` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_type_offre` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `type_roles`
 --
 ALTER TABLE `type_roles`
-  MODIFY `id_type_role` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_type_role` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `type_status_commandes`
 --
 ALTER TABLE `type_status_commandes`
-  MODIFY `id_type_status_commande` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_type_status_commande` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT pour la table `type_status_litiges`
 --
 ALTER TABLE `type_status_litiges`
-  MODIFY `id_type_status_litige` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_type_status_litige` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `type_status_transactions`
 --
 ALTER TABLE `type_status_transactions`
-  MODIFY `id_type_status_transaction` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_type_status_transaction` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `type_transactions`
 --
 ALTER TABLE `type_transactions`
-  MODIFY `id_type_transaction` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_type_transaction` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Contraintes pour les tables déchargées
