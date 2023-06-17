@@ -5,6 +5,20 @@
 // set transaction/add
 
 class Transactions {
+    // recupere les transaction en attente
+    public static function getTransactionsEnAttente($bdd) {
+        $req = $bdd->prepare('SELECT transactions.*, codebit.nom_compte as nom_compte_debiteur, cocred.nom_compte as nom_compte_crediteur, commandes.nom_commande FROM transactions 
+        LEFT JOIN comptes AS codebit ON transactions.id_compte_debiteur = codebit.id_compte
+        LEFT JOIN comptes AS cocred ON transactions.id_compte_crediteur = cocred.id_compte
+        LEFT JOIN admins ON transactions.id_admin = admins.id_admin
+        LEFT JOIN commandes ON transactions.id_commande = commandes.id_commande
+        WHERE transactions.id_type_status_transaction = 1');
+        $req->execute();
+        $transactions = $req->fetchAll(PDO::FETCH_ASSOC);
+        $req->closeCursor();
+        return $transactions;
+    }
+
     // recupere les transactions du compte
     public static function getTransactionsByCompte($bdd,$id_compte) {
         $req = $bdd->prepare('SELECT transactions.*, codebit.nom_compte as nom_compte_debiteur, cocred.nom_compte as nom_compte_crediteur, commandes.nom_commande FROM transactions 
@@ -86,11 +100,12 @@ class Transactions {
     }
 
     // modifie le status d'une transaction
-    public static function setStatusTransaction($bdd,$id_transaction,$id_type_status_transaction) {
-        $req = $bdd->prepare('UPDATE transactions SET id_type_status_transaction = :id_type_status_transaction WHERE id_transaction = :id_transaction');
+    public static function setStatusTransaction($bdd,$id_transaction,$id_type_status_transaction,$id_admin) {
+        $req = $bdd->prepare('UPDATE transactions SET id_type_status_transaction = :id_type_status_transaction, id_admin = :id_admin WHERE id_transaction = :id_transaction');
         $req->execute(array(
             'id_transaction' => $id_transaction,
-            'id_type_status_transaction' => $id_type_status_transaction
+            'id_type_status_transaction' => $id_type_status_transaction,
+            'id_admin' => $id_admin
         ));
     }
 }

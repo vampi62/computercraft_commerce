@@ -24,21 +24,28 @@ $transaction = Transactions::getTransactionById($bddConnection,$_GET['id_transac
 if ($transaction['id_type_status_transaction'] != 1) {
     return array('status_code' => 403, 'message' => 'La transaction a deja ete executee.');
 }
+
+function setstatusifadminnull($bddConnection,$transaction,$status,$JoueurUserAdmin) {
+    if ($transaction['id_admin'] == null) {
+        Transactions::setStatusTransaction($bddConnection,$transaction['id_transaction'], $status, $JoueurUserAdmin);
+    }
+    else {
+        Transactions::setStatusTransaction($bddConnection,$transaction['id_transaction'], $status, $transaction['id_admin']);
+    }
+}
+
+
 if (!empty($transaction['id_compte_debiteur'])) {
     $comptedeb = Comptes::getCompteById($bddConnection,$transaction['id_compte_debiteur']);
-    if ($comptedeb['solde'] < $transaction['montant']) {
-        Transactions::setStatusTransaction($bddConnection,$_GET['id_transaction'], 3);// refusé
+    if ($comptedeb['solde'] < $transaction['somme_transaction']) {
+        setstatusifadminnull($bddConnection,$transaction, 3, $donneesJoueurUserAdmin['id_joueur']);// refusé
         return array('status_code' => 403, 'message' => 'Le compte debiteur n\'a pas assez d\'argent.');
     }
+    Comptes::setCompteSolde($bddConnection,$transaction['id_compte_debiteur'],($comptedeb['solde_compte'] - $transaction['somme_transaction']));
 }
 if (!empty($transaction['id_compte_crediteur'])) {
     $comptecred = Comptes::getCompteById($bddConnection,$transaction['id_compte_crediteur']);
+    Comptes::setCompteSolde($bddConnection,$transaction['id_compte_crediteur'],($comptecred['solde_compte'] + $transaction['somme_transaction']));
 }
-if (!empty($transaction['id_compte_debiteur'])) {
-    Comptes::setCompteSolde($bddConnection,$transaction['id_compte_debiteur'],($comptedeb['solde_compte'] - $transaction['montant']));
-}
-if (!empty($transaction['id_compte_crediteur'])) {
-    Comptes::setCompteSolde($bddConnection,$transaction['id_compte_crediteur'],($comptecred['solde_compte'] + $transaction['montant']));
-}
-Transactions::setStatusTransaction($bddConnection,$_GET['id_transaction'], 2);// accepté
+setstatusifadminnull($bddConnection,$transaction, 2, $donneesJoueurUserAdmin['id_joueur']);// accepté
 return array('status_code' => 200, 'message' => 'La transaction est valide.');
