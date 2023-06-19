@@ -2,6 +2,8 @@
 require_once('class/joueurs.class.php');
 require_once('class/checkdroits.class.php');
 
-if (!Checkdroits::CheckArgs($_GET,array('useruser' => false,'mdpuser' => false))) {
-    return array('status_code' => 400, 'message' => 'Il manque des parametres.');
+$joueursall = Joueurs::getJoueurs($bddConnection);
+foreach ($joueursall as $joueur) {
+    unset($joueur['email_joueur']);
 }
+return array('status_code' => 200, 'messsage' => '' ,'data' => $joueursall);

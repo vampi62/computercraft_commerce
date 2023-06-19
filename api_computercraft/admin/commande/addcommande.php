@@ -9,7 +9,7 @@ require_once('class/offres.class.php');
 if (!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'nom' => false, 'quant' => false, 'prixu' => false, 'frait' => false, 'description' => false, 'code_retrait_commande' => false, 'id_adresse_client' => false, 'id_offre' => false, 'id_compte_client' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-$donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
+$donneesJoueurUserAdmin = Joueurs::getJoueurByPseudo($bddConnection, $_GET['useradmin']);
 if (empty($donneesJoueurUserAdmin['pseudo_joueur'])) {
     return array('status_code' => 404, 'message' => 'Le compte useradmin n\'existe pas.');
 }

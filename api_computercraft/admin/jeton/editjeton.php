@@ -6,7 +6,7 @@ require_once('class/jetons.class.php');
 if (!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_joueur' => false, '1' => false, '10' => false, '100' => false, '1k' => false, '10k' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-$donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
+$donneesJoueurUserAdmin = Joueurs::getJoueurByPseudo($bddConnection, $_GET['useradmin']);
 if (empty($donneesJoueurUserAdmin['pseudo_joueur'])) {
     return array('status_code' => 404, 'message' => 'Le compte useradmin n\'existe pas.');
 }
@@ -19,7 +19,7 @@ if (!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin')))
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
-if (!Jetons::getJetonByJoueur($bddConnection, $_GET['id_joueur'])['id_joueur'] != null) {
+if (empty(Jetons::getJetonByJoueur($bddConnection, $_GET['id_joueur']))) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'a pas de jeton creer.');
 }
 Jetons::setJeton($bddConnection, $_GET['id_joueur'],$_GET);

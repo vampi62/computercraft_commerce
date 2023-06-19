@@ -5,7 +5,7 @@ require_once('class/checkdroits.class.php');
 if (!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_joueur' => false, 'pseudo' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-$donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
+$donneesJoueurUserAdmin = Joueurs::getJoueurByPseudo($bddConnection, $_GET['useradmin']);
 if (empty($donneesJoueurUserAdmin['pseudo_joueur'])) {
     return array('status_code' => 404, 'message' => 'Le compte useradmin n\'existe pas.');
 }
@@ -18,7 +18,7 @@ if (!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin')))
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
-if (!empty(Joueurs::getJoueurbyPseudo($bddConnection, $_GET['pseudo']))) {
+if (!empty(Joueurs::getJoueurByPseudo($bddConnection, $_GET['pseudo']))) {
     return array('status_code' => 400, 'message' => 'Le pseudo est deja utilise.');
 }
 if (strlen($_GET['pseudo']) > $_Serveur_['MaxLengthChamps']['pseudo']) {

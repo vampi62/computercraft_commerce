@@ -7,7 +7,7 @@ require_once('class/comptes.class.php');
 if (!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_compte_crediteur' => true, 'id_compte_debiteur' => true, 'montant' => false, 'nom' => false, 'description' => false, 'id_type_transaction' => false, 'id_commande' => true))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-$donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
+$donneesJoueurUserAdmin = Joueurs::getJoueurByPseudo($bddConnection, $_GET['useradmin']);
 if (empty($donneesJoueurUserAdmin['pseudo_joueur'])) {
     return array('status_code' => 404, 'message' => 'Le compte useradmin n\'existe pas.');
 }

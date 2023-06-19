@@ -4,22 +4,22 @@ require_once('class/checkdroits.class.php');
 require_once('class/transactions.class.php');
 require_once('class/comptes.class.php');
 
-if (!Checkdroits::CheckArgs($_GET,array('userbanque' => false,'mdpbanque' => false))) {
+if (!Checkdroits::CheckArgs($_GET,array('useruser' => false,'mdpuser' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-$donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
-if (empty($donneesJoueurUserAdmin['pseudo_joueur'])) {
-    return array('status_code' => 404, 'message' => 'Le compte useradmin n\'existe pas.');
+$joueur = Joueurs::getJoueurByPseudo($bddConnection, $_GET['useruser']);
+if (empty($joueur)) {
+    return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
-if (!Checkdroits::CheckMdp($bddConnection, $_GET['useradmin'], $_GET['mdpadmin'])) {
+if (!Checkdroits::CheckMdp($bddConnection, $_GET['useruser'], $_GET['mdpuser'])) {
     return array('status_code' => 403, 'message' => 'Le mot de passe est incorrect.');
 }
-if (!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) {
+if (!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin','terminal'))) {
     return array('status_code' => 403, 'message' => 'Le compte n\'a pas les droits.');
 }
 $transactions = Transactions::getTransactionsEnAttente($bddConnection);
 if (empty($transactions)) {
-    return array('status_code' => 404, 'message' => 'Il n\'y a pas de transactions en attente.');
+    return array('status_code' => 200, 'message' => 'Il n\'y a pas de transactions en attente.');
 }
 foreach ($transactions as $transaction) {
     if (empty($transaction['id_compte_crediteur']) && empty($transaction['id_compte_debiteur'])) {
@@ -42,4 +42,4 @@ foreach ($transactions as $transaction) {
     }
     Transactions::setStatusTransaction($bddConnection,$transaction['id_transaction'], 2, $donneesJoueurUserAdmin['id_joueur']);// accepté
 }
-return array('status_code' => 200, 'message' => 'Les transactions ont été acceptées.');
+return array('status_code' => 200, 'message' => 'Les transactions ont ete acceptees.');

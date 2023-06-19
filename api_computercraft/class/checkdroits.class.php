@@ -76,7 +76,7 @@ class Checkdroits {
     
     // verifie si l'api a la permission d'effectuer l'action
     public static function CheckPermApi($bdd, $nom, $action) {
-        $req = $bdd->prepare('SELECT * FROM keyapis 
+        $req = $bdd->prepare('SELECT COUNT(*) FROM keyapis 
         INNER JOIN keyapis_droits ON keyapis.id_keyapi = keyapis_droits.id_keyapi 
         INNER JOIN droits ON droits.id_droit = keyapis_droits.id_droit 
         WHERE keyapis.nom = :nom AND droits.nom_droit = :action');
@@ -84,7 +84,7 @@ class Checkdroits {
             'nom' => $nom,
             'action' => $action
         ));
-        if (mysql_num_rows($req) > 0) {
+        if ($req->fetchColumn() > 0) {
             $req->closeCursor();
             return true;
         }
@@ -100,7 +100,7 @@ class Checkdroits {
                 // si groupe a les droits sur l'objet pour effectuer l'action
                     // -- permet l'action
             # si api et obj sont dans un meme groupe qui permet l'action alors return true
-            $req = $bdd->prepare('SELECT * FROM '.$type.'s
+            $req = $bdd->prepare('SELECT COUNT(*) FROM '.$type.'s
             INNER JOIN groupes_'.$type.'s ON '.$type.'s.id_'.$type.' = groupes_'.$type.'s.id_'.$type.'
             INNER JOIN groupes_keyapis    ON groupes_'.$type.'s.id_groupe = groupes_keyapis.id_groupe
             INNER JOIN keyapis           ON keyapis.id_keyapi = groupes_keyapis.id_keyapi
@@ -112,7 +112,7 @@ class Checkdroits {
                 'idnom' => $idnom,
                 'action' => $action
             ));
-            if (!mysql_num_rows($req) > 0) {
+            if (!$req->fetchColumn() > 0) {
                 $req->closeCursor();
                 return true;
             }
@@ -127,18 +127,18 @@ class Checkdroits {
                 // si groupe a les droits sur l'objet pour effectuer l'action
                     // -- permet l'action
             # si user et obj.proprio son identique alors return true
-            $req = $bdd->prepare('SELECT * FROM '.$type.'s WHERE id_'.$type.' = :idobjet AND id_joueur = :idnom');
+            $req = $bdd->prepare('SELECT COUNT(*) FROM '.$type.'s WHERE id_'.$type.' = :idobjet AND id_joueur = :idnom');
             $req->execute(array(
                 'idobjet' => $idobjet,
                 'idnom' => $idnom
             ));
-            if (mysql_num_rows($req) > 0) {
+            if ($req->fetchColumn() > 0) {
                 $req->closeCursor();
                 return true;
             }
             $req->closeCursor();
             # si user et obj sont dans un meme groupe qui permet l'action alors return true
-            $req = $bdd->prepare('SELECT * FROM '.$type.'s
+            $req = $bdd->prepare('SELECT COUNT(*) FROM '.$type.'s
             INNER JOIN groupes_'.$type.'s ON '.$type.'s.id_'.$type.' = groupes_'.$type.'s.id_'.$type.'
             INNER JOIN groupes_joueur    ON groupes_'.$type.'s.id_groupe = groupes_joueur.id_groupe
             INNER JOIN joueurs           ON joueurs.id_joueur = groupes_joueur.id_joueur
@@ -150,7 +150,7 @@ class Checkdroits {
                 'idnom' => $idnom,
                 'action' => $action
             ));
-            if (!mysql_num_rows($req) > 0) {
+            if (!$req->fetchColumn() > 0) {
                 $req->closeCursor();
                 return true;
             }
@@ -184,12 +184,12 @@ class Checkdroits {
 
     // verifie si le compte est proprio de l'objet
     public static function CheckProprioObj($bdd, $idnom, $idobjet, $type) {
-        $req = $bdd->prepare('SELECT * FROM '.$type.'s WHERE id_'.$type.' = :idobjet AND id_joueur = :idnom');
+        $req = $bdd->prepare('SELECT COUNT(*) FROM '.$type.'s WHERE id_'.$type.' = :idobjet AND id_joueur = :idnom');
         $req->execute(array(
             'idobjet' => $idobjet,
             'idnom' => $idnom
         ));
-        if (mysql_num_rows($req) > 0) {
+        if ($req->fetchColumn() > 0) {
             $req->closeCursor();
             return true;
         }

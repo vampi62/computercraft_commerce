@@ -6,7 +6,7 @@ require_once('class/litigemsgs.class.php');
 if (!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_commande' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-$donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
+$donneesJoueurUserAdmin = Joueurs::getJoueurByPseudo($bddConnection, $_GET['useradmin']);
 if (empty($donneesJoueurUserAdmin['pseudo_joueur'])) {
     return array('status_code' => 404, 'message' => 'Le compte useradmin n\'existe pas.');
 }
@@ -19,4 +19,4 @@ if (!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin')))
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_commande'], 'commande')) {
     return array('status_code' => 404, 'message' => 'La commande n\'existe pas.');
 }
-return array('status_code' => 200, 'message' => '', 'data' => LitigeMsgs::getLitigeMsgsbyCommande($bddConnection, $_GET['id_commande']));
+return array('status_code' => 200, 'message' => '', 'data' => LitigeMsgs::getLitigeMsgsByCommande($bddConnection, $_GET['id_commande']));

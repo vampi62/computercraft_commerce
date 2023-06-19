@@ -5,7 +5,7 @@ require_once('class/checkdroits.class.php');
 if (!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'pseudo' => false, 'mdp' => false, 'email' => false, 'id_type_role' => false, 'nbr_offre' => true))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-$donneesJoueurUserAdmin = Joueurs::getJoueurbyPseudo($bddConnection, $_GET['useradmin']);
+$donneesJoueurUserAdmin = Joueurs::getJoueurByPseudo($bddConnection, $_GET['useradmin']);
 if (empty($donneesJoueurUserAdmin['pseudo_joueur'])) {
     return array('status_code' => 404, 'message' => 'Le compte useradmin n\'existe pas.');
 }
@@ -15,7 +15,7 @@ if (!Checkdroits::CheckMdp($bddConnection, $_GET['useradmin'], $_GET['mdpadmin']
 if (!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) {
     return array('status_code' => 403, 'message' => 'Le compte n\'a pas les droits.');
 }
-if (!empty(Joueurs::getJoueurbyPseudo($bddConnection, $_GET['pseudo']))) {
+if (!empty(Joueurs::getJoueurByPseudo($bddConnection, $_GET['pseudo']))) {
     return array('status_code' => 404, 'message' => 'Le pseudo est deja pris.');
 }
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_type_role'], 'type_role')) {

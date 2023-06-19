@@ -5,7 +5,7 @@
 
 class LitigeMsgs {
     // recupere le fil de discution litige par rapport a l'id de commande
-    public static function getLitigeMsgsbyCommande($bdd,$id_commande) {
+    public static function getLitigeMsgsByCommande($bdd,$id_commande) {
         // recupere les litiges de la commande
         $req = $bdd->prepare('SELECT * FROM litigemsgs WHERE id_commande = :id_commande');
         $req->execute(array(
