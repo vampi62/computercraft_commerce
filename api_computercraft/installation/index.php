@@ -35,6 +35,12 @@ if (!(verifyPDO($_Serveur_['DataBase']['dbAdress'],$_Serveur_['DataBase']['dbNam
 }
 $sql = getPDO($_Serveur_['DataBase']['dbAdress'],$_Serveur_['DataBase']['dbName'],$_Serveur_['DataBase']['dbUser'],$_Serveur_['DataBase']['dbPassword'],$_Serveur_['DataBase']['dbPort']);
 $sql->exec(file_get_contents('install.sql'));
+if ($_Serveur_['Module']['enderstorage']) {
+	$sql->exec(file_get_contents('enderstorage.sql'));
+}
+if ($_Serveur_['Module']['wirelessredstone']) {
+	$sql->exec(file_get_contents('wirelessredstone.sql'));
+}
 SetHtpasswd();
 SetAdmin($sql, $_GET['pseudo'], $_GET['mdp'], $_GET['email']);
 $_Serveur_['Install'] = true;

@@ -2,6 +2,7 @@
 require_once('class/droits.class.php');
 $printmessage = array();
 $printmessage['General'] = $_Serveur_['General'];
+$printmessage['Module'] = $_Serveur_['Module'];
 $printmessage['MaxLengthChamps'] = $_Serveur_['MaxLengthChamps'];
 $printmessage['Droits'] = Droits::getDroits($bddConnection);
 $printmessage['TypeAdresses'] = Droits::getTypeAdresses($bddConnection);

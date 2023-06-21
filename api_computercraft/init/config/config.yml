@@ -28,3 +28,6 @@ MaxLengthChamps:
     code: 50
     pseudo: 50
     email: 50
+Module:
+    enderstorage: true
+    wirelessredstone: true

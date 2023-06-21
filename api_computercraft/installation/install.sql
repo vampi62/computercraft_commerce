@@ -1,11 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.2.0
--- https://www.phpmyadmin.net/
---
--- Hôte : 192.168.2.52
--- Généré le : dim. 28 mai 2023 à 20:36
--- Version du serveur : 10.7.3-MariaDB-1:10.7.3+maria~focal
--- Version de PHP : 8.0.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -516,10 +508,10 @@ CREATE TABLE `type_status_transactions` (
 --
 
 INSERT INTO `type_status_transactions` (`id_type_status_transaction`, `nom_type_status_transaction`) VALUES
-(1, 'en attente')
+(1, 'en attente'),
 (2, 'valider'),
 (3, 'refuser'),
-(4, 'rembourser');
+(4, 'rembourser'),
 (5, 'annuler');
 
 -- --------------------------------------------------------
@@ -902,7 +894,7 @@ ALTER TABLE `type_status_litiges`
 -- AUTO_INCREMENT pour la table `type_status_transactions`
 --
 ALTER TABLE `type_status_transactions`
-  MODIFY `id_type_status_transaction` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_type_status_transaction` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `type_transactions`
@@ -919,7 +911,7 @@ ALTER TABLE `type_transactions`
 --
 ALTER TABLE `adresses`
   ADD CONSTRAINT `adresses_joueurs0_FK` FOREIGN KEY (`id_joueur`) REFERENCES `joueurs` (`id_joueur`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `adresses_type_adresses1_FK` FOREIGN KEY (`id_type_adresse`) REFERENCES `type_adresses` (`id_type_adresse`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `adresses_type_adresses1_FK` FOREIGN KEY (`id_type_adresse`) REFERENCES `type_adresses` (`id_type_adresse`) ON UPDATE CASCADE,
   ADD CONSTRAINT `adresses_id_livreur2_FK` FOREIGN KEY (`id_livreur`) REFERENCES `livreurs`(`id_livreur`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
