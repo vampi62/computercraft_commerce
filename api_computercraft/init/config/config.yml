@@ -1,0 +1,33 @@
+#Ce fichier contiens la config de base du serveur---
+Install: false
+General:
+    nbr_offre_defaut: 5
+    nbr_offre_max: 25
+    prix_offre: 5000
+    case_ligne_suite: _br_
+    name: computercraft_api
+    version: 2.0
+DataBase:
+    dbAdress: 0.0.0.0
+    dbName: dbname
+    dbUser: dbuser
+    dbPassword: dbpass
+    dbPort: 3306
+SMTP:
+    Host: smtp.serveur.net
+    Username: snmpuser
+    Password: snmppass
+    Protocol: ssl
+    Port: 465
+    From: mailsender
+    Reply: mailtoreply
+MaxLengthChamps:
+    nom: 50
+    description: 450
+    coo: 50
+    code: 50
+    pseudo: 50
+    email: 50
+Module:
+    enderstorage: true
+    wirelessredstone: true

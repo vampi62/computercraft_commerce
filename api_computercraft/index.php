@@ -4,20 +4,23 @@ ini_set("display_errors", 1);
 date_default_timezone_set('Europe/Paris');
 setlocale(LC_TIME, "fr_FR");
 
-require ('controleur/config.php');
-require ('controleur/connection_base.php');
-if (!$_Serveur_['Install']) header('Location: installation/');
-if (isset($_GET['action']))
-{
-	if (isset($_GET['admin']))
-	{
-		require ('admin/action.php');
+require ('init/config.php');
+require ('init/connection_base.php');
+if (!$_Serveur_['Install']) {
+	$printmessage = require('installation/index.php');
+} else {
+	if (isset($_GET['action'])) {
+		if (isset($_GET['admin'])) {
+			$printmessage = require('admin/routeur.php');
+		} else {
+			$printmessage = require('controleur/routeur.php');
+		}
+	} else {
+		$printmessage = array('status_code' => 400, 'message' => 'Action non definie.');
 	}
-	else
-	{
-		require ('controleur/action.php');
-	}
-
 }
-require ('theme/vue.php');
+if (isset($printmessage) && !empty($printmessage)) {
+	http_response_code($printmessage['status_code']);
+	echo json_encode($printmessage);
+}
 ?>

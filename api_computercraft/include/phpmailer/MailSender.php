@@ -12,7 +12,7 @@ class MailSender
 {
 	public static function send($arrayData, $to, $object, $body)
 	{
-		if(isset($arrayData['SMTP']))
+		if (isset($arrayData['SMTP']))
 		{
 			try {
 				$mail = new PHPMailer(true);
