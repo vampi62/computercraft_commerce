@@ -76,7 +76,7 @@ INSERT INTO `chemin_status_commandes` (`id_chemin_status`, `client_chemin_status
 
 CREATE TABLE `commandes` (
   `id_commande` int(11) UNSIGNED NOT NULL,
-  `nom_produit_commande` varchar(50) NOT NULL,
+  `nom_commande` varchar(50) NOT NULL,
   `quantite_commande` int(11) UNSIGNED NOT NULL,
   `prix_unitaire_commande` float NOT NULL,
   `frait_livraison_commande` float NOT NULL,
@@ -193,10 +193,10 @@ CREATE TABLE `groupes_offres` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `groupes_utilisateurs`
+-- Structure de la table `groupes_joueurs`
 --
 
-CREATE TABLE `groupes_utilisateurs` (
+CREATE TABLE `groupes_joueurs` (
   `id_joueur` int(11) UNSIGNED NOT NULL,
   `id_groupe` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -630,11 +630,11 @@ ALTER TABLE `groupes_offres`
   ADD KEY `groupes_offres_offres1_FK` (`id_offre`);
 
 --
--- Index pour la table `groupes_utilisateurs`
+-- Index pour la table `groupes_joueurs`
 --
-ALTER TABLE `groupes_utilisateurs`
+ALTER TABLE `groupes_joueurs`
   ADD PRIMARY KEY (`id_joueur`,`id_groupe`),
-  ADD KEY `groupes_utilisateurs_groupes1_FK` (`id_groupe`);
+  ADD KEY `groupes_joueurs_groupes1_FK` (`id_groupe`);
 
 --
 -- Index pour la table `groupe_droits`
@@ -982,11 +982,11 @@ ALTER TABLE `groupes_offres`
   ADD CONSTRAINT `groupes_offres_offres1_FK` FOREIGN KEY (`id_offre`) REFERENCES `offres` (`id_offre`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `groupes_utilisateurs`
+-- Contraintes pour la table `groupes_joueurs`
 --
-ALTER TABLE `groupes_utilisateurs`
-  ADD CONSTRAINT `groupes_utilisateurs_groupes1_FK` FOREIGN KEY (`id_groupe`) REFERENCES `groupes` (`id_groupe`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `groupes_utilisateurs_joueurs0_FK` FOREIGN KEY (`id_joueur`) REFERENCES `joueurs` (`id_joueur`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `groupes_joueurs`
+  ADD CONSTRAINT `groupes_joueurs_groupes1_FK` FOREIGN KEY (`id_groupe`) REFERENCES `groupes` (`id_groupe`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `groupes_joueurs_joueurs0_FK` FOREIGN KEY (`id_joueur`) REFERENCES `joueurs` (`id_joueur`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `groupe_droits`

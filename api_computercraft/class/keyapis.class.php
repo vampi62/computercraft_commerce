@@ -17,9 +17,9 @@ class Keyapis {
         INNER JOIN groupes_keyapis ON keyapis.id_keyapi = groupes_keyapis.id_keyapi
         INNER JOIN groupes_joueurs ON groupes_keyapis.id_groupe = groupes_joueurs.id_groupe
         INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_keyapis.id_groupe
-        INNER JOIN liste_droits     ON liste_droits.id_droit = groupes_droits.id_droit
+        INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
         INNER JOIN joueurs ON keyapis.id_joueur = joueurs.id_joueur
-        WHERE (groupes_joueurs.id_joueur = :id_joueur AND liste_droits.nom_droit = :nom_droit) OR (keyapis.id_joueur = :id_joueur)');
+        WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (keyapis.id_joueur = :id_joueur)');
         $req->execute(array(
             'id_joueur' => $id_joueur,
             'nom_droit' => "getkeyapis"
@@ -64,7 +64,7 @@ class Keyapis {
 
     // recupere les droits d'une keyapi
     public static function getDroitsByKeyApi($bdd,$id_keyapi) {
-        $req = $bdd->prepare('SELECT * FROM liste_droits INNER JOIN keyapis_droits ON liste_droits.id_droit = keyapis_droits.id_droit WHERE keyapis_droits.id_keyapi = :id_keyapi');
+        $req = $bdd->prepare('SELECT * FROM droits INNER JOIN keyapis_droits ON droits.id_droit = keyapis_droits.id_droit WHERE keyapis_droits.id_keyapi = :id_keyapi');
         $req->execute(array(
             'id_keyapi' => $id_keyapi
         ));

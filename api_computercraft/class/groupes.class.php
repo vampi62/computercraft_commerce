@@ -213,8 +213,8 @@ class Groupes {
 
     // recupere les droits d'un groupe
     public static function getDroitsByGroupe($bdd,$id_groupe) {
-        $req = $bdd->prepare('SELECT * FROM liste_droits 
-        INNER JOIN groupes_droits ON liste_droits.id_droit = groupes_droits.id_droit 
+        $req = $bdd->prepare('SELECT * FROM droits 
+        INNER JOIN groupes_droits ON droits.id_droit = groupes_droits.id_droit 
         WHERE groupes_droits.id_groupe = :id_groupe');
         $req->execute(array(
             'id_groupe' => $id_groupe

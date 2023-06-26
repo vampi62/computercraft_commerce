@@ -13,4 +13,4 @@ if (empty($joueur)) {
 if (!Checkdroits::CheckMdp($bddConnection, $_GET['useruser'], $_GET['mdpuser'])) {
     return array('status_code' => 403, 'message' => 'Le mot de passe est incorrect.');
 }
-return array('status_code' => 200, 'message' => '' ,'data' => Comptes::getComptesWithJoueur($bddConnection, $joueur['id_joueur']));
+return array('status_code' => 200, 'message' => '' ,'data' => Comptes::getComptesWithUser($bddConnection, $joueur['id_joueur']));

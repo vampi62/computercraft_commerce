@@ -1,0 +1,5629 @@
+{
+	"info": {
+		"_postman_id": "23846fe3-331c-4d7d-9484-94cab0a9622c",
+		"name": "apimc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25503878"
+	},
+	"item": [
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "joueur",
+					"item": [
+						{
+							"name": "addjoueur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=addjoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&pseudo={{pseudo}}&mdp={{mdp}}&email={{email}}&id_type_role=2&nbr_offre=10",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "addjoueur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "pseudo",
+											"value": "{{pseudo}}",
+											"description": "pseudo nouveau joueur"
+										},
+										{
+											"key": "mdp",
+											"value": "{{mdp}}",
+											"description": "mot de passe nouveau joueur"
+										},
+										{
+											"key": "email",
+											"value": "{{email}}",
+											"description": "email nouveau joueur"
+										},
+										{
+											"key": "id_type_role",
+											"value": "2",
+											"description": "role du nouveau joueur (1=normal, 2=admin, 3=banque)"
+										},
+										{
+											"key": "nbr_offre",
+											"value": "10",
+											"description": "nombre d'offre pour le nouveau joueur"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deletejoueur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=deletejoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "deletejoueur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}",
+											"description": "id du joueur a supprimer"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editjoueuremail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editjoueuremail&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&email=vadidi63@gmail.com",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editjoueuremail"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}",
+											"description": "id du joueur à modifier"
+										},
+										{
+											"key": "email",
+											"value": "vadidi63@gmail.com"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editjoueurmdp",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editjoueurmdp&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&mdp=norout@P7",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editjoueurmdp"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}",
+											"description": "id du joueur à modifier"
+										},
+										{
+											"key": "mdp",
+											"value": "norout@P7"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editjoueurpseudo",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editjoueurpseudo&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&pseudo=vampi63",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editjoueurpseudo"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}",
+											"description": "id du joueur à modifier"
+										},
+										{
+											"key": "pseudo",
+											"value": "vampi63",
+											"description": "nouveau pseudo"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editjoueurrole",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editjoueurrole&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&id_type_role=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editjoueurrole"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}",
+											"description": "id du joueur à modifier"
+										},
+										{
+											"key": "id_type_role",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editjoueurnbroffre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editjoueurnbroffre&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&nbr_offre=15",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editjoueurnbroffre"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}",
+											"description": "id du joueur à modifier"
+										},
+										{
+											"key": "nbr_offre",
+											"value": "15"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getjoueurbypseudo",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getjoueurbypseudo&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&pseudo={{pseudo}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getjoueurbypseudo"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "pseudo",
+											"value": "{{pseudo}}",
+											"description": "pseudo à rechercher"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getjoueurbyid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getjoueurbyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getjoueurbyid"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}",
+											"description": "id du joueur à chercher"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getjoueurs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getjoueurs&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getjoueurs"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "jeton",
+					"item": [
+						{
+							"name": "getjetons",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getjetons&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getjetons"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getjetonbyjoueur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getjetonbyjoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getjetonbyjoueur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "addjeton",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=addjeton&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "addjeton"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deletejeton",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=deletejeton&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "deletejeton"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editjeton",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editjeton&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&1=5434&10=125&100=1&1k=552&10k=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editjeton"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}"
+										},
+										{
+											"key": "1",
+											"value": "5434"
+										},
+										{
+											"key": "10",
+											"value": "125"
+										},
+										{
+											"key": "100",
+											"value": "1"
+										},
+										{
+											"key": "1k",
+											"value": "552"
+										},
+										{
+											"key": "10k",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "adresse",
+					"item": [
+						{
+							"name": "addadresse",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=addadresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomlivr&coo=x10y100&description=text&id_type_adresse=1&id_joueur={{id_joueur}}&id_livreur=",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "addadresse"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "nom",
+											"value": "nomlivr"
+										},
+										{
+											"key": "coo",
+											"value": "x10y100"
+										},
+										{
+											"key": "description",
+											"value": "text"
+										},
+										{
+											"key": "id_type_adresse",
+											"value": "1",
+											"description": "1=reception, 2=relai, 3-4-5=commerce"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}"
+										},
+										{
+											"key": "id_livreur",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editadressecoo",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editadressecoo&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&coo=x1010y100&id_adresse=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editadressecoo"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "coo",
+											"value": "x1010y100"
+										},
+										{
+											"key": "id_adresse",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editadressedescription",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editadressedescription&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&description=x1010y100&id_adresse=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editadressedescription"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "description",
+											"value": "x1010y100"
+										},
+										{
+											"key": "id_adresse",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editadressenom",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editadressenom&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=test&id_adresse=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editadressenom"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "nom",
+											"value": "test"
+										},
+										{
+											"key": "id_adresse",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editadresselivreur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editadresselivreur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=&id_adresse=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editadresselivreur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_livreur",
+											"value": ""
+										},
+										{
+											"key": "id_adresse",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteadresse",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=deleteadresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "deleteadresse"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_adresse",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getadressebyid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getadressebyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getadressebyid"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_adresse",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getadressebyjoueur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getadressesbyjoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur=5",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getadressesbyjoueur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getadressebylivreur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getadressesbylivreur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getadressesbylivreur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_livreur",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "compte",
+					"item": [
+						{
+							"name": "addcompte",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=addcompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomlivr&id_type_compte=1&id_joueur={{id_joueur}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "addcompte"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "nom",
+											"value": "nomlivr"
+										},
+										{
+											"key": "id_type_compte",
+											"value": "1",
+											"description": "1=courant, 2=livreur, 3=commerce"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editcomptenom",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editcomptenom&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomcompte&id_compte=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editcomptenom"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "nom",
+											"value": "nomcompte"
+										},
+										{
+											"key": "id_compte",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deletecompte",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=deletecompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "deletecompte"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_compte",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getcomptebyid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getcomptebyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getcomptebyid"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_compte",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getcomptesbyjoueur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getcomptesbyjoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getcomptesbyjoueur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "offre",
+					"item": [
+						{
+							"name": "addoffre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=addoffre&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomlivr&id_type_offre=1&description=text&id_adresse=2&id_joueur={{id_joueur}}&id_compte=2&prix=10&stock=100",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "addoffre"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "nom",
+											"value": "nomlivr"
+										},
+										{
+											"key": "id_type_offre",
+											"value": "1",
+											"description": "(1=produit, 2=liquide, 3=gaz, 4=autre)"
+										},
+										{
+											"key": "description",
+											"value": "text"
+										},
+										{
+											"key": "id_adresse",
+											"value": "2"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}"
+										},
+										{
+											"key": "id_compte",
+											"value": "2"
+										},
+										{
+											"key": "prix",
+											"value": "10"
+										},
+										{
+											"key": "stock",
+											"value": "100"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editoffreadresse",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editoffreadresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2&id_offre=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editoffreadresse"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_adresse",
+											"value": "2"
+										},
+										{
+											"key": "id_offre",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editoffrecompte",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editoffrecompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2&id_offre=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editoffrecompte"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_compte",
+											"value": "2"
+										},
+										{
+											"key": "id_offre",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editoffredescription",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editoffredescription&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&description=texte&id_offre=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editoffredescription"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "description",
+											"value": "texte"
+										},
+										{
+											"key": "id_offre",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editoffrenom",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editoffrenom&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=offrename&id_offre=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editoffrenom"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "nom",
+											"value": "offrename"
+										},
+										{
+											"key": "id_offre",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editoffreprix",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editoffreprix&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&prix=1551&id_offre=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editoffreprix"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "prix",
+											"value": "1551"
+										},
+										{
+											"key": "id_offre",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editoffrestock",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editoffrestock&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&stock=2&id_offre=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editoffrestock"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "stock",
+											"value": "2"
+										},
+										{
+											"key": "id_offre",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editoffretype",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editoffretype&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_type_offre=2&id_offre=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editoffretype"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_type_offre",
+											"value": "2",
+											"description": "(1=produit, 2=liquide, 3=gaz, 4=autre)"
+										},
+										{
+											"key": "id_offre",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteoffre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=deleteoffre&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_offre=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "deleteoffre"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_offre",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getoffrebyid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getoffrebyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_offre=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getoffrebyid"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_offre",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getoffresbyadresse",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getoffresbyadresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getoffresbyadresse"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_adresse",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getoffresbycompte",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getoffresbycompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getoffresbycompte"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_compte",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getoffresbyjoueur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getoffresbyjoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur=5",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getoffresbyjoueur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getoffres",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getoffres&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getoffres"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "keyapi",
+					"item": [
+						{
+							"name": "addkeyapi",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=addkeyapi&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomapi&mdp=apiMDP@12&id_joueur={{id_joueur}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "addkeyapi"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "nom",
+											"value": "nomapi"
+										},
+										{
+											"key": "mdp",
+											"value": "apiMDP@12"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "addkeyapidroit",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=addkeyapidroit&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_droit=1&id_keyapi=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "addkeyapidroit"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_droit",
+											"value": "1"
+										},
+										{
+											"key": "id_keyapi",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deletekeyapidroit",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=deletekeyapidroit&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_droit=1&id_keyapi=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "deletekeyapidroit"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_droit",
+											"value": "1"
+										},
+										{
+											"key": "id_keyapi",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deletekeyapi",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=deletekeyapi&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_keyapi=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "deletekeyapi"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_keyapi",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editkeyapinom",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editkeyapinom&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=testkey&id_keyapi=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editkeyapinom"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "nom",
+											"value": "testkey"
+										},
+										{
+											"key": "id_keyapi",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editkeyapimdp",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editkeyapimdp&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&mdp=test2Key&id_keyapi=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editkeyapimdp"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "mdp",
+											"value": "test2Key"
+										},
+										{
+											"key": "id_keyapi",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getkeyapibyid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getkeyapibyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_keyapi=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getkeyapibyid"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_keyapi",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getkeyapidroitsbyid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getkeyapidroitsbyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_keyapi=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getkeyapidroitsbyid"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_keyapi",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getkeyapisbyjoueur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getkeyapisbyjoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getkeyapisbyjoueur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "livreur",
+					"item": [
+						{
+							"name": "addlivreur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=addlivreur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomlivreur&id_compte=2&id_joueur={{id_joueur}}&id_adresse=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "addlivreur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "nom",
+											"value": "nomlivreur"
+										},
+										{
+											"key": "id_compte",
+											"value": "2"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}"
+										},
+										{
+											"key": "id_adresse",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deletelivreur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=deletelivreur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "deletelivreur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_livreur",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editlivreuradresse",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editlivreuradresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=2&id_adresse=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editlivreuradresse"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_livreur",
+											"value": "2"
+										},
+										{
+											"key": "id_adresse",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editlivreurcompte",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editlivreurcompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=2&id_compte=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editlivreurcompte"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_livreur",
+											"value": "2"
+										},
+										{
+											"key": "id_compte",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editlivreurnom",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editlivreurnom&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=2&nom=newnamelivreur",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editlivreurnom"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_livreur",
+											"value": "2"
+										},
+										{
+											"key": "nom",
+											"value": "newnamelivreur"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getlivreurbyid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getlivreurbyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getlivreurbyid"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_livreur",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getlivreursbyjoueur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getlivreursbyjoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getlivreursbyjoueur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getlivreursbyadresse",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getlivreursbyadresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getlivreursbyadresse"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_adresse",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getlivreursbycompte",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getlivreursbycompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getlivreursbycompte"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_compte",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "transaction",
+					"item": [
+						{
+							"name": "addtransaction",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=addtransaction&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte_debiteur=&id_compte_crediteur=2&montant=100&nom=depotd&description=testddeport&id_type_status_transaction=1&id_type_transaction=2&id_commande",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "addtransaction"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_compte_debiteur",
+											"value": ""
+										},
+										{
+											"key": "id_compte_crediteur",
+											"value": "2"
+										},
+										{
+											"key": "montant",
+											"value": "100"
+										},
+										{
+											"key": "nom",
+											"value": "depotd"
+										},
+										{
+											"key": "description",
+											"value": "testddeport"
+										},
+										{
+											"key": "id_type_status_transaction",
+											"value": "1",
+											"description": "1=en attente, 2=valider, 3=refuser, 4=rembourser, 5=annuler"
+										},
+										{
+											"key": "id_type_transaction",
+											"value": "2",
+											"description": "1=retrait,2=depot,3=achat,4=remboursement,5=livraison,8=transfert"
+										},
+										{
+											"key": "id_commande",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edittransactionstatus",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=edittransactionstatus&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_transaction=1&id_type_status_transaction=4",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "edittransactionstatus"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_transaction",
+											"value": "1"
+										},
+										{
+											"key": "id_type_status_transaction",
+											"value": "4",
+											"description": "pour le moment seul 4 pour annuler commande en attente"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "exectransaction",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=exectransaction&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_transaction=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "exectransaction"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_transaction",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "execalltransactions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=execalltransactions&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "execalltransactions"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "gettransactionbyid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=gettransactionbyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_transaction=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "gettransactionbyid"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_transaction",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "gettransactionsbycompte",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=gettransactionsbycompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "gettransactionsbycompte"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_compte",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "gettransactionsbyadmin",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=gettransactionsbycommande&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "gettransactionsbycommande"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_commande",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "gettransactionsbycommande",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=gettransactionsbyadmin&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_admin=3",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "gettransactionsbyadmin"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_admin",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "commande",
+					"item": [
+						{
+							"name": "addcommande",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=addcommande&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=testobj&quant=2&prixu=100&frait=10&description=testddeport&code_retrait_commande=mdp@ComputerCom2&id_adresse_client=2&id_offre=2&id_compte_client=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "addcommande"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "nom",
+											"value": "testobj"
+										},
+										{
+											"key": "quant",
+											"value": "2"
+										},
+										{
+											"key": "prixu",
+											"value": "100"
+										},
+										{
+											"key": "frait",
+											"value": "10"
+										},
+										{
+											"key": "description",
+											"value": "testddeport"
+										},
+										{
+											"key": "code_retrait_commande",
+											"value": "mdp@ComputerCom2"
+										},
+										{
+											"key": "id_adresse_client",
+											"value": "2",
+											"description": "adresse de livraison"
+										},
+										{
+											"key": "id_offre",
+											"value": "2",
+											"description": "id de l'offre à acheter"
+										},
+										{
+											"key": "id_compte_client",
+											"value": "2",
+											"description": "compte à facturer"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editcommandecoderetrait",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editcommandecoderetrait&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=1&code_retrait_commande=mdp@ComputerCom10",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editcommandecoderetrait"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_commande",
+											"value": "1"
+										},
+										{
+											"key": "code_retrait_commande",
+											"value": "mdp@ComputerCom10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editcommandedatelivraison",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editcommandedatelivraison&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=1&date=2023-11-06 18:16:10",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editcommandedatelivraison"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_commande",
+											"value": "1"
+										},
+										{
+											"key": "date",
+											"value": "2023-11-06 18:16:10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editcommandelivreur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editcommandelivreur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=1&id_livreur=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editcommandelivreur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_commande",
+											"value": "1"
+										},
+										{
+											"key": "id_livreur",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getcommandebyid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getcommandebyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getcommandebyid"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_commande",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getcommandesbyadresse",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getcommandesbyadresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getcommandesbyadresse"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_adresse",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getcommandesbyadresseclient",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getcommandesbyadresseclient&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getcommandesbyadresseclient"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_adresse",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getcommandesbyadressevendeur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getcommandesbyadressevendeur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getcommandesbyadressevendeur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_adresse",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getcommandesbycompte",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getcommandesbycompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getcommandesbycompte"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_compte",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getcommandesbycompteclient",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getcommandesbycompteclient&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getcommandesbycompteclient"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_compte",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getcommandesbycomptevendeur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getcommandesbycomptevendeur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getcommandesbycomptevendeur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_compte",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getcommandesbylivreur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getcommandesbylivreur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getcommandesbylivreur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_livreur",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getcommandesbystatus",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getcommandesbystatus&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_type_status_commande=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getcommandesbystatus"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_type_status_commande",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getcommandesbyoffre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getcommandesbyoffre&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_offre=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getcommandesbyoffre"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_offre",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "litigemsg",
+					"item": [
+						{
+							"name": "addlitigemsg",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=addlitigemsg&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=2&description=test litigemsg&id_status_litigemsg=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "addlitigemsg"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_commande",
+											"value": "2"
+										},
+										{
+											"key": "description",
+											"value": "test litigemsg",
+											"description": "texte"
+										},
+										{
+											"key": "id_status_litigemsg",
+											"value": "1",
+											"description": "type de message (1=requete,2=message,3=proposition,4=resolution,5=validation,6=rejet)"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deletelitigemsg",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=deletelitigemsg&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_litigemsg=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "deletelitigemsg"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_litigemsg",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getlitigemsgsbycommande",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getlitigemsgsbycommande&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getlitigemsgsbycommande"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_commande",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "keypay",
+					"item": [
+						{
+							"name": "getkeypaybyid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getkeypaybyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_keypay=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getkeypaybyid"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_keypay",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getkeypaysbyoffre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getkeypaysbyoffre&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_offre=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getkeypaysbyoffre"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_offre",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "groupe",
+					"item": [
+						{
+							"name": "addgroupe",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=addgroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&nom=test nom groupe",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "addgroupe"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}"
+										},
+										{
+											"key": "nom",
+											"value": "test nom groupe"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "addgroupeadresse",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=addgroupeadresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_adresse=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "addgroupeadresse"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										},
+										{
+											"key": "id_adresse",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "addgroupecompte",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=addgroupecompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_compte=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "addgroupecompte"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										},
+										{
+											"key": "id_compte",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "addgroupedroit",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=addgroupedroit&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_droit=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "addgroupedroit"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										},
+										{
+											"key": "id_droit",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "addgroupejoueur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=addgroupejoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_joueur=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "addgroupejoueur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										},
+										{
+											"key": "id_joueur",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "addgroupelivreur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=addgroupelivreur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_livreur=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "addgroupelivreur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										},
+										{
+											"key": "id_livreur",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "addgroupeoffre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=addgroupeoffre&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_offre=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "addgroupeoffre"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										},
+										{
+											"key": "id_offre",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deletegroupe",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=deletegroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "deletegroupe"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deletegroupeadresse",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=deletegroupeadresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_adresse=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "deletegroupeadresse"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										},
+										{
+											"key": "id_adresse",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deletegroupecompte",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=deletegroupecompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_compte=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "deletegroupecompte"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										},
+										{
+											"key": "id_compte",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deletegroupedroit",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=deletegroupedroit&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_droit=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "deletegroupedroit"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										},
+										{
+											"key": "id_droit",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deletegroupejoueur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=deletegroupejoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_joueur=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "deletegroupejoueur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										},
+										{
+											"key": "id_joueur",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deletegroupelivreur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=deletegroupelivreur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_livreur=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "deletegroupelivreur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										},
+										{
+											"key": "id_livreur",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deletegroupeoffre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=deletegroupeoffre&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_offre=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "deletegroupeoffre"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										},
+										{
+											"key": "id_offre",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editgroupenom",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=editgroupenom&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&nom=newnomgroupe",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "editgroupenom"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										},
+										{
+											"key": "nom",
+											"value": "newnomgroupe"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getadressebygroupe",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getadressebygroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getadressebygroupe"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getcomptesbygroupe",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getcomptesbygroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getcomptesbygroupe"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getdroitsbygroupe",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getdroitsbygroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getdroitsbygroupe"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getgroupebyid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getgroupebyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getgroupebyid"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getoffresbygroupe",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getoffresbygroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getoffresbygroupe"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getlivreursbygroupe",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getlivreursbygroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getlivreursbygroupe"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getkeyapisbygroupe",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getkeyapisbygroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getkeyapisbygroupe"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getjoueursbygroupe",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getjoueursbygroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getjoueursbygroupe"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_groupe",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getgroupesbyoffre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getgroupesbyoffre&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_offre=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getgroupesbyoffre"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_offre",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getgroupesbylivreur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getgroupesbylivreur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getgroupesbylivreur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_livreur",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getgroupesbyadresse",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getgroupesbyadresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getgroupesbyadresse"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_livreur",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getgroupesbycompte",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getgroupesbycompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getgroupesbycompte"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_compte",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getgroupesbyjoueur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getgroupesbyjoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getgroupesbyjoueur"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getgroupesbykeyapi",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getgroupesbykeyapi&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_keyapi=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getgroupesbykeyapi"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_keyapi",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getgroupesbyjoueurmembre",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?admin=true&action=getgroupesbyjoueurmembre&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "admin",
+											"value": "true"
+										},
+										{
+											"key": "action",
+											"value": "getgroupesbyjoueurmembre"
+										},
+										{
+											"key": "useradmin",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpadmin",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_joueur",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "getconfig",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{site_url}}?admin=true&action=getntp",
+							"host": [
+								"{{site_url}}"
+							],
+							"query": [
+								{
+									"key": "admin",
+									"value": "true"
+								},
+								{
+									"key": "action",
+									"value": "getntp"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getntp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{site_url}}?admin=true&action=getconfig",
+							"host": [
+								"{{site_url}}"
+							],
+							"query": [
+								{
+									"key": "admin",
+									"value": "true"
+								},
+								{
+									"key": "action",
+									"value": "getconfig"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "joueur",
+					"item": [
+						{
+							"name": "addjoueur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=addjoueur&pseudo={{pseudo}}&mdp={{mdp}}&email={{email}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "addjoueur"
+										},
+										{
+											"key": "pseudo",
+											"value": "{{pseudo}}"
+										},
+										{
+											"key": "mdp",
+											"value": "{{mdp}}"
+										},
+										{
+											"key": "email",
+											"value": "{{email}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deletejoueur",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=deletejoueur&useruser={{pseudosession}}&mdpuser={{mdpsession}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "deletejoueur"
+										},
+										{
+											"key": "useruser",
+											"value": "{{pseudosession}}"
+										},
+										{
+											"key": "mdpuser",
+											"value": "{{mdpsession}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editjoueuremail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=editjoueuremail&useruser={{pseudosession}}&mdpuser={{mdpsession}}&email=vadidi63@gmail.com",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "editjoueuremail"
+										},
+										{
+											"key": "useruser",
+											"value": "{{pseudosession}}"
+										},
+										{
+											"key": "mdpuser",
+											"value": "{{mdpsession}}"
+										},
+										{
+											"key": "email",
+											"value": "vadidi63@gmail.com"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editjoueurmdp",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=editjoueurmdp&useruser={{pseudosession}}&mdpuser={{mdpsession}}&mdp=norout@P7",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "editjoueurmdp"
+										},
+										{
+											"key": "useruser",
+											"value": "{{pseudosession}}"
+										},
+										{
+											"key": "mdpuser",
+											"value": "{{mdpsession}}"
+										},
+										{
+											"key": "mdp",
+											"value": "norout@P7"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editjoueurpseudo",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=editjoueurpseudo&useruser={{pseudosession}}&mdpuser={{mdpsession}}&pseudo=vampi63",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "editjoueurpseudo"
+										},
+										{
+											"key": "useruser",
+											"value": "{{pseudosession}}"
+										},
+										{
+											"key": "mdpuser",
+											"value": "{{mdpsession}}"
+										},
+										{
+											"key": "pseudo",
+											"value": "vampi63"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getjoueurbypseudo",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=getjoueurbypseudo&pseudo={{pseudo}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "getjoueurbypseudo"
+										},
+										{
+											"key": "pseudo",
+											"value": "{{pseudo}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getjoueurbyid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=getjoueurbyid&id_joueur={{id_joueur}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "getjoueurbyid"
+										},
+										{
+											"key": "id_joueur",
+											"value": "{{id_joueur}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getjoueurs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=getjoueurs",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "getjoueurs"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "recuperationmdpbyemail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=recuperationmdpbyemail&pseudo={{pseudosession}}&email=test@gmail.com",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "recuperationmdpbyemail"
+										},
+										{
+											"key": "pseudo",
+											"value": "{{pseudosession}}"
+										},
+										{
+											"key": "email",
+											"value": "test@gmail.com"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "recuperationmdpbyemailtoken",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=recuperationmdpbyemailtoken&pseudo={{pseudosession}}&token=token",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "recuperationmdpbyemailtoken"
+										},
+										{
+											"key": "pseudo",
+											"value": "{{pseudosession}}"
+										},
+										{
+											"key": "token",
+											"value": "token"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "transaction",
+					"item": [
+						{
+							"name": "addtransaction",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=addtransaction&useruser={{pseudosession}}&mdpuser={{mdpsession}}&id_compte_debiteur=1&id_compte_crediteur=2&montant=100&nom=depotd&description=testddeport&id_type_status_transaction=1&id_type_transaction=2&id_commande&userbanque={{admin_pseudo}}&mdpbanque={{admin_mdp}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "addtransaction"
+										},
+										{
+											"key": "useruser",
+											"value": "{{pseudosession}}"
+										},
+										{
+											"key": "mdpuser",
+											"value": "{{mdpsession}}"
+										},
+										{
+											"key": "id_compte_debiteur",
+											"value": "1"
+										},
+										{
+											"key": "id_compte_crediteur",
+											"value": "2"
+										},
+										{
+											"key": "montant",
+											"value": "100"
+										},
+										{
+											"key": "nom",
+											"value": "depotd"
+										},
+										{
+											"key": "description",
+											"value": "testddeport"
+										},
+										{
+											"key": "id_type_status_transaction",
+											"value": "1",
+											"description": "1=en attente, 2=valider, 3=refuser, 4=rembourser, 5=annuler"
+										},
+										{
+											"key": "id_type_transaction",
+											"value": "2",
+											"description": "1=retrait,2=depot,3=achat,4=remboursement,5=livraison,8=transfert"
+										},
+										{
+											"key": "id_commande",
+											"value": null
+										},
+										{
+											"key": "userbanque",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpbanque",
+											"value": "{{admin_mdp}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edittransactionstatus",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=edittransactionstatus&useruser={{pseudosession}}&mdpuser={{mdpsession}}&id_transaction=1&id_type_status_transaction=1&userbanque&mdpbanque",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "edittransactionstatus"
+										},
+										{
+											"key": "useruser",
+											"value": "{{pseudosession}}"
+										},
+										{
+											"key": "mdpuser",
+											"value": "{{mdpsession}}"
+										},
+										{
+											"key": "id_transaction",
+											"value": "1"
+										},
+										{
+											"key": "id_type_status_transaction",
+											"value": "1"
+										},
+										{
+											"key": "userbanque",
+											"value": null
+										},
+										{
+											"key": "mdpbanque",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "exectransaction",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=exectransaction&userbanque={{admin_pseudo}}&mdpbanque={{admin_mdp}}&id_transaction=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "exectransaction"
+										},
+										{
+											"key": "userbanque",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpbanque",
+											"value": "{{admin_mdp}}"
+										},
+										{
+											"key": "id_transaction",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "execalltransactions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=execalltransactions&userbanque={{admin_pseudo}}&mdpbanque={{admin_mdp}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "execalltransactions"
+										},
+										{
+											"key": "userbanque",
+											"value": "{{admin_pseudo}}"
+										},
+										{
+											"key": "mdpbanque",
+											"value": "{{admin_mdp}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "gettransactionbyid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=gettransactionbyid&useruser={{pseudosession}}&mdpuser={{mdpsession}}&id_transaction=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "gettransactionbyid"
+										},
+										{
+											"key": "useruser",
+											"value": "{{pseudosession}}"
+										},
+										{
+											"key": "mdpuser",
+											"value": "{{mdpsession}}"
+										},
+										{
+											"key": "id_transaction",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "gettransactionsbycompte",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=gettransactionsbycompte&useruser={{pseudosession}}&mdpuser={{mdpsession}}&id_compte=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "gettransactionsbycompte"
+										},
+										{
+											"key": "useruser",
+											"value": "{{pseudosession}}"
+										},
+										{
+											"key": "mdpuser",
+											"value": "{{mdpsession}}"
+										},
+										{
+											"key": "id_compte",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "compte",
+					"item": [
+						{
+							"name": "addcompte",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=addcompte&useruser={{pseudosession}}&mdpuser={{mdpsession}}&nom=compte&id_type_compte=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "addcompte"
+										},
+										{
+											"key": "useruser",
+											"value": "{{pseudosession}}"
+										},
+										{
+											"key": "mdpuser",
+											"value": "{{mdpsession}}"
+										},
+										{
+											"key": "nom",
+											"value": "compte"
+										},
+										{
+											"key": "id_type_compte",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editcomptenom",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=editcomptenom&useruser={{pseudosession}}&mdpuser={{mdpsession}}&nom=nomcompte&id_compte=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "editcomptenom"
+										},
+										{
+											"key": "useruser",
+											"value": "{{pseudosession}}"
+										},
+										{
+											"key": "mdpuser",
+											"value": "{{mdpsession}}"
+										},
+										{
+											"key": "nom",
+											"value": "nomcompte"
+										},
+										{
+											"key": "id_compte",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deletecompte",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=deletecompte&useruser={{pseudosession}}&mdpuser={{mdpsession}}&id_compte=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "deletecompte"
+										},
+										{
+											"key": "useruser",
+											"value": "{{pseudosession}}"
+										},
+										{
+											"key": "mdpuser",
+											"value": "{{mdpsession}}"
+										},
+										{
+											"key": "id_compte",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getcomptebyid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=getcomptebyid&useruser={{pseudosession}}&mdpuser={{mdpsession}}&id_compte=2",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "getcomptebyid"
+										},
+										{
+											"key": "useruser",
+											"value": "{{pseudosession}}"
+										},
+										{
+											"key": "mdpuser",
+											"value": "{{mdpsession}}"
+										},
+										{
+											"key": "id_compte",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getcomptes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=getcomptes&useruser={{pseudosession}}&mdpuser={{mdpsession}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "getcomptes"
+										},
+										{
+											"key": "useruser",
+											"value": "{{pseudosession}}"
+										},
+										{
+											"key": "mdpuser",
+											"value": "{{mdpsession}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "jeton",
+					"item": [
+						{
+							"name": "getjetons",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=getjetons&useruser={{pseudosession}}&mdpuser={{mdpsession}}",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "getjetons"
+										},
+										{
+											"key": "useruser",
+											"value": "{{pseudosession}}"
+										},
+										{
+											"key": "mdpuser",
+											"value": "{{mdpsession}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "editjeton",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}?action=editjeton&useruser={{pseudosession}}&mdpuser={{mdpsession}}&1=5434&10=125&100=1&1k=552&10k=1",
+									"host": [
+										"{{site_url}}"
+									],
+									"query": [
+										{
+											"key": "action",
+											"value": "editjeton"
+										},
+										{
+											"key": "useruser",
+											"value": "{{pseudosession}}"
+										},
+										{
+											"key": "mdpuser",
+											"value": "{{mdpsession}}"
+										},
+										{
+											"key": "1",
+											"value": "5434"
+										},
+										{
+											"key": "10",
+											"value": "125"
+										},
+										{
+											"key": "100",
+											"value": "1"
+										},
+										{
+											"key": "1k",
+											"value": "552"
+										},
+										{
+											"key": "10k",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "getconfig",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{site_url}}?admin=true&action=getntp",
+							"host": [
+								"{{site_url}}"
+							],
+							"query": [
+								{
+									"key": "admin",
+									"value": "true"
+								},
+								{
+									"key": "action",
+									"value": "getntp"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getntp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{site_url}}?admin=true&action=getconfig",
+							"host": [
+								"{{site_url}}"
+							],
+							"query": [
+								{
+									"key": "admin",
+									"value": "true"
+								},
+								{
+									"key": "action",
+									"value": "getconfig"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "install",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{site_url}}?pseudo={{admin_pseudo}}&mdp={{admin_mdp}}&email={{admin_email}}",
+					"host": [
+						"{{site_url}}"
+					],
+					"query": [
+						{
+							"key": "pseudo",
+							"value": "{{admin_pseudo}}"
+						},
+						{
+							"key": "mdp",
+							"value": "{{admin_mdp}}"
+						},
+						{
+							"key": "email",
+							"value": "{{admin_email}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "site_url",
+			"value": "https://raspberrycloudav.ddns.net:468/api_computercraft/"
+		},
+		{
+			"key": "admin_pseudo",
+			"value": "admin",
+			"type": "string"
+		},
+		{
+			"key": "admin_mdp",
+			"value": "@dmin2Computer",
+			"type": "string"
+		},
+		{
+			"key": "admin_email",
+			"value": "admin@email.com",
+			"type": "string"
+		}
+	]
+}

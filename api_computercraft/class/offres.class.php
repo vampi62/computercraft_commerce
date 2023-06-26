@@ -20,11 +20,11 @@ class Offres {
         INNER JOIN groupes_offres ON offres.id_offre = groupes_offres.id_offre
         INNER JOIN groupes_joueurs ON groupes_offres.id_groupe = groupes_joueurs.id_groupe
         INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_offres.id_groupe
-        INNER JOIN liste_droits     ON liste_droits.id_droit = groupes_droits.id_droit
+        INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON offres.id_compte = comptes.id_compte
         LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse
-        WHERE (groupes_joueurs.id_joueur = :id_joueur AND liste_droits.nom_droit = :nom_droit) OR (offres.id_joueur = :id_joueur)');
+        WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (offres.id_joueur = :id_joueur)');
         $req->execute(array(
             'id_joueur' => $id_joueur,
             'nom_droit' => "getoffres"
@@ -41,13 +41,13 @@ class Offres {
         INNER JOIN groupes_keyapis ON groupes_offres.id_groupe = groupes_keyapis.id_groupe
         INNER JOIN keyapis ON groupes_keyapis.id_keyapi = keyapis.id_keyapi
         INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_offres.id_groupe
-        INNER JOIN liste_droits     ON liste_droits.id_droit = groupes_droits.id_droit
+        INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
         INNER JOIN keyapis_droits    ON keyapis_droits.id_keyapi = groupes_keyapis.id_groupe
-        INNER JOIN liste_droits     ON liste_droits.id_droit = keyapis_droits.id_droit
+        INNER JOIN droits     ON droits.id_droit = keyapis_droits.id_droit
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON offres.id_compte = comptes.id_compte
         LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse
-        WHERE keyapis.id_keyapi = :id_keyapi AND liste_droits.nom_droit = :nom_droit');
+        WHERE keyapis.id_keyapi = :id_keyapi AND droits.nom_droit = :nom_droit');
         $req->execute(array(
             'id_keyapi' => $id_keyapi,
             'nom_droit' => "getoffres"

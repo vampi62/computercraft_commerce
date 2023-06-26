@@ -244,10 +244,10 @@ class Commandes {
     }
 
     // ajoute une commande
-    public static function addCommande($bdd,$nom_produit_commande,$quantite_commande,$prix_unitaire_commande,$frait_livraison_commande,$description_commande,$code_retrait_commande,$id_adresse_vendeur,$id_adresse_client,$id_offre,$id_compte_vendeur,$id_compte_client) {
-        $req = $bdd->prepare('INSERT INTO commandes(nom_produit_commande,quantite_commande,prix_unitaire_commande,frait_livraison_commande,description_commande,suivi_commande,date_commande_commande,code_retrait_commande,id_adresse_vendeur,id_adresse_client,id_offre,id_compte_vendeur,id_compte_client,id_type_status_commande) VALUES(:nom_produit_commande,:quantite_commande,:prix_unitaire_commande,:frait_livraison_commande,:description_commande,:suivi_commande,:date_commande_commande,:code_retrait_commande,:id_adresse_vendeur,:id_adresse_client,:id_offre,:id_compte_vendeur,:id_compte_client,1)');
+    public static function addCommande($bdd,$nom_commande,$quantite_commande,$prix_unitaire_commande,$frait_livraison_commande,$description_commande,$code_retrait_commande,$id_adresse_vendeur,$id_adresse_client,$id_offre,$id_compte_vendeur,$id_compte_client) {
+        $req = $bdd->prepare('INSERT INTO commandes(nom_commande,quantite_commande,prix_unitaire_commande,frait_livraison_commande,description_commande,suivi_commande,date_commande_commande,code_retrait_commande,id_adresse_vendeur,id_adresse_client,id_offre,id_compte_vendeur,id_compte_client,id_type_status_commande) VALUES(:nom_commande,:quantite_commande,:prix_unitaire_commande,:frait_livraison_commande,:description_commande,:suivi_commande,:date_commande_commande,:code_retrait_commande,:id_adresse_vendeur,:id_adresse_client,:id_offre,:id_compte_vendeur,:id_compte_client,1)');
         $req->execute(array(
-            'nom_produit_commande' => $nom_produit_commande,
+            'nom_commande' => $nom_commande,
             'quantite_commande' => $quantite_commande,
             'prix_unitaire_commande' => $prix_unitaire_commande,
             'frait_livraison_commande' => $frait_livraison_commande,

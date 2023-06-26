@@ -115,5 +115,5 @@ switch($_GET['id_type_transaction']) {
         return array('status_code' => 403, 'message' => 'Vous ne pouvez pas creer cette transaction, type de transaction non gere.');
     break;
 }
-$newid = Transactions::addTransaction($bddConnection, $_GET['id_compte_debiteur'], $_GET['id_compte_crediteur'], $_GET['montant'], $_GET['nom'], $_GET['description'], $_GET['id_type_transaction'], $_GET['id_commande']);
+$newid = Transactions::addTransaction($bddConnection, $_GET['id_compte_debiteur'], $_GET['id_compte_crediteur'],$banque['id_joueur'], $_GET['montant'], $_GET['nom'], $_GET['description'], $_GET['id_type_transaction'], $_GET['id_commande']);
 return array('status_code' => 200, 'message' => 'La transaction a bien ete cree.', 'data' => array('id' => $newid));

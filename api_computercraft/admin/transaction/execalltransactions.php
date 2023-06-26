@@ -25,8 +25,7 @@ if (empty($transactions)) {
 function setstatusifadminnull($bddConnection,$transaction,$status,$JoueurUserAdmin) {
     if ($transaction['id_admin'] == null) {
         Transactions::setStatusTransaction($bddConnection,$transaction['id_transaction'], $status, $JoueurUserAdmin);
-    }
-    else {
+    } else {
         Transactions::setStatusTransaction($bddConnection,$transaction['id_transaction'], $status, $transaction['id_admin']);
     }
 }

@@ -17,11 +17,11 @@ class Livreurs {
         INNER JOIN groupes_livreurs ON livreurs.id_livreur = groupes_livreurs.id_livreur
         INNER JOIN groupes_joueurs ON groupes_livreurs.id_groupe = groupes_joueurs.id_groupe
         INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_livreurs.id_groupe
-        INNER JOIN liste_droits     ON liste_droits.id_droit = groupes_droits.id_droit
+        INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
         INNER JOIN joueurs ON livreurs.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON livreurs.id_compte = comptes.id_compte
         LEFT JOIN adresses ON livreurs.id_adresse = adresses.id_adresse
-        WHERE (groupes_joueurs.id_joueur = :id_joueur AND liste_droits.nom_droit = :nom_droit) OR (livreurs.id_joueur = :id_joueur)');
+        WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (livreurs.id_joueur = :id_joueur)');
         $req->execute(array(
             'id_joueur' => $id_joueur,
             'nom_droit' => "getlivreurs"
@@ -38,13 +38,13 @@ class Livreurs {
         INNER JOIN groupes_keyapis ON groupes_livreurs.id_groupe = groupes_keyapis.id_groupe
         INNER JOIN keyapis ON groupes_keyapis.id_keyapi = keyapis.id_keyapi
         INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_livreurs.id_groupe
-        INNER JOIN liste_droits     ON liste_droits.id_droit = groupes_droits.id_droit
+        INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
         INNER JOIN keyapis_droits    ON keyapis_droits.id_keyapi = groupes_keyapis.id_groupe
-        INNER JOIN liste_droits     ON liste_droits.id_droit = keyapis_droits.id_droit
+        INNER JOIN droits     ON droits.id_droit = keyapis_droits.id_droit
         INNER JOIN joueurs ON livreurs.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON livreurs.id_compte = comptes.id_compte
         LEFT JOIN adresses ON livreurs.id_adresse = adresses.id_adresse
-        WHERE keyapis.id_keyapi = :id_keyapi AND liste_droits.nom_droit = :nom_droit');
+        WHERE keyapis.id_keyapi = :id_keyapi AND droits.nom_droit = :nom_droit');
         $req->execute(array(
             'id_keyapi' => $id_keyapi,
             'nom_droit' => "getlivreurs"

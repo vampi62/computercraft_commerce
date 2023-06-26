@@ -21,7 +21,7 @@ if (empty($transaction)) {
 if ($transaction['id_type_status_transaction'] != 1) {
     return array('status_code' => 403, 'message' => 'Vous ne pouvez pas modifier le status de cette transaction.');
 }
-if ($_GET['id_type_status_transaction'] != 4) {
+if ($_GET['id_type_status_transaction'] != 5) {
     return array('status_code' => 403, 'message' => 'Vous ne pouvez pas modifier le status de cette transaction.');
 }
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_type_status_transaction'], 'type_status_transaction')) {

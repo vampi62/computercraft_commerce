@@ -37,7 +37,7 @@ function setstatusifadminnull($bddConnection,$transaction,$status,$JoueurUserAdm
 
 if (!empty($transaction['id_compte_debiteur'])) {
     $comptedeb = Comptes::getCompteById($bddConnection,$transaction['id_compte_debiteur']);
-    if ($comptedeb['solde'] < $transaction['somme_transaction']) {
+    if ($comptedeb['solde_compte'] < $transaction['somme_transaction']) {
         setstatusifadminnull($bddConnection,$transaction, 3, $donneesJoueurUserAdmin['id_joueur']);// refusé
         return array('status_code' => 403, 'message' => 'Le compte debiteur n\'a pas assez d\'argent.');
     }
