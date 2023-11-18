@@ -13,10 +13,10 @@ class Droits {
     }
 
     // recupere un droit par son id
-    public static function getDroitById($bdd,$id_droit) {
+    public static function getDroitById($bdd,$idDroit) {
         $req = $bdd->prepare('SELECT * FROM droits WHERE id_droit = :id_droit');
         $req->execute(array(
-            'id_droit' => $id_droit
+            'id_droit' => $idDroit
         ));
         $droit = $req->fetch(PDO::FETCH_ASSOC);
 		$req->closeCursor();
@@ -52,7 +52,7 @@ class Droits {
 
     // recupere les type de roles
     public static function getTypeRoles($bdd) {
-        $req = $bdd->prepare('SELECT * FROM type_roles');
+        $req = $bdd->prepare('SELECT * FROM type_joueurs');
         $req->execute();
         $type_roles = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
@@ -61,7 +61,7 @@ class Droits {
 
     // recupere les type de status_commandes
     public static function getTypeStatusCommandes($bdd) {
-        $req = $bdd->prepare('SELECT * FROM type_status_commandes');
+        $req = $bdd->prepare('SELECT * FROM type_commandes');
         $req->execute();
         $type_status_commandes = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
@@ -70,20 +70,11 @@ class Droits {
 
     // recupere les type de status_litiges
     public static function getTypeStatusLitiges($bdd) {
-        $req = $bdd->prepare('SELECT * FROM type_status_litiges');
+        $req = $bdd->prepare('SELECT * FROM type_msg_litiges');
         $req->execute();
         $type_status_litiges = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $type_status_litiges;
-    }
-
-    // recupere les type de status_transactions
-    public static function getTypeStatusTransactions($bdd) {
-        $req = $bdd->prepare('SELECT * FROM type_status_transactions');
-        $req->execute();
-        $type_status_transactions = $req->fetchAll(PDO::FETCH_ASSOC);
-        $req->closeCursor();
-        return $type_status_transactions;
     }
 
     // recupere les type de transactions
@@ -95,12 +86,12 @@ class Droits {
         return $type_transactions;
     }
 
-    // recupere les chemin_status_commandes
+    // recupere les chemin_type_commandes
     public static function getCheminStatusCommandes($bdd) {
-        $req = $bdd->prepare('SELECT * FROM chemin_status_commandes');
+        $req = $bdd->prepare('SELECT * FROM chemin_type_commandes');
         $req->execute();
-        $chemin_status_commandes = $req->fetchAll(PDO::FETCH_ASSOC);
+        $chemin_type_commandes = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
-        return $chemin_status_commandes;
+        return $chemin_type_commandes;
     }
 }

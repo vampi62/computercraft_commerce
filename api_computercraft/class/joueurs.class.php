@@ -23,10 +23,10 @@ class Joueurs {
 	}
 
 	// recupere les infos du joueurs via son id
-	public static function getJoueurById($bdd,$id_joueur) {
+	public static function getJoueurById($bdd,$idJoueur) {
 		$req = $bdd->prepare('SELECT * FROM vw_joueurs WHERE id_joueur = :id_joueur');
 		$req->execute(array(
-			'id_joueur' => $id_joueur
+			'id_joueur' => $idJoueur
 			));
 		$joueurs = $req->fetch(PDO::FETCH_ASSOC);
 		$req->closeCursor();
@@ -34,10 +34,10 @@ class Joueurs {
 	}
 
 	// recupere les infos du joueurs via son pseudo
-	public static function getJoueurByPseudo($bdd,$pseudo_joueur) {
+	public static function getJoueurByPseudo($bdd,$pseudoJoueur) {
 		$req = $bdd->prepare('SELECT * FROM vw_joueurs WHERE pseudo_joueur = :pseudo_joueur');
 		$req->execute(array(
-			'pseudo_joueur' => $pseudo_joueur
+			'pseudo_joueur' => $pseudoJoueur
 			));
 			$joueurs = $req->fetch(PDO::FETCH_ASSOC);
 			$req->closeCursor();
@@ -45,101 +45,116 @@ class Joueurs {
 	}
 
 	// recupere les infos du joueurs via son email
-	public static function getJoueurByMail($bdd,$pseudo_joueur,$email_joueur) {
+	public static function getJoueurByMail($bdd,$pseudoJoueur,$emailJoueur) {
 		$req = $bdd->prepare('SELECT * FROM vw_joueurs WHERE email_joueur = :email_joueur AND pseudo_joueur = :pseudo_joueur');
 		$req->execute(array(
-			'email_joueur' => $email_joueur,
-			'pseudo_joueur' => $pseudo_joueur
+			'email_joueur' => $emailJoueur,
+			'pseudo_joueur' => $pseudoJoueur
 		));
 		$joueurs = $req->fetch(PDO::FETCH_ASSOC);
 		$req->closeCursor();
 		return $joueurs;
 	}
 
-	// creer un nouveau joueur
-	public static function addJoueur($bdd,$pseudo_joueur,$email_joueur,$mdp_joueur,$offre_depart,$id_type_role=2) {
-		$req = $bdd->prepare('INSERT INTO joueurs(pseudo_joueur, email_joueur, mdp_joueur, last_login_joueur, id_type_role, max_offres_joueur) VALUES(:pseudo_joueur, :email_joueur, :mdp_joueur, :last_login_joueur, :id_type_role, :max_offres_joueur)');
-		$req->execute(array(
-			'pseudo_joueur' => $pseudo_joueur,
-			'email_joueur' => $email_joueur,
-			'mdp_joueur' => password_hash($mdp_joueur, PASSWORD_DEFAULT),
-			'last_login_joueur' => date('Y-m-d H:i:s'),
-			'id_type_role' => $id_type_role,
-			'max_offres_joueur' => $offre_depart
-		));
-		return $bdd->lastInsertId();
-	}
+    private $_idJoueur;
+    private $_bdd;
+
+    public function __construct($bdd,$idJoueur = null) {
+        $this->_bdd = $bdd;
+        if($idJoueur != null) {
+            $this->_idJoueur = $idJoueur;
+        }
+    }
+
+    // recupere l'id du joueur
+    public function getIdJoueur() {
+        return $this->_idJoueur;
+    }
 
 	// supprime le joueur
-	public static function deleteJoueur($bdd,$id_joueur) {
-		$req = $bdd->prepare('DELETE FROM joueurs WHERE id_joueur = :id_joueur');
+	public function deleteJoueur() {
+		$req = $this->_bdd->prepare('DELETE FROM joueurs WHERE id_joueur = :id_joueur');
 		$req->execute(array(
-			'id_joueur' => $id_joueur
+			'id_joueur' => $this->_idJoueur
 		));
 	}
 
 	// modifie le pseudo du joueur
-	public static function setJoueurPseudo($bdd,$id_joueur,$pseudo_joueur) {
-		$req = $bdd->prepare('UPDATE joueurs SET pseudo_joueur = :pseudo_joueur WHERE id_joueur = :id_joueur');
+	public function setJoueurPseudo($pseudoJoueur) {
+		$req = $this->_bdd->prepare('UPDATE joueurs SET pseudo_joueur = :pseudo_joueur WHERE id_joueur = :id_joueur');
 		$req->execute(array(
-			'pseudo_joueur' => $pseudo_joueur,
-			'id_joueur' => $id_joueur
+			'pseudo_joueur' => $pseudoJoueur,
+			'id_joueur' => $this->_idJoueur
 		));
 	}
 
 	// modifie le mot de passe du joueur
-	public static function setJoueurMdp($bdd,$id_joueur,$mdp_joueur) {
-		$req = $bdd->prepare('UPDATE joueurs SET mdp_joueur = :mdp_joueur WHERE id_joueur = :id_joueur');
+	public function setJoueurMdp($mdpJoueur) {
+		$req = $this->_bdd->prepare('UPDATE joueurs SET mdp_joueur = :mdp_joueur WHERE id_joueur = :id_joueur');
 		$req->execute(array(
-			'mdp_joueur' => password_hash($mdp_joueur, PASSWORD_DEFAULT),
-			'id_joueur' => $id_joueur
+			'mdp_joueur' => password_hash($mdpJoueur, PASSWORD_DEFAULT),
+			'id_joueur' => $this->_idJoueur
 		));
 	}
 
 	// modifie l'email
-	public static function setJoueurEmail($bdd,$id_joueur,$email_joueur) {
-		$req = $bdd->prepare('UPDATE joueurs SET email_joueur = :email_joueur WHERE id_joueur = :id_joueur');
+	public function setJoueurEmail($emailJoueur) {
+		$req = $this->_bdd->prepare('UPDATE joueurs SET email_joueur = :email_joueur WHERE id_joueur = :id_joueur');
 		$req->execute(array(
-			'email_joueur' => $email_joueur,
-			'id_joueur' => $id_joueur
+			'email_joueur' => $emailJoueur,
+			'id_joueur' => $this->_idJoueur
 		));
 	}
 
 	// modifie le resettoken du joueur
-	public static function setJoueurResetToken($bdd,$id_joueur,$token_joueur) {
-		$req = $bdd->prepare('UPDATE joueurs SET expire_resettoken_joueur = :expire_joueur, resettoken_joueur = :token_joueur WHERE id_joueur = :id_joueur');
+	public function setJoueurResetToken($tokenJoueur) {
+		$req = $this->_bdd->prepare('UPDATE joueurs SET expire_resettoken_joueur = :expire_joueur, resettoken_joueur = :token_joueur WHERE id_joueur = :id_joueur');
 		$req->execute(array(
-			'token_joueur' => $token_joueur,
+			'token_joueur' => $tokenJoueur,
 			'expire_joueur' => date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' + 1 hour')),
-			'id_joueur' => $id_joueur
+			'id_joueur' => $this->_idJoueur
 		));
 	}
 
 	// change le role du joueur
-	public static function setJoueurRole($bdd,$id_joueur,$role) {
-		$req = $bdd->prepare('UPDATE joueurs SET id_type_role = :id_type_role WHERE id_joueur = :id_joueur');
+	public function setJoueurRole($role) {
+		$req = $this->_bdd->prepare('UPDATE joueurs SET id_type_role = :id_type_role WHERE id_joueur = :id_joueur');
 		$req->execute(array(
 			'id_type_role' => $role,
-			'id_joueur' => $id_joueur
+			'id_joueur' => $this->_idJoueur
 		));
 	}
 
 	// change le nombre d'offre maximum du joueur
-	public static function setJoueurNbrOffre($bdd,$id_joueur,$max_offres_joueur) {
-		$req = $bdd->prepare('UPDATE joueurs SET max_offres_joueur = :max_offres_joueur WHERE id_joueur = :id_joueur');
+	public function setJoueurNbrOffre($maxOffresJoueur) {
+		$req = $this->_bdd->prepare('UPDATE joueurs SET max_offres_joueur = :max_offres_joueur WHERE id_joueur = :id_joueur');
 		$req->execute(array(
-			'max_offres_joueur' => $max_offres_joueur,
-			'id_joueur' => $id_joueur
+			'max_offres_joueur' => $maxOffresJoueur,
+			'id_joueur' => $this->_idJoueur
 		));
 	}
 
 	// change la date de derniere connexion du joueur
-	public static function setJoueurLastLogin($bdd,$id_joueur) {
-		$req = $bdd->prepare('UPDATE joueurs SET last_login_joueur = :last_login_joueur WHERE id_joueur = :id_joueur');
+	public function setJoueurLastLogin() {
+		$req = $this->_bdd->prepare('UPDATE joueurs SET last_login_joueur = :last_login_joueur WHERE id_joueur = :id_joueur');
 		$req->execute(array(
 			'last_login_joueur' => date('Y-m-d H:i:s'),
-			'id_joueur' => $id_joueur
+			'id_joueur' => $this->_idJoueur
 		));
+	}
+
+	// creer un nouveau joueur
+	public function addJoueur($pseudoJoueur,$emailJoueur,$mdpJoueur,$offreDepart,$idTypeRole=1) { // 1 = utilisateur, 2 = admin, 3 = terminal
+		$req = $this->_bdd->prepare('INSERT INTO joueurs(pseudo_joueur, email_joueur, mdp_joueur, last_login_joueur, id_type_role, max_offres_joueur) VALUES(:pseudo_joueur, :email_joueur, :mdp_joueur, :last_login_joueur, :id_type_role, :max_offres_joueur)');
+		$req->execute(array(
+			'pseudo_joueur' => $pseudoJoueur,
+			'email_joueur' => $emailJoueur,
+			'mdp_joueur' => password_hash($mdpJoueur, PASSWORD_DEFAULT),
+			'last_login_joueur' => date('Y-m-d H:i:s'),
+			'id_type_role' => $idTypeRole,
+			'max_offres_joueur' => $offreDepart
+		));
+		$this->_idJoueur = $this->_bdd->lastInsertId();
 	}
 }
 ?>
