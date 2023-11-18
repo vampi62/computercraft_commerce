@@ -1,14 +1,14 @@
 <?php
 class Checkdroits {
     // verifie si le compte a un des role requis
-    public static function CheckRole($bdd, $pseudo_joueur, $array_role_requis) {
+    public static function CheckRole($bdd, $pseudoJoueur, $arrayRoleRequis) {
         $req = $bdd->prepare('SELECT * FROM vw_joueurs WHERE pseudo_joueur = :pseudo_joueur');
         $req->execute(array(
-            'pseudo_joueur' => $pseudo_joueur
+            'pseudo_joueur' => $pseudoJoueur
         ));
         $login = $req->fetch(PDO::FETCH_ASSOC);
         $req->closeCursor();
-        if (in_array($login['nom_type_role'], $array_role_requis)) {
+        if (in_array($login['nom_type_role'], $arrayRoleRequis)) {
             return true;
         }
         return false;
@@ -59,10 +59,10 @@ class Checkdroits {
     }
 
     // verifie le token du compte 
-	public function CheckToken($bdd, $pseudo_joueur, $token) {
+	public function CheckToken($bdd, $pseudoJoueur, $token) {
         $req = $bdd->prepare('SELECT resettoken_joueur FROM joueurs WHERE pseudo_joueur = :pseudo_joueur AND resettoken_joueur IS NOT NULL');
         $req->execute(array(
-            'pseudo_joueur' => $pseudo_joueur
+            'pseudo_joueur' => $pseudoJoueur
         ));
         $reset = $req->fetch(PDO::FETCH_ASSOC);
 		$req->closeCursor();
@@ -76,10 +76,10 @@ class Checkdroits {
     
     // verifie si l'api a la permission d'effectuer l'action
     public static function CheckPermApi($bdd, $nom, $action) {
-        $req = $bdd->prepare('SELECT COUNT(*) FROM keyapis 
-        INNER JOIN keyapis_droits ON keyapis.id_keyapi = keyapis_droits.id_keyapi 
-        INNER JOIN droits ON droits.id_droit = keyapis_droits.id_droit 
-        WHERE keyapis.nom = :nom AND droits.nom_droit = :action');
+        $req = $bdd->prepare('SELECT COUNT(*) FROM apikeys 
+        INNER JOIN apikeys_droits ON apikeys.id_apikey = apikeys_droits.id_apikey 
+        INNER JOIN droits ON droits.id_droit = apikeys_droits.id_droit 
+        WHERE apikeys.nom = :nom AND droits.nom_droit = :action');
         $req->execute(array(
             'nom' => $nom,
             'action' => $action
@@ -93,23 +93,23 @@ class Checkdroits {
     }
 
     // verifie si le compte a la permission d'effectuer l'action sur l'objet
-    public static function CheckPermObj($bdd, $idnom, $idobjet, $type, $action ,$bool_api=false) {
-        if ($bool_api)
+    public static function CheckPermObj($bdd, $idNom, $idObjet, $type, $action ,$boolApi=false) {
+        if ($boolApi)
         {
-            // si compte est membre d'un groupe d'on l'objet est membre (si login keyapi)
+            // si compte est membre d'un groupe d'on l'objet est membre (si login apikey)
                 // si groupe a les droits sur l'objet pour effectuer l'action
                     // -- permet l'action
             # si api et obj sont dans un meme groupe qui permet l'action alors return true
             $req = $bdd->prepare('SELECT COUNT(*) FROM '.$type.'s
             INNER JOIN groupes_'.$type.'s ON '.$type.'s.id_'.$type.' = groupes_'.$type.'s.id_'.$type.'
-            INNER JOIN groupes_keyapis    ON groupes_'.$type.'s.id_groupe = groupes_keyapis.id_groupe
-            INNER JOIN keyapis           ON keyapis.id_keyapi = groupes_keyapis.id_keyapi
+            INNER JOIN groupes_apikeys    ON groupes_'.$type.'s.id_groupe = groupes_apikeys.id_groupe
+            INNER JOIN apikeys           ON apikeys.id_apikey = groupes_apikeys.id_apikey
             INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_'.$type.'s.id_groupe
             INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
-            WHERE '.$type.'s.id_'.$type.' = :idobjet AND droits.nom_droit = :action AND keyapis.id_keyapi = :idnom');
+            WHERE '.$type.'s.id_'.$type.' = :idobjet AND droits.nom_droit = :action AND apikeys.id_apikey = :idnom');
             $req->execute(array(
-                'idobjet' => $idobjet,
-                'idnom' => $idnom,
+                'idobjet' => $idObjet,
+                'idnom' => $idNom,
                 'action' => $action
             ));
             if (!$req->fetchColumn() > 0) {
@@ -129,8 +129,8 @@ class Checkdroits {
             # si user et obj.proprio son identique alors return true
             $req = $bdd->prepare('SELECT COUNT(*) FROM '.$type.'s WHERE id_'.$type.' = :idobjet AND id_joueur = :idnom');
             $req->execute(array(
-                'idobjet' => $idobjet,
-                'idnom' => $idnom
+                'idobjet' => $idObjet,
+                'idnom' => $idNom
             ));
             if ($req->fetchColumn() > 0) {
                 $req->closeCursor();
@@ -146,8 +146,8 @@ class Checkdroits {
             INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
             WHERE '.$type.'s.id_'.$type.' = :idobjet AND droits.nom_droit = :action AND joueurs.id_joueur = :idnom');
             $req->execute(array(
-                'idobjet' => $idobjet,
-                'idnom' => $idnom,
+                'idobjet' => $idObjet,
+                'idnom' => $idNom,
                 'action' => $action
             ));
             if (!$req->fetchColumn() > 0) {
@@ -162,17 +162,17 @@ class Checkdroits {
     // verifie si tous les arguments sont present
     // true si empty est permis
     // exemple --> $args_need = array('mdp' => false, 'email' => true) // mdp obligatoire, email facultatif
-    public static function CheckArgs($args_send, $args_need, $bool_post=false) {
-        foreach ($args_need as $key => $value) {
-            if (!isset($args_send[$key])) {
+    public static function CheckArgs($argsSend, $argsNeed, $boolPost=false) {
+        foreach ($argsNeed as $key => $value) {
+            if (!isset($argsSend[$key])) {
                 return false;
             } else {
                 if (!$value) {
-                    if (empty($args_send[$key])) {
+                    if (empty($argsSend[$key])) {
                         return false;
                     }
                 }
-                if ($bool_post) {
+                if ($boolPost) {
                     $_POST[$key] = htmlspecialchars($_POST[$key]);
                 } else {
                     $_GET[$key] = htmlspecialchars($_GET[$key]);
@@ -183,11 +183,11 @@ class Checkdroits {
     }
 
     // verifie si le compte est proprio de l'objet
-    public static function CheckProprioObj($bdd, $idnom, $idobjet, $type) {
+    public static function CheckProprioObj($bdd, $idNom, $idObjet, $type) {
         $req = $bdd->prepare('SELECT COUNT(*) FROM '.$type.'s WHERE id_'.$type.' = :idobjet AND id_joueur = :idnom');
         $req->execute(array(
-            'idobjet' => $idobjet,
-            'idnom' => $idnom
+            'idobjet' => $idObjet,
+            'idnom' => $idNom
         ));
         if ($req->fetchColumn() > 0) {
             $req->closeCursor();
@@ -198,15 +198,15 @@ class Checkdroits {
     }
 
     // verifie le chemin_status_commandes de la commande
-    public static function CheckCheminStatusCommande($bdd,$id_status_depart,$id_status_arriver,$type_user) {
+    public static function CheckCheminStatusCommande($bdd,$idStatusDepart,$idStatusArriver,$typeUser) {
         $req = $bdd->prepare('SELECT * FROM chemin_status_commandes WHERE id_status_depart = :id_status_depart AND id_status_arriver = :id_status_arriver');
         $req->execute(array(
-            'id_status_arriver' => $id_status_arriver,
-            'id_status_depart' => $id_status_depart
+            'id_status_arriver' => $idStatusArriver,
+            'id_status_depart' => $idStatusDepart
         ));
-        $chemin_status_commandes = $req->fetch(PDO::FETCH_ASSOC);
+        $cheminStatusCommandes = $req->fetch(PDO::FETCH_ASSOC);
         $req->closeCursor();
-        if ($chemin_status_commandes[$type_user] == "1") {
+        if ($cheminStatusCommandes[$typeUser] == "1") {
             return true;
         } else {
             return false;
@@ -214,16 +214,16 @@ class Checkdroits {
     }
 
     // verification code retire_commande
-    public static function CheckCodeRetraitCommande($bdd,$code_retrait_commande,$id_commande) {
+    public static function CheckCodeRetraitCommande($bdd,$codeRetraitCommande,$idCommande) {
         $req = $bdd->prepare('SELECT * FROM commandes WHERE id_commande = :id_commande');
         $req->execute(array(
-            'id_commande' => $id_commande
+            'id_commande' => $idCommande
         ));
         $commande = $req->fetch(PDO::FETCH_ASSOC);
 		$req->closeCursor();
 
         if (!empty($commande)) {
-            if ($commande['code_retrait_commande'] == $code_retrait_commande) {
+            if ($commande['code_retrait_commande'] == $codeRetraitCommande) {
                 return true;
             }
         }
@@ -231,15 +231,15 @@ class Checkdroits {
     }
 
     // verification du code api
-    public static function CheckCodeApi($bdd,$nom_api,$mdp_keyapi) {
-        $req = $bdd->prepare('SELECT * FROM keyapis WHERE nom_api = :nom_api');
+    public static function CheckCodeApi($bdd,$nomApi,$mdpApiKey) {
+        $req = $bdd->prepare('SELECT * FROM apikeys WHERE nom_api = :nom_api');
         $req->execute(array(
-            'nom_api' => $nom_api
+            'nom_api' => $nomApi
         ));
         $api = $req->fetch(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         if (!empty($api)) {
-            if ($api['mdp_keyapi'] == $mdp_keyapi) {
+            if ($api['mdp_apikey'] == $mdpApiKey) {
                 return true;
             }
         }

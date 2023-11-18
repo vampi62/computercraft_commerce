@@ -1,13 +1,13 @@
 <?php
 // get comptes/{id_joueur}/user
-// get comptes/{id_joueur}/keyapi
+// get comptes/{id_joueur}/apikey
 // get compte/{id}
 // set compte/{id}/solde_compte
 // set compte/{id}/delete
 // set compte/add
 class Comptes {
     // recupere les comptes accessible par le joueur (lui a partient ou groupe en communs qui permet le getcomptes)
-    public static function getComptesWithUser($bdd,$id_joueur) {
+    public static function getComptesWithUser($bdd,$idJoueur) {
         $req = $bdd->prepare('SELECT comptes.*,joueurs.pseudo_joueur FROM comptes
         LEFT JOIN groupes_comptes ON comptes.id_compte = groupes_comptes.id_compte
         LEFT JOIN groupes_joueurs ON groupes_comptes.id_groupe = groupes_joueurs.id_groupe
@@ -16,7 +16,7 @@ class Comptes {
         INNER JOIN joueurs ON joueurs.id_joueur = comptes.id_joueur
         WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (comptes.id_joueur = :id_joueur)');
         $req->execute(array(
-            'id_joueur' => $id_joueur,
+            'id_joueur' => $idJoueur,
             'nom_droit' => "getcomptes"
         ));
         $comptes = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -24,20 +24,20 @@ class Comptes {
         return $comptes;
     }
 
-    // recupere les comptes accessible par la keyapi (groupe en communs qui permet le getcomptes)
-    public static function getComptesWithKeyApi($bdd,$id_keyapi) {
+    // recupere les comptes accessible par la apikey (groupe en communs qui permet le getcomptes)
+    public static function getComptesWithapikey($bdd,$idApiKey) {
         $req = $bdd->prepare('SELECT comptes.*,joueurs.pseudo_joueur FROM comptes
         INNER JOIN groupes_comptes ON comptes.id_compte = groupes_comptes.id_compte
-        INNER JOIN groupes_keyapis ON groupes_comptes.id_groupe = groupes_keyapis.id_groupe
-        INNER JOIN keyapis ON groupes_keyapis.id_keyapi = keyapis.id_keyapi
+        INNER JOIN groupes_apikeys ON groupes_comptes.id_groupe = groupes_apikeys.id_groupe
+        INNER JOIN apikeys ON groupes_apikeys.id_apikey = apikeys.id_apikey
         INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_comptes.id_groupe
         INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
-        INNER JOIN keyapis_droits    ON keyapis_droits.id_keyapi = groupes_keyapis.id_groupe
-        INNER JOIN droits     ON droits.id_droit = keyapis_droits.id_droit
+        INNER JOIN apikeys_droits    ON apikeys_droits.id_apikey = groupes_apikeys.id_groupe
+        INNER JOIN droits     ON droits.id_droit = apikeys_droits.id_droit
         INNER JOIN joueurs ON joueurs.id_joueur = comptes.id_joueur
-        WHERE keyapis.id_keyapi = :id_keyapi AND droits.nom_droit = :nom_droit');
+        WHERE apikeys.id_apikey = :id_apikey AND droits.nom_droit = :nom_droit');
         $req->execute(array(
-            'id_keyapi' => $id_keyapi,
+            'id_apikey' => $idApiKey,
             'nom_droit' => "getcomptes"
         ));
         $comptes = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -46,10 +46,10 @@ class Comptes {
     }
 
     // recupere les comptes d'un joueur
-    public static function getComptesByJoueur($bdd,$id_joueur) {
+    public static function getComptesByJoueur($bdd,$idJoueur) {
         $req = $bdd->prepare('SELECT comptes.*,joueurs.pseudo_joueur FROM comptes INNER JOIN joueurs ON joueurs.id_joueur = comptes.id_joueur WHERE comptes.id_joueur = :id_joueur');
         $req->execute(array(
-            'id_joueur' => $id_joueur
+            'id_joueur' => $idJoueur
         ));
         $comptes = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
@@ -57,50 +57,64 @@ class Comptes {
     }
 
     // recupere le compte
-    public static function getCompteById($bdd,$id_compte) {
+    public static function getCompteById($bdd,$idCompte) {
         $req = $bdd->prepare('SELECT comptes.*,joueurs.pseudo_joueur FROM comptes INNER JOIN joueurs ON joueurs.id_joueur = comptes.id_joueur WHERE comptes.id_compte = :id_compte');
         $req->execute(array(
-            'id_compte' => $id_compte
+            'id_compte' => $idCompte
         ));
         $compte = $req->fetch(PDO::FETCH_ASSOC);
         return $compte;
     }
 
+    private $_idCompte;
+    private $_bdd;
+
+    public function __construct($bdd,$idCompte = null) {
+        $this->_bdd = $this->_bdd;
+        if($idCompte != null) {
+            $this->_idCompte = $idCompte;
+        }
+    }
+
+    // recupere l'id du compte
+    public function getIdCompte() {
+        return $this->_idCompte;
+    }
     // le solde_compte ne peut être modifier qu'avec une transaction pour garder une trace des mouvements
     // modifie le solde_compte du compte
-    public static function setCompteSolde($bdd,$id_compte,$solde_compte) {
-        $req = $bdd->prepare('UPDATE comptes SET solde_compte = :solde_compte WHERE id_compte = :id_compte');
+    public function setCompteSolde($solde_compte) {
+        $req = $this->_bdd->prepare('UPDATE comptes SET solde_compte = :solde_compte WHERE id_compte = :id_compte');
         $req->execute(array(
-            'solde_compte' => $solde_compte,
-            'id_compte' => $id_compte
+            'solde_compte' => $soldeCompte,
+            'id_compte' => $_idCompte
         ));
     }
 
     // modifie le nom du compte
-    public static function setCompteNom($bdd,$id_compte,$nom_compte) {
-        $req = $bdd->prepare('UPDATE comptes SET nom_compte = :nom_compte WHERE id_compte = :id_compte');
+    public function setCompteNom($nom_compte) {
+        $req = $this->_bdd->prepare('UPDATE comptes SET nom_compte = :nom_compte WHERE id_compte = :id_compte');
         $req->execute(array(
-            'nom_compte' => $nom_compte,
-            'id_compte' => $id_compte
+            'nom_compte' => $nomCompte,
+            'id_compte' => $_idCompte
         ));
     }
 
     // supprime le compte
-    public static function deleteCompte($bdd,$id_compte) {
-        $req = $bdd->prepare('DELETE FROM comptes WHERE id_compte = :id_compte');
+    public function deleteCompte() {
+        $req = $this->_bdd->prepare('DELETE FROM comptes WHERE id_compte = :id_compte');
         $req->execute(array(
-            'id_compte' => $id_compte
+            'id_compte' => $_idCompte
         ));
     }
 
     // ajoute un compte
-    public static function addCompte($bdd,$id_joueur,$id_type_compte,$nom_compte) {
-        $req = $bdd->prepare('INSERT INTO comptes(id_joueur,id_type_compte,nom_compte,solde_compte) VALUES(:id_joueur,:id_type_compte,:nom_compte, 0)');
+    public function addCompte($idJoueur,$idTypeCompte,$nomCompte) {
+        $req = $this->_bdd->prepare('INSERT INTO comptes(id_joueur,id_type_compte,nom_compte,solde_compte) VALUES(:id_joueur,:id_type_compte,:nom_compte, 0)');
         $req->execute(array(
-            'id_joueur' => $id_joueur,
-            'id_type_compte' => $id_type_compte,
-            'nom_compte' => $nom_compte
+            'id_joueur' => $idJoueur,
+            'id_type_compte' => $idTypeCompte,
+            'nom_compte' => $nomCompte
         ));
-        return $bdd->lastInsertId();
+        $this->_idCompte = $this->_bdd->lastInsertId();
     }
 }

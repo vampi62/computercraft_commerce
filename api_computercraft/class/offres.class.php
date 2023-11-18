@@ -15,7 +15,7 @@
 
 class Offres {
     // recupere les offres accessible par le joueur (lui a partient ou groupe en communs qui permet le getoffres)
-    public static function getOffresByUser($bdd,$id_joueur) {
+    public static function getOffresByUser($bdd,$idJoueur) {
         $req = $bdd->prepare('SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres
         INNER JOIN groupes_offres ON offres.id_offre = groupes_offres.id_offre
         INNER JOIN groupes_joueurs ON groupes_offres.id_groupe = groupes_joueurs.id_groupe
@@ -26,7 +26,7 @@ class Offres {
         LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse
         WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (offres.id_joueur = :id_joueur)');
         $req->execute(array(
-            'id_joueur' => $id_joueur,
+            'id_joueur' => $idJoueur,
             'nom_droit' => "getoffres"
         ));
         $offres = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -34,22 +34,22 @@ class Offres {
         return $offres;
     }
 
-    // recupere les offres accessible par la keyapi (groupe en communs qui permet le getoffres)
-    public static function getOffresByKeyApi($bdd,$id_keyapi) {
+    // recupere les offres accessible par la apikey (groupe en communs qui permet le getoffres)
+    public static function getOffresByapikey($bdd,$idApiKey) {
         $req = $bdd->prepare('SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres
         INNER JOIN groupes_offres ON offres.id_offre = groupes_offres.id_offre
-        INNER JOIN groupes_keyapis ON groupes_offres.id_groupe = groupes_keyapis.id_groupe
-        INNER JOIN keyapis ON groupes_keyapis.id_keyapi = keyapis.id_keyapi
+        INNER JOIN groupes_apikeys ON groupes_offres.id_groupe = groupes_apikeys.id_groupe
+        INNER JOIN apikeys ON groupes_apikeys.id_apikey = apikeys.id_apikey
         INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_offres.id_groupe
         INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
-        INNER JOIN keyapis_droits    ON keyapis_droits.id_keyapi = groupes_keyapis.id_groupe
-        INNER JOIN droits     ON droits.id_droit = keyapis_droits.id_droit
+        INNER JOIN apikeys_droits    ON apikeys_droits.id_apikey = groupes_apikeys.id_groupe
+        INNER JOIN droits     ON droits.id_droit = apikeys_droits.id_droit
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON offres.id_compte = comptes.id_compte
         LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse
-        WHERE keyapis.id_keyapi = :id_keyapi AND droits.nom_droit = :nom_droit');
+        WHERE apikeys.id_apikey = :id_apikey AND droits.nom_droit = :nom_droit');
         $req->execute(array(
-            'id_keyapi' => $id_keyapi,
+            'id_apikey' => $idApiKey,
             'nom_droit' => "getoffres"
         ));
         $offres = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -57,9 +57,8 @@ class Offres {
         return $offres;
     }
 
-
     // recupere toutes les offres
-    public static function getOffres($bdd,$bool_remove_inactive=FALSE) {
+    public static function getOffres($bdd,$boolRemoveInactive=FALSE) {
         $req = $bdd->prepare('SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON offres.id_compte = comptes.id_compte
@@ -67,7 +66,7 @@ class Offres {
         $req->execute();
         $offres = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
-        if ($bool_remove_inactive) {
+        if ($boolRemoveInactive) {
             return self::removeInactiveOffre($offres);
         }
         else {
@@ -76,18 +75,18 @@ class Offres {
     }
 
     // recupere les offres d'un joueur
-    public static function getOffresByJoueur($bdd,$id_joueur,$bool_remove_inactive=FALSE) {
+    public static function getOffresByJoueur($bdd,$idJoueur,$boolRemoveInactive=FALSE) {
         $req = $bdd->prepare("SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres 
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON offres.id_compte = comptes.id_compte
         LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse
         WHERE offres.id_joueur = :id_joueur");
         $req->execute(array(
-            'id_joueur' => $id_joueur
+            'id_joueur' => $idJoueur
         ));
         $offres = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
-        if ($bool_remove_inactive) {
+        if ($boolRemoveInactive) {
             return self::removeInactiveOffre($offres);
         }
         else {
@@ -96,18 +95,18 @@ class Offres {
     }
 
     // recupere les offres associer a un compte
-    public static function getOffresByCompte($bdd,$id_compte,$bool_remove_inactive=FALSE) {
+    public static function getOffresByCompte($bdd,$idCompte,$boolRemoveInactive=FALSE) {
         $req = $bdd->prepare("SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres 
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
         INNER JOIN comptes ON offres.id_compte = comptes.id_compte
         LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse
         WHERE offres.id_compte = :id_compte");
         $req->execute(array(
-            'id_compte' => $id_compte
+            'id_compte' => $idCompte
         ));
         $offres = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
-        if ($bool_remove_inactive) {
+        if ($boolRemoveInactive) {
             return self::removeInactiveOffre($offres);
         }
         else {
@@ -116,18 +115,18 @@ class Offres {
     }
 
     // recupere les offres associer a une adresse
-    public static function getOffresByAdresse($bdd,$id_adresse,$bool_remove_inactive=FALSE) {
+    public static function getOffresByAdresse($bdd,$idAdresse,$boolRemoveInactive=FALSE) {
         $req = $bdd->prepare("SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres 
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON offres.id_compte = comptes.id_compte
         INNER JOIN adresses ON offres.id_adresse = adresses.id_adresse
         WHERE offres.id_adresse = :id_adresse");
         $req->execute(array(
-            'id_adresse' => $id_adresse
+            'id_adresse' => $idAdresse
         ));
         $offres = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
-        if ($bool_remove_inactive) {
+        if ($boolRemoveInactive) {
             return self::removeInactiveOffre($offres);
         }
         else {
@@ -136,18 +135,18 @@ class Offres {
     }
 
     // recupere l'offre
-    public static function getOffreById($bdd,$id_offre,$bool_remove_inactive=FALSE) {
+    public static function getOffreById($bdd,$idOffre,$boolRemoveInactive=FALSE) {
         $req = $bdd->prepare("SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres 
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON offres.id_compte = comptes.id_compte
         LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse
         WHERE offres.id_offre = :id_offre");
         $req->execute(array(
-            'id_offre' => $id_offre
+            'id_offre' => $idOffre
         ));
         $offre = $req->fetch(PDO::FETCH_ASSOC);
 		$req->closeCursor();
-        if ($bool_remove_inactive) {
+        if ($boolRemoveInactive) {
             return self::removeInactiveOffre($offres);
         }
         else {
@@ -156,117 +155,132 @@ class Offres {
     }
 
     // retire de la liste toutes les offres qui n'ont pas de prix, de compte, d'adresse, de type de produit, de description ou de nom
-    private static function removeInactiveOffre($liste_offres) {
-        $liste_offres_active = array();
-        foreach ($liste_offres as $offre) {
+    private static function removeInactiveOffre($listeOffres) {
+        $listeOffresActive = array();
+        foreach ($listeOffres as $offre) {
             if ($offre['prix'] != null && $offre['id_compte'] != null && $offre['id_adresse'] != null && $offre['id_type_offre'] != null && $offre['description'] != null && $offre['nom'] != null) {
-                array_push($liste_offres_active,$offre);
+                array_push($listeOffresActive,$offre);
             }
         }
-        return $liste_offres_active;
+        return $listeOffresActive;
     }
 
-    // modifie la date de derniere modification de l'offre
-    private static function updateLastUpdate($bdd,$id_offre) {
-        $req = $bdd->prepare("UPDATE offres SET last_update_offre = :last_update_offre WHERE id_offre = :id_offre");
-        $req->execute(array(
-            'id_offre' => $id_offre,
-            'last_update_offre' => date('Y-m-d H:i:s')
-        ));
+    private $_idOffre;
+    private $_bdd;
+
+    public function __construct($bdd,$idOffre = null) {
+        $this->_bdd = $bdd;
+        if($idOffre != null) {
+            $this->_idOffre = $idOffre;
+        }
+    }
+
+    // recupere l'id de l'offre
+    public function getIdOffre() {
+        return $this->_idOffre;
     }
 
     // modifie le compte associer a l'offre
-    public static function setOffreCompte($bdd,$id_offre,$id_compte) {
-        $req = $bdd->prepare("UPDATE offres SET id_compte = :id_compte WHERE id_offre = :id_offre");
+    public function setOffreCompte($idCompte) {
+        $req = $this->_bdd->prepare("UPDATE offres SET id_compte = :id_compte WHERE id_offre = :id_offre");
         $req->execute(array(
-            'id_offre' => $id_offre,
-            'id_compte' => $id_compte
+            'id_offre' => $_idOffre,
+            'id_compte' => $idCompte
         ));
-        self::updateLastUpdate($bdd,$id_offre);
+        $this->updateLastUpdate();
     }
 
     // modifie l'adresse associer a l'offre
-    public static function setOffreAdresse($bdd,$id_offre,$id_adresse) {
-        $req = $bdd->prepare("UPDATE offres SET id_adresse = :id_adresse WHERE id_offre = :id_offre");
+    public function setOffreAdresse($idAdresse) {
+        $req = $this->_bdd->prepare("UPDATE offres SET id_adresse = :id_adresse WHERE id_offre = :id_offre");
         $req->execute(array(
-            'id_offre' => $id_offre,
-            'id_adresse' => $id_adresse
+            'id_offre' => $_idOffre,
+            'id_adresse' => $idAdresse
         ));
-        self::updateLastUpdate($bdd,$id_offre);
+        $this->updateLastUpdate();
     }
 
     // modifie le type de livraison associer a l'offre
-    public static function setOffreType($bdd,$id_offre,$id_type_offre) {
-        $req = $bdd->prepare("UPDATE offres SET id_type_offre = :id_type_offre WHERE id_offre = :id_offre");
+    public function setOffreType($idTypeOffre) {
+        $req = $this->_bdd->prepare("UPDATE offres SET id_type_offre = :id_type_offre WHERE id_offre = :id_offre");
         $req->execute(array(
-            'id_offre' => $id_offre,
-            'id_type_offre' => $id_type_offre
+            'id_offre' => $_idOffre,
+            'id_type_offre' => $idTypeOffre
         ));
-        self::updateLastUpdate($bdd,$id_offre);
+        $this->updateLastUpdate();
     }
 
     // modifie le prix de l'offre
-    public static function setOffrePrix($bdd,$id_offre,$prix_offre) {
-        $req = $bdd->prepare("UPDATE offres SET prix_offre = :prix_offre WHERE id_offre = :id_offre");
+    public function setOffrePrix($prixOffre) {
+        $req = $this->_bdd->prepare("UPDATE offres SET prix_offre = :prix_offre WHERE id_offre = :id_offre");
         $req->execute(array(
-            'id_offre' => $id_offre,
-            'prix_offre' => $prix_offre
+            'id_offre' => $_idOffre,
+            'prix_offre' => $prixOffre
         ));
-        self::updateLastUpdate($bdd,$id_offre);
+        $this->updateLastUpdate();
     }
 
     // modifie la description de l'offre
-    public static function setOffreDescription($bdd,$id_offre,$description_offre) {
-        $req = $bdd->prepare("UPDATE offres SET description_offre = :description_offre WHERE id_offre = :id_offre");
+    public function setOffreDescription($descriptionOffre) {
+        $req = $this->_bdd->prepare("UPDATE offres SET description_offre = :description_offre WHERE id_offre = :id_offre");
         $req->execute(array(
-            'id_offre' => $id_offre,
-            'description_offre' => $description_offre
+            'id_offre' => $_idOffre,
+            'description_offre' => $descriptionOffre
         ));
-        self::updateLastUpdate($bdd,$id_offre);
+        $this->updateLastUpdate();
     }
 
     // modifie le nom de l'offre
-    public static function setOffreNom($bdd,$id_offre,$nom_offre) {
-        $req = $bdd->prepare("UPDATE offres SET nom_offre = :nom_offre WHERE id_offre = :id_offre");
+    public function setOffreNom($nomOffre) {
+        $req = $this->_bdd->prepare("UPDATE offres SET nom_offre = :nom_offre WHERE id_offre = :id_offre");
         $req->execute(array(
-            'id_offre' => $id_offre,
-            'nom_offre' => $nom_offre
+            'id_offre' => $_idOffre,
+            'nom_offre' => $nomOffre
         ));
-        self::updateLastUpdate($bdd,$id_offre);
+        $this->updateLastUpdate();
     }
 
     // modifie le stock de l'offre
-    public static function setOffreStock($bdd,$id_offre,$stock_offre) {
-        $req = $bdd->prepare("UPDATE offres SET stock_offre = :stock_offre WHERE id_offre = :id_offre");
+    public function setOffreStock($stockOffre) {
+        $req = $this->_bdd->prepare("UPDATE offres SET stock_offre = :stock_offre WHERE id_offre = :id_offre");
         $req->execute(array(
-            'id_offre' => $id_offre,
-            'stock_offre' => $stock_offre
+            'id_offre' => $_idOffre,
+            'stock_offre' => $stockOffre
         ));
-        self::updateLastUpdate($bdd,$id_offre);
+        $this->updateLastUpdate();
     }
 
     // supprime l'offre
-    public static function deleteOffre($bdd,$id_offre) {
-        $req = $bdd->prepare("DELETE FROM offres WHERE id_offre = :id_offre");
+    public function deleteOffre() {
+        $req = $this->_bdd->prepare("DELETE FROM offres WHERE id_offre = :id_offre");
         $req->execute(array(
-            'id_offre' => $id_offre
+            'id_offre' => $_idOffre
         ));
     }
 
     // ajoute une offre
-    public static function addOffre($bdd,$id_joueur,$id_compte,$id_adresse,$id_type_offre,$prix_offre,$description_offre,$nom_offre,$stock_offre) {
-        $req = $bdd->prepare("INSERT INTO offres(id_joueur,id_compte,id_adresse,id_type_offre,prix_offre,description_offre,nom_offre,stock_offre,last_update_offre) VALUES(:id_joueur,:id_compte,:id_adresse,:id_type_offre,:prix_offre,:description_offre,:nom_offre,:stock_offre,:last_update_offre)");
+    public function addOffre($idJoueur,$idCompte,$idAdresse,$idTypeOffre,$prixOffre,$descriptionOffre,$nomOffre,$stockOffre) {
+        $req = $this->_bdd->prepare("INSERT INTO offres(id_joueur,id_compte,id_adresse,id_type_offre,prix_offre,description_offre,nom_offre,stock_offre,last_update_offre) VALUES(:id_joueur,:id_compte,:id_adresse,:id_type_offre,:prix_offre,:description_offre,:nom_offre,:stock_offre,:last_update_offre)");
         $req->execute(array(
-            'id_joueur' => $id_joueur,
-            'id_compte' => $id_compte,
-            'id_adresse' => $id_adresse,
-            'id_type_offre' => $id_type_offre,
-            'prix_offre' => $prix_offre,
-            'description_offre' => $description_offre,
-            'nom_offre' => $nom_offre,
-            'stock_offre' => $stock_offre,
+            'id_joueur' => $idJoueur,
+            'id_compte' => $idCompte,
+            'id_adresse' => $idAdresse,
+            'id_type_offre' => $idTypeOffre,
+            'prix_offre' => $prixOffre,
+            'description_offre' => $descriptionOffre,
+            'nom_offre' => $nomOffre,
+            'stock_offre' => $stockOffre,
             'last_update_offre' => date('Y-m-d H:i:s')
         ));
-        return $bdd->lastInsertId();
+        $this->_idOffre = $this->_bdd->lastInsertId();
+    }
+
+    // modifie la date de derniere modification de l'offre
+    private function updateLastUpdate() {
+        $req = $this->_bdd->prepare("UPDATE offres SET last_update_offre = :last_update_offre WHERE id_offre = :id_offre");
+        $req->execute(array(
+            'id_offre' => $_idOffre,
+            'last_update_offre' => date('Y-m-d H:i:s')
+        ));
     }
 }
