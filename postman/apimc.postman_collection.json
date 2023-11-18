@@ -1749,15 +1749,15 @@
 					]
 				},
 				{
-					"name": "keyapi",
+					"name": "apikey",
 					"item": [
 						{
-							"name": "addkeyapi",
+							"name": "addapikey",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addkeyapi&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomapi&mdp=apiMDP@12&id_joueur={{id_joueur}}",
+									"raw": "{{site_url}}?admin=true&action=addapikey&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomapi&mdp=apiMDP@12&id_joueur={{id_joueur}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1768,7 +1768,7 @@
 										},
 										{
 											"key": "action",
-											"value": "addkeyapi"
+											"value": "addapikey"
 										},
 										{
 											"key": "useradmin",
@@ -1796,12 +1796,12 @@
 							"response": []
 						},
 						{
-							"name": "addkeyapidroit",
+							"name": "addapikeydroit",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addkeyapidroit&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_droit=1&id_keyapi=1",
+									"raw": "{{site_url}}?admin=true&action=addapikeydroit&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_droit=1&id_apikey=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1812,7 +1812,7 @@
 										},
 										{
 											"key": "action",
-											"value": "addkeyapidroit"
+											"value": "addapikeydroit"
 										},
 										{
 											"key": "useradmin",
@@ -1827,7 +1827,7 @@
 											"value": "1"
 										},
 										{
-											"key": "id_keyapi",
+											"key": "id_apikey",
 											"value": "1"
 										}
 									]
@@ -1836,12 +1836,12 @@
 							"response": []
 						},
 						{
-							"name": "deletekeyapidroit",
+							"name": "deleteapikeydroit",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=deletekeyapidroit&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_droit=1&id_keyapi=1",
+									"raw": "{{site_url}}?admin=true&action=deleteapikeydroit&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_droit=1&id_apikey=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1852,7 +1852,7 @@
 										},
 										{
 											"key": "action",
-											"value": "deletekeyapidroit"
+											"value": "deleteapikeydroit"
 										},
 										{
 											"key": "useradmin",
@@ -1867,7 +1867,7 @@
 											"value": "1"
 										},
 										{
-											"key": "id_keyapi",
+											"key": "id_apikey",
 											"value": "1"
 										}
 									]
@@ -1876,12 +1876,12 @@
 							"response": []
 						},
 						{
-							"name": "deletekeyapi",
+							"name": "deleteapikey",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=deletekeyapi&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_keyapi=1",
+									"raw": "{{site_url}}?admin=true&action=deleteapikey&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_apikey=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1892,7 +1892,7 @@
 										},
 										{
 											"key": "action",
-											"value": "deletekeyapi"
+											"value": "deleteapikey"
 										},
 										{
 											"key": "useradmin",
@@ -1903,7 +1903,7 @@
 											"value": "{{admin_mdp}}"
 										},
 										{
-											"key": "id_keyapi",
+											"key": "id_apikey",
 											"value": "1"
 										}
 									]
@@ -1912,12 +1912,12 @@
 							"response": []
 						},
 						{
-							"name": "editkeyapinom",
+							"name": "editapikeynom",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editkeyapinom&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=testkey&id_keyapi=2",
+									"raw": "{{site_url}}?admin=true&action=editapikeynom&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=testkey&id_apikey=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1928,7 +1928,7 @@
 										},
 										{
 											"key": "action",
-											"value": "editkeyapinom"
+											"value": "editapikeynom"
 										},
 										{
 											"key": "useradmin",
@@ -1943,7 +1943,7 @@
 											"value": "testkey"
 										},
 										{
-											"key": "id_keyapi",
+											"key": "id_apikey",
 											"value": "2"
 										}
 									]
@@ -1952,12 +1952,12 @@
 							"response": []
 						},
 						{
-							"name": "editkeyapimdp",
+							"name": "editapikeymdp",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editkeyapimdp&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&mdp=test2Key&id_keyapi=2",
+									"raw": "{{site_url}}?admin=true&action=editapikeymdp&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&mdp=test2Key&id_apikey=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1968,7 +1968,7 @@
 										},
 										{
 											"key": "action",
-											"value": "editkeyapimdp"
+											"value": "editapikeymdp"
 										},
 										{
 											"key": "useradmin",
@@ -1983,7 +1983,7 @@
 											"value": "test2Key"
 										},
 										{
-											"key": "id_keyapi",
+											"key": "id_apikey",
 											"value": "2"
 										}
 									]
@@ -1992,12 +1992,12 @@
 							"response": []
 						},
 						{
-							"name": "getkeyapibyid",
+							"name": "getapikeybyid",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getkeyapibyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_keyapi=2",
+									"raw": "{{site_url}}?admin=true&action=getapikeybyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_apikey=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2008,7 +2008,7 @@
 										},
 										{
 											"key": "action",
-											"value": "getkeyapibyid"
+											"value": "getapikeybyid"
 										},
 										{
 											"key": "useradmin",
@@ -2019,7 +2019,7 @@
 											"value": "{{admin_mdp}}"
 										},
 										{
-											"key": "id_keyapi",
+											"key": "id_apikey",
 											"value": "2"
 										}
 									]
@@ -2028,12 +2028,12 @@
 							"response": []
 						},
 						{
-							"name": "getkeyapidroitsbyid",
+							"name": "getapikeydroitsbyid",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getkeyapidroitsbyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_keyapi=2",
+									"raw": "{{site_url}}?admin=true&action=getapikeydroitsbyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_apikey=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2044,7 +2044,7 @@
 										},
 										{
 											"key": "action",
-											"value": "getkeyapidroitsbyid"
+											"value": "getapikeydroitsbyid"
 										},
 										{
 											"key": "useradmin",
@@ -2055,7 +2055,7 @@
 											"value": "{{admin_mdp}}"
 										},
 										{
-											"key": "id_keyapi",
+											"key": "id_apikey",
 											"value": "2"
 										}
 									]
@@ -2064,12 +2064,12 @@
 							"response": []
 						},
 						{
-							"name": "getkeyapisbyjoueur",
+							"name": "getapikeysbyjoueur",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getkeyapisbyjoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
+									"raw": "{{site_url}}?admin=true&action=getapikeysbyjoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2080,7 +2080,7 @@
 										},
 										{
 											"key": "action",
-											"value": "getkeyapisbyjoueur"
+											"value": "getapikeysbyjoueur"
 										},
 										{
 											"key": "useradmin",
@@ -4350,12 +4350,12 @@
 							"response": []
 						},
 						{
-							"name": "getkeyapisbygroupe",
+							"name": "getapikeysbygroupe",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getkeyapisbygroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"raw": "{{site_url}}?admin=true&action=getapikeysbygroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4366,7 +4366,7 @@
 										},
 										{
 											"key": "action",
-											"value": "getkeyapisbygroupe"
+											"value": "getapikeysbygroupe"
 										},
 										{
 											"key": "useradmin",
@@ -4602,12 +4602,12 @@
 							"response": []
 						},
 						{
-							"name": "getgroupesbykeyapi",
+							"name": "getgroupesbyapikey",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getgroupesbykeyapi&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_keyapi=1",
+									"raw": "{{site_url}}?admin=true&action=getgroupesbyapikey&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_apikey=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4618,7 +4618,7 @@
 										},
 										{
 											"key": "action",
-											"value": "getgroupesbykeyapi"
+											"value": "getgroupesbyapikey"
 										},
 										{
 											"key": "useradmin",
@@ -4629,7 +4629,7 @@
 											"value": "{{admin_mdp}}"
 										},
 										{
-											"key": "id_keyapi",
+											"key": "id_apikey",
 											"value": "1"
 										}
 									]
