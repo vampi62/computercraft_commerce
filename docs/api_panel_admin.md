@@ -43,7 +43,7 @@
             * [getcomptebyjoueur](#getcomptebyjoueur)
         * [gestion des groupes](#gestion-des-groupes)
             * [addgroupeadresse](#addgroupeadresse)
-            * [addgroupekeyapi](#addgroupekeyapi)
+            * [addgroupeapikey](#addgroupeapikey)
             * [addgroupecompte](#addgroupecompte)
             * [addgroupedroit](#addgroupedroit)
             * [addgroupe](#addgroupe)
@@ -51,7 +51,7 @@
             * [addgroupelivreur](#addgroupelivreur)
             * [addgroupeoffre](#addgroupeoffre)
             * [deletegroupeadresse](#deletegroupeadresse)
-            * [deletegroupekeyapi](#deletegroupekeyapi)
+            * [deletegroupeapikey](#deletegroupeapikey)
             * [deletegroupecompte](#deletegroupecompte)
             * [deletegroupedroit](#deletegroupedroit)
             * [deletegroupe](#deletegroupe)
@@ -64,14 +64,14 @@
             * [getdroitsbygroupe](#getdroitsbygroupe)
             * [getgroupebyid](#getgroupebyid)
             * [getgroupesbyadresse](#getgroupesbyadresse)
-            * [getgroupesbykeyapi](#getgroupesbykeyapi)
+            * [getgroupesbyapikey](#getgroupesbyapikey)
             * [getgroupesbycompte](#getgroupesbycompte)
             * [getgroupesbyjoueur](#getgroupesbyjoueur)
             * [getgroupesbyjoueurmembre](#getgroupesbyjoueurmembre)
             * [getgroupesbylivreur](#getgroupesbylivreur)
             * [getgroupesbyoffre](#getgroupesbyoffre)
             * [getjoueursbygroupe](#getjoueursbygroupe)
-            * [getkeyapisbygroupe](#getkeyapisbygroupe)
+            * [getapikeysbygroupe](#getapikeysbygroupe)
             * [getlivreursbygroupe](#getlivreursbygroupe)
             * [getoffresbygroupe](#getoffresbygroupe)
         * [gestion des jeton](#gestion-des-jeton)
@@ -91,16 +91,16 @@
             * [getjoueurbyid](#getjoueurbyid)
             * [getjoueurbypseudo](#getjoueurbypseudo)
             * [getjoueurs](#getjoueurs)
-        * [gestion des keyapi](#gestion-des-keyapi)
-            * [addkeyapi](#addkeyapi)
-            * [deletekeyapi](#deletekeyapi)
-            * [addkeyapidroit](#addkeyapidroit)
-            * [deletekeyapidroit](#deletekeyapidroit)
-            * [editkeyapimdp](#editkeyapimdp)
-            * [editkeyapinom](#editkeyapinom)
-            * [getkeyapibyid](#getkeyapibyid)
-            * [getkeyapidroitsbyid](#getkeyapidroitsbyid)
-            * [getkeyapisbyjoueur](#getkeyapisbyjoueur)
+        * [gestion des apikey](#gestion-des-apikey)
+            * [addapikey](#addapikey)
+            * [deleteapikey](#deleteapikey)
+            * [addapikeydroit](#addapikeydroit)
+            * [deleteapikeydroit](#deleteapikeydroit)
+            * [editapikeymdp](#editapikeymdp)
+            * [editapikeynom](#editapikeynom)
+            * [getapikeybyid](#getapikeybyid)
+            * [getapikeydroitsbyid](#getapikeydroitsbyid)
+            * [getapikeysbyjoueur](#getapikeysbyjoueur)
         * [gestion des keypay](#gestion-des-keypay)
             * [getkeypaybyid](#getkeypaybyid)
             * [getkeypaysbyoffre](#getkeypaysbyoffre)
@@ -445,13 +445,13 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getcompteb
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=addgroupeadresse&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_groupe=__id_groupe__&id_adresse=__id_adresse__
 
-#### addgroupekeyapi
+#### addgroupeapikey
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_groupe :(int) id du groupe auquel ajouter la keyapi
-- id_keyapi :(int) id de la keyapi à ajouter au groupe
+- id_groupe :(int) id du groupe auquel ajouter la apikey
+- id_apikey :(int) id de la apikey à ajouter au groupe
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=addgroupekeyapi&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_groupe=__id_groupe__&id_keyapi=__id_keyapi__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=addgroupeapikey&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_groupe=__id_groupe__&id_apikey=__id_apikey__
 
 #### addgroupecompte
 - useradmin	:(str) pseudo du compte admin
@@ -509,13 +509,13 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=addgroupeo
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=deletegroupeadresse&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_groupe=__id_groupe__&id_adresse=__id_adresse__
 
-#### deletegroupekeyapi
+#### deletegroupeapikey
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_groupe :(int) id du groupe auquel supprimer la keyapi
-- id_keyapi :(int) id de la keyapi à supprimer du groupe
+- id_groupe :(int) id du groupe auquel supprimer la apikey
+- id_apikey :(int) id de la apikey à supprimer du groupe
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=deletegroupekeyapi&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_groupe=__id_groupe__&id_keyapi=__id_keyapi__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=deletegroupeapikey&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_groupe=__id_groupe__&id_apikey=__id_apikey__
 
 #### deletegroupecompte
 - useradmin	:(str) pseudo du compte admin
@@ -607,12 +607,12 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getgroupeb
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=getgroupesbyadresse&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_adresse=__id_adresse__
 
-#### getgroupesbykeyapi
+#### getgroupesbyapikey
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_keyapi :(int) id de la keyapi dont on veut les groupes
+- id_apikey :(int) id de la apikey dont on veut les groupes
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=getgroupesbykeyapi&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_keyapi=__id_keyapi__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=getgroupesbyapikey&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_apikey=__id_apikey__
 
 #### getgroupesbycompte
 - useradmin	:(str) pseudo du compte admin
@@ -656,12 +656,12 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getgroupes
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=getjoueursbygroupe&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_groupe=__id_groupe__
 
-#### getkeyapisbygroupe
+#### getapikeysbygroupe
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_groupe :(int) id du groupe dont on veut les keyapis
+- id_groupe :(int) id du groupe dont on veut les apikeys
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=getkeyapisbygroupe&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_groupe=__id_groupe__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=getapikeysbygroupe&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_groupe=__id_groupe__
 
 #### getlivreursbygroupe
 - useradmin	:(str) pseudo du compte admin
@@ -798,75 +798,75 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getjoueurb
 http://__global_url__:__global_port__/__global_uri__/index.php?action=getjoueurs&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__
 
 
-### gestion des keyapi
-#### addkeyapi
+### gestion des apikey
+#### addapikey
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- nom 		:(str) nom de la keyapi
-- mdp 		:(str) mdp de la keyapi
-- id_joueur :(int) id du joueur a qui appartient la keyapi
+- nom 		:(str) nom de la apikey
+- mdp 		:(str) mdp de la apikey
+- id_joueur :(int) id du joueur a qui appartient la apikey
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=addkeyapi&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&nom=__nom__&mdp=__mdp__&id_joueur=__id_joueur__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=addapikey&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&nom=__nom__&mdp=__mdp__&id_joueur=__id_joueur__
 
-#### deletekeyapi
+#### deleteapikey
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_keyapi :(int) id de la keyapi a supprimer
+- id_apikey :(int) id de la apikey a supprimer
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=deletekeyapi&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_keyapi=__id_keyapi__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=deleteapikey&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_apikey=__id_apikey__
 
-#### addkeyapidroit
+#### addapikeydroit
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_keyapi :(int) id de la keyapi a modifier
+- id_apikey :(int) id de la apikey a modifier
 - id_droit 	:(int) id du droit a ajouter
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=addkeyapidroit&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_keyapi=__id_keyapi__&id_droit=__id_droit__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=addapikeydroit&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_apikey=__id_apikey__&id_droit=__id_droit__
 
-#### deletekeyapidroit
+#### deleteapikeydroit
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_keyapi :(int) id de la keyapi a modifier
+- id_apikey :(int) id de la apikey a modifier
 - id_droit 	:(int) id du droit a supprimer
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=deletekeyapidroit&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_keyapi=__id_keyapi__&id_droit=__id_droit__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=deleteapikeydroit&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_apikey=__id_apikey__&id_droit=__id_droit__
 
-#### editkeyapimdp
+#### editapikeymdp
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_keyapi :(int) id de la keyapi a modifier
-- mdp 		:(str) nouveau mdp de la keyapi
+- id_apikey :(int) id de la apikey a modifier
+- mdp 		:(str) nouveau mdp de la apikey
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=editkeyapimdp&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_keyapi=__id_keyapi__&mdp=__mdp__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=editapikeymdp&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_apikey=__id_apikey__&mdp=__mdp__
 
-#### editkeyapinom
+#### editapikeynom
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_keyapi :(int) id de la keyapi a modifier
-- nom 		:(str) nouveau nom de la keyapi
+- id_apikey :(int) id de la apikey a modifier
+- nom 		:(str) nouveau nom de la apikey
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=editkeyapinom&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_keyapi=__id_keyapi__&nom=__nom__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=editapikeynom&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_apikey=__id_apikey__&nom=__nom__
 
-#### getkeyapibyid
+#### getapikeybyid
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_keyapi :(int) id de la keyapi a recuperer
+- id_apikey :(int) id de la apikey a recuperer
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=getkeyapibyid&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_keyapi=__id_keyapi__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=getapikeybyid&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_apikey=__id_apikey__
 
-#### getkeyapidroitsbyid
+#### getapikeydroitsbyid
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_keyapi :(int) id de la keyapi a recuperer
+- id_apikey :(int) id de la apikey a recuperer
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=getkeyapidroitsbyid&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_keyapi=__id_keyapi__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=getapikeydroitsbyid&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_apikey=__id_apikey__
 
-#### getkeyapisbyjoueur
+#### getapikeysbyjoueur
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
 - id_joueur :(int) id du joueur a recuperer
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=getkeyapisbyjoueur&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_joueur=__id_joueur__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=getapikeysbyjoueur&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_joueur=__id_joueur__
 
 
 ### gestion des keypay
