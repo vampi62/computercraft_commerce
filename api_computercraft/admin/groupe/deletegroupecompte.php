@@ -22,5 +22,6 @@ if (!Checkdroits::CheckId($bddConnection, $_GET['id_groupe'], 'groupe')) {
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_compte'], 'compte')) {
     return array('status_code' => 404, 'message' => 'Le compte n\'existe pas.');
 }
-Groupes::deleteGroupeCompte($bddConnection, $_GET['id_groupe'], $_GET['id_compte']);
+$groupe = new Groupes($bddConnection, $_GET['id_groupe']);
+$groupe->deleteGroupeCompte($_GET['id_compte']);
 return array('status_code' => 200, 'message' => 'Le compte a bien ete supprime du groupe.');

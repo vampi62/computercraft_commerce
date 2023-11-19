@@ -27,7 +27,7 @@ if (!empty($_GET['id_compte'])) {
         return array('status_code' => 404, 'message' => 'Le compte n\'existe pas.');
     }
     $compte = Comptes::getCompteById($bddConnection, $_GET['id_compte']);
-    if (!$compte['id_type_compte'] == 3) {
+    if (!$compte['id_type_compte'] > 2) { // ne doit pas etre un compte entreprise_livreur ou courant
         return array('status_code' => 400, 'message' => 'Le type de compte n\'est pas valide pour une offre.');
     }
 } else {
@@ -39,7 +39,7 @@ if (!empty($_GET['id_adresse'])) {
         return array('status_code' => 404, 'message' => 'L\'adresse n\'existe pas.');
     }
     $adresse = Adresses::getAdresseById($bddConnection, $_GET['id_adresse']);
-    if (!$adresse['id_type_adresse'] >= 3) {
+    if (!$adresse['id_type_adresse'] > 2) { // ne doit pas etre un point relais ou une reception
         return array('status_code' => 400, 'message' => 'Le type d\'adresse n\'est pas valide pour une offre.');
     }
 } else {
@@ -66,5 +66,6 @@ if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
 if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description']) {
     return array('status_code' => 413, 'message' => 'La description est trop longue.');
 }
-$newid = Offres::addOffre($bddConnection,$_GET['id_joueur'],$_GET['id_compte'],$_GET['id_adresse'],$_GET['id_type_offre'],$_GET['prix'],$_GET['description'],$_GET['nom'],$_GET['stock']);
-return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newid));
+$newOffre = new Offres($bddConnection);
+$newOffre->addOffre($_GET['id_joueur'],$_GET['id_compte'],$_GET['id_adresse'],$_GET['id_type_offre'],$_GET['prix'],$_GET['description'],$_GET['nom'],$_GET['stock']);
+return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newOffre->getIdOffre()));

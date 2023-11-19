@@ -71,7 +71,8 @@ if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description'])
 if (strlen($_GET['code_retrait_commande']) > $_Serveur_['MaxLengthChamps']['code']) {
     return array('status_code' => 413, 'message' => 'Le code retrait est trop long.');
 }
-$newid = Commandes::addCommande($bddConnection,$_GET['nom'],$_GET['quant'],$_GET['prixu'],$_GET['frait'],$_GET['description'],$_GET['code_retrait_commande'],$_GET['id_adresse_vendeur'],$_GET['id_adresse_client'],$_GET['id_offre'],$_GET['id_compte_vendeur'],$_GET['id_compte_client']);
+$newCommande = new Commandes($bddConnection);
+$newCommande->addCommande($_GET['nom'],$_GET['quant'],$_GET['prixu'],$_GET['frait'],$_GET['description'],$_GET['code_retrait_commande'],$_GET['id_adresse_vendeur'],$_GET['id_adresse_client'],$_GET['id_offre'],$_GET['id_compte_vendeur'],$_GET['id_compte_client']);
 $suivi = $donneesJoueurUserAdmin['pseudo_joueur'].' a cree la commande via panel admin.';
-Commandes::setCommandeSuivi($bddConnection,$newid,$suivi,$_Serveur_['General']['case_ligne_suite']);
-return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newid));
+$newCommande->setCommandeSuivi($suivi,$_Serveur_['General']['case_ligne_suite']);
+return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newCommande->getIdCommande()));

@@ -27,6 +27,7 @@ if (!empty($_GET['date'])) {
     $_GET['date'] = null;
 }
 $suivi = $donneesJoueurUserAdmin['pseudo_joueur'].' a changer la date de livraison a '. $_GET['date'] . ' via panel admin.';
-Commandes::setCommandeSuivi($bddConnection, $_GET['id_commande'], $suivi, $_Serveur_['General']['case_ligne_suite']);
-Commandes::setCommandeDateLivraison($bddConnection, $_GET['id_commande'], $_GET['date']);
+$commande = new Commandes($bddConnection, $_GET['id_commande']);
+$commande->setCommandeSuivi($suivi, $_Serveur_['General']['case_ligne_suite']);
+$commande->setCommandeDateLivraison($_GET['date']);
 return array('status_code' => 200, 'message' => '');

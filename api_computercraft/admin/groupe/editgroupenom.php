@@ -22,5 +22,6 @@ if (!Checkdroits::CheckId($bddConnection, $_GET['id_groupe'], 'groupe')) {
 if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
     return array('status_code' => 413, 'message' => 'Le nom du groupe est trop long.');
 }
-Groupes::setGroupeNom($bddConnection, $_GET['id_groupe'], $_GET['nom']);
-return array('status_code' => 200, 'message' => '');
+$groupe = new Groupes($bddConnection, $_GET['id_groupe']);
+$groupe->setGroupeNom($_GET['nom']);
+return array('status_code' => 200, 'message' => 'Le nom du groupe a bien ete modifie.');

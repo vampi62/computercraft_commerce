@@ -19,5 +19,6 @@ if (!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin')))
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_groupe'], 'groupe')) {
     return array('status_code' => 404, 'message' => 'Le groupe n\'existe pas.');
 }
-Groupes::deleteGroupe($bddConnection, $_GET['id_groupe']);
+$groupe = new Groupes($bddConnection, $_GET['id_groupe']);
+$groupe->deleteGroupe();
 return array('status_code' => 200, 'message' => 'Le groupe a bien ete supprime.');

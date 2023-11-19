@@ -26,11 +26,12 @@ if (!empty($_GET['id_adresse'])) {
         return array('status_code' => 404, 'message' => 'L\'adresse n\'existe pas.');
     }
     $adresse = Adresses::getAdresseById($bddConnection, $_GET['id_adresse']);
-    if (!$adresse['id_type_adresse'] >= 3) {
+    if (!$adresse['id_type_adresse'] > 2) { // ne doit pas etre un point relais ou une reception
         return array('status_code' => 400, 'message' => 'Le type d\'adresse n\'est pas valide pour une offre.');
     }
 } else {
     $_GET['id_adresse'] = null;
 }
-Offres::setOffreAdresse($bddConnection, $_GET['id_offre'], $_GET['id_adresse']);
+$offre = new Offres($bddConnection, $_GET['id_offre']);
+$offre->setOffreAdresse($_GET['id_adresse']);
 return array('status_code' => 200, 'message' => 'L\'adresse de l\'offre a bien ete modifie.');

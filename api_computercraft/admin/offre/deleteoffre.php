@@ -19,5 +19,6 @@ if (!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin')))
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_offre'], 'offre')) {
     return array('status_code' => 404, 'message' => 'L\'offre n\'existe pas.');
 }
-Offres::deleteOffre($bddConnection, $_GET['id_offre']);
+$offre = new Offres($bddConnection, $_GET['id_offre']);
+$offre->deleteOffre();
 return array('status_code' => 200, 'message' => 'L\'offre a bien ete supprimee.');

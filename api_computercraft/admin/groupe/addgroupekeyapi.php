@@ -3,7 +3,7 @@ require_once('class/joueurs.class.php');
 require_once('class/checkdroits.class.php');
 require_once('class/groupes.class.php');
 
-if (!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_groupe' => false, 'id_keyapi' => false))) {
+if (!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_groupe' => false, 'id_apikey' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $donneesJoueurUserAdmin = Joueurs::getJoueurByPseudo($bddConnection, $_GET['useradmin']);
@@ -19,8 +19,9 @@ if (!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin')))
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_groupe'], 'groupe')) {
     return array('status_code' => 404, 'message' => 'Le groupe n\'existe pas.');
 }
-if (!Checkdroits::CheckId($bddConnection, $_GET['id_keyapi'], 'keyapi')) {
-    return array('status_code' => 404, 'message' => 'L\'keyapi n\'existe pas.');
+if (!Checkdroits::CheckId($bddConnection, $_GET['id_apikey'], 'apikey')) {
+    return array('status_code' => 404, 'message' => 'L\'apikey n\'existe pas.');
 }
-Groupes::addGroupeKeyApi($bddConnection, $_GET['id_groupe'], $_GET['id_keyapi']);
-return array('status_code' => 200, 'message' => 'L\'keyapi a bien ete ajoute au groupe.');
+$groupe = new Groupes($bddConnection, $_GET['id_groupe']);
+$groupe->addGroupeapikey($_GET['id_apikey']);
+return array('status_code' => 200, 'message' => 'L\'apikey a bien ete ajoute au groupe.');

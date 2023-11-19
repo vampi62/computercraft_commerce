@@ -25,5 +25,6 @@ if (!is_numeric($_GET['stock'])) {
 if (($_GET['stock']) < 0) {
     return array('status_code' => 400, 'message' => 'Le stock doit être positif.');
 }
-Offres::setOffreStock($bddConnection, $_GET['id_offre'], $_GET['stock']);
+$offre = new Offres($bddConnection, $_GET['id_offre']);
+$offre->setOffreStock($_GET['stock']);
 return array('status_code' => 200, 'message' => 'Le stock de l\'offre a bien ete modifie.');

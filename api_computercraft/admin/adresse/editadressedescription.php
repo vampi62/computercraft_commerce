@@ -22,5 +22,6 @@ if (!Checkdroits::CheckId($bddConnection, $_GET['id_adresse'], 'adresse')) {
 if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description']) {
     return array('status_code' => 413, 'message' => 'La description est trop longue.');
 }
-Adresses::setAdresseDescription($bddConnection, $_GET['id_adresse'], $_GET['description']);
+$adresse = new Adresses($bddConnection, $_GET['id_adresse']);
+$adresse->setAdresseDescription($_GET['description']);
 return array('status_code' => 200, 'message' => '');

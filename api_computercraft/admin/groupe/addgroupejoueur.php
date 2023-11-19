@@ -22,5 +22,6 @@ if (!Checkdroits::CheckId($bddConnection, $_GET['id_groupe'], 'groupe')) {
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
-Groupes::addGroupeJoueur($bddConnection, $_GET['id_groupe'], $_GET['id_joueur']);
+$groupe = new Groupes($bddConnection, $_GET['id_groupe']);
+$groupe->addGroupeJoueur($_GET['id_joueur']);
 return array('status_code' => 200, 'message' => 'Le joueur a bien ete ajoute au groupe.');

@@ -1,7 +1,7 @@
 <?php
 require_once('class/joueurs.class.php');
 require_once('class/checkdroits.class.php');
-require_once('class/keyapis.class.php');
+require_once('class/apikeys.class.php');
 
 if (!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_joueur' => false, 'nom' => false, 'mdp' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
@@ -19,8 +19,8 @@ if (!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin')))
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
-if (Keyapis::getKeyapiByNom($bddConnection, $_GET['id_joueur'] . '-' . $_GET['nom'])) {
-    return array('status_code' => 403, 'message' => 'Le nom de la keyapi est deja utilise.');
+if (apikeys::getapikeyByNom($bddConnection, $_GET['id_joueur'] . '-' . $_GET['nom'])) {
+    return array('status_code' => 403, 'message' => 'Le nom de l\'apikey est deja utilise.');
 }
 if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
     return array('status_code' => 413, 'message' => 'Le nom est trop long.');
@@ -31,5 +31,6 @@ if (!Checkdroits::CheckPasswordSecu($_GET['mdp'])) {
 if (strlen($_GET['mdp']) > $_Serveur_['MaxLengthChamps']['code']) {
     return array('status_code' => 413, 'message' => 'Le mot de passe est trop long.');
 }
-$newid = Keyapis::addKeyapi($bddConnection,$_GET['nom'], $_GET['mdp'], $_GET['id_joueur']);
-return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newid));
+$newApiKey = new apikeys($bddConnection);
+$newApiKey->addapikey($_GET['nom'], $_GET['mdp'], $_GET['id_joueur']);
+return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newApiKey->getIdApiKey()));

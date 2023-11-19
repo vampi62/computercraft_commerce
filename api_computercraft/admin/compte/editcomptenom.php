@@ -22,5 +22,6 @@ if (!Checkdroits::CheckId($bddConnection, $_GET['id_compte'], 'compte')) {
 if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
     return array('status_code' => 413, 'message' => 'Le nom du compte est trop long.');
 }
-Comptes::setCompteNom($bddConnection, $_GET['id_compte'],$_GET['nom']);
+$compte = new Comptes($bddConnection, $_GET['id_compte']);
+$compte->setCompteNom($_GET['nom']);
 return array('status_code' => 200, 'message' => 'Le nom du compte a bien ete modifie.');

@@ -25,5 +25,6 @@ if (!is_numeric($_GET['prix'])) {
 if (($_GET['prix']) < 0) {
     return array('status_code' => 400, 'message' => 'Le prix ne peut pas etre negatif.');
 }
-Offres::setOffrePrix($bddConnection, $_GET['id_offre'], $_GET['prix']);
+$offre = new Offres($bddConnection, $_GET['id_offre']);
+$offre->setOffrePrix($_GET['prix']);
 return array('status_code' => 200, 'message' => 'Le prix de l\'offre a bien ete modifie.');
