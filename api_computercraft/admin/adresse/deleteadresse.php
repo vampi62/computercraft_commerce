@@ -19,5 +19,6 @@ if (!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin')))
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_adresse'], 'adresse')) {
     return array('status_code' => 404, 'message' => 'L\'adresse n\'existe pas.');
 }
-Adresses::deleteAdresse($bddConnection, $_GET['id_adresse']);
+$adresse = new Adresses($bddConnection, $_GET['id_adresse']);
+$adresse->deleteAdresse();
 return array('status_code' => 200, 'message' => '');

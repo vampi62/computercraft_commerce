@@ -259,7 +259,7 @@ class Commandes {
 
     // ajoute une commande
     public function addCommande($nomCommande,$quantiteCommande,$prixUnitaireCommande,$fraitLivraisonCommande,$descriptionCommande,$codeRetraitCommande,$idAdresseVendeur,$idAdresseClient,$idOffre,$idCompteVendeur,$idCompteClient) {
-        $req = $this->_bdd->prepare('INSERT INTO commandes(nom_commande,quantite_commande,prix_unitaire_commande,frait_livraison_commande,description_commande,suivi_commande,date_commande_commande,code_retrait_commande,id_adresse_vendeur,id_adresse_client,id_offre,id_compte_vendeur,id_compte_client,id_type_status_commande) VALUES(:nom_commande,:quantite_commande,:prix_unitaire_commande,:frait_livraison_commande,:description_commande,:suivi_commande,:date_commande_commande,:code_retrait_commande,:id_adresse_vendeur,:id_adresse_client,:id_offre,:id_compte_vendeur,:id_compte_client,1)');
+        $req = $this->_bdd->prepare('INSERT INTO commandes(nom_commande,quantite_commande,prix_unitaire_commande,frait_livraison_commande,description_commande,suivi_commande,date_commande_commande,code_retrait_commande,id_adresse_vendeur,id_adresse_client,id_offre,id_compte_vendeur,id_compte_client,id_type_commande) VALUES(:nom_commande,:quantite_commande,:prix_unitaire_commande,:frait_livraison_commande,:description_commande,:suivi_commande,:date_commande_commande,:code_retrait_commande,:id_adresse_vendeur,:id_adresse_client,:id_offre,:id_compte_vendeur,:id_compte_client,1)');
         $req->execute(array(
             'nom_commande' => $nomCommande,
             'quantite_commande' => $quantiteCommande,

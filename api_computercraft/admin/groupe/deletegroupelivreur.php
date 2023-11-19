@@ -22,5 +22,6 @@ if (!Checkdroits::CheckId($bddConnection, $_GET['id_groupe'], 'groupe')) {
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_livreur'], 'livreur')) {
     return array('status_code' => 404, 'message' => 'Le livreur n\'existe pas.');
 }
-Groupes::deleteGroupeLivreur($bddConnection, $_GET['id_groupe'], $_GET['id_livreur']);
+$groupe = new Groupes($bddConnection, $_GET['id_groupe']);
+$groupe->deleteGroupeLivreur($_GET['id_livreur']);
 return array('status_code' => 200, 'message' => 'Le livreur a bien ete supprime du groupe.');

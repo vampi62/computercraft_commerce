@@ -24,5 +24,6 @@ if ($_GET['nbr_offre'] < 0) {
 if ($_GET['nbr_offre'] > $_Serveur_['General']['nbr_offre_max']) {
     $_GET['nbr_offre'] = $_Serveur_['General']['nbr_offre_max'];
 }
-Joueurs::setJoueurnbrOffre($bddConnection, $_GET['id_joueur'], $_GET['nbr_offre']);
+$joueur = new Joueurs($bddConnection, $_GET['id_joueur']);
+$joueur->setJoueurnbrOffre($_GET['nbr_offre']);
 return array('status_code' => 200, 'message' => 'Le nombre d\'offre a bien ete modifie.');

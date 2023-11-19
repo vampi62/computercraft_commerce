@@ -27,7 +27,7 @@ if (!empty($_GET['id_compte'])) {
         return array('status_code' => 404, 'message' => 'Le compte n\'existe pas.');
     }
     $compte = Comptes::getCompteById($bddConnection, $_GET['id_compte']);
-    if (!$compte['id_type_compte'] == 2) {
+    if (!$compte['id_type_compte'] == 2) { // ne doit pas etre autre chose qu'un compte entreprise_livreur
         return array('status_code' => 400, 'message' => 'Le type de compte n\'est pas valide pour un livreur.');
     }
 } else {
@@ -39,7 +39,7 @@ if (!empty($_GET['id_adresse'])) {
         return array('status_code' => 404, 'message' => 'L\'adresse n\'existe pas.');
     }
     $adresse = Adresses::getAdresseById($bddConnection, $_GET['id_adresse']);
-    if (!$adresse['id_type_adresse'] == 2) {
+    if (!$adresse['id_type_adresse'] == 2) { // ne doit pas etre autre chose qu'un point relais
         return array('status_code' => 400, 'message' => 'Le type d\'adresse n\'est pas valide pour un livreur.');
     }
 } else {
@@ -48,5 +48,6 @@ if (!empty($_GET['id_adresse'])) {
 if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
     return array('status_code' => 413, 'message' => 'Le nom du livreur est trop long.');
 }
-$newid = Livreurs::addLivreur($bddConnection, $_GET['id_joueur'], $_GET['id_compte'], $_GET['id_adresse'], $_GET['nom']);
-return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newid));
+$newLivreur = new Livreurs($bddConnection);
+$newLivreur->addLivreur($_GET['id_joueur'], $_GET['id_compte'], $_GET['id_adresse'], $_GET['nom']);
+return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newLivreur->getIdLivreur()));

@@ -22,5 +22,6 @@ if (!Checkdroits::CheckId($bddConnection, $_GET['id_offre'], 'offre')) {
 if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description']) {
     return array('status_code' => 413, 'message' => 'La description est trop longue.');
 }
-Offres::setOffreDescription($bddConnection, $_GET['id_offre'], $_GET['description']);
+$offre = new Offres($bddConnection, $_GET['id_offre']);
+$offre->setOffreDescription($_GET['description']);
 return array('status_code' => 200, 'message' => 'La description de l\'offre a bien ete modifiee.');

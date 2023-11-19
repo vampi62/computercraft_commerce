@@ -22,5 +22,6 @@ if (!Checkdroits::CheckId($bddConnection, $_GET['id_groupe'], 'groupe')) {
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
-Groupes::deleteGroupeJoueur($bddConnection, $_GET['id_groupe'], $_GET['id_joueur']);
+$groupe = new Groupes($bddConnection, $_GET['id_groupe']);
+$groupe->deleteGroupeJoueur($_GET['id_joueur']);
 return array('status_code' => 200, 'message' => 'Le joueur a bien ete supprime du groupe.');

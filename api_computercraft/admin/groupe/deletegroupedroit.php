@@ -22,5 +22,6 @@ if (!Checkdroits::CheckId($bddConnection, $_GET['id_groupe'], 'groupe')) {
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_droit'], 'droit')) {
     return array('status_code' => 404, 'message' => 'Le droit n\'existe pas.');
 }
-Groupes::deleteGroupeDroit($bddConnection, $_GET['id_groupe'], $_GET['id_droit']);
+$groupe = new Groupes($bddConnection, $_GET['id_groupe']);
+$groupe->deleteGroupeDroit($_GET['id_droit']);
 return array('status_code' => 200, 'message' => 'Le droit a bien ete supprime du groupe.');

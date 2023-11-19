@@ -26,11 +26,12 @@ if (!empty($_GET['id_compte'])) {
         return array('status_code' => 404, 'message' => 'Le compte n\'existe pas.');
     }
     $compte = Comptes::getCompteById($bddConnection, $_GET['id_compte']);
-    if (!$compte['id_type_compte'] == 3) {
+    if (!$compte['id_type_compte'] > 2) { // ne doit pas etre un compte entreprise_livreur ou courant
         return array('status_code' => 400, 'message' => 'Le type de compte n\'est pas valide pour une offre.');
     }
 } else {
     $_GET['id_compte'] = null;
 }
-Offres::setOffreCompte($bddConnection, $_GET['id_offre'], $_GET['id_compte']);
+$offre = new Offres($bddConnection, $_GET['id_offre']);
+$offre->setOffreCompte($_GET['id_compte']);
 return array('status_code' => 200, 'message' => 'Le compte de l\'offre a bien ete modifie.');

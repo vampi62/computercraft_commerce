@@ -19,9 +19,9 @@ if (!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin')))
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_compte'], 'compte')) {
     return array('status_code' => 404, 'message' => 'Le compte n\'existe pas.');
 }
-$compte = Comptes::getCompteById($bddConnection, $_GET['id_compte']);
-if ($compte['solde_compte'] != 0) {
+if (Comptes::getCompteById($bddConnection, $_GET['id_compte'])['solde_compte'] != 0) {
     return array('status_code' => 403, 'message' => 'Le compte n\'est pas vide.');
 }
-Comptes::deleteCompte($bddConnection, $_GET['id_compte']);
+$compte = new Comptes($bddConnection, $_GET['id_compte']);
+$compte->deleteCompte();
 return array('status_code' => 200, 'message' => 'Le compte a bien ete supprime.');

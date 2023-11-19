@@ -63,9 +63,9 @@ class Droits {
     public static function getTypeStatusCommandes($bdd) {
         $req = $bdd->prepare('SELECT * FROM type_commandes');
         $req->execute();
-        $type_status_commandes = $req->fetchAll(PDO::FETCH_ASSOC);
+        $type_commandes = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
-        return $type_status_commandes;
+        return $type_commandes;
     }
 
     // recupere les type de status_litiges

@@ -19,5 +19,6 @@ if (!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin')))
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_livreur'], 'livreur')) {
     return array('status_code' => 404, 'message' => 'Le livreur n\'existe pas.');
 }
-livreurs::deleteLivreur($bddConnection, $_GET['id_livreur']);
+$livreur = new Livreurs($bddConnection, $_GET['id_livreur']);
+$livreur->deleteLivreur();
 return array('status_code' => 200, 'message' => 'Le livreur a bien ete supprime.');

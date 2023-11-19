@@ -22,5 +22,6 @@ if (!Checkdroits::CheckId($bddConnection, $_GET['id_offre'], 'offre')) {
 if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
     return array('status_code' => 413, 'message' => 'Le nom de l\'offre est trop long.');
 }
-Offres::setOffreNom($bddConnection, $_GET['id_offre'], $_GET['nom']);
+$offre = new Offres($bddConnection, $_GET['id_offre']);
+$offre->setOffreNom($_GET['nom']);
 return array('status_code' => 200, 'message' => 'Le nom de l\'offre a bien ete modifie.');

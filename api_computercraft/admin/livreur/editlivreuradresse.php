@@ -25,11 +25,12 @@ if (!empty($_GET['id_adresse'])) {
         return array('status_code' => 404, 'message' => 'L\'adresse n\'existe pas.');
     }
     $adresse = Adresses::getAdresseById($bddConnection, $_GET['id_adresse']);
-    if (!$adresse['id_type_adresse'] == 2) {
+    if (!$adresse['id_type_adresse'] == 2) { // ne doit pas etre autre chose qu'un point relais
         return array('status_code' => 400, 'message' => 'Le type d\'adresse n\'est pas valide pour un livreur.');
     }
 } else {
     $_GET['id_adresse'] = null;
 }
-Livreurs::setLivreurAdresse($bddConnection, $_GET['id_livreur'], $_GET['id_adresse']);
+$livreur = new Livreurs($bddConnection, $_GET['id_livreur']);
+$livreur->setLivreurAdresse($_GET['id_adresse']);
 return array('status_code' => 200, 'message' => 'L\'adresse du livreur a bien ete modifie.');

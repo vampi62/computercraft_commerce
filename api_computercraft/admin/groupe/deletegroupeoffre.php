@@ -22,5 +22,6 @@ if (!Checkdroits::CheckId($bddConnection, $_GET['id_groupe'], 'groupe')) {
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_offre'], 'offre')) {
     return array('status_code' => 404, 'message' => 'L\'offre n\'existe pas.');
 }
-Groupes::deleteGroupeOffre($bddConnection, $_GET['id_groupe'], $_GET['id_offre']);
+$groupe = new Groupes($bddConnection, $_GET['id_groupe']);
+$groupe->deleteGroupeOffre($_GET['id_offre']);
 return array('status_code' => 200, 'message' => 'L\'offre a bien ete supprime du groupe.');

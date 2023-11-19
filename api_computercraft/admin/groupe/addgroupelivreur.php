@@ -22,5 +22,6 @@ if (!Checkdroits::CheckId($bddConnection, $_GET['id_groupe'], 'groupe')) {
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_livreur'], 'livreur')) {
     return array('status_code' => 404, 'message' => 'Le livreur n\'existe pas.');
 }
-Groupes::addGroupeLivreur($bddConnection, $_GET['id_groupe'], $_GET['id_livreur']);
+$groupe = new Groupes($bddConnection, $_GET['id_groupe']);
+$groupe->addGroupeLivreur($_GET['id_livreur']);
 return array('status_code' => 200, 'message' => 'Le livreur a bien ete ajoute au groupe.');

@@ -44,5 +44,6 @@ if (empty($_GET['nbr_offre']) || $_GET['nbr_offre'] <= 0) {
         $_GET['nbr_offre'] = $_Serveur_['General']['nbr_offre_max'];
     }
 }
-Joueurs::addJoueur($bddConnection, $_GET['pseudo'], $_GET['email'], $_GET['mdp'], $_GET['nbr_offre'], $_GET['id_type_role']);
-return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newid));
+$newJoueur = new Joueurs($bddConnection);
+$newJoueur->addJoueur($_GET['pseudo'], $_GET['email'], $_GET['mdp'], $_GET['nbr_offre'], $_GET['id_type_role']);
+return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newJoueur->getId()));

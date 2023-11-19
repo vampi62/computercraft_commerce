@@ -22,5 +22,6 @@ if (!Checkdroits::CheckId($bddConnection, $_GET['id_adresse'], 'adresse')) {
 if (strlen($_GET['coo']) > $_Serveur_['MaxLengthChamps']['coo']) {
     return array('status_code' => 413, 'message' => 'Les coordonnees sont trop longues.');
 }
-Adresses::setAdresseCoordonnees($bddConnection, $_GET['id_adresse'], $_GET['coo']);
+$adresse = new Adresses($bddConnection, $_GET['id_adresse']);
+$adresse->setAdresseCoordonnees($_GET['coo']);
 return array('status_code' => 200, 'message' => '');

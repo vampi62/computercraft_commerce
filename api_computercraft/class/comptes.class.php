@@ -66,6 +66,7 @@ class Comptes {
         return $compte;
     }
 
+    private $_soldeCompte = 0;
     private $_idCompte;
     private $_bdd;
 
@@ -73,12 +74,21 @@ class Comptes {
         $this->_bdd = $this->_bdd;
         if($idCompte != null) {
             $this->_idCompte = $idCompte;
+            $req = $this->_bdd->prepare('SELECT solde_compte FROM comptes WHERE id_compte = :id_compte');
+            $req->execute(array(
+                'id_compte' => $this->_idCompte
+            ));
+            $this->_soldeCompte = $req->fetch(PDO::FETCH_ASSOC)['solde_compte'];
         }
     }
 
     // recupere l'id du compte
     public function getIdCompte() {
         return $this->_idCompte;
+    }
+
+    public function getSolde() {
+        return $this->_soldeCompte;
     }
     // le solde_compte ne peut être modifier qu'avec une transaction pour garder une trace des mouvements
     // modifie le solde_compte du compte

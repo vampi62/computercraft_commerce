@@ -14,11 +14,9 @@
             * [deleteadresse](#deleteadresse)
             * [editadressecoo](#editadressecoo)
             * [editadressedescription](#editadressedescription)
-            * [editadresselivreur](#editadresselivreur)
             * [editadressenom](#editadressenom)
             * [getadressebyid](#getadressebyid)
             * [getadressesbyjoueur](#getadressesbyjoueur)
-            * [getadressesbylivreur](#getadressesbylivreur)
         * [gestion des commandes](#gestion-des-commandes)
             * [addcommande](#addcommande)
             * [editcommandecoderetrait](#editcommandecoderetrait)
@@ -135,9 +133,6 @@
             * [getoffresbyjoueur](#getoffresbyjoueur)
         * [gestion des transactions](#gestion-des-transactions)
             * [addtransaction](#addtransaction)
-            * [edittransactionstatus](#edittransactionstatus)
-            * [exectransaction](#exectransaction)
-            * [execalltransactions](#execalltransactions)
             * [gettransactionbyid](#gettransactionbyid)
             * [gettransactionsbyadmin](#gettransactionsbyadmin)
             * [gettransactionsbycommande](#gettransactionsbycommande)
@@ -239,14 +234,6 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=editadress
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=editadressedescription&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_adresse=__id_adresse__&description=__description__
 
-#### editadresselivreur
-- useradmin	    :(str) pseudo du compte admin
-- mdpadmin	    :(str) mdp du compte admin
-- id_adresse	:(int) id de l'adresse à modifier
-- id_livreur	:(int)(vide) nouvelle id du livreur qui livre à cette adresse (envoyer "" pour supprimer le lien au livreur)
-
-http://__global_url__:__global_port__/__global_uri__/index.php?action=editadresselivreur&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_adresse=__id_adresse__&id_livreur=__id_livreur__
-
 #### editadressenom
 - useradmin	    :(str) pseudo du compte admin
 - mdpadmin	    :(str) mdp du compte admin
@@ -269,13 +256,6 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getadresse
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=getadressesbyjoueur&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_joueur=__id_joueur__
 
-#### getadressesbylivreur
-- useradmin	    :(str) pseudo du compte admin
-- mdpadmin	    :(str) mdp du compte admin
-- id_livreur	:(int) id du livreur qui livre à cette adresse
-
-http://__global_url__:__global_port__/__global_uri__/index.php?action=getadressesbylivreur&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_livreur=__id_livreur__
-
 
 ### gestion des commandes
 #### addcommande
@@ -284,7 +264,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getadresse
 - id_offre	                :(int) id de l'offre
 - id_adresse_client	        :(int) id de l'adresse du client
 - id_compte_client	        :(int) id du compte du client
-- id_type_status_commande	:(int) id du type de status de la commande
+- id_type_commande	:(int) id du type de status de la commande
 - code_retrait_commande	    :(str) code de retrait de la commande
 - description	            :(str) description de la commande
 - frait	                    :(float) frait de la commande
@@ -292,7 +272,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getadresse
 - quant	                    :(int) quantité de la commande
 - nom	                    :(str) nom de la commande
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=addcommande&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_offre=__id_offre__&id_adresse_client=__id_adresse_client__&id_compte_client=__id_compte_client__&id_type_status_commande=__id_type_status_commande__&code_retrait_commande=__code_retrait__&description=__description__&frait=__frait__&prixu=__prixu__&quant=__quant__&nom=__nom__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=addcommande&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_offre=__id_offre__&id_adresse_client=__id_adresse_client__&id_compte_client=__id_compte_client__&id_type_commande=__id_type_commande__&code_retrait_commande=__code_retrait__&description=__description__&frait=__frait__&prixu=__prixu__&quant=__quant__&nom=__nom__
 
 #### editcommandecoderetrait
 - useradmin	    :(str) pseudo du compte admin
@@ -314,9 +294,9 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=editcomman
 - useradmin	    :(str) pseudo du compte admin
 - mdpadmin	    :(str) mdp du compte admin
 - id_commande	:(int) id de la commande à modifier
-- id_type_status_commande	:(int) nouvelle id du type de status de la commande
+- id_type_commande	:(int) nouvelle id du type de status de la commande
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=editcommandestatus&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_commande=__id_commande__&id_type_status_commande=__id_type_status_commande__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=editcommandestatus&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_commande=__id_commande__&id_type_commande=__id_type_commande__
 
 #### editcommandelivreur
 - useradmin	    :(str) pseudo du compte admin
@@ -392,9 +372,9 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getcommand
 #### getcommandesbystatus
 - useradmin	    :(str) pseudo du compte admin
 - mdpadmin	    :(str) mdp du compte admin
-- id_type_status_commande	:(int) id du type de status des commandes à obtenir
+- id_type_commande	:(int) id du type de status des commandes à obtenir
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=getcommandesbystatus&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_type_status_commande=__id_type_status_commande__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=getcommandesbystatus&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_type_commande=__id_type_commande__
 
 ### gestion des comptes
 #### addcompte
@@ -448,8 +428,8 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=addgroupea
 #### addgroupeapikey
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_groupe :(int) id du groupe auquel ajouter la apikey
-- id_apikey :(int) id de la apikey à ajouter au groupe
+- id_groupe :(int) id du groupe auquel ajouter l\'apikey
+- id_apikey :(int) id de l\'apikey à ajouter au groupe
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=addgroupeapikey&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_groupe=__id_groupe__&id_apikey=__id_apikey__
 
@@ -512,8 +492,8 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=deletegrou
 #### deletegroupeapikey
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_groupe :(int) id du groupe auquel supprimer la apikey
-- id_apikey :(int) id de la apikey à supprimer du groupe
+- id_groupe :(int) id du groupe auquel supprimer l\'apikey
+- id_apikey :(int) id de l\'apikey à supprimer du groupe
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=deletegroupeapikey&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_groupe=__id_groupe__&id_apikey=__id_apikey__
 
@@ -610,7 +590,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getgroupes
 #### getgroupesbyapikey
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_apikey :(int) id de la apikey dont on veut les groupes
+- id_apikey :(int) id de l\'apikey dont on veut les groupes
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=getgroupesbyapikey&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_apikey=__id_apikey__
 
@@ -802,23 +782,23 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getjoueurs
 #### addapikey
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- nom 		:(str) nom de la apikey
-- mdp 		:(str) mdp de la apikey
-- id_joueur :(int) id du joueur a qui appartient la apikey
+- nom 		:(str) nom de l\'apikey
+- mdp 		:(str) mdp de l\'apikey
+- id_joueur :(int) id du joueur a qui appartient l\'apikey
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=addapikey&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&nom=__nom__&mdp=__mdp__&id_joueur=__id_joueur__
 
 #### deleteapikey
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_apikey :(int) id de la apikey a supprimer
+- id_apikey :(int) id de l\'apikey a supprimer
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=deleteapikey&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_apikey=__id_apikey__
 
 #### addapikeydroit
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_apikey :(int) id de la apikey a modifier
+- id_apikey :(int) id de l\'apikey a modifier
 - id_droit 	:(int) id du droit a ajouter
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=addapikeydroit&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_apikey=__id_apikey__&id_droit=__id_droit__
@@ -826,7 +806,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=addapikeyd
 #### deleteapikeydroit
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_apikey :(int) id de la apikey a modifier
+- id_apikey :(int) id de l\'apikey a modifier
 - id_droit 	:(int) id du droit a supprimer
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=deleteapikeydroit&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_apikey=__id_apikey__&id_droit=__id_droit__
@@ -834,30 +814,30 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=deleteapik
 #### editapikeymdp
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_apikey :(int) id de la apikey a modifier
-- mdp 		:(str) nouveau mdp de la apikey
+- id_apikey :(int) id de l\'apikey a modifier
+- mdp 		:(str) nouveau mdp de l\'apikey
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=editapikeymdp&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_apikey=__id_apikey__&mdp=__mdp__
 
 #### editapikeynom
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_apikey :(int) id de la apikey a modifier
-- nom 		:(str) nouveau nom de la apikey
+- id_apikey :(int) id de l\'apikey a modifier
+- nom 		:(str) nouveau nom de l\'apikey
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=editapikeynom&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_apikey=__id_apikey__&nom=__nom__
 
 #### getapikeybyid
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_apikey :(int) id de la apikey a recuperer
+- id_apikey :(int) id de l\'apikey a recuperer
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=getapikeybyid&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_apikey=__id_apikey__
 
 #### getapikeydroitsbyid
 - useradmin	:(str) pseudo du compte admin
 - mdpadmin	:(str) mdp du compte admin
-- id_apikey :(int) id de la apikey a recuperer
+- id_apikey :(int) id de l\'apikey a recuperer
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=getapikeydroitsbyid&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_apikey=__id_apikey__
 
@@ -1111,27 +1091,6 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getoffresb
 au moins un des deux compte peut etre "vide"
 
 http://__global_url__:__global_port__/__global_uri__/index.php?action=addtransaction&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_commande=__id_commande__&id_type_transaction=__id_type_transaction__&id_compte_crediteur=__id_compte_crediteur__&id_compte_debiteur=__id_compte_debiteur__&montant=__montant__&nom=__nom__&description=__description__
-
-#### edittransactionstatus
-- useradmin	:(str) pseudo du compte admin
-- mdpadmin	:(str) mdp du compte admin
-- id_transaction :(int) id de la transaction a modifier
-- id_type_status_transaction :(int) id du status de la transaction
-
-http://__global_url__:__global_port__/__global_uri__/index.php?action=edittransactionstatus&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_transaction=__id_transaction__&id_type_status_transaction=__id_type_status_transaction__
-
-#### exectransaction
-- useradmin	:(str) pseudo du compte admin
-- mdpadmin	:(str) mdp du compte admin
-- id_transaction :(int) id de la transaction a executer
-
-http://__global_url__:__global_port__/__global_uri__/index.php?action=exectransaction&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__&id_transaction=__id_transaction__
-
-#### execalltransactions
-- useradmin	:(str) pseudo du compte admin
-- mdpadmin	:(str) mdp du compte admin
-
-http://__global_url__:__global_port__/__global_uri__/index.php?action=execalltransactions&admin=true&useradmin=__useradmin__&mdpadmin=__mdpadmin__
 
 #### gettransactionbyid
 - useradmin	:(str) pseudo du compte admin

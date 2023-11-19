@@ -3266,7 +3266,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getcommandesbystatus&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_type_status_commande=1",
+									"raw": "{{site_url}}?admin=true&action=getcommandesbystatus&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_type_commande=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3288,7 +3288,7 @@
 											"value": "{{admin_mdp}}"
 										},
 										{
-											"key": "id_type_status_commande",
+											"key": "id_type_commande",
 											"value": "1"
 										}
 									]

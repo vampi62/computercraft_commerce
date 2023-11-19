@@ -25,11 +25,12 @@ if (!empty($_GET['id_compte'])) {
         return array('status_code' => 404, 'message' => 'Le compte n\'existe pas.');
     }
     $compte = Comptes::getCompteById($bddConnection, $_GET['id_compte']);
-    if (!$compte['id_type_compte'] == 2) {
+    if (!$compte['id_type_compte'] == 2) { // ne doit pas etre autre chose qu'un compte entreprise_livreur
         return array('status_code' => 400, 'message' => 'Le type de compte n\'est pas valide pour un livreur.');
     }
 } else {
     $_GET['id_compte'] = null;
 }
-Livreurs::setLivreurCompte($bddConnection, $_GET['id_livreur'], $_GET['id_compte']);
+$livreur = new Livreurs($bddConnection, $_GET['id_livreur']);
+$livreur->setLivreurCompte($_GET['id_compte']);
 return array('status_code' => 200, 'message' => 'Le compte du livreur a bien ete modifie.');

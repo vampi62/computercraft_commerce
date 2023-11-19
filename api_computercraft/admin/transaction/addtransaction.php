@@ -58,5 +58,19 @@ if ($_GET['id_compte_crediteur'] == "") {
 if ($_GET['id_commande'] == "") {
     $_GET['id_commande'] = null;
 }
+if (empty($_GET['id_compte_crediteur']) && empty($_GET['id_compte_debiteur'])) {
+    return array('status_code' => 400, 'message' => 'Il faut un compte debiteur ou compte crediteur.');
+}
+if (!empty($_GET['id_compte_debiteur'])) {
+    $compteDebiteur = new Comptes($bddConnection, $_GET['id_compte_debiteur']);
+    if ($compteDebiteur->getSolde() < $_GET['montant']) {
+        return array('status_code' => 403, 'message' => 'Le compte debiteur n\'a pas assez d\'argent.');
+    }
+    $compteDebiteur->setCompteSolde($compteDebiteur->getSolde() - $_GET['montant']);
+}
+if (!empty($_GET['id_compte_crediteur'])) {
+    $compteCrediteur = new Comptes($bddConnection, $_GET['id_compte_crediteur']);
+    $compteCrediteur->setCompteSolde($compteCrediteur->getSolde() + $_GET['montant']);
+}
 $newid = Transactions::addTransaction($bddConnection,$_GET['id_compte_debiteur'],$_GET['id_compte_crediteur'],$donneesJoueurUserAdmin['id_joueur'],$_GET['montant'],$_GET['nom'],$_GET['description'],$_GET['id_type_transaction'],$_GET['id_commande']);
 return array('status_code' => 200, 'message' => 'La transaction a bien ete ajoutee.', 'data' => array('id' => $newid));

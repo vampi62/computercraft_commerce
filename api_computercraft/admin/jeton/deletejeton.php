@@ -22,5 +22,6 @@ if (!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
 if (!Jetons::getJetonByJoueur($bddConnection, $_GET['id_joueur'])) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'a pas de jeton creer.');
 }
-Jetons::deleteJeton($bddConnection, $_GET['id_joueur']);
+$Jeton = new Jetons($bddConnection, $_GET['id_joueur']);
+$Jeton->deleteJeton();
 return array('status_code' => 200, 'message' => 'Le jeton a bien ete supprime.');

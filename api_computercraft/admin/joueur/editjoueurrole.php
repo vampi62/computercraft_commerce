@@ -24,5 +24,6 @@ if ($_GET['id_joueur'] == $donneesJoueurUserAdmin['id_joueur']) {
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_type_role'], 'type_role')) {
     return array('status_code' => 404, 'message' => 'Le role n\'existe pas.');
 }
-Joueurs::setJoueurRole($bddConnection, $_GET['id_joueur'], $_GET['id_type_role']);
+$joueur = new Joueurs($bddConnection, $_GET['id_joueur']);
+$joueur->setJoueurRole($_GET['id_type_role']);
 return array('status_code' => 200, 'message' => 'Le role a bien ete modifie.');
