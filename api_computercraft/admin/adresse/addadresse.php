@@ -22,15 +22,6 @@ if (!Checkdroits::CheckId($bddConnection, $_GET['id_type_adresse'], 'type_adress
 if (!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
-if (!empty($_GET['id_livreur']) && !Checkdroits::CheckId($bddConnection, $_GET['id_livreur'], 'livreur')) {
-    return array('status_code' => 404, 'message' => 'Le livreur n\'existe pas.');
-}
-// si il y a un livreur alors le type d'adresse doit etre un point de livraison
-if (!empty($_GET['id_livreur'])) {
-    if (!$_GET['id_type_adresse'] == 2) {
-        return array('status_code' => 400, 'message' => 'Le livreur ne peut etre defini que pour un point de livraison.');
-    }
-}
 if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
     return array('status_code' => 400, 'message' => 'Le nom de l\'adresse est trop long.');
 }

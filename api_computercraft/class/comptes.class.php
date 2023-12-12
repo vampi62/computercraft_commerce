@@ -25,7 +25,7 @@ class Comptes {
     }
 
     // recupere les comptes accessible par la apikey (groupe en communs qui permet le getcomptes)
-    public static function getComptesWithapikey($bdd,$idApiKey) {
+    public static function getComptesWithApiKey($bdd,$idApiKey) {
         $req = $bdd->prepare('SELECT comptes.*,joueurs.pseudo_joueur FROM comptes
         INNER JOIN groupes_comptes ON comptes.id_compte = groupes_comptes.id_compte
         INNER JOIN groupes_apikeys ON groupes_comptes.id_groupe = groupes_apikeys.id_groupe

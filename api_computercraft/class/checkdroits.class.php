@@ -28,6 +28,37 @@ class Checkdroits {
         return false;
     }
 
+    // verifie le mode de connexion du compte
+    public static function CheckMode($bdd,$permMethode) {
+        if (self::CheckArgs($_GET,array('useruser' => false,'mdpuser' => false))) {
+            if (!$permMethode['apikey']) {
+                return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action avec une apikey.');
+            }
+            $apikey = ApiKeys::getApiKeyByNom($bdd, $_GET['userapikey']);
+            if (empty($apikey)) {
+                return array('status_code' => 404, 'message' => 'L\'apikey n\'existe pas.');
+            }
+            if (self::CheckMdpApi($bdd, $_GET['userapikey'], $_GET['mdpapikey'])) {
+                return array('status_code' => 403, 'message' => 'Le mot de passe est incorrect.');
+            }
+            return array(true,$apikey['id_apikey']);
+        } elseif (self::CheckArgs($_GET,array('userapikey' => false, 'mdpapikey' => false))) {
+            if (!$permMethode['user']) {
+                return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action avec un compte utilisateur.');
+            }
+            $joueur = Joueurs::getJoueurByPseudo($bdd, $_GET['useruser']);
+            if (empty($joueur)) {
+                return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
+            }
+            if (!self::CheckMdp($bdd, $_GET['useruser'], $_GET['mdpuser'])) {
+                return array('status_code' => 403, 'message' => 'Le mot de passe est incorrect.');
+            }
+            return array(false,$joueur['id_joueur']);
+        } else {
+            return array('status_code' => 400, 'message' => 'Il manque des parametres.');
+        }
+    }
+
     // verifie le mot de passe du compte
     public static function CheckMdp($bdd, $nom, $mdp) {
         $req = $bdd->prepare('SELECT mdp_joueur FROM joueurs WHERE pseudo_joueur = :nom');
@@ -230,8 +261,8 @@ class Checkdroits {
         return false;
     }
 
-    // verification du code api
-    public static function CheckCodeApi($bdd,$nomApi,$mdpApiKey) {
+    // verification du mdp de l'api
+    public static function CheckMdpApi($bdd,$nomApi,$mdpApiKey) {
         $req = $bdd->prepare('SELECT * FROM apikeys WHERE nom_api = :nom_api');
         $req->execute(array(
             'nom_api' => $nomApi
