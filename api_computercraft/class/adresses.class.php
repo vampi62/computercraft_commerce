@@ -28,7 +28,7 @@ class Adresses {
     }
 
     // recupere les adresses accessible par la apikey (groupe en communs qui permet le getadresses)
-    public static function getAdressesWithapikey($bdd,$idApiKey) {
+    public static function getAdressesWithApiKey($bdd,$idApiKey) {
         $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur, livreurs.nom_livreur FROM adresses
         INNER JOIN groupes_adresses ON adresses.id_adresse = groupes_adresses.id_adresse
         INNER JOIN groupes_apikeys ON groupes_adresses.id_groupe = groupes_apikeys.id_groupe

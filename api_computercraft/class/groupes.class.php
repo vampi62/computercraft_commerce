@@ -116,7 +116,7 @@ class Groupes {
     }
 
     // recupere les groupes d'une apikey
-    public static function getGroupesByapikey($bdd,$idApiKey) {
+    public static function getGroupesByApiKey($bdd,$idApiKey) {
         $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo_joueur FROM groupes 
         INNER JOIN groupes_apikeys ON groupes_apikeys.id_groupe = groupes.id_groupe 
         INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur 
@@ -307,7 +307,7 @@ class Groupes {
     }
 
     // ajoute une apikey au groupe
-    public function addGroupeapikey($idApiKey) {
+    public function addGroupeApiKey($idApiKey) {
         $req = $this->_bdd->prepare('INSERT INTO groupes_apikeys(id_groupe,id_apikey) VALUES(:id,:id_apikey)');
         $req->execute(array(
             'id_groupe' => $this->_idGroupe,
@@ -316,7 +316,7 @@ class Groupes {
     }
 
     // retire une apikey du groupe
-    public function deleteGroupeapikey($idApiKey) {
+    public function deleteGroupeApiKey($idApiKey) {
         $req = $this->_bdd->prepare('DELETE FROM groupes_apikeys WHERE id_groupe = :id_groupe AND id_apikey = :id_apikey');
         $req->execute(array(
             'id_groupe' => $this->_idGroupe,

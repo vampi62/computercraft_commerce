@@ -32,7 +32,7 @@ class Livreurs {
     }
 
     // recupere les livreurs accessible par la apikey (groupe en communs qui permet le getlivreurs)
-    public static function getLivreursByapikey($bdd,$idApiKey) {
+    public static function getLivreursByApiKey($bdd,$idApiKey) {
         $req = $bdd->prepare('SELECT livreurs.*,joueurs.pseudo_joueur, comptes.nom_compte, adresses.nom_adresse FROM livreurs
         INNER JOIN groupes_livreurs ON livreurs.id_livreur = groupes_livreurs.id_livreur
         INNER JOIN groupes_apikeys ON groupes_livreurs.id_groupe = groupes_apikeys.id_groupe

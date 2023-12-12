@@ -35,7 +35,7 @@ class Offres {
     }
 
     // recupere les offres accessible par la apikey (groupe en communs qui permet le getoffres)
-    public static function getOffresByapikey($bdd,$idApiKey) {
+    public static function getOffresByApiKey($bdd,$idApiKey) {
         $req = $bdd->prepare('SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres
         INNER JOIN groupes_offres ON offres.id_offre = groupes_offres.id_offre
         INNER JOIN groupes_apikeys ON groupes_offres.id_groupe = groupes_apikeys.id_groupe
