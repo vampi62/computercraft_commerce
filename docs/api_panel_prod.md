@@ -98,45 +98,45 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getconfig&
 
 ### gestion des comptes
 #### addcompte
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 - nom		:(str) nom du compte
 - id_type_compte :(int) id du type de compte
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=addcompte&user=true&useruser=__user__&mdpuser=__mdpuser__&nom=__nom__&id_type_compte=__id_type_compte__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=addcompte&user=true&user=__user__&mdpuser=__mdpuser__&nom=__nom__&id_type_compte=__id_type_compte__
 
 #### deletecompte
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 - id_compte :(int) id du compte à supprimer
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=deletecompte&user=true&useruser=__user__&mdpuser=__mdpuser__&id_compte=__id_compte__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=deletecompte&user=true&user=__user__&mdpuser=__mdpuser__&id_compte=__id_compte__
 
 #### editcomptenom
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 - id_compte :(int) id du compte à modifier
 - nom		:(str) nouveau nom du compte
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=editcomptenom&user=true&useruser=__user__&mdpuser=__mdpuser__&id_compte=__id_compte__&nom=__nom__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=editcomptenom&user=true&user=__user__&mdpuser=__mdpuser__&id_compte=__id_compte__&nom=__nom__
 
 #### getcomptebyid
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 - id_compte :(int) id du compte à obtenir
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=getcomptebyid&user=true&useruser=__user__&mdpuser=__mdpuser__&id_compte=__id_compte__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=getcomptebyid&user=true&user=__user__&mdpuser=__mdpuser__&id_compte=__id_compte__
 
 #### getcomptes
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=getcomptes&user=true&useruser=__user__&mdpuser=__mdpuser__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=getcomptes&user=true&user=__user__&mdpuser=__mdpuser__
 
 
 ### gestion des jetons
 #### editjeton
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 - 1 		:(str) jeton
 - 10 		:(str) jeton
@@ -144,13 +144,13 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getcomptes
 - 1k 		:(str) jeton
 - 10k 		:(str) jeton
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=editjeton&user=true&useruser=__user__&mdpuser=__mdpuser__&1=__1__&10=__10__&100=__100__&1k=__1k__&10k=__10k__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=editjeton&user=true&user=__user__&mdpuser=__mdpuser__&1=__1__&10=__10__&100=__100__&1k=__1k__&10k=__10k__
 
 #### getjetons
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=getjetons&user=true&useruser=__user__&mdpuser=__mdpuser__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=getjetons&user=true&user=__user__&mdpuser=__mdpuser__
 
 
 ### gestion des joueurs
@@ -162,51 +162,51 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=getjetons&
 http://__global_url__:__global_port__/__global_uri__/index.php?action=addjoueur&user=true&email=__email__&mdp=__mdpuser__&pseudo=__pseudo__
 
 #### deletejoueur
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=deletejoueur&user=true&useruser=__user__&mdpuser=__mdpuser__&id_joueur=__id_joueur__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=deletejoueur&user=true&user=__user__&mdpuser=__mdpuser__&id_joueur=__id_joueur__
 
 #### editjoueuremail
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 - email 	:(str) email du joueur
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=editjoueuremail&user=true&useruser=__user__&mdpuser=__mdpuser__&id_joueur=__id_joueur__&email=__email__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=editjoueuremail&user=true&user=__user__&mdpuser=__mdpuser__&id_joueur=__id_joueur__&email=__email__
 
 #### editjoueurmdp
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 - mdp 		:(str) mdp du joueur
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=editjoueurmdp&user=true&useruser=__user__&mdpuser=__mdpuser__&id_joueur=__id_joueur__&mdp=__mdpuser__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=editjoueurmdp&user=true&user=__user__&mdpuser=__mdpuser__&id_joueur=__id_joueur__&mdp=__mdpuser__
 
 #### editjoueurpseudo
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 - pseudo 	:(str) pseudo du joueur
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=editjoueurpseudo&user=true&useruser=__user__&mdpuser=__mdpuser__&id_joueur=__id_joueur__&pseudo=__pseudo__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=editjoueurpseudo&user=true&user=__user__&mdpuser=__mdpuser__&id_joueur=__id_joueur__&pseudo=__pseudo__
 
 #### getjoueurbyid
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 - id_joueur :(int) id du joueur a recuperer
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=getjoueurbyid&user=true&useruser=__user__&mdpuser=__mdpuser__&id_joueur=__id_joueur__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=getjoueurbyid&user=true&user=__user__&mdpuser=__mdpuser__&id_joueur=__id_joueur__
 
 #### getjoueurbypseudo
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 - pseudo 	:(str) pseudo du joueur a recuperer
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=getjoueurbypseudo&user=true&useruser=__user__&mdpuser=__mdpuser__&pseudo=__pseudo__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=getjoueurbypseudo&user=true&user=__user__&mdpuser=__mdpuser__&pseudo=__pseudo__
 
 #### getjoueurs
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=getjoueurs&user=true&useruser=__user__&mdpuser=__mdpuser__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=getjoueurs&user=true&user=__user__&mdpuser=__mdpuser__
 
 #### recuperationmdpemail
 - pseudo	:(str) pseudo du compte a recuperer
@@ -223,7 +223,7 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=recuperati
 
 ### gestion des transactions
 #### addtransaction
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 - id_commande :(int)(vide) id de la commande de la transaction (peut etre null)
 - id_type_transaction :(int) id du type de la transaction
@@ -235,39 +235,39 @@ http://__global_url__:__global_port__/__global_uri__/index.php?action=recuperati
 
 au moins un des deux compte peut etre "vide"
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=addtransaction&user=true&useruser=__user__&mdpuser=__mdpuser__&id_commande=__id_commande__&id_type_transaction=__id_type_transaction__&id_compte_crediteur=__id_compte_crediteur__&id_compte_debiteur=__id_compte_debiteur__&montant=__montant__&nom=__nom__&description=__description__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=addtransaction&user=true&user=__user__&mdpuser=__mdpuser__&id_commande=__id_commande__&id_type_transaction=__id_type_transaction__&id_compte_crediteur=__id_compte_crediteur__&id_compte_debiteur=__id_compte_debiteur__&montant=__montant__&nom=__nom__&description=__description__
 
 #### edittransactionstatus
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 - id_transaction :(int) id de la transaction a modifier
 - id_type_status_transaction :(int) id du status de la transaction
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=edittransactionstatus&user=true&useruser=__user__&mdpuser=__mdpuser__&id_transaction=__id_transaction__&id_type_status_transaction=__id_type_status_transaction__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=edittransactionstatus&user=true&user=__user__&mdpuser=__mdpuser__&id_transaction=__id_transaction__&id_type_status_transaction=__id_type_status_transaction__
 
 #### exectransaction
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 - id_transaction :(int) id de la transaction a executer
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=exectransaction&user=true&useruser=__user__&mdpuser=__mdpuser__&id_transaction=__id_transaction__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=exectransaction&user=true&user=__user__&mdpuser=__mdpuser__&id_transaction=__id_transaction__
 
 #### execalltransactions
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=execalltransactions&user=true&useruser=__user__&mdpuser=__mdpuser__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=execalltransactions&user=true&user=__user__&mdpuser=__mdpuser__
 
 #### gettransactionbyid
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 - id_transaction :(int) id de la transaction a recuperer
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=gettransactionbyid&user=true&useruser=__user__&mdpuser=__mdpuser__&id_transaction=__id_transaction__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=gettransactionbyid&user=true&user=__user__&mdpuser=__mdpuser__&id_transaction=__id_transaction__
 
 #### gettransactionsbycompte
-- useruser	:(str) pseudo du compte user
+- user	:(str) pseudo du compte user
 - mdpuser	:(str) mdp du compte user
 - id_compte :(int) id du compte des transactions a recuperer
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=gettransactionsbycompte&user=true&useruser=__user__&mdpuser=__mdpuser__&id_compte=__id_compte__
+http://__global_url__:__global_port__/__global_uri__/index.php?action=gettransactionsbycompte&user=true&user=__user__&mdpuser=__mdpuser__&id_compte=__id_compte__

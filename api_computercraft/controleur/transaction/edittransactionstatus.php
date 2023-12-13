@@ -4,15 +4,12 @@ require_once('class/checkdroits.class.php');
 require_once('class/transactions.class.php');
 require_once('class/comptes.class.php');
 
-if (!Checkdroits::CheckArgs($_GET,array('useruser' => false,'mdpuser' => false, 'userbanque' => true,'mdpbanque' => true, 'id_transaction' => false, 'id_type_status_transaction' => false))) {
+if (!Checkdroits::checkArgs($_GET,array('user' => false,'mdpuser' => false, 'userbanque' => true,'mdpbanque' => true, 'id_transaction' => false, 'id_type_status_transaction' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-$joueur = Joueurs::getJoueurByPseudo($bddConnection, $_GET['useruser']);
-if (empty($joueur)) {
-    return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
-}
-if (!Checkdroits::CheckMdp($bddConnection, $_GET['useruser'], $_GET['mdpuser'])) {
-    return array('status_code' => 403, 'message' => 'Le mot de passe est incorrect.');
+$sessionUser = Checkdroits::checkMode($bddConnection,$_GET,array('apikey' => false,'user' => true));
+if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
+    return $sessionUser; // error
 }
 $transaction = Transactions::getTransactionById($bddConnection, $_GET['id_transaction']);
 if (empty($transaction)) {
@@ -24,10 +21,10 @@ if ($transaction['id_type_status_transaction'] != 1) {
 if ($_GET['id_type_status_transaction'] != 5) {
     return array('status_code' => 403, 'message' => 'Vous ne pouvez pas modifier le status de cette transaction.');
 }
-if (!Checkdroits::CheckId($bddConnection, $_GET['id_type_status_transaction'], 'type_status_transaction')) {
+if (!Checkdroits::checkId($bddConnection, $_GET['id_type_status_transaction'], 'type_status_transaction')) {
     return array('status_code' => 404, 'message' => 'Le type de status de transaction n\'existe pas.');
 }
-if (!Checkdroits::CheckPermObj($bddConnection, $joueur['id_joueur'], $transaction['id_compte_debiteur'], 'compte', 'edittransactionstatus')) {
+if (!Checkdroits::checkPermObj($bddConnection, $joueur['id_joueur'], $transaction['id_compte_debiteur'], 'compte', 'edittransactionstatus')) {
     return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission de modifier le status de cette transaction.');
 }
 Transactions::setStatusTransaction($bddConnection,$transaction['id_transaction'], $_GET['id_type_status_transaction']);

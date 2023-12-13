@@ -2,13 +2,13 @@
 require_once('class/joueurs.class.php');
 require_once('class/checkdroits.class.php');
 
-if (!Checkdroits::CheckArgs($_GET,array('pseudo' => false,'mdp' => false,'email' => false))) {
+if (!Checkdroits::checkArgs($_GET,array('pseudo' => false,'mdp' => false,'email' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 if (!empty(Joueurs::getJoueurByPseudo($bddConnection, $_GET['pseudo']))) {
     return array('status_code' => 404, 'message' => 'Le pseudo est deja pris.');
 }
-if (!Checkdroits::CheckPasswordSecu($_GET['mdp'])) {
+if (!Checkdroits::checkPasswordSecu($_GET['mdp'])) {
     return array('status_code' => 400, 'message' => 'Le mot de passe doit contenir au moins 8 caracteres, une majuscule, une minuscule et un chiffre.');
 }
 if (!filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)) {

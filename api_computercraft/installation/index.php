@@ -10,18 +10,17 @@ require_once('class/checkdroits.class.php');
 $configLecture = new Lire('init/config/config.yml');
 $_Serveur_ = $configLecture->GetTableau();
 if ($_Serveur_['Install']) {
-	// 'dejà installer';
-	return array('status_code' => 400, 'message' => 'Deja installer.');
+	return array('status_code' => 500, 'message' => 'Le serveur est deja installe.');
 }
 if (!isset($_Serveur_['DataBase']['dbAdress']) || !isset($_Serveur_['DataBase']['dbName']) || !isset($_Serveur_['DataBase']['dbUser']) || !isset($_Serveur_['DataBase']['dbPassword']) || !isset($_Serveur_['DataBase']['dbPort'])) {
 	// 'fichier config incorrect';
-	return array('status_code' => 400, 'message' => 'Fichier config incorrect.');
+	return array('status_code' => 500, 'message' => 'Fichier config incorrect.');
 }
-if (!Checkdroits::CheckArgs($_GET,array('pseudo' => false,'mdp' => false,'email' => false))) {
+if (!Checkdroits::checkArgs($_GET,array('pseudo' => false,'mdp' => false,'email' => false))) {
 	// 'il manque des parametres';
 	return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-if (!Checkdroits::CheckPasswordSecu($_GET['mdp'])) {
+if (!Checkdroits::checkPasswordSecu($_GET['mdp'])) {
 	// 'le mot de passe ne respecte pas les regles de securite';
     return array('status_code' => 400, 'message' => 'Le mot de passe doit contenir au moins 8 caracteres, une majuscule, une minuscule et un chiffre.');
 }

@@ -4,20 +4,17 @@ require_once('class/checkdroits.class.php');
 require_once('class/transactions.class.php');
 require_once('class/comptes.class.php');
 
-if (!Checkdroits::CheckArgs($_GET,array('useruser' => false,'mdpuser' => false, 'id_compte' => false))) {
+if (!Checkdroits::checkArgs($_GET,array('user' => false,'mdpuser' => false, 'id_compte' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-$joueur = Joueurs::getJoueurByPseudo($bddConnection, $_GET['useruser']);
-if (empty($joueur)) {
-    return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
+$sessionUser = Checkdroits::checkMode($bddConnection,$_GET,array('apikey' => false,'user' => true));
+if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
+    return $sessionUser; // error
 }
-if (!Checkdroits::CheckMdp($bddConnection, $_GET['useruser'], $_GET['mdpuser'])) {
-    return array('status_code' => 403, 'message' => 'Le mot de passe est incorrect.');
-}
-if (!Checkdroits::CheckId($bddConnection, $_GET['id_compte'], 'compte')) {
+if (!Checkdroits::checkId($bddConnection, $_GET['id_compte'], 'compte')) {
     return array('status_code' => 404, 'message' => 'Le compte n\'existe pas.');
 }
-if (!Checkdroits::CheckPermObj($bddConnection, $joueur['id_joueur'], $_GET['id_compte'], 'compte', 'gettransactions')) {
+if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_compte'], 'compte', 'gettransactions')) {
     return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
 }
 return array('status_code' => 200, 'message' => '', 'data' => Transactions::getTransactionsByCompte($bddConnection, $_GET['id_compte']));

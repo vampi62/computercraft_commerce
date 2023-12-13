@@ -1,8 +1,8 @@
 <?php
 class Checkdroits {
     // verifie si le compte a un des role requis
-    public static function CheckRole($bdd, $pseudoJoueur, $arrayRoleRequis) {
-        $req = $bdd->prepare('SELECT * FROM vw_joueurs WHERE pseudo_joueur = :pseudo_joueur');
+    public static function checkRole($bdd, $pseudoJoueur, $arrayRoleRequis) {
+        $req = $bdd->prepare('SELECT nom_type_role FROM vw_joueurs WHERE pseudo_joueur = :pseudo_joueur');
         $req->execute(array(
             'pseudo_joueur' => $pseudoJoueur
         ));
@@ -15,7 +15,7 @@ class Checkdroits {
     }
 
     // verifie si l'id indiquer est dans la table
-    public static function CheckId($bdd, $id, $table) {
+    public static function checkId($bdd, $id, $table) {
         $req = $bdd->prepare('SELECT id_'.$table.' FROM '.$table.'s WHERE id_'.$table.' = :id');
         $req->execute(array(
             'id' => $id
@@ -28,40 +28,49 @@ class Checkdroits {
         return false;
     }
 
-    // verifie le mode de connexion du compte
-    public static function CheckMode($bdd,$permMethode) {
-        if (self::CheckArgs($_GET,array('useruser' => false,'mdpuser' => false))) {
-            if (!$permMethode['apikey']) {
-                return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action avec une apikey.');
-            }
-            $apikey = ApiKeys::getApiKeyByNom($bdd, $_GET['userapikey']);
-            if (empty($apikey)) {
-                return array('status_code' => 404, 'message' => 'L\'apikey n\'existe pas.');
-            }
-            if (self::CheckMdpApi($bdd, $_GET['userapikey'], $_GET['mdpapikey'])) {
-                return array('status_code' => 403, 'message' => 'Le mot de passe est incorrect.');
-            }
-            return array(true,$apikey['id_apikey']);
-        } elseif (self::CheckArgs($_GET,array('userapikey' => false, 'mdpapikey' => false))) {
+    // verifie le mode de connexion du compte et son authentification
+    public static function checkMode($bdd,$argsSend,$permMethode) {
+        if (self::checkArgs($argsSend,array('user' => false,'mdpuser' => false))) {
             if (!$permMethode['user']) {
                 return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action avec un compte utilisateur.');
             }
-            $joueur = Joueurs::getJoueurByPseudo($bdd, $_GET['useruser']);
-            if (empty($joueur)) {
-                return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
+            $sessionLogin = self::_checkMdp($bdd, $argsSend['user'], $argsSend['mdpuser']);
+            if (!$sessionLogin) {
+                return array('status_code' => 403, 'message' => 'identifiant ou mot de passe incorrect.');
             }
-            if (!self::CheckMdp($bdd, $_GET['useruser'], $_GET['mdpuser'])) {
-                return array('status_code' => 403, 'message' => 'Le mot de passe est incorrect.');
+            return array('isApi' => false,'idLogin' => $sessionLogin[0],'pseudoLogin' => $sessionLogin[1]);
+        } elseif (self::checkArgs($argsSend,array('apikey' => false, 'mdpapikey' => false))) {
+            if (!$permMethode['apikey']) {
+                return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action avec une apikey.');
             }
-            return array(false,$joueur['id_joueur']);
+            $sessionLogin = self::_checkMdpApi($bdd, $argsSend['apikey'], $argsSend['mdpapikey']);
+            if (!$sessionLogin) {
+                return array('status_code' => 403, 'message' => 'identifiant ou mot de passe incorrect.');
+            }
+            return array('isApi' => true,'idLogin' => $sessionLogin[0],'pseudoLogin' => $sessionLogin[1]);
         } else {
             return array('status_code' => 400, 'message' => 'Il manque des parametres.');
         }
     }
 
+    // verifie la connexion pour un compte admin
+    public static function checkAdmin($bdd,$argsSend) {
+        if (!self::checkArgs($argsSend,array('admin' => false,'mdpadmin' => false))) {
+            return array('status_code' => 400, 'message' => 'Il manque des parametres.');
+        }
+        $sessionLogin = self::_checkMdp($bdd, $argsSend['admin'], $argsSend['mdpadmin']);
+        if (!$sessionLogin) {
+            return array('status_code' => 403, 'message' => 'identifiant ou mot de passe incorrect.');
+        }
+        if (!self::checkRole($bdd, $argsSend['admin'], array('admin'))) {
+            return array('status_code' => 403, 'message' => 'Le compte n\'a pas les droits.');
+        }
+        return array('isApi' => false,'idLogin' => $sessionLogin[0],'pseudoLogin' => $sessionLogin[1]);
+    }
+
     // verifie le mot de passe du compte
-    public static function CheckMdp($bdd, $nom, $mdp) {
-        $req = $bdd->prepare('SELECT mdp_joueur FROM joueurs WHERE pseudo_joueur = :nom');
+    private static function _checkMdp($bdd, $nom, $mdp) {
+        $req = $bdd->prepare('SELECT id_joueur,mdp_joueur FROM joueurs WHERE pseudo_joueur = :nom');
         $req->execute(array(
             'nom' => $nom
         ));
@@ -69,14 +78,30 @@ class Checkdroits {
         $req->closeCursor();
 		if (!empty($login)) {
 			if (password_verify($mdp, $login['mdp_joueur'])) {
-				return true;
+				return [$login['id_joueur'],$nom];
 			}
 		}
         return false;
     }
 
+    // verification du mdp de l'api
+    private static function _checkMdpApi($bdd,$nomApiKey,$mdpApiKey) {
+        $req = $bdd->prepare('SELECT id_apikey,mdp_apikey FROM apikeys WHERE nom_apikey = :nom_apikey');
+        $req->execute(array(
+            'nom_apikey' => $nomApiKey
+        ));
+        $api = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
+        if (!empty($api)) {
+            if ($api['mdp_apikey'] == $mdpApiKey) {
+                return [$api['id_apikey'],$nomApiKey];
+            }
+        }
+        return false;
+    }
+
     // verifie si le mot de passe respect les regle de securite
-    public static function CheckPasswordSecu($mdp) {
+    public static function checkPasswordSecu($mdp) {
         if (strlen($mdp) < 8) {
             return false;
         }
@@ -90,7 +115,7 @@ class Checkdroits {
     }
 
     // verifie le token du compte 
-	public function CheckToken($bdd, $pseudoJoueur, $token) {
+	public function checkToken($bdd, $pseudoJoueur, $token) {
         $req = $bdd->prepare('SELECT resettoken_joueur FROM joueurs WHERE pseudo_joueur = :pseudo_joueur AND resettoken_joueur IS NOT NULL');
         $req->execute(array(
             'pseudo_joueur' => $pseudoJoueur
@@ -106,52 +131,51 @@ class Checkdroits {
 	}
     
     // verifie si l'api a la permission d'effectuer l'action
-    public static function CheckPermApi($bdd, $nom, $action) {
-        $req = $bdd->prepare('SELECT COUNT(*) FROM apikeys 
+    public static function checkPermApi($bdd, $nom, $action) {
+        $req = $bdd->prepare('SELECT apikeys.id_apikey FROM apikeys 
         INNER JOIN apikeys_droits ON apikeys.id_apikey = apikeys_droits.id_apikey 
         INNER JOIN droits ON droits.id_droit = apikeys_droits.id_droit 
-        WHERE apikeys.nom = :nom AND droits.nom_droit = :action');
+        WHERE apikeys.nom = :nom AND droits.nom_droit = :action
+        LIMIT 1');
         $req->execute(array(
             'nom' => $nom,
             'action' => $action
         ));
-        if ($req->fetchColumn() > 0) {
-            $req->closeCursor();
+        $liste = $req->fetch(PDO::FETCH_ASSOC);
+        $req->closeCursor();
+        if (!empty($liste)) {
             return true;
         }
-        $req->closeCursor();
         return false;
     }
 
     // verifie si le compte a la permission d'effectuer l'action sur l'objet
-    public static function CheckPermObj($bdd, $idNom, $idObjet, $type, $action ,$boolApi=false) {
-        if ($boolApi)
-        {
+    public static function checkPermObj($bdd, $idNom, $idObjet, $type, $action ,$isApi=false) {
+        if ($isApi) {
             // si compte est membre d'un groupe d'on l'objet est membre (si login apikey)
                 // si groupe a les droits sur l'objet pour effectuer l'action
                     // -- permet l'action
             # si api et obj sont dans un meme groupe qui permet l'action alors return true
-            $req = $bdd->prepare('SELECT COUNT(*) FROM '.$type.'s
+            $req = $bdd->prepare('SELECT '.$type.'s.id_'.$type.' FROM '.$type.'s
             INNER JOIN groupes_'.$type.'s ON '.$type.'s.id_'.$type.' = groupes_'.$type.'s.id_'.$type.'
             INNER JOIN groupes_apikeys    ON groupes_'.$type.'s.id_groupe = groupes_apikeys.id_groupe
             INNER JOIN apikeys           ON apikeys.id_apikey = groupes_apikeys.id_apikey
             INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_'.$type.'s.id_groupe
             INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
-            WHERE '.$type.'s.id_'.$type.' = :idobjet AND droits.nom_droit = :action AND apikeys.id_apikey = :idnom');
+            WHERE '.$type.'s.id_'.$type.' = :idobjet AND droits.nom_droit = :action AND apikeys.id_apikey = :idnom
+            LIMIT 1');
             $req->execute(array(
                 'idobjet' => $idObjet,
                 'idnom' => $idNom,
                 'action' => $action
             ));
-            if (!$req->fetchColumn() > 0) {
-                $req->closeCursor();
+            $liste = $req->fetch(PDO::FETCH_ASSOC);
+            $req->closeCursor();
+            if (!empty($liste)) {
                 return true;
             }
-            $req->closeCursor();
             return false;
-        }
-        else
-        {
+        } else {
             // si compte est proprio de l'objet
                 // -- permet l'action
             // si compte est membre d'un groupe d'on l'objet est membre (si login user)
@@ -169,23 +193,24 @@ class Checkdroits {
             }
             $req->closeCursor();
             # si user et obj sont dans un meme groupe qui permet l'action alors return true
-            $req = $bdd->prepare('SELECT COUNT(*) FROM '.$type.'s
+            $req = $bdd->prepare('SELECT '.$type.'s.id_'.$type.' FROM '.$type.'s
             INNER JOIN groupes_'.$type.'s ON '.$type.'s.id_'.$type.' = groupes_'.$type.'s.id_'.$type.'
             INNER JOIN groupes_joueur    ON groupes_'.$type.'s.id_groupe = groupes_joueur.id_groupe
             INNER JOIN joueurs           ON joueurs.id_joueur = groupes_joueur.id_joueur
             INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_'.$type.'s.id_groupe
             INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
-            WHERE '.$type.'s.id_'.$type.' = :idobjet AND droits.nom_droit = :action AND joueurs.id_joueur = :idnom');
+            WHERE '.$type.'s.id_'.$type.' = :idobjet AND droits.nom_droit = :action AND joueurs.id_joueur = :idnom
+            LIMIT 1');
             $req->execute(array(
                 'idobjet' => $idObjet,
                 'idnom' => $idNom,
                 'action' => $action
             ));
-            if (!$req->fetchColumn() > 0) {
-                $req->closeCursor();
+            $liste = $req->fetch(PDO::FETCH_ASSOC);
+            $req->closeCursor();
+            if (!empty($liste)) {
                 return true;
             }
-            $req->closeCursor();
             return false;
         }
     }
@@ -193,7 +218,7 @@ class Checkdroits {
     // verifie si tous les arguments sont present
     // true si empty est permis
     // exemple --> $args_need = array('mdp' => false, 'email' => true) // mdp obligatoire, email facultatif
-    public static function CheckArgs($argsSend, $argsNeed, $boolPost=false) {
+    public static function checkArgs($argsSend, $argsNeed, $boolPost=false) {
         foreach ($argsNeed as $key => $value) {
             if (!isset($argsSend[$key])) {
                 return false;
@@ -214,30 +239,30 @@ class Checkdroits {
     }
 
     // verifie si le compte est proprio de l'objet
-    public static function CheckProprioObj($bdd, $idNom, $idObjet, $type) {
-        $req = $bdd->prepare('SELECT COUNT(*) FROM '.$type.'s WHERE id_'.$type.' = :idobjet AND id_joueur = :idnom');
+    public static function checkProprioObj($bdd, $idNom, $idObjet, $type) {
+        $req = $bdd->prepare('SELECT '.$type.'s.id_'.$type.' FROM '.$type.'s WHERE id_'.$type.' = :idobjet AND id_joueur = :idnom');
         $req->execute(array(
             'idobjet' => $idObjet,
             'idnom' => $idNom
         ));
-        if ($req->fetchColumn() > 0) {
-            $req->closeCursor();
+        $liste = $req->fetch(PDO::FETCH_ASSOC);
+        $req->closeCursor();
+        if (!empty($liste)) {
             return true;
         }
-        $req->closeCursor();
         return false;
     }
 
-    // verifie le chemin_status_commandes de la commande
-    public static function CheckCheminStatusCommande($bdd,$idStatusDepart,$idStatusArriver,$typeUser) {
-        $req = $bdd->prepare('SELECT * FROM chemin_status_commandes WHERE id_status_depart = :id_status_depart AND id_status_arriver = :id_status_arriver');
+    // verifie le chemin_type_commandes de la commande
+    public static function checkCheminTypeCommande($bdd,$idTypeDepart,$idTypeArriver,$typeUser) {
+        $req = $bdd->prepare('SELECT * FROM chemin_type_commandes WHERE id_type_commande_debut = :id_type_commande_debut AND id_type_commande_suite = :id_type_commande_suite');
         $req->execute(array(
-            'id_status_arriver' => $idStatusArriver,
-            'id_status_depart' => $idStatusDepart
+            'id_type_commande_suite' => $idTypeArriver,
+            'id_type_commande_debut' => $idTypeDepart
         ));
-        $cheminStatusCommandes = $req->fetch(PDO::FETCH_ASSOC);
+        $cheminTypeCommandes = $req->fetch(PDO::FETCH_ASSOC);
         $req->closeCursor();
-        if ($cheminStatusCommandes[$typeUser] == "1") {
+        if ($cheminTypeCommandes[$typeUser . "_chemin_type_commandes"] == "1") {
             return true;
         } else {
             return false;
@@ -245,7 +270,7 @@ class Checkdroits {
     }
 
     // verification code retire_commande
-    public static function CheckCodeRetraitCommande($bdd,$codeRetraitCommande,$idCommande) {
+    public static function checkCodeRetraitCommande($bdd,$codeRetraitCommande,$idCommande) {
         $req = $bdd->prepare('SELECT * FROM commandes WHERE id_commande = :id_commande');
         $req->execute(array(
             'id_commande' => $idCommande
@@ -255,22 +280,6 @@ class Checkdroits {
 
         if (!empty($commande)) {
             if ($commande['code_retrait_commande'] == $codeRetraitCommande) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // verification du mdp de l'api
-    public static function CheckMdpApi($bdd,$nomApi,$mdpApiKey) {
-        $req = $bdd->prepare('SELECT * FROM apikeys WHERE nom_api = :nom_api');
-        $req->execute(array(
-            'nom_api' => $nomApi
-        ));
-        $api = $req->fetch(PDO::FETCH_ASSOC);
-		$req->closeCursor();
-        if (!empty($api)) {
-            if ($api['mdp_apikey'] == $mdpApiKey) {
                 return true;
             }
         }
