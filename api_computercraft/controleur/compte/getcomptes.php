@@ -3,12 +3,12 @@ require_once('class/joueurs.class.php');
 require_once('class/comptes.class.php');
 require_once('class/checkdroits.class.php');
 
-$session_login = Checkdroits::CheckMode($bddConnection,array('apikey' => true,'user' => true));
-if (isset($session_login['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
-    return $session_login; // error
+$sessionUser = Checkdroits::checkMode($bddConnection,$_GET,array('apikey' => true,'user' => true));
+if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
+    return $sessionUser; // error
 }
-if ($session_login[0]) {
-    return array('status_code' => 200, 'message' => '' ,'data' => Comptes::getComptesWithApiKey($bddConnection, $session_login[1]));
+if ($sessionUser['isApi']) {
+    return array('status_code' => 200, 'message' => '' ,'data' => Comptes::getComptesWithApiKey($bddConnection, $sessionUser['idLogin']));
 } else {
-    return array('status_code' => 200, 'message' => '' ,'data' => Comptes::getComptesWithUser($bddConnection, $session_login[1]));
+    return array('status_code' => 200, 'message' => '' ,'data' => Comptes::getComptesWithUser($bddConnection, $sessionUser['idLogin']));
 }

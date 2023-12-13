@@ -4,32 +4,29 @@ require_once('class/checkdroits.class.php');
 require_once('class/transactions.class.php');
 require_once('class/comptes.class.php');
 
-if (!Checkdroits::CheckArgs($_GET,array('useruser' => false,'mdpuser' => false, 'userbanque' => true,'mdpbanque' => true, 'id_compte_debiteur' => false, 'id_compte_crediteur' => false, 'montant' => false, 'nom' => false, 'description' => false, 'id_type_transaction' => false, 'id_commande' => true))) {
+if (!Checkdroits::checkArgs($_GET,array('user' => false,'mdpuser' => false, 'userbanque' => true,'mdpbanque' => true, 'id_compte_debiteur' => false, 'id_compte_crediteur' => false, 'montant' => false, 'nom' => false, 'description' => false, 'id_type_transaction' => false, 'id_commande' => true))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-$joueur = Joueurs::getJoueurByPseudo($bddConnection, $_GET['useruser']);
-if (empty($joueur)) {
-    return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
-}
-if (!Checkdroits::CheckMdp($bddConnection, $_GET['useruser'], $_GET['mdpuser'])) {
-    return array('status_code' => 403, 'message' => 'Le mot de passe est incorrect.');
+$sessionUser = Checkdroits::checkMode($bddConnection,$_GET,array('apikey' => false,'user' => true));
+if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
+    return $sessionUser; // error
 }
 if (!empty($_GET['userbanque']) && !empty($_GET['mdpbanque'])) {
     $banque = Joueurs::getJoueurByPseudo($bddConnection, $_GET['userbanque']);
     if (empty($banque)) {
         return array('status_code' => 404, 'message' => 'Le joueur de la banque n\'existe pas.');
     }
-    if (!Checkdroits::CheckMdp($bddConnection, $_GET['userbanque'], $_GET['mdpbanque'])) {
+    if (!Checkdroits::checkMdp($bddConnection, $_GET['userbanque'], $_GET['mdpbanque'])) {
         return array('status_code' => 403, 'message' => 'Le mot de passe de la banque est incorrect.');
     }
 }
-if (!Checkdroits::CheckId($bddConnection, $_GET['id_type_transaction'], 'type_transaction')) {
+if (!Checkdroits::checkId($bddConnection, $_GET['id_type_transaction'], 'type_transaction')) {
     return array('status_code' => 404, 'message' => 'Le type de transaction n\'existe pas.');
 }
-if (!empty($_GET['id_compte_crediteur']) && !Checkdroits::CheckId($bddConnection, $_GET['id_compte_crediteur'], 'compte')) {
+if (!empty($_GET['id_compte_crediteur']) && !Checkdroits::checkId($bddConnection, $_GET['id_compte_crediteur'], 'compte')) {
     return array('status_code' => 404, 'message' => 'Le compte crediteur n\'existe pas.');
 }
-if (!empty($_GET['id_compte_debiteur']) && !Checkdroits::CheckId($bddConnection, $_GET['id_compte_debiteur'], 'compte')) {
+if (!empty($_GET['id_compte_debiteur']) && !Checkdroits::checkId($bddConnection, $_GET['id_compte_debiteur'], 'compte')) {
     return array('status_code' => 404, 'message' => 'Le compte debiteur n\'existe pas.');
 }
 if (empty($_GET['id_compte_debiteur']) && empty($_GET['id_compte_crediteur'])) {
@@ -39,7 +36,7 @@ if ($_GET['id_compte_debiteur'] == $_GET['id_compte_crediteur']) {
     return array('status_code' => 400, 'message' => 'Le compte debiteur et le compte crediteur sont identiques.');
 }
 if (!empty($_GET['id_commande'])) {
-    if (!Checkdroits::CheckId($bddConnection, $_GET['id_commande'], 'commande')) {
+    if (!Checkdroits::checkId($bddConnection, $_GET['id_commande'], 'commande')) {
         return array('status_code' => 404, 'message' => 'La commande n\'existe pas.');
     }
 }
@@ -70,7 +67,7 @@ switch($_GET['id_type_transaction']) {
         if ($banque == null) {
             return array('status_code' => 403, 'message' => 'Vous devez etre la banque pour creer cette transaction.');
         }
-        if (!Checkdroits::CheckPermObj($bddConnection, $joueur['id_joueur'], $_GET['id_compte_debiteur'], 'compte', 'addtransaction')) {
+        if (!Checkdroits::checkPermObj($bddConnection, $joueur['id_joueur'], $_GET['id_compte_debiteur'], 'compte', 'addtransaction')) {
             return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission de creer cette transaction.');
         }
     break;
@@ -78,7 +75,7 @@ switch($_GET['id_type_transaction']) {
         if ($banque == null) {
             return array('status_code' => 403, 'message' => 'Vous devez etre la banque pour creer cette transaction.');
         }
-        if (!Checkdroits::CheckPermObj($bddConnection, $joueur['id_joueur'], $_GET['id_compte_crediteur'], 'compte', 'addtransaction')) {
+        if (!Checkdroits::checkPermObj($bddConnection, $joueur['id_joueur'], $_GET['id_compte_crediteur'], 'compte', 'addtransaction')) {
             return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission de creer cette transaction.');
         }
     break;
@@ -104,10 +101,10 @@ switch($_GET['id_type_transaction']) {
         return array('status_code' => 403, 'message' => 'Vous ne pouvez pas creer cette transaction, type de transaction non gere.');
     break;
     case '8':
-        if (!Checkdroits::CheckPermObj($bddConnection, $joueur['id_joueur'], $_GET['id_compte_debiteur'], 'compte', 'addtransaction')) {
+        if (!Checkdroits::checkPermObj($bddConnection, $joueur['id_joueur'], $_GET['id_compte_debiteur'], 'compte', 'addtransaction')) {
             return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission de creer cette transaction.');
         }
-        if (!Checkdroits::CheckPermObj($bddConnection, $joueur['id_joueur'], $_GET['id_compte_crediteur'], 'compte', 'addtransaction')) {
+        if (!Checkdroits::checkPermObj($bddConnection, $joueur['id_joueur'], $_GET['id_compte_crediteur'], 'compte', 'addtransaction')) {
             return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission de creer cette transaction.');
         }
     break;

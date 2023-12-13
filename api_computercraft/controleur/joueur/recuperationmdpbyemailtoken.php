@@ -3,7 +3,7 @@ require_once('class/joueurs.class.php');
 require_once('include/phpmailer/MailSender.php');
 require_once('class/checkdroits.class.php');
 
-if (!Checkdroits::CheckArgs($_GET, array('pseudo' => false, 'email' => false))) {
+if (!Checkdroits::checkArgs($_GET, array('pseudo' => false, 'email' => false))) {
 	// modif - il manque des parametres
 	return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }

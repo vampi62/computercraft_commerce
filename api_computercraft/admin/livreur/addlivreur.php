@@ -5,25 +5,19 @@ require_once('class/livreurs.class.php');
 require_once('class/comptes.class.php');
 require_once('class/adresses.class.php');
 
-if (!Checkdroits::CheckArgs($_GET,array('useradmin' => false,'mdpadmin' => false, 'id_joueur' => false, 'id_compte' => true, 'id_adresse' => true, 'nom' => false))) {
+if (!Checkdroits::checkArgs($_GET,array('id_joueur' => false, 'id_compte' => true, 'id_adresse' => true, 'nom' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-$donneesJoueurUserAdmin = Joueurs::getJoueurByPseudo($bddConnection, $_GET['useradmin']);
-if (empty($donneesJoueurUserAdmin['pseudo_joueur'])) {
-    return array('status_code' => 404, 'message' => 'Le compte useradmin n\'existe pas.');
+$sessionAdmin = Checkdroits::checkAdmin($bddConnection,$_GET);
+if (isset($sessionAdmin['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
+    return $sessionAdmin; // error
 }
-if (!Checkdroits::CheckMdp($bddConnection, $_GET['useradmin'], $_GET['mdpadmin'])) {
-    return array('status_code' => 403, 'message' => 'Le mot de passe est incorrect.');
-}
-if (!Checkdroits::CheckRole($bddConnection, $_GET['useradmin'], array('admin'))) {
-    return array('status_code' => 403, 'message' => 'Le compte n\'a pas les droits.');
-}
-if (!Checkdroits::CheckId($bddConnection, $_GET['id_joueur'], 'joueur')) {
+if (!Checkdroits::checkId($bddConnection, $_GET['id_joueur'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
 // le type de compte doit etre un compte entreprise_livreur pour pouvoir etre defini comme livreur
 if (!empty($_GET['id_compte'])) {
-    if (!Checkdroits::CheckId($bddConnection, $_GET['id_compte'], 'compte')) {
+    if (!Checkdroits::checkId($bddConnection, $_GET['id_compte'], 'compte')) {
         return array('status_code' => 404, 'message' => 'Le compte n\'existe pas.');
     }
     $compte = Comptes::getCompteById($bddConnection, $_GET['id_compte']);
@@ -35,7 +29,7 @@ if (!empty($_GET['id_compte'])) {
 }
 // le type d'adresse doit etre un point relais pour pouvoir etre defini comme adresse par defait du livreur
 if (!empty($_GET['id_adresse'])) {
-    if (!Checkdroits::CheckId($bddConnection, $_GET['id_adresse'], 'adresse')) {
+    if (!Checkdroits::checkId($bddConnection, $_GET['id_adresse'], 'adresse')) {
         return array('status_code' => 404, 'message' => 'L\'adresse n\'existe pas.');
     }
     $adresse = Adresses::getAdresseById($bddConnection, $_GET['id_adresse']);

@@ -18,7 +18,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addjoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&pseudo={{pseudo}}&mdp={{mdp}}&email={{email}}&id_type_role=2&nbr_offre=10",
+									"raw": "{{site_url}}?admin=true&action=addjoueur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&pseudo={{pseudo}}&mdp={{mdp}}&email={{email}}&id_type_role=2&nbr_offre=10",
 									"host": [
 										"{{site_url}}"
 									],
@@ -32,7 +32,7 @@
 											"value": "addjoueur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -75,7 +75,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=deletejoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
+									"raw": "{{site_url}}?admin=true&action=deletejoueur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -89,7 +89,7 @@
 											"value": "deletejoueur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -112,7 +112,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editjoueuremail&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&email=vadidi63@gmail.com",
+									"raw": "{{site_url}}?admin=true&action=editjoueuremail&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&email=vadidi63@gmail.com",
 									"host": [
 										"{{site_url}}"
 									],
@@ -126,7 +126,7 @@
 											"value": "editjoueuremail"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -153,7 +153,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editjoueurmdp&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&mdp=norout@P7",
+									"raw": "{{site_url}}?admin=true&action=editjoueurmdp&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&mdp=norout@P7",
 									"host": [
 										"{{site_url}}"
 									],
@@ -167,7 +167,7 @@
 											"value": "editjoueurmdp"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -194,7 +194,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editjoueurpseudo&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&pseudo=vampi63",
+									"raw": "{{site_url}}?admin=true&action=editjoueurpseudo&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&pseudo=vampi63",
 									"host": [
 										"{{site_url}}"
 									],
@@ -208,7 +208,7 @@
 											"value": "editjoueurpseudo"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -236,7 +236,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editjoueurrole&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&id_type_role=1",
+									"raw": "{{site_url}}?admin=true&action=editjoueurrole&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&id_type_role=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -250,7 +250,7 @@
 											"value": "editjoueurrole"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -277,7 +277,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editjoueurnbroffre&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&nbr_offre=15",
+									"raw": "{{site_url}}?admin=true&action=editjoueurnbroffre&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&nbr_offre=15",
 									"host": [
 										"{{site_url}}"
 									],
@@ -291,7 +291,7 @@
 											"value": "editjoueurnbroffre"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -318,7 +318,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getjoueurbypseudo&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&pseudo={{pseudo}}",
+									"raw": "{{site_url}}?admin=true&action=getjoueurbypseudo&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&pseudo={{pseudo}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -332,7 +332,7 @@
 											"value": "getjoueurbypseudo"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -355,7 +355,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getjoueurbyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
+									"raw": "{{site_url}}?admin=true&action=getjoueurbyid&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -369,7 +369,7 @@
 											"value": "getjoueurbyid"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -392,7 +392,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getjoueurs&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}",
+									"raw": "{{site_url}}?admin=true&action=getjoueurs&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -406,7 +406,7 @@
 											"value": "getjoueurs"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -429,7 +429,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getjetons&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}",
+									"raw": "{{site_url}}?admin=true&action=getjetons&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -443,7 +443,7 @@
 											"value": "getjetons"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -461,7 +461,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getjetonbyjoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
+									"raw": "{{site_url}}?admin=true&action=getjetonbyjoueur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -475,7 +475,7 @@
 											"value": "getjetonbyjoueur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -497,7 +497,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addjeton&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
+									"raw": "{{site_url}}?admin=true&action=addjeton&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -511,7 +511,7 @@
 											"value": "addjeton"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -533,7 +533,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=deletejeton&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
+									"raw": "{{site_url}}?admin=true&action=deletejeton&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -547,7 +547,7 @@
 											"value": "deletejeton"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -569,7 +569,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editjeton&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&1=5434&10=125&100=1&1k=552&10k=1",
+									"raw": "{{site_url}}?admin=true&action=editjeton&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&1=5434&10=125&100=1&1k=552&10k=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -583,7 +583,7 @@
 											"value": "editjeton"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -630,7 +630,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addadresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomlivr&coo=x10y100&description=text&id_type_adresse=1&id_joueur={{id_joueur}}&id_livreur=",
+									"raw": "{{site_url}}?admin=true&action=addadresse&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomlivr&coo=x10y100&description=text&id_type_adresse=1&id_joueur={{id_joueur}}&id_livreur=",
 									"host": [
 										"{{site_url}}"
 									],
@@ -644,7 +644,7 @@
 											"value": "addadresse"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -687,7 +687,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editadressecoo&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&coo=x1010y100&id_adresse=2",
+									"raw": "{{site_url}}?admin=true&action=editadressecoo&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&coo=x1010y100&id_adresse=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -701,7 +701,7 @@
 											"value": "editadressecoo"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -727,7 +727,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editadressedescription&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&description=x1010y100&id_adresse=2",
+									"raw": "{{site_url}}?admin=true&action=editadressedescription&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&description=x1010y100&id_adresse=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -741,7 +741,7 @@
 											"value": "editadressedescription"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -767,7 +767,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editadressenom&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=test&id_adresse=2",
+									"raw": "{{site_url}}?admin=true&action=editadressenom&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=test&id_adresse=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -781,7 +781,7 @@
 											"value": "editadressenom"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -807,7 +807,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editadresselivreur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=&id_adresse=2",
+									"raw": "{{site_url}}?admin=true&action=editadresselivreur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=&id_adresse=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -821,7 +821,7 @@
 											"value": "editadresselivreur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -847,7 +847,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=deleteadresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=1",
+									"raw": "{{site_url}}?admin=true&action=deleteadresse&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -861,7 +861,7 @@
 											"value": "deleteadresse"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -883,7 +883,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getadressebyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2",
+									"raw": "{{site_url}}?admin=true&action=getadressebyid&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -897,7 +897,7 @@
 											"value": "getadressebyid"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -919,7 +919,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getadressesbyjoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur=5",
+									"raw": "{{site_url}}?admin=true&action=getadressesbyjoueur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur=5",
 									"host": [
 										"{{site_url}}"
 									],
@@ -933,7 +933,7 @@
 											"value": "getadressesbyjoueur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -955,7 +955,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getadressesbylivreur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=",
+									"raw": "{{site_url}}?admin=true&action=getadressesbylivreur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=",
 									"host": [
 										"{{site_url}}"
 									],
@@ -969,7 +969,7 @@
 											"value": "getadressesbylivreur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -996,7 +996,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addcompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomlivr&id_type_compte=1&id_joueur={{id_joueur}}",
+									"raw": "{{site_url}}?admin=true&action=addcompte&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomlivr&id_type_compte=1&id_joueur={{id_joueur}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1010,7 +1010,7 @@
 											"value": "addcompte"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1041,7 +1041,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editcomptenom&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomcompte&id_compte=1",
+									"raw": "{{site_url}}?admin=true&action=editcomptenom&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomcompte&id_compte=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1055,7 +1055,7 @@
 											"value": "editcomptenom"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1081,7 +1081,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=deletecompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=1",
+									"raw": "{{site_url}}?admin=true&action=deletecompte&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1095,7 +1095,7 @@
 											"value": "deletecompte"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1117,7 +1117,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getcomptebyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
+									"raw": "{{site_url}}?admin=true&action=getcomptebyid&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1131,7 +1131,7 @@
 											"value": "getcomptebyid"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1153,7 +1153,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getcomptesbyjoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
+									"raw": "{{site_url}}?admin=true&action=getcomptesbyjoueur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1167,7 +1167,7 @@
 											"value": "getcomptesbyjoueur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1194,7 +1194,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addoffre&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomlivr&id_type_offre=1&description=text&id_adresse=2&id_joueur={{id_joueur}}&id_compte=2&prix=10&stock=100",
+									"raw": "{{site_url}}?admin=true&action=addoffre&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomlivr&id_type_offre=1&description=text&id_adresse=2&id_joueur={{id_joueur}}&id_compte=2&prix=10&stock=100",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1208,7 +1208,7 @@
 											"value": "addoffre"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1259,7 +1259,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editoffreadresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2&id_offre=1",
+									"raw": "{{site_url}}?admin=true&action=editoffreadresse&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2&id_offre=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1273,7 +1273,7 @@
 											"value": "editoffreadresse"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1299,7 +1299,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editoffrecompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2&id_offre=1",
+									"raw": "{{site_url}}?admin=true&action=editoffrecompte&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2&id_offre=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1313,7 +1313,7 @@
 											"value": "editoffrecompte"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1339,7 +1339,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editoffredescription&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&description=texte&id_offre=1",
+									"raw": "{{site_url}}?admin=true&action=editoffredescription&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&description=texte&id_offre=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1353,7 +1353,7 @@
 											"value": "editoffredescription"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1379,7 +1379,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editoffrenom&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=offrename&id_offre=1",
+									"raw": "{{site_url}}?admin=true&action=editoffrenom&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=offrename&id_offre=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1393,7 +1393,7 @@
 											"value": "editoffrenom"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1419,7 +1419,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editoffreprix&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&prix=1551&id_offre=1",
+									"raw": "{{site_url}}?admin=true&action=editoffreprix&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&prix=1551&id_offre=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1433,7 +1433,7 @@
 											"value": "editoffreprix"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1459,7 +1459,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editoffrestock&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&stock=2&id_offre=1",
+									"raw": "{{site_url}}?admin=true&action=editoffrestock&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&stock=2&id_offre=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1473,7 +1473,7 @@
 											"value": "editoffrestock"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1499,7 +1499,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editoffretype&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_type_offre=2&id_offre=1",
+									"raw": "{{site_url}}?admin=true&action=editoffretype&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_type_offre=2&id_offre=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1513,7 +1513,7 @@
 											"value": "editoffretype"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1540,7 +1540,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=deleteoffre&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_offre=1",
+									"raw": "{{site_url}}?admin=true&action=deleteoffre&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_offre=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1554,7 +1554,7 @@
 											"value": "deleteoffre"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1576,7 +1576,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getoffrebyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_offre=2",
+									"raw": "{{site_url}}?admin=true&action=getoffrebyid&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_offre=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1590,7 +1590,7 @@
 											"value": "getoffrebyid"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1612,7 +1612,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getoffresbyadresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2",
+									"raw": "{{site_url}}?admin=true&action=getoffresbyadresse&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1626,7 +1626,7 @@
 											"value": "getoffresbyadresse"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1648,7 +1648,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getoffresbycompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
+									"raw": "{{site_url}}?admin=true&action=getoffresbycompte&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1662,7 +1662,7 @@
 											"value": "getoffresbycompte"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1684,7 +1684,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getoffresbyjoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur=5",
+									"raw": "{{site_url}}?admin=true&action=getoffresbyjoueur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur=5",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1698,7 +1698,7 @@
 											"value": "getoffresbyjoueur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1720,7 +1720,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getoffres&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}",
+									"raw": "{{site_url}}?admin=true&action=getoffres&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1734,7 +1734,7 @@
 											"value": "getoffres"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1757,7 +1757,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addapikey&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomapi&mdp=apiMDP@12&id_joueur={{id_joueur}}",
+									"raw": "{{site_url}}?admin=true&action=addapikey&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomapi&mdp=apiMDP@12&id_joueur={{id_joueur}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1771,7 +1771,7 @@
 											"value": "addapikey"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1801,7 +1801,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addapikeydroit&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_droit=1&id_apikey=1",
+									"raw": "{{site_url}}?admin=true&action=addapikeydroit&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_droit=1&id_apikey=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1815,7 +1815,7 @@
 											"value": "addapikeydroit"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1841,7 +1841,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=deleteapikeydroit&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_droit=1&id_apikey=1",
+									"raw": "{{site_url}}?admin=true&action=deleteapikeydroit&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_droit=1&id_apikey=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1855,7 +1855,7 @@
 											"value": "deleteapikeydroit"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1881,7 +1881,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=deleteapikey&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_apikey=1",
+									"raw": "{{site_url}}?admin=true&action=deleteapikey&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_apikey=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1895,7 +1895,7 @@
 											"value": "deleteapikey"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1917,7 +1917,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editapikeynom&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=testkey&id_apikey=2",
+									"raw": "{{site_url}}?admin=true&action=editapikeynom&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=testkey&id_apikey=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1931,7 +1931,7 @@
 											"value": "editapikeynom"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1957,7 +1957,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editapikeymdp&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&mdp=test2Key&id_apikey=2",
+									"raw": "{{site_url}}?admin=true&action=editapikeymdp&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&mdp=test2Key&id_apikey=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -1971,7 +1971,7 @@
 											"value": "editapikeymdp"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -1997,7 +1997,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getapikeybyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_apikey=2",
+									"raw": "{{site_url}}?admin=true&action=getapikeybyid&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_apikey=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2011,7 +2011,7 @@
 											"value": "getapikeybyid"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2033,7 +2033,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getapikeydroitsbyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_apikey=2",
+									"raw": "{{site_url}}?admin=true&action=getapikeydroitsbyid&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_apikey=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2047,7 +2047,7 @@
 											"value": "getapikeydroitsbyid"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2069,7 +2069,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getapikeysbyjoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
+									"raw": "{{site_url}}?admin=true&action=getapikeysbyjoueur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2083,7 +2083,7 @@
 											"value": "getapikeysbyjoueur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2110,7 +2110,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addlivreur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomlivreur&id_compte=2&id_joueur={{id_joueur}}&id_adresse=2",
+									"raw": "{{site_url}}?admin=true&action=addlivreur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=nomlivreur&id_compte=2&id_joueur={{id_joueur}}&id_adresse=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2124,7 +2124,7 @@
 											"value": "addlivreur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2158,7 +2158,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=deletelivreur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=1",
+									"raw": "{{site_url}}?admin=true&action=deletelivreur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2172,7 +2172,7 @@
 											"value": "deletelivreur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2194,7 +2194,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editlivreuradresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=2&id_adresse=2",
+									"raw": "{{site_url}}?admin=true&action=editlivreuradresse&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=2&id_adresse=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2208,7 +2208,7 @@
 											"value": "editlivreuradresse"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2234,7 +2234,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editlivreurcompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=2&id_compte=2",
+									"raw": "{{site_url}}?admin=true&action=editlivreurcompte&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=2&id_compte=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2248,7 +2248,7 @@
 											"value": "editlivreurcompte"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2274,7 +2274,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editlivreurnom&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=2&nom=newnamelivreur",
+									"raw": "{{site_url}}?admin=true&action=editlivreurnom&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=2&nom=newnamelivreur",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2288,7 +2288,7 @@
 											"value": "editlivreurnom"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2314,7 +2314,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getlivreurbyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=2",
+									"raw": "{{site_url}}?admin=true&action=getlivreurbyid&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2328,7 +2328,7 @@
 											"value": "getlivreurbyid"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2350,7 +2350,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getlivreursbyjoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
+									"raw": "{{site_url}}?admin=true&action=getlivreursbyjoueur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2364,7 +2364,7 @@
 											"value": "getlivreursbyjoueur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2386,7 +2386,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getlivreursbyadresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2",
+									"raw": "{{site_url}}?admin=true&action=getlivreursbyadresse&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2400,7 +2400,7 @@
 											"value": "getlivreursbyadresse"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2422,7 +2422,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getlivreursbycompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
+									"raw": "{{site_url}}?admin=true&action=getlivreursbycompte&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2436,7 +2436,7 @@
 											"value": "getlivreursbycompte"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2463,7 +2463,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addtransaction&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte_debiteur=&id_compte_crediteur=2&montant=100&nom=depotd&description=testddeport&id_type_status_transaction=1&id_type_transaction=2&id_commande",
+									"raw": "{{site_url}}?admin=true&action=addtransaction&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte_debiteur=&id_compte_crediteur=2&montant=100&nom=depotd&description=testddeport&id_type_status_transaction=1&id_type_transaction=2&id_commande",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2477,7 +2477,7 @@
 											"value": "addtransaction"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2529,7 +2529,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=edittransactionstatus&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_transaction=1&id_type_status_transaction=4",
+									"raw": "{{site_url}}?admin=true&action=edittransactionstatus&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_transaction=1&id_type_status_transaction=4",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2543,7 +2543,7 @@
 											"value": "edittransactionstatus"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2570,7 +2570,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=exectransaction&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_transaction=1",
+									"raw": "{{site_url}}?admin=true&action=exectransaction&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_transaction=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2584,7 +2584,7 @@
 											"value": "exectransaction"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2606,7 +2606,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=execalltransactions&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}",
+									"raw": "{{site_url}}?admin=true&action=execalltransactions&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2620,7 +2620,7 @@
 											"value": "execalltransactions"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2638,7 +2638,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=gettransactionbyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_transaction=2",
+									"raw": "{{site_url}}?admin=true&action=gettransactionbyid&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_transaction=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2652,7 +2652,7 @@
 											"value": "gettransactionbyid"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2674,7 +2674,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=gettransactionsbycompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
+									"raw": "{{site_url}}?admin=true&action=gettransactionsbycompte&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2688,7 +2688,7 @@
 											"value": "gettransactionsbycompte"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2710,7 +2710,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=gettransactionsbycommande&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=1",
+									"raw": "{{site_url}}?admin=true&action=gettransactionsbycommande&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2724,7 +2724,7 @@
 											"value": "gettransactionsbycommande"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2746,7 +2746,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=gettransactionsbyadmin&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_admin=3",
+									"raw": "{{site_url}}?admin=true&action=gettransactionsbyadmin&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_admin=3",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2760,7 +2760,7 @@
 											"value": "gettransactionsbyadmin"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2787,7 +2787,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addcommande&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=testobj&quant=2&prixu=100&frait=10&description=testddeport&code_retrait_commande=mdp@ComputerCom2&id_adresse_client=2&id_offre=2&id_compte_client=2",
+									"raw": "{{site_url}}?admin=true&action=addcommande&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&nom=testobj&quant=2&prixu=100&frait=10&description=testddeport&code_retrait_commande=mdp@ComputerCom2&id_adresse_client=2&id_offre=2&id_compte_client=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2801,7 +2801,7 @@
 											"value": "addcommande"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2858,7 +2858,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editcommandecoderetrait&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=1&code_retrait_commande=mdp@ComputerCom10",
+									"raw": "{{site_url}}?admin=true&action=editcommandecoderetrait&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=1&code_retrait_commande=mdp@ComputerCom10",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2872,7 +2872,7 @@
 											"value": "editcommandecoderetrait"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2898,7 +2898,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editcommandedatelivraison&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=1&date=2023-11-06 18:16:10",
+									"raw": "{{site_url}}?admin=true&action=editcommandedatelivraison&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=1&date=2023-11-06 18:16:10",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2912,7 +2912,7 @@
 											"value": "editcommandedatelivraison"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2938,7 +2938,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editcommandelivreur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=1&id_livreur=2",
+									"raw": "{{site_url}}?admin=true&action=editcommandelivreur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=1&id_livreur=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2952,7 +2952,7 @@
 											"value": "editcommandelivreur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -2978,7 +2978,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getcommandebyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=2",
+									"raw": "{{site_url}}?admin=true&action=getcommandebyid&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -2992,7 +2992,7 @@
 											"value": "getcommandebyid"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3014,7 +3014,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getcommandesbyadresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2",
+									"raw": "{{site_url}}?admin=true&action=getcommandesbyadresse&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3028,7 +3028,7 @@
 											"value": "getcommandesbyadresse"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3050,7 +3050,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getcommandesbyadresseclient&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2",
+									"raw": "{{site_url}}?admin=true&action=getcommandesbyadresseclient&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3064,7 +3064,7 @@
 											"value": "getcommandesbyadresseclient"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3086,7 +3086,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getcommandesbyadressevendeur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2",
+									"raw": "{{site_url}}?admin=true&action=getcommandesbyadressevendeur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_adresse=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3100,7 +3100,7 @@
 											"value": "getcommandesbyadressevendeur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3122,7 +3122,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getcommandesbycompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
+									"raw": "{{site_url}}?admin=true&action=getcommandesbycompte&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3136,7 +3136,7 @@
 											"value": "getcommandesbycompte"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3158,7 +3158,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getcommandesbycompteclient&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
+									"raw": "{{site_url}}?admin=true&action=getcommandesbycompteclient&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3172,7 +3172,7 @@
 											"value": "getcommandesbycompteclient"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3194,7 +3194,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getcommandesbycomptevendeur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
+									"raw": "{{site_url}}?admin=true&action=getcommandesbycomptevendeur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3208,7 +3208,7 @@
 											"value": "getcommandesbycomptevendeur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3230,7 +3230,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getcommandesbylivreur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=2",
+									"raw": "{{site_url}}?admin=true&action=getcommandesbylivreur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3244,7 +3244,7 @@
 											"value": "getcommandesbylivreur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3266,7 +3266,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getcommandesbystatus&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_type_commande=1",
+									"raw": "{{site_url}}?admin=true&action=getcommandesbystatus&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_type_commande=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3280,7 +3280,7 @@
 											"value": "getcommandesbystatus"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3302,7 +3302,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getcommandesbyoffre&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_offre=2",
+									"raw": "{{site_url}}?admin=true&action=getcommandesbyoffre&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_offre=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3316,7 +3316,7 @@
 											"value": "getcommandesbyoffre"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3343,7 +3343,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addlitigemsg&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=2&description=test litigemsg&id_status_litigemsg=1",
+									"raw": "{{site_url}}?admin=true&action=addlitigemsg&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=2&description=test litigemsg&id_status_litigemsg=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3357,7 +3357,7 @@
 											"value": "addlitigemsg"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3389,7 +3389,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=deletelitigemsg&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_litigemsg=1",
+									"raw": "{{site_url}}?admin=true&action=deletelitigemsg&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_litigemsg=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3403,7 +3403,7 @@
 											"value": "deletelitigemsg"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3425,7 +3425,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getlitigemsgsbycommande&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=2",
+									"raw": "{{site_url}}?admin=true&action=getlitigemsgsbycommande&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_commande=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3439,7 +3439,7 @@
 											"value": "getlitigemsgsbycommande"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3466,7 +3466,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getkeypaybyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_keypay=1",
+									"raw": "{{site_url}}?admin=true&action=getkeypaybyid&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_keypay=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3480,7 +3480,7 @@
 											"value": "getkeypaybyid"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3502,7 +3502,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getkeypaysbyoffre&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_offre=1",
+									"raw": "{{site_url}}?admin=true&action=getkeypaysbyoffre&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_offre=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3516,7 +3516,7 @@
 											"value": "getkeypaysbyoffre"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3543,7 +3543,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addgroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&nom=test nom groupe",
+									"raw": "{{site_url}}?admin=true&action=addgroupe&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur={{id_joueur}}&nom=test nom groupe",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3557,7 +3557,7 @@
 											"value": "addgroupe"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3583,7 +3583,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addgroupeadresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_adresse=2",
+									"raw": "{{site_url}}?admin=true&action=addgroupeadresse&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_adresse=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3597,7 +3597,7 @@
 											"value": "addgroupeadresse"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3623,7 +3623,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addgroupecompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_compte=2",
+									"raw": "{{site_url}}?admin=true&action=addgroupecompte&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_compte=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3637,7 +3637,7 @@
 											"value": "addgroupecompte"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3663,7 +3663,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addgroupedroit&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_droit=2",
+									"raw": "{{site_url}}?admin=true&action=addgroupedroit&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_droit=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3677,7 +3677,7 @@
 											"value": "addgroupedroit"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3703,7 +3703,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addgroupejoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_joueur=2",
+									"raw": "{{site_url}}?admin=true&action=addgroupejoueur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_joueur=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3717,7 +3717,7 @@
 											"value": "addgroupejoueur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3743,7 +3743,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addgroupelivreur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_livreur=2",
+									"raw": "{{site_url}}?admin=true&action=addgroupelivreur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_livreur=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3757,7 +3757,7 @@
 											"value": "addgroupelivreur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3783,7 +3783,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=addgroupeoffre&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_offre=2",
+									"raw": "{{site_url}}?admin=true&action=addgroupeoffre&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_offre=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3797,7 +3797,7 @@
 											"value": "addgroupeoffre"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3823,7 +3823,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=deletegroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"raw": "{{site_url}}?admin=true&action=deletegroupe&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3837,7 +3837,7 @@
 											"value": "deletegroupe"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3859,7 +3859,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=deletegroupeadresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_adresse=2",
+									"raw": "{{site_url}}?admin=true&action=deletegroupeadresse&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_adresse=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3873,7 +3873,7 @@
 											"value": "deletegroupeadresse"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3899,7 +3899,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=deletegroupecompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_compte=2",
+									"raw": "{{site_url}}?admin=true&action=deletegroupecompte&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_compte=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3913,7 +3913,7 @@
 											"value": "deletegroupecompte"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3939,7 +3939,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=deletegroupedroit&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_droit=2",
+									"raw": "{{site_url}}?admin=true&action=deletegroupedroit&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_droit=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3953,7 +3953,7 @@
 											"value": "deletegroupedroit"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -3979,7 +3979,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=deletegroupejoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_joueur=2",
+									"raw": "{{site_url}}?admin=true&action=deletegroupejoueur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_joueur=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -3993,7 +3993,7 @@
 											"value": "deletegroupejoueur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4019,7 +4019,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=deletegroupelivreur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_livreur=2",
+									"raw": "{{site_url}}?admin=true&action=deletegroupelivreur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_livreur=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4033,7 +4033,7 @@
 											"value": "deletegroupelivreur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4059,7 +4059,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=deletegroupeoffre&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_offre=2",
+									"raw": "{{site_url}}?admin=true&action=deletegroupeoffre&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&id_offre=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4073,7 +4073,7 @@
 											"value": "deletegroupeoffre"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4099,7 +4099,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=editgroupenom&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&nom=newnomgroupe",
+									"raw": "{{site_url}}?admin=true&action=editgroupenom&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1&nom=newnomgroupe",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4113,7 +4113,7 @@
 											"value": "editgroupenom"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4139,7 +4139,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getadressebygroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"raw": "{{site_url}}?admin=true&action=getadressebygroupe&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4153,7 +4153,7 @@
 											"value": "getadressebygroupe"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4175,7 +4175,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getcomptesbygroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"raw": "{{site_url}}?admin=true&action=getcomptesbygroupe&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4189,7 +4189,7 @@
 											"value": "getcomptesbygroupe"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4211,7 +4211,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getdroitsbygroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"raw": "{{site_url}}?admin=true&action=getdroitsbygroupe&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4225,7 +4225,7 @@
 											"value": "getdroitsbygroupe"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4247,7 +4247,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getgroupebyid&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"raw": "{{site_url}}?admin=true&action=getgroupebyid&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4261,7 +4261,7 @@
 											"value": "getgroupebyid"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4283,7 +4283,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getoffresbygroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"raw": "{{site_url}}?admin=true&action=getoffresbygroupe&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4297,7 +4297,7 @@
 											"value": "getoffresbygroupe"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4319,7 +4319,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getlivreursbygroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"raw": "{{site_url}}?admin=true&action=getlivreursbygroupe&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4333,7 +4333,7 @@
 											"value": "getlivreursbygroupe"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4355,7 +4355,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getapikeysbygroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"raw": "{{site_url}}?admin=true&action=getapikeysbygroupe&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4369,7 +4369,7 @@
 											"value": "getapikeysbygroupe"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4391,7 +4391,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getjoueursbygroupe&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
+									"raw": "{{site_url}}?admin=true&action=getjoueursbygroupe&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_groupe=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4405,7 +4405,7 @@
 											"value": "getjoueursbygroupe"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4427,7 +4427,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getgroupesbyoffre&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_offre=1",
+									"raw": "{{site_url}}?admin=true&action=getgroupesbyoffre&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_offre=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4441,7 +4441,7 @@
 											"value": "getgroupesbyoffre"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4463,7 +4463,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getgroupesbylivreur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=1",
+									"raw": "{{site_url}}?admin=true&action=getgroupesbylivreur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4477,7 +4477,7 @@
 											"value": "getgroupesbylivreur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4499,7 +4499,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getgroupesbyadresse&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=1",
+									"raw": "{{site_url}}?admin=true&action=getgroupesbyadresse&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_livreur=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4513,7 +4513,7 @@
 											"value": "getgroupesbyadresse"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4535,7 +4535,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getgroupesbycompte&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=1",
+									"raw": "{{site_url}}?admin=true&action=getgroupesbycompte&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_compte=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4549,7 +4549,7 @@
 											"value": "getgroupesbycompte"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4571,7 +4571,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getgroupesbyjoueur&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur=1",
+									"raw": "{{site_url}}?admin=true&action=getgroupesbyjoueur&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4585,7 +4585,7 @@
 											"value": "getgroupesbyjoueur"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4607,7 +4607,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getgroupesbyapikey&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_apikey=1",
+									"raw": "{{site_url}}?admin=true&action=getgroupesbyapikey&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_apikey=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4621,7 +4621,7 @@
 											"value": "getgroupesbyapikey"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4643,7 +4643,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?admin=true&action=getgroupesbyjoueurmembre&useradmin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur=1",
+									"raw": "{{site_url}}?admin=true&action=getgroupesbyjoueurmembre&admin={{admin_pseudo}}&mdpadmin={{admin_mdp}}&id_joueur=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4657,7 +4657,7 @@
 											"value": "getgroupesbyjoueurmembre"
 										},
 										{
-											"key": "useradmin",
+											"key": "admin",
 											"value": "{{admin_pseudo}}"
 										},
 										{
@@ -4769,7 +4769,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?action=deletejoueur&useruser={{pseudosession}}&mdpuser={{mdpsession}}",
+									"raw": "{{site_url}}?action=deletejoueur&user={{pseudosession}}&mdpuser={{mdpsession}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4779,7 +4779,7 @@
 											"value": "deletejoueur"
 										},
 										{
-											"key": "useruser",
+											"key": "user",
 											"value": "{{pseudosession}}"
 										},
 										{
@@ -4797,7 +4797,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?action=editjoueuremail&useruser={{pseudosession}}&mdpuser={{mdpsession}}&email=vadidi63@gmail.com",
+									"raw": "{{site_url}}?action=editjoueuremail&user={{pseudosession}}&mdpuser={{mdpsession}}&email=vadidi63@gmail.com",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4807,7 +4807,7 @@
 											"value": "editjoueuremail"
 										},
 										{
-											"key": "useruser",
+											"key": "user",
 											"value": "{{pseudosession}}"
 										},
 										{
@@ -4829,7 +4829,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?action=editjoueurmdp&useruser={{pseudosession}}&mdpuser={{mdpsession}}&mdp=norout@P7",
+									"raw": "{{site_url}}?action=editjoueurmdp&user={{pseudosession}}&mdpuser={{mdpsession}}&mdp=norout@P7",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4839,7 +4839,7 @@
 											"value": "editjoueurmdp"
 										},
 										{
-											"key": "useruser",
+											"key": "user",
 											"value": "{{pseudosession}}"
 										},
 										{
@@ -4861,7 +4861,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?action=editjoueurpseudo&useruser={{pseudosession}}&mdpuser={{mdpsession}}&pseudo=vampi63",
+									"raw": "{{site_url}}?action=editjoueurpseudo&user={{pseudosession}}&mdpuser={{mdpsession}}&pseudo=vampi63",
 									"host": [
 										"{{site_url}}"
 									],
@@ -4871,7 +4871,7 @@
 											"value": "editjoueurpseudo"
 										},
 										{
-											"key": "useruser",
+											"key": "user",
 											"value": "{{pseudosession}}"
 										},
 										{
@@ -5022,7 +5022,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?action=addtransaction&useruser={{pseudosession}}&mdpuser={{mdpsession}}&id_compte_debiteur=1&id_compte_crediteur=2&montant=100&nom=depotd&description=testddeport&id_type_status_transaction=1&id_type_transaction=2&id_commande&userbanque={{admin_pseudo}}&mdpbanque={{admin_mdp}}",
+									"raw": "{{site_url}}?action=addtransaction&user={{pseudosession}}&mdpuser={{mdpsession}}&id_compte_debiteur=1&id_compte_crediteur=2&montant=100&nom=depotd&description=testddeport&id_type_status_transaction=1&id_type_transaction=2&id_commande&userbanque={{admin_pseudo}}&mdpbanque={{admin_mdp}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -5032,7 +5032,7 @@
 											"value": "addtransaction"
 										},
 										{
-											"key": "useruser",
+											"key": "user",
 											"value": "{{pseudosession}}"
 										},
 										{
@@ -5092,7 +5092,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?action=edittransactionstatus&useruser={{pseudosession}}&mdpuser={{mdpsession}}&id_transaction=1&id_type_status_transaction=1&userbanque&mdpbanque",
+									"raw": "{{site_url}}?action=edittransactionstatus&user={{pseudosession}}&mdpuser={{mdpsession}}&id_transaction=1&id_type_status_transaction=1&userbanque&mdpbanque",
 									"host": [
 										"{{site_url}}"
 									],
@@ -5102,7 +5102,7 @@
 											"value": "edittransactionstatus"
 										},
 										{
-											"key": "useruser",
+											"key": "user",
 											"value": "{{pseudosession}}"
 										},
 										{
@@ -5196,7 +5196,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?action=gettransactionbyid&useruser={{pseudosession}}&mdpuser={{mdpsession}}&id_transaction=2",
+									"raw": "{{site_url}}?action=gettransactionbyid&user={{pseudosession}}&mdpuser={{mdpsession}}&id_transaction=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -5206,7 +5206,7 @@
 											"value": "gettransactionbyid"
 										},
 										{
-											"key": "useruser",
+											"key": "user",
 											"value": "{{pseudosession}}"
 										},
 										{
@@ -5228,7 +5228,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?action=gettransactionsbycompte&useruser={{pseudosession}}&mdpuser={{mdpsession}}&id_compte=2",
+									"raw": "{{site_url}}?action=gettransactionsbycompte&user={{pseudosession}}&mdpuser={{mdpsession}}&id_compte=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -5238,7 +5238,7 @@
 											"value": "gettransactionsbycompte"
 										},
 										{
-											"key": "useruser",
+											"key": "user",
 											"value": "{{pseudosession}}"
 										},
 										{
@@ -5265,7 +5265,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?action=addcompte&useruser={{pseudosession}}&mdpuser={{mdpsession}}&nom=compte&id_type_compte=1",
+									"raw": "{{site_url}}?action=addcompte&user={{pseudosession}}&mdpuser={{mdpsession}}&nom=compte&id_type_compte=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -5275,7 +5275,7 @@
 											"value": "addcompte"
 										},
 										{
-											"key": "useruser",
+											"key": "user",
 											"value": "{{pseudosession}}"
 										},
 										{
@@ -5301,7 +5301,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?action=editcomptenom&useruser={{pseudosession}}&mdpuser={{mdpsession}}&nom=nomcompte&id_compte=1",
+									"raw": "{{site_url}}?action=editcomptenom&user={{pseudosession}}&mdpuser={{mdpsession}}&nom=nomcompte&id_compte=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -5311,7 +5311,7 @@
 											"value": "editcomptenom"
 										},
 										{
-											"key": "useruser",
+											"key": "user",
 											"value": "{{pseudosession}}"
 										},
 										{
@@ -5337,7 +5337,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?action=deletecompte&useruser={{pseudosession}}&mdpuser={{mdpsession}}&id_compte=1",
+									"raw": "{{site_url}}?action=deletecompte&user={{pseudosession}}&mdpuser={{mdpsession}}&id_compte=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -5347,7 +5347,7 @@
 											"value": "deletecompte"
 										},
 										{
-											"key": "useruser",
+											"key": "user",
 											"value": "{{pseudosession}}"
 										},
 										{
@@ -5369,7 +5369,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?action=getcomptebyid&useruser={{pseudosession}}&mdpuser={{mdpsession}}&id_compte=2",
+									"raw": "{{site_url}}?action=getcomptebyid&user={{pseudosession}}&mdpuser={{mdpsession}}&id_compte=2",
 									"host": [
 										"{{site_url}}"
 									],
@@ -5379,7 +5379,7 @@
 											"value": "getcomptebyid"
 										},
 										{
-											"key": "useruser",
+											"key": "user",
 											"value": "{{pseudosession}}"
 										},
 										{
@@ -5401,7 +5401,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?action=getcomptes&useruser={{pseudosession}}&mdpuser={{mdpsession}}",
+									"raw": "{{site_url}}?action=getcomptes&user={{pseudosession}}&mdpuser={{mdpsession}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -5411,7 +5411,7 @@
 											"value": "getcomptes"
 										},
 										{
-											"key": "useruser",
+											"key": "user",
 											"value": "{{pseudosession}}"
 										},
 										{
@@ -5434,7 +5434,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?action=getjetons&useruser={{pseudosession}}&mdpuser={{mdpsession}}",
+									"raw": "{{site_url}}?action=getjetons&user={{pseudosession}}&mdpuser={{mdpsession}}",
 									"host": [
 										"{{site_url}}"
 									],
@@ -5444,7 +5444,7 @@
 											"value": "getjetons"
 										},
 										{
-											"key": "useruser",
+											"key": "user",
 											"value": "{{pseudosession}}"
 										},
 										{
@@ -5462,7 +5462,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{site_url}}?action=editjeton&useruser={{pseudosession}}&mdpuser={{mdpsession}}&1=5434&10=125&100=1&1k=552&10k=1",
+									"raw": "{{site_url}}?action=editjeton&user={{pseudosession}}&mdpuser={{mdpsession}}&1=5434&10=125&100=1&1k=552&10k=1",
 									"host": [
 										"{{site_url}}"
 									],
@@ -5472,7 +5472,7 @@
 											"value": "editjeton"
 										},
 										{
-											"key": "useruser",
+											"key": "user",
 											"value": "{{pseudosession}}"
 										},
 										{
