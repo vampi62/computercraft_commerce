@@ -12,5 +12,6 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
 if (!Checkdroits::checkPasswordSecu($_GET['mdp'])) {
     return array('status_code' => 400, 'message' => 'Le mot de passe doit contenir au moins 8 caracteres, une majuscule, une minuscule et un chiffre.');
 }
-Joueurs::setJoueurMdp($bddConnection, $sessionUser['idLogin'], $_GET['mdp']);
-return array('status_code' => 200, 'message' => '');
+$joueur = new Joueurs($bddConnection, $sessionUser['idLogin']);
+$joueur->setJoueurMdp($_GET['mdp']);
+return array('status_code' => 200, 'message' => 'mot de passe modifié');

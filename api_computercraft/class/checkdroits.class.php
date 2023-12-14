@@ -68,6 +68,18 @@ class Checkdroits {
         return array('isApi' => false,'idLogin' => $sessionLogin[0],'pseudoLogin' => $sessionLogin[1]);
     }
 
+    // verifie la connexion pour une apikey banque
+    public static function checkTerminalApi($bdd,$argsSend) {
+        if (!self::checkArgs($argsSend,array('userbanque' => false,'mdpbanque' => false))) {
+            return array('status_code' => 400, 'message' => 'Il manque des parametres.');
+        }
+        $sessionLogin = self::_checkMdpApi($bdd, $argsSend['userbanque'], $argsSend['mdpbanque']);
+        if (!$sessionLogin) {
+            return array('status_code' => 403, 'message' => 'identifiant ou mot de passe incorrect.');
+        }
+        return array('isApi' => true,'idLogin' => $sessionLogin[0],'pseudoLogin' => $sessionLogin[1]);
+    }
+
     // verifie le mot de passe du compte
     private static function _checkMdp($bdd, $nom, $mdp) {
         $req = $bdd->prepare('SELECT id_joueur,mdp_joueur FROM joueurs WHERE pseudo_joueur = :nom');
@@ -182,15 +194,17 @@ class Checkdroits {
                 // si groupe a les droits sur l'objet pour effectuer l'action
                     // -- permet l'action
             # si user et obj.proprio son identique alors return true
-            $req = $bdd->prepare('SELECT COUNT(*) FROM '.$type.'s WHERE id_'.$type.' = :idobjet AND id_joueur = :idnom');
+            $req = $bdd->prepare('SELECT '.$type.'s.id_'.$type.' FROM '.$type.'s WHERE id_'.$type.' = :idobjet AND id_joueur = :idnom');
             $req->execute(array(
                 'idobjet' => $idObjet,
                 'idnom' => $idNom
             ));
-            if ($req->fetchColumn() > 0) {
-                $req->closeCursor();
+            $liste = $req->fetch(PDO::FETCH_ASSOC);
+            $req->closeCursor();
+            if (!empty($liste)) {
                 return true;
             }
+            return false;
             $req->closeCursor();
             # si user et obj sont dans un meme groupe qui permet l'action alors return true
             $req = $bdd->prepare('SELECT '.$type.'s.id_'.$type.' FROM '.$type.'s

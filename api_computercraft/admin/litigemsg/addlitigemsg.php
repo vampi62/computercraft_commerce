@@ -1,5 +1,4 @@
 <?php
-require_once('class/joueurs.class.php');
 require_once('class/checkdroits.class.php');
 require_once('class/litigemsgs.class.php');
 

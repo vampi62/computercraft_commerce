@@ -15,5 +15,6 @@ if (strlen($_GET['pseudo']) > $_Serveur_['MaxLengthChamps']['pseudo']) {
 if (!empty(Joueurs::getJoueurByPseudo($bddConnection, $_GET['pseudo']))) {
     return array('status_code' => 403, 'message' => 'Le pseudo est deja pris.');
 }
-Joueurs::setJoueurPseudo($bddConnection, $sessionUser['idLogin'], $_GET['pseudo']);
-return array('status_code' => 200, 'message' => '');
+$joueur = new Joueurs($bddConnection, $sessionUser['idLogin']);
+$joueur->setJoueurPseudo($_GET['pseudo']);
+return array('status_code' => 200, 'message' => 'pseudo modifié');
