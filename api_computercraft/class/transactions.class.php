@@ -83,7 +83,7 @@ class Transactions {
     }
 
     // ajoute une transaction
-    public static function addTransaction($bdd,$idCompteDebiteur,$idCompteCrediteur,$idAdmin,$sommeTransaction,$nomTransaction,$descriptionTransaction,$idTypeTransaction,$idCommande) {
+    public static function addTransaction($bdd,$idCompteDebiteur=null,$idCompteCrediteur=null,$idAdmin=null,$sommeTransaction,$nomTransaction,$descriptionTransaction,$idTypeTransaction,$idCommande=null) {
         $req = $bdd->prepare('INSERT INTO transactions(id_compte_debiteur,id_compte_crediteur,id_admin,somme_transaction,date_transaction,nom_transaction,description_transaction,id_type_transaction,id_commande) VALUES(:id_compte_debiteur,:id_compte_crediteur,:id_admin,:somme_transaction,:date_transaction,:nom_transaction,:description_transaction,:id_type_transaction,:id_commande)');
         $req->execute(array(
             'id_compte_debiteur' => $idCompteDebiteur,

@@ -31,6 +31,9 @@ class Jetons {
         $this->_bdd = $bdd;
         if($idJoueur != null) {
             $this->_idJoueur = $idJoueur;
+			if ($this->getJetonByJoueur($bdd,$idJoueur) == null) { // si le jeton n'existe pas
+				$this->addJeton();
+			}
         }
     }
 

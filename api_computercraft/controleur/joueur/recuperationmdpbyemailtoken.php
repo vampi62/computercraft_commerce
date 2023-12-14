@@ -1,4 +1,4 @@
-<?php
+<?php // 1ere etape de la recuperation de mot de passe par email
 require_once('class/joueurs.class.php');
 require_once('include/phpmailer/MailSender.php');
 require_once('class/checkdroits.class.php');
@@ -14,7 +14,8 @@ if(empty($donneesJoueur)) {
 }
 
 $resetToken = substr(md5(microtime(TRUE)*(100000+rand(1,1000))), 0, -20);
-Joueurs::setResetToken($bddConnection, $donneesJoueur['id_joueur'], $resetToken);
+$joueur = new Joueurs($bddConnection, $donneesJoueur['id_joueur']);
+$joueur->setResetToken($resetToken);
 $lien = urlencode($resetToken);
 $retourligne = "<br />";
 $to = $donneesJoueur['email_joueur'];

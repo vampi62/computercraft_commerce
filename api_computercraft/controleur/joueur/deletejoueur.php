@@ -9,5 +9,6 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
 if (Checkdroits::checkRole($bddConnection, $sessionUser['pseudoLogin'], array('admin'))) {
     return array('status_code' => 403, 'message' => 'Vous ne pouvez pas supprimer votre compte tant que vous etes admin.');
 }
-Joueurs::deleteJoueur($bddConnection, $sessionUser['idLogin']);
+$joueur = new Joueurs($bddConnection, $sessionUser['idLogin']);
+$joueur->deleteJoueur();
 return array('status_code' => 200, 'message' => 'votre compte a bien ete supprime.');

@@ -66,6 +66,16 @@ class Joueurs {
         }
     }
 
+	public function getJoueurNbrOffre() {
+		$req = $this->_bdd->prepare('SELECT max_offres_joueur FROM joueurs WHERE id_joueur = :id_joueur');
+		$req->execute(array(
+			'id_joueur' => $this->_idJoueur
+		));
+		$joueur = $req->fetch(PDO::FETCH_ASSOC);
+		$req->closeCursor();
+		return $joueur['max_offres_joueur'];
+	}
+
     // recupere l'id du joueur
     public function getIdJoueur() {
         return $this->_idJoueur;
@@ -107,7 +117,7 @@ class Joueurs {
 	}
 
 	// modifie le resettoken du joueur
-	public function setJoueurResetToken($tokenJoueur) {
+	public function setJoueurResetToken($tokenJoueur=null) {
 		$req = $this->_bdd->prepare('UPDATE joueurs SET expire_resettoken_joueur = :expire_joueur, resettoken_joueur = :token_joueur WHERE id_joueur = :id_joueur');
 		$req->execute(array(
 			'token_joueur' => $tokenJoueur,

@@ -1,4 +1,4 @@
-<?php
+<?php // 2eme etape de la recuperation de mot de passe par email
 require_once('class/joueurs.class.php');
 require_once('include/phpmailer/MailSender.php');
 require_once('class/checkdroits.class.php');
@@ -16,8 +16,7 @@ if(empty($donneesJoueur)) {
 $caracAllows = 'ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz0123456789';
 $mdp = substr(str_shuffle($caracAllows), 0, 7);
 
-Joueurs::setResetToken($bddConnection, $donneesJoueur['id_joueur'], null);
-Joueurs::setMdp($bddConnection, $donneesJoueur['id_joueur'], $mdp);
+$joueur = new Joueurs($bddConnection, $donneesJoueur['id_joueur']);
 
 $retourligne = "<br />";
 
@@ -34,7 +33,9 @@ $txt = 'Bonjour, '.$donneesJoueur['pseudo_joueur'].$retourligne
 		.'Cordialement, '.$_Serveur_['General']['name'].'.';
 
 
-if(MailSender::send($_Serveur_, $to, $subject, $txt)) {
+if(MailSender::send($_Serveur_, $to, $subject, $txt)) { // modification du mot de passe que si le mail a pu être envoyer
+	$joueur->setJoueurResetToken(null);
+	$joueur->setJoueurMdp($mdp);
 	// modif - ok
 	return array('status_code' => 200, 'message' => 'Un mail vous a ete envoye avec votre nouveau mot de passe.');
 } else {

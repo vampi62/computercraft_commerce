@@ -15,5 +15,6 @@ if (!filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)) {
 if (strlen($_GET['email']) > $_Serveur_['MaxLengthChamps']['email']) {
     return array('status_code' => 413, 'message' => 'L\'email est trop long.');
 }
-Joueurs::setJoueurEmail($bddConnection, $sessionUser['idLogin'], $_GET['email']);
+$joueur = new Joueurs($bddConnection, $sessionUser['idLogin']);
+$joueur->setJoueurEmail($_GET['email']);
 return array('status_code' => 200, 'message' => '');

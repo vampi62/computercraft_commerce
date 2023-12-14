@@ -38,6 +38,9 @@ switch(strtolower($_GET['action']))	{
     case 'getjetons':
         $printmessage = require('jeton/getjetons.php');
     break;
+    case 'getjetonbyjoueur':
+        $printmessage = require('jeton/getjetonbyjoueur.php');
+    break;
 
     //addjoueur
     //deletejoueur
@@ -81,22 +84,10 @@ switch(strtolower($_GET['action']))	{
     break;
 
     //addtransaction
-    //edittransactionstatus
-    //exectransaction
-    //execalltransactions
     //gettransactionbyid
     //gettransactionsbycompte
     case 'addtransaction':
         $printmessage = require('transaction/addtransaction.php');
-    break;
-    case 'edittransactionstatus':
-        $printmessage = require('transaction/edittransactionstatus.php');
-    break;
-    case 'exectransaction':
-        $printmessage = require('transaction/exectransaction.php');
-    break;
-    case 'execalltransactions':
-        $printmessage = require('transaction/execalltransactions.php');
     break;
     case 'gettransactionbyid':
         $printmessage = require('transaction/gettransactionbyid.php');

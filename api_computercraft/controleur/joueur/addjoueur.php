@@ -20,5 +20,6 @@ if (strlen($_GET['pseudo']) > $_Serveur_['MaxLengthChamps']['pseudo']) {
 if (strlen($_GET['email']) > $_Serveur_['MaxLengthChamps']['email']) {
     return array('status_code' => 413, 'message' => 'L\'email est trop long.');
 }
-$newid = Joueurs::addJoueur($bddConnection, $_GET['pseudo'], $_GET['email'], $_GET['mdp'], $_Serveur_['General']['nbr_offre_defaut'], 1);
-return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newid));
+$joueur = new Joueurs($bddConnection, null);
+$joueur->addJoueur($_GET['pseudo'], $_GET['email'], $_GET['mdp'], $_Serveur_['General']['nbr_offre_defaut']);
+return array('status_code' => 200, 'message' => '', 'data' => array('id' => $joueur->getIdJoueur()));
