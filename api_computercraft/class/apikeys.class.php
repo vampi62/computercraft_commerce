@@ -10,7 +10,7 @@
 // set apikey/{id}/droits/{id}/delete
 // set apikey/add
 
-class apikeys {
+class ApiKeys {
     // recupere les apikeys visible pour un joueur (si groupe a les droits)
     public static function getApiKeysWithUser($bdd,$id_joueur) {
         $req = $bdd->prepare('SELECT apikeys.*,joueurs.pseudo_joueur FROM apikeys 

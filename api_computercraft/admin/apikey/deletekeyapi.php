@@ -12,6 +12,6 @@ if (isset($sessionAdmin['status_code'])) { // si un code d'erreur est retourné 
 if (!Checkdroits::checkId($bddConnection, $_GET['id_apikey'], 'apikey')) {
     return array('status_code' => 404, 'message' => 'l\'apikey n\'existe pas.');
 }
-$apiKey = new apikeys($bddConnection, $_GET['id_apikey']);
+$apiKey = new ApiKeys($bddConnection, $_GET['id_apikey']);
 $apiKey->deleteapikey();
 return array('status_code' => 200, 'message' => 'l\'apikey a bien ete supprimee.');

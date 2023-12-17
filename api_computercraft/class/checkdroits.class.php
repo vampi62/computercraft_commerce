@@ -165,7 +165,7 @@ class Checkdroits {
     public static function checkPermObj($bdd, $idNom, $idObjet, $type, $action ,$isApi=false) {
         if ($isApi) {
             // si compte est membre d'un groupe d'on l'objet est membre (si login apikey)
-                // si groupe a les droits sur l'objet pour effectuer l'action
+                // si groupe et apikey a les droits sur l'objet pour effectuer l'action
                     // -- permet l'action
             # si api et obj sont dans un meme groupe qui permet l'action alors return true
             $req = $bdd->prepare('SELECT '.$type.'s.id_'.$type.' FROM '.$type.'s
@@ -173,8 +173,10 @@ class Checkdroits {
             INNER JOIN groupes_apikeys    ON groupes_'.$type.'s.id_groupe = groupes_apikeys.id_groupe
             INNER JOIN apikeys           ON apikeys.id_apikey = groupes_apikeys.id_apikey
             INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_'.$type.'s.id_groupe
-            INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
-            WHERE '.$type.'s.id_'.$type.' = :idobjet AND droits.nom_droit = :action AND apikeys.id_apikey = :idnom
+            INNER JOIN apikeys_droits    ON apikeys_droits.id_apikey = apikeys.id_apikey
+            INNER JOIN droits AS drgroupe  ON droits.id_droit = groupes_droits.id_droit
+            INNER JOIN droits AS drapi     ON droits.id_droit = apikeys_droits.id_droit
+            WHERE '.$type.'s.id_'.$type.' = :idobjet AND drgroupe.nom_droit = :action AND apikeys.id_apikey = :idnom
             LIMIT 1');
             $req->execute(array(
                 'idobjet' => $idObjet,
@@ -194,14 +196,8 @@ class Checkdroits {
                 // si groupe a les droits sur l'objet pour effectuer l'action
                     // -- permet l'action
             # si user et obj.proprio son identique alors return true
-            $req = $bdd->prepare('SELECT '.$type.'s.id_'.$type.' FROM '.$type.'s WHERE id_'.$type.' = :idobjet AND id_joueur = :idnom');
-            $req->execute(array(
-                'idobjet' => $idObjet,
-                'idnom' => $idNom
-            ));
-            $liste = $req->fetch(PDO::FETCH_ASSOC);
-            $req->closeCursor();
-            if (!empty($liste)) {
+            $isProprio = self::checkProprioObj($bdd, $idNom, $idObjet, $type);
+            if ($isProprio) {
                 return true;
             }
             return false;

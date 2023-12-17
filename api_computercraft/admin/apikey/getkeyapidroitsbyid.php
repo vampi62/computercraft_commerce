@@ -12,4 +12,4 @@ if (isset($sessionAdmin['status_code'])) { // si un code d'erreur est retourné 
 if (!Checkdroits::checkId($bddConnection, $_GET['id_apikey'], 'apikey')) {
     return array('status_code' => 404, 'message' => 'l\'apikey n\'existe pas.');
 }
-return array('status_code' => 200, 'message' => '', 'data' => apikeys::getDroitsByapikey($bddConnection, $_GET['id_apikey']));
+return array('status_code' => 200, 'message' => '', 'data' => ApiKeys::getDroitsByapikey($bddConnection, $_GET['id_apikey']));
