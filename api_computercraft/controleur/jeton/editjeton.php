@@ -9,6 +9,9 @@ $sessionUser = Checkdroits::checkMode($bddConnection,$_GET,array('apikey' => tru
 if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
     return $sessionUser; // error
 }
+if (!Checkdroits::checkRole($bddConnection, $sessionUser['pseudoLogin'], array('admin','terminal'))) {
+    return array('status_code' => 403, 'message' => 'Le compte n\'a pas les droits.');
+}
 $jeton = new Jetons($bddConnection, $sessionUser['idLogin']);
 $jeton->setJeton($_GET);
 return array('status_code' => 200, 'message' => 'Le jeton a bien ete modifie.');
