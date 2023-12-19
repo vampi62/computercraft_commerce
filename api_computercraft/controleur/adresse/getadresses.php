@@ -10,7 +10,7 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
     return $sessionUser; // error
 }
 if ($sessionUser['isApi']) {
-    return array('status_code' => 200, 'message' => '', 'data' => Adresses::getAdressesWithApiKey($bddConnection, $sessionUser['idLogin']));
+    return array('status_code' => 200, 'message' => '', 'data' => Adresses::getAdressesByApiKey($bddConnection, $sessionUser['idLogin']));
 } else {
-    return array('status_code' => 200, 'message' => '', 'data' => Adresses::getAdressesWithUser($bddConnection, $sessionUser['idLogin']));
+    return array('status_code' => 200, 'message' => '', 'data' => Adresses::getAdressesByUser($bddConnection, $sessionUser['idLogin']));
 }

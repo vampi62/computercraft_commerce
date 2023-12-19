@@ -12,4 +12,4 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
 if (!Checkdroits::checkProprioObj($bddConnection, $sessionUser['idLogin'], $_GET['id_offre'], 'offre')) {
     return array('status_code' => 404, 'message' => 'cette offre n\'existe pas ou ne vous appartient pas.');
 }
-return array('status_code' => 200 , 'message' => '', 'data' => Groupe::getGroupesByOffre($bddConnection, $_GET['id_offre']));
+return array('status_code' => 200 , 'message' => '', 'data' => Groupes::getGroupesByOffre($bddConnection, $_GET['id_offre']));

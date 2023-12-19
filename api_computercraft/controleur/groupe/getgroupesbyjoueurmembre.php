@@ -6,4 +6,4 @@ $sessionUser = Checkdroits::checkMode($bddConnection,$_GET,array('apikey' => fal
 if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
     return $sessionUser; // error
 }
-return array('status_code' => 200 , 'message' => '', 'data' => Groupe::getGroupesByJoueurMembre($bddConnection, $sessionUser['idLogin']));
+return array('status_code' => 200 , 'message' => '', 'data' => Groupes::getGroupesByJoueurMembre($bddConnection, $sessionUser['idLogin']));

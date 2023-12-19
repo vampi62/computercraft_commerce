@@ -10,7 +10,7 @@
 // set adresse/{id}/delete
 class Adresses {
     // recupere les adresses accessible par le joueur (lui a partient ou groupes en communs qui permet le getadresses)
-    public static function getAdressesWithUser($bdd,$idJoueur) {
+    public static function getAdressesByUser($bdd,$idJoueur) {
         $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses 
         INNER JOIN groupes_adresses ON adresses.id_adresse = groupes_adresses.id_adresse
         INNER JOIN groupes_joueurs ON groupes_adresses.id_groupe = groupes_joueurs.id_groupe
@@ -28,7 +28,7 @@ class Adresses {
     }
 
     // recupere les adresses accessible par la apikey (groupe en communs qui permet le getadresses)
-    public static function getAdressesWithApiKey($bdd,$idApiKey) {
+    public static function getAdressesByApiKey($bdd,$idApiKey) {
         $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur, livreurs.nom_livreur FROM adresses
         INNER JOIN groupes_adresses ON adresses.id_adresse = groupes_adresses.id_adresse
         INNER JOIN groupes_apikeys ON groupes_adresses.id_groupe = groupes_apikeys.id_groupe
