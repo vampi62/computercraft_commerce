@@ -7,7 +7,7 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
     return $sessionUser; // error
 }
 if ($sessionUser['isApi']) {
-    return array('status_code' => 200, 'message' => '' ,'data' => Comptes::getComptesWithApiKey($bddConnection, $sessionUser['idLogin']));
+    return array('status_code' => 200, 'message' => '' ,'data' => Comptes::getComptesByApiKey($bddConnection, $sessionUser['idLogin']));
 } else {
-    return array('status_code' => 200, 'message' => '' ,'data' => Comptes::getComptesWithUser($bddConnection, $sessionUser['idLogin']));
+    return array('status_code' => 200, 'message' => '' ,'data' => Comptes::getComptesByUser($bddConnection, $sessionUser['idLogin']));
 }

@@ -12,4 +12,4 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
 if (!Checkdroits::checkProprioObj($bddConnection, $sessionUser['idLogin'], $_GET['id_apikey'], 'apikey')) {
     return array('status_code' => 404, 'message' => 'cette apikey n\'existe pas ou ne vous appartient pas.');
 }
-return array('status_code' => 200 , 'message' => '', 'data' => Groupe::getGroupesByApiKey($bddConnection, $_GET['id_apikey']));
+return array('status_code' => 200 , 'message' => '', 'data' => Groupes::getGroupesByApiKey($bddConnection, $_GET['id_apikey']));

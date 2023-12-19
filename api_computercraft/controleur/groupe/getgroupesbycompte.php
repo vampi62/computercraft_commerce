@@ -12,4 +12,4 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
 if (!Checkdroits::checkProprioObj($bddConnection, $sessionUser['idLogin'], $_GET['id_compte'], 'compte')) {
     return array('status_code' => 404, 'message' => 'ce compte n\'existe pas ou ne vous appartient pas.');
 }
-return array('status_code' => 200 , 'message' => '', 'data' => Groupe::getGroupesByCompte($bddConnection, $_GET['id_compte']));
+return array('status_code' => 200 , 'message' => '', 'data' => Groupes::getGroupesByCompte($bddConnection, $_GET['id_compte']));

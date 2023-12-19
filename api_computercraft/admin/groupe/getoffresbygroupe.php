@@ -12,4 +12,4 @@ if (isset($sessionAdmin['status_code'])) { // si un code d'erreur est retourné 
 if (!Checkdroits::checkId($bddConnection, $_GET['id_groupe'], 'groupe')) {
     return array('status_code' => 404, 'message' => 'Le groupe n\'existe pas.');
 }
-return array('status_code' => 200 , 'message' => '', 'data' => Groupe::getOffresByGroupe($bddConnection, $_GET['id_groupe']));
+return array('status_code' => 200 , 'message' => '', 'data' => Groupes::getOffresByGroupe($bddConnection, $_GET['id_groupe']));
