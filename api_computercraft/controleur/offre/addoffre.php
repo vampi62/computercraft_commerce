@@ -7,7 +7,7 @@ require_once('class/adresses.class.php');
 if (!Checkdroits::checkArgs($_GET,array('id_compte' => true, 'id_adresse' => true, 'id_type_offre' => false, 'prix' => true, 'description' => true, 'nom' => true, 'stock' => true))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-$sessionUser = Checkdroits::checkMode($bddConnection,$_GET,array('apikey' => true,'user' => true));
+$sessionUser = Checkdroits::checkMode($bddConnection,$_GET,array('apikey' => false,'user' => true));
 if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
     return $sessionUser; // error
 }
