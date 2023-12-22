@@ -4,7 +4,7 @@
 // get keypay/{id_offre}
 // set keypay/add
 
-class Keypay {
+class Keypays {
     // recupere une keypay par sa cle
     public static function getKeypayByKey($bdd,$cleKeyPay) {
         // recupere la keypay
