@@ -126,6 +126,20 @@ class Checkdroits {
         return true;
     }
 
+    // genere un mot de passe aleatoire securise
+    public static function generatePassword($length = 16) {
+        $chars = 'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ0123456789';
+        $count = mb_strlen($chars);
+        for ($i = 0, $result = ''; $i < $length; $i++) {
+            $index = rand(0, $count - 1);
+            $result .= mb_substr($chars, $index, 1);
+        }
+        if (!self::checkPasswordSecu($result)) {
+            return self::generatePassword($length);
+        }
+        return $result;
+    }
+
     // verifie le token du compte 
 	public function checkToken($bdd, $pseudoJoueur, $token) {
         $req = $bdd->prepare('SELECT resettoken_joueur FROM joueurs WHERE pseudo_joueur = :pseudo_joueur AND resettoken_joueur IS NOT NULL');

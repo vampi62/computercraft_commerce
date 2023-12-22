@@ -12,9 +12,6 @@ $sessionAdmin = Checkdroits::checkAdmin($bddConnection,$_GET);
 if (isset($sessionAdmin['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
     return $sessionAdmin; // error
 }
-if (!Checkdroits::checkId($bddConnection, $_GET['id_offre'], 'offre')) {
-    return array('status_code' => 404, 'message' => 'L\'offre n\'existe pas.');
-}
 // si pas de retour alors l'offre n'existe pas ou est inactive
 $offre = Offres::getOffreById($bddConnection, $_GET['id_offre'], true);
 if (empty($offre['id_offre'])) {
@@ -43,10 +40,10 @@ if (!is_numeric($_GET['prixu'])) {
 if (!is_numeric($_GET['frait'])) {
     return array('status_code' => 400, 'message' => 'Les frais de port doivent être un nombre.');
 }
-if ($_GET['quant'] < 1) {
+if ($_GET['quant'] <= 0) {
     return array('status_code' => 400, 'message' => 'La quantite doit être superieur a 0.');
 }
-if ($_GET['prixu'] < 0) {
+if ($_GET['prixu'] <= 0) {
     return array('status_code' => 400, 'message' => 'Le prix unitaire doit être superieur a 0.');
 }
 if ($_GET['frait'] <= 0) {
@@ -59,7 +56,7 @@ if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
     return array('status_code' => 413, 'message' => 'Le nom de la commande est trop long.');
 }
 if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description']) {
-    return array('status_code' => 413, 'message' => 'Le nom de la commande est trop long.');
+    return array('status_code' => 413, 'message' => 'La description de la commande est trop long.');
 }
 if (strlen($_GET['code_retrait_commande']) > $_Serveur_['MaxLengthChamps']['code']) {
     return array('status_code' => 413, 'message' => 'Le code retrait est trop long.');
