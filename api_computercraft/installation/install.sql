@@ -97,7 +97,8 @@ INSERT INTO `chemins_type_commandes` (`id_chemin_type_commandes`, `client_chemin
 (14, 1, 0, 0, 0, 1, 14),
 (15, 1, 0, 0, 0, 3, 14),
 (16, 1, 0, 0, 0, 5, 14),
-(17, 1, 0, 0, 0, 6, 14);
+(17, 1, 0, 0, 0, 6, 14),
+(18, 0, 1, 0, 0, 15, 16);
 
 -- --------------------------------------------------------
 
@@ -409,7 +410,9 @@ INSERT INTO `type_commandes` (`id_type_commande`, `nom_type_commande`) VALUES
 (11, 'valider'),
 (12, 'refuser'),
 (13, 'litige'),
-(14, 'annuler');
+(14, 'annuler'),
+(15, 'commande direct en attente'),
+(16, 'commande direct terminer');
 
 -- --------------------------------------------------------
 

@@ -37,12 +37,49 @@ switch(strtolower($_GET['action']))	{
     case 'getadressesbyjoueur':
         $printmessage = require('adresse/getadressesbyjoueur.php');
     break;
+
+    //addapikey
+    //addapikeydroit
+    //deleteapikey
+    //deleteapikeydroit
+    //editapikeymdp
+    //editapikeynom
+    //getapikeybyid
+    //getapikeydroitsbyid
+    //getapikeysbyjoueur
+    case 'addapikey':
+        $printmessage = require('apikey/addapikey.php');
+    break;
+    case 'addapikeydroit':
+        $printmessage = require('apikey/addapikeydroit.php');
+    break;
+    case 'deleteapikey':
+        $printmessage = require('apikey/deleteapikey.php');
+    break;
+    case 'deleteapikeydroit':
+        $printmessage = require('apikey/deleteapikeydroit.php');
+    break;
+    case 'editapikeymdp':
+        $printmessage = require('apikey/editapikeymdp.php');
+    break;
+    case 'editapikeynom':
+        $printmessage = require('apikey/editapikeynom.php');
+    break;
+    case 'getapikeybyid':
+        $printmessage = require('apikey/getapikeybyid.php');
+    break;
+    case 'getapikeydroitsbyid':
+        $printmessage = require('apikey/getapikeydroitsbyid.php');
+    break;
+    case 'getapikeysbyjoueur':
+        $printmessage = require('apikey/getapikeysbyjoueur.php');
+    break;
     
     //addcommande
     //editcommandecoderetrait
     //editcommandedatelivraison
-    //editcommandestatus
     //editcommandelivreur
+    //editcommandestatus
     //getcommandebyid
     //getcommandesbyadresse
     //getcommandesbyadresseclient
@@ -62,11 +99,11 @@ switch(strtolower($_GET['action']))	{
     case 'editcommandedatelivraison':
         $printmessage = require('commande/editcommandedatelivraison.php');
     break;
-    case 'editcommandestatus':
-        $printmessage = require('commande/editcommandestatus.php');
-    break;
     case 'editcommandelivreur':
         $printmessage = require('commande/editcommandelivreur.php');
+    break;
+    case 'editcommandestatus':
+        $printmessage = require('commande/editcommandestatus.php');
     break;
     case 'getcommandebyid':
         $printmessage = require('commande/getcommandebyid.php');
@@ -120,24 +157,66 @@ switch(strtolower($_GET['action']))	{
         $printmessage = require('compte/getcomptesbyjoueur.php');
     break;
 
+    //getenderstorageschest
+    //getenderstorageschestbyid
+    //getenderstorageschestbyjoueur
+    //getenderstorageschestdispo
+    //getenderstoragestank
+    //getenderstoragestankbyid
+    //getenderstoragestankbyjoueur
+    //getenderstoragestankdispo
+    //setenderstorageschest
+    //setenderstoragestank
+    case 'getenderstorageschest':
+        $printmessage = require('enderstorage/getenderstorageschest.php');
+    break;
+    case 'getenderstorageschestbyid':
+        $printmessage = require('enderstorage/getenderstorageschestbyid.php');
+    break;
+    case 'getenderstorageschestbyjoueur':
+        $printmessage = require('enderstorage/getenderstorageschestbyjoueur.php');
+    break;
+    case 'getenderstorageschestdispo':
+        $printmessage = require('enderstorage/getenderstorageschestdispo.php');
+    break;
+    case 'getenderstoragestank':
+        $printmessage = require('enderstorage/getenderstoragestank.php');
+    break;
+    case 'getenderstoragestankbyid':
+        $printmessage = require('enderstorage/getenderstoragestankbyid.php');
+    break;
+    case 'getenderstoragestankbyjoueur':
+        $printmessage = require('enderstorage/getenderstoragestankbyjoueur.php');
+    break;
+    case 'getenderstoragestankdispo':
+        $printmessage = require('enderstorage/getenderstoragestankdispo.php');
+    break;
+    case 'setenderstorageschest':
+        $printmessage = require('enderstorage/setenderstorageschest.php');
+    break;
+    case 'setenderstoragestank':
+        $printmessage = require('enderstorage/setenderstoragestank.php');
+    break;
+
+    //addgroupe
     //addgroupeadresse
     //addgroupeapikey
     //addgroupecompte
     //addgroupedroit
-    //addgroupe
     //addgroupejoueur
     //addgroupelivreur
     //addgroupeoffre
+    //deletegroupe
     //deletegroupeadresse
     //deletegroupeapikey
     //deletegroupecompte
     //deletegroupedroit
-    //deletegroupe
     //deletegroupejoueur
     //deletegroupelivreur
     //deletegroupeoffre
     //editgroupenom
     //getadressesbygroupe
+    //getapikeysbygroupe
     //getcomptesbygroupe
     //getdroitsbygroupe
     //getgroupebyid
@@ -149,9 +228,11 @@ switch(strtolower($_GET['action']))	{
     //getgroupesbylivreur
     //getgroupesbyoffre
     //getjoueursbygroupe
-    //getapikeysbygroupe
     //getlivreursbygroupe
     //getoffresbygroupe
+    case 'addgroupe':
+        $printmessage = require('groupe/addgroupe.php');
+    break;
     case 'addgroupeadresse':
         $printmessage = require('groupe/addgroupeadresse.php');
     break;
@@ -164,9 +245,6 @@ switch(strtolower($_GET['action']))	{
     case 'addgroupedroit':
         $printmessage = require('groupe/addgroupedroit.php');
     break;
-    case 'addgroupe':
-        $printmessage = require('groupe/addgroupe.php');
-    break;
     case 'addgroupejoueur':
         $printmessage = require('groupe/addgroupejoueur.php');
     break;
@@ -175,6 +253,9 @@ switch(strtolower($_GET['action']))	{
     break;
     case 'addgroupeoffre':
         $printmessage = require('groupe/addgroupeoffre.php');
+    break;
+    case 'deletegroupe':
+        $printmessage = require('groupe/deletegroupe.php');
     break;
     case 'deletegroupeadresse':
         $printmessage = require('groupe/deletegroupeadresse.php');
@@ -187,9 +268,6 @@ switch(strtolower($_GET['action']))	{
     break;
     case 'deletegroupedroit':
         $printmessage = require('groupe/deletegroupedroit.php');
-    break;
-    case 'deletegroupe':
-        $printmessage = require('groupe/deletegroupe.php');
     break;
     case 'deletegroupejoueur':
         $printmessage = require('groupe/deletegroupejoueur.php');
@@ -205,6 +283,9 @@ switch(strtolower($_GET['action']))	{
     break;
     case 'getadressesbygroupe':
         $printmessage = require('groupe/getadressesbygroupe.php');
+    break;
+    case 'getapikeysbygroupe':
+        $printmessage = require('groupe/getapikeysbygroupe.php');
     break;
     case 'getcomptesbygroupe':
         $printmessage = require('groupe/getcomptesbygroupe.php');
@@ -239,9 +320,6 @@ switch(strtolower($_GET['action']))	{
     case 'getjoueursbygroupe':
         $printmessage = require('groupe/getjoueursbygroupe.php');
     break;
-    case 'getapikeysbygroupe':
-        $printmessage = require('groupe/getapikeysbygroupe.php');
-    break;
     case 'getlivreursbygroupe':
         $printmessage = require('groupe/getlivreursbygroupe.php');
     break;
@@ -249,14 +327,10 @@ switch(strtolower($_GET['action']))	{
         $printmessage = require('groupe/getoffresbygroupe.php');
     break;
 
-    //addjeton
     //deletejeton
     //editjeton
     //getjetonbyjoueur
     //getjetons
-    case 'addjeton':
-        $printmessage = require('jeton/addjeton.php');
-    break;
     case 'deletejeton':
         $printmessage = require('jeton/deletejeton.php');
     break;
@@ -309,43 +383,6 @@ switch(strtolower($_GET['action']))	{
     break;
     case 'getjoueurs':
         $printmessage = require('joueur/getjoueurs.php');
-    break;
-
-    //addapikey
-    //deleteapikey
-    //addapikeydroit
-    //deleteapikeydroit
-    //editapikeymdp
-    //editapikeynom
-    //getapikeybyid
-    //getapikeydroitsbyid
-    //getapikeysbyjoueur
-    case 'addapikey':
-        $printmessage = require('apikey/addapikey.php');
-    break;
-    case 'deleteapikey':
-        $printmessage = require('apikey/deleteapikey.php');
-    break;
-    case 'addapikeydroit':
-        $printmessage = require('apikey/addapikeydroit.php');
-    break;
-    case 'deleteapikeydroit':
-        $printmessage = require('apikey/deleteapikeydroit.php');
-    break;
-    case 'editapikeymdp':
-        $printmessage = require('apikey/editapikeymdp.php');
-    break;
-    case 'editapikeynom':
-        $printmessage = require('apikey/editapikeynom.php');
-    break;
-    case 'getapikeybyid':
-        $printmessage = require('apikey/getapikeybyid.php');
-    break;
-    case 'getapikeydroitsbyid':
-        $printmessage = require('apikey/getapikeydroitsbyid.php');
-    break;
-    case 'getapikeysbyjoueur':
-        $printmessage = require('apikey/getapikeysbyjoueur.php');
     break;
 
     //getkeypaybyid
@@ -483,6 +520,27 @@ switch(strtolower($_GET['action']))	{
     break;
     case 'gettransactionsbycompte':
         $printmessage = require('transaction/gettransactionsbycompte.php');
+    break;
+
+    //getwireless
+    //getwirelessbyid
+    //getwirelessbyjoueur
+    //getwirelessdispo
+    //setwireless
+    case 'getwireless':
+        $printmessage = require('wireless/getwireless.php');
+    break;
+    case 'getwirelessbyid':
+        $printmessage = require('wireless/getwirelessbyid.php');
+    break;
+    case 'getwirelessbyjoueur':
+        $printmessage = require('wireless/getwirelessbyjoueur.php');
+    break;
+    case 'getwirelessdispo':
+        $printmessage = require('wireless/getwirelessdispo.php');
+    break;
+    case 'setwireless':
+        $printmessage = require('wireless/setwireless.php');
     break;
     default:
         $printmessage = array('status_code' => 400, 'message' => 'Action non definie.');
