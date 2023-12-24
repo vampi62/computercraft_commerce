@@ -17,6 +17,12 @@ if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['id
 if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_livreur'], 'livreur', 'getlitigemsgsbycommande', $sessionUser['isApi'])) {
     $permitAction = true;
 }
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_compte_vendeur'], 'compte', 'getlitigemsgsbycommande', $sessionUser['isApi'])) {
+    $permitAction = true;
+}
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_adresse_vendeur'], 'adresse', 'getlitigemsgsbycommande', $sessionUser['isApi'])) {
+    $permitAction = true;
+}
 if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_compte_client'], 'compte', 'getlitigemsgsbycommande', $sessionUser['isApi'])) {
     $permitAction = true;
 }

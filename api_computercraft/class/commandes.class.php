@@ -139,6 +139,22 @@ class Commandes {
         return $commandes;
     }
 
+    // recupere les commandes sans livreur et avec le status
+    public static function getCommandesByStatusAndNoLivreur($bdd,$idTypeCommande) {
+        $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client FROM commandes 
+        LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
+        LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
+        LEFT JOIN adresses AS advendeur ON commandes.id_adresse_vendeur = advendeur.id_adresse
+        LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
+        WHERE commandes.id_type_commande = :id_type_commande AND commandes.id_livreur IS NULL');
+        $req->execute(array(
+            'id_type_commande' => $idTypeCommande
+        ));
+        $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
+        $req->closeCursor();
+        return $commandes;
+    }
+
     // recupere les commandes ayant cette offre
     public static function getCommandesByOffre($bdd,$idOffre) {
         $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
@@ -258,8 +274,8 @@ class Commandes {
     }
 
     // ajoute une commande
-    public function addCommande($nomCommande,$quantiteCommande,$prixUnitaireCommande,$fraitLivraisonCommande,$descriptionCommande,$codeRetraitCommande,$idAdresseVendeur,$idAdresseClient,$idOffre,$idCompteVendeur,$idCompteClient) {
-        $req = $this->_bdd->prepare('INSERT INTO commandes(nom_commande,quantite_commande,prix_unitaire_commande,frait_livraison_commande,description_commande,suivi_commande,date_commande_commande,code_retrait_commande,id_adresse_vendeur,id_adresse_client,id_offre,id_compte_vendeur,id_compte_client,id_type_commande) VALUES(:nom_commande,:quantite_commande,:prix_unitaire_commande,:frait_livraison_commande,:description_commande,:suivi_commande,:date_commande_commande,:code_retrait_commande,:id_adresse_vendeur,:id_adresse_client,:id_offre,:id_compte_vendeur,:id_compte_client,1)');
+    public function addCommande($nomCommande,$quantiteCommande,$prixUnitaireCommande,$fraitLivraisonCommande,$descriptionCommande,$codeRetraitCommande,$idAdresseVendeur,$idAdresseClient,$idOffre,$idCompteVendeur,$idCompteClient,$typeCommande) {
+        $req = $this->_bdd->prepare('INSERT INTO commandes(nom_commande,quantite_commande,prix_unitaire_commande,frait_livraison_commande,description_commande,suivi_commande,date_commande_commande,code_retrait_commande,id_adresse_vendeur,id_adresse_client,id_offre,id_compte_vendeur,id_compte_client,id_type_commande) VALUES(:nom_commande,:quantite_commande,:prix_unitaire_commande,:frait_livraison_commande,:description_commande,:suivi_commande,:date_commande_commande,:code_retrait_commande,:id_adresse_vendeur,:id_adresse_client,:id_offre,:id_compte_vendeur,:id_compte_client,:id_type_commande)');
         $req->execute(array(
             'nom_commande' => $nomCommande,
             'quantite_commande' => $quantiteCommande,
@@ -273,7 +289,8 @@ class Commandes {
             'id_adresse_client' => $idAdresseClient,
             'id_offre' => $idOffre,
             'id_compte_vendeur' => $idCompteVendeur,
-            'id_compte_client' => $idCompteClient
+            'id_compte_client' => $idCompteClient,
+            'id_type_commande' => $typeCommande
         ));
         $this->_idCommande = $this->_bdd->lastInsertId();
     }
