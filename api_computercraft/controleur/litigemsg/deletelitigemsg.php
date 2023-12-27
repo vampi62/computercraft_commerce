@@ -11,22 +11,22 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
 }
 $commande = Commandes::getCommandeById($bddConnection, $_GET['id_commande']);
 $permitAction = false;
-if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_offre'], 'offre', 'getlitigemsgsbycommande', $sessionUser['isApi'])) {
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_offre'], 'offre', 'editLitigeMsgsByCommandeVendeur', $sessionUser['isApi'])) {
     $permitAction = true;
 }
-if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_livreur'], 'livreur', 'getlitigemsgsbycommande', $sessionUser['isApi'])) {
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_livreur'], 'livreur', 'editLitigeMsgsByCommandeLivreur', $sessionUser['isApi'])) {
     $permitAction = true;
 }
-if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_compte_vendeur'], 'compte', 'getlitigemsgsbycommande', $sessionUser['isApi'])) {
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_compte_vendeur'], 'compte', 'editLitigeMsgsByCommandeVendeur', $sessionUser['isApi'])) {
     $permitAction = true;
 }
-if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_adresse_vendeur'], 'adresse', 'getlitigemsgsbycommande', $sessionUser['isApi'])) {
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_adresse_vendeur'], 'adresse', 'editLitigeMsgsByCommandeVendeur', $sessionUser['isApi'])) {
     $permitAction = true;
 }
-if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_compte_client'], 'compte', 'getlitigemsgsbycommande', $sessionUser['isApi'])) {
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_compte_client'], 'compte', 'editLitigeMsgsByCommandeClient', $sessionUser['isApi'])) {
     $permitAction = true;
 }
-if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_adresse_client'], 'adresse', 'getlitigemsgsbycommande', $sessionUser['isApi'])) {
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_adresse_client'], 'adresse', 'editLitigeMsgsByCommandeClient', $sessionUser['isApi'])) {
     $permitAction = true;
 }
 if (!$permitAction) {

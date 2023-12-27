@@ -19,7 +19,7 @@ if ($commande['id_livreur'] != null) {
 if ($commande['id_type_commande'] != 6) { // 6 = en attente de livreur
     return array('status_code' => 403, 'message' => 'La commande n\'est pas en attente de livreur.');
 }
-if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_livreur'], 'livreur', 'validecommande', $sessionUser['isApi'])) {
+if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_livreur'], 'livreur', 'livreurValideNewCommande', $sessionUser['isApi'])) {
     return array('status_code' => 403, 'message' => 'Vous n\'avez pas les droits pour effectuer cette action.');
 }
 $suivi = $sessionAdmin['pseudoLogin'].' a accepter la livraison de la commande par le livreur : '. $_GET['id_livreur'];

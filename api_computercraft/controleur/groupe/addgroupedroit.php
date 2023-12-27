@@ -1,6 +1,7 @@
 <?php
 require_once('class/checkdroits.class.php');
 require_once('class/groupes.class.php');
+require_once('class/droits.class.php');
 
 if (!Checkdroits::checkArgs($_GET,array('id_groupe' => false, 'id_droit' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
@@ -12,8 +13,12 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
 if (!Checkdroits::checkProprioObj($bddConnection, $sessionUser['idLogin'], $_GET['id_groupe'], 'groupe')) {
     return array('status_code' => 403, 'message' => 'Vous n\'avez pas les droits pour ajouter un droit a ce groupe.');
 }
-if (!Checkdroits::checkId($bddConnection, $_GET['id_droit'], 'droit')) {
+$droit = Droits::getDroitById($bddConnection, $_GET['id_droit']);
+if (empty($droit)) {
     return array('status_code' => 404, 'message' => 'Le droit n\'existe pas.');
+}
+if ($droit['groupe_droit'] != 1) {
+    return array('status_code' => 403, 'message' => 'Ce droit n\'est pas un droit de groupe.');
 }
 $groupe = new Groupes($bddConnection, $_GET['id_groupe']);
 $groupe->addGroupeDroit($_GET['id_droit']);

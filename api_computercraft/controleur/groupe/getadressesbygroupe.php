@@ -9,7 +9,7 @@ $sessionUser = Checkdroits::checkMode($bddConnection,$_GET,array('apikey' => tru
 if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
     return $sessionUser; // error
 }
-if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_groupe'], 'groupe', 'getgroupeadresses', $sessionUser['isApi'])) {
+if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_groupe'], 'groupe', 'getAdresses', $sessionUser['isApi'])) {
     return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
 }
 return array('status_code' => 200 , 'message' => '', 'data' => Groupes::getAdressesByGroupe($bddConnection, $_GET['id_groupe']));

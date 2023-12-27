@@ -6,14 +6,17 @@
 
 class Transactions {
     // recupere les transaction en attente
-    public static function getTransactionsEnAttente($bdd) {
+    public static function getTransactionsByCompteAndCommande($bdd,$idCompte,$idCommande) {
         $req = $bdd->prepare('SELECT transactions.*, codebit.nom_compte as nom_compte_debiteur, cocred.nom_compte as nom_compte_crediteur, commandes.nom_commande FROM transactions 
         LEFT JOIN comptes AS codebit ON transactions.id_compte_debiteur = codebit.id_compte
         LEFT JOIN comptes AS cocred ON transactions.id_compte_crediteur = cocred.id_compte
         LEFT JOIN joueurs ON transactions.id_admin = joueurs.id_joueur
-        LEFT JOIN commandes ON transactions.id_commande = commandes.id_commande
-        WHERE transactions.id_type_transaction = 1');
-        $req->execute();
+        INNER JOIN commandes ON transactions.id_commande = commandes.id_commande
+        WHERE (transactions.id_compte_debiteur = :id_compte OR transactions.id_compte_crediteur = :id_compte) AND transactions.id_commande = :id_commande');
+        $req->execute(array(
+            'id_compte' => $idCompte,
+            'id_commande' => $idCommande
+        ));
         $transactions = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $transactions;

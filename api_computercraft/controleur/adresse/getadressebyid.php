@@ -9,7 +9,7 @@ $sessionUser = Checkdroits::checkMode($bddConnection,$_GET,array('apikey' => tru
 if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
     return $sessionUser; // error
 }
-if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_adresse'], 'adresse', "getadresse", $sessionUser['isApi'])) {
+if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_adresse'], 'adresse', "getAdresses", $sessionUser['isApi'])) {
     return array('status_code' => 404, 'message' => 'cette adresse n\'existe pas ou ne vous appartient pas.');
 }
 return array('status_code' => 200, 'message' => '', 'data' => Adresses::getAdresseById($bddConnection, $_GET['id_adresse']));

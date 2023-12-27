@@ -22,7 +22,7 @@ class ApiKeys {
         WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (apikeys.id_joueur = :id_joueur)');
         $req->execute(array(
             'id_joueur' => $id_joueur,
-            'nom_droit' => "getapikeys"
+            'nom_droit' => "getApiKeys"
         ));
         $apikeys = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();

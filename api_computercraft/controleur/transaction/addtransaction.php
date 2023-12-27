@@ -21,6 +21,11 @@ if (!empty($_GET['userbanque']) && !empty($_GET['mdpbanque'])) {
         return array('status_code' => 403, 'message' => 'Le compte n\'a pas les droits.');
     }
 }
+if ($sessionUser['isApi']) {
+    if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $sessionUser['idLogin'], 'apikey', 'addTransactionViaApiKey', $sessionUser['isApi'])) {
+        return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
+    }
+}
 if (!Checkdroits::checkId($bddConnection, $_GET['id_type_transaction'], 'type_transaction')) {
     return array('status_code' => 404, 'message' => 'Le type de transaction n\'existe pas.');
 }
