@@ -15,8 +15,8 @@ $transaction = Transactions::getTransactionById($bddConnection, $_GET['id_transa
 if (empty($transaction)) {
     return array('status_code' => 404, 'message' => 'La transaction n\'existe pas.');
 }
-if (Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $transaction['id_compte_crediteur'], 'compte', 'gettransactions')) {
-} elseif (Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $transaction['id_compte_debiteur'], 'compte', 'gettransactions')) {
+if (Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $transaction['id_compte_crediteur'], 'compte', 'getTransactionsByCompte')) {
+} elseif (Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $transaction['id_compte_debiteur'], 'compte', 'getTransactionsByCompte')) {
 } else {
     return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission de voir cette transaction.');
 }

@@ -154,6 +154,72 @@ CREATE TABLE `droits` (
   `apikey_droit` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `droits`
+--
+
+INSERT INTO `droits` (`id_droit`, `nom_droit`, `fonction_droit`, `groupe_droit`, `apikey_droit`) VALUES
+(1, 'getAdresses', 'getAdresses', 1, 1),
+(2, 'getApiKeys', 'getApiKeys', 1, 1),
+(3, 'getComptes', 'getComptes', 1, 1),
+(4, 'getDroits', 'getDroits', 1, 1),
+(5, 'getApiKeysDroits', 'getApiKeysDroits', 1, 1),
+(6, 'getGroupes', 'getGroupes', 1, 1),
+(7, 'getJoueurs', 'getJoueurs', 1, 1),
+(8, 'getLivreurs', 'getLivreurs', 1, 1),
+(9, 'getOffres', 'getOffres', 1, 1),
+(10, 'editCompteNom', 'editCompteNom', 1, 1),
+(11, 'editAdresseNom', 'editAdresseNom', 1, 1),
+(12, 'editAdresseDescription', 'editAdresseDescription', 1, 1),
+(13, 'editAdresseCoo', 'editAdresseCoo', 1, 1),
+(14, 'addKeyPay', 'addKeyPay', 1, 1),
+(15, 'getKeyPaysByOffre', 'getKeyPaysByOffre', 1, 1),
+(16, 'addTransactionViaApiKey', 'addTransactionViaApiKey', 1, 1),
+(17, 'getTransactionsByCompte', 'getTransactionsByCompte', 1, 1),
+(18, 'getTransactionsByCompteAndCommande', 'getTransactionsByCompteAndCommande', 1, 1),
+(19, 'addAdresseToOffre', 'addAdresseToOffre', 1, 1),
+(20, 'addCompteToOffre', 'addCompteToOffre', 1, 1),
+(21, 'editOffreAdresse', 'editOffreAdresse', 1, 1),
+(22, 'editOffreCompte', 'editOffreCompte', 1, 1),
+(23, 'editOffreDescription', 'editOffreDescription', 1, 1),
+(24, 'editOffreNom', 'editOffreNom', 1, 1),
+(25, 'editOffrePrix', 'editOffrePrix', 1, 1),
+(26, 'editOffreStock', 'editOffreStock', 1, 1),
+(27, 'editOffreType', 'editOffreType', 1, 1),
+(28, 'getOffresByAdresse', 'getOffresByAdresse', 1, 1),
+(29, 'getOffresByCompte', 'getOffresByCompte', 1, 1),
+(30, 'addAdresseToLivreur', 'addAdresseToLivreur', 1, 1),
+(31, 'addCompteToLivreur', 'addCompteToLivreur', 1, 1),
+(32, 'editLivreurAdresse', 'editLivreurAdresse', 1, 1),
+(33, 'editLivreurCompte', 'editLivreurCompte', 1, 1),
+(34, 'editLivreurNom', 'editLivreurNom', 1, 1),
+(35, 'getLivreursByAdresse', 'getLivreursByAdresse', 1, 1),
+(36, 'getLivreursByCompte', 'getLivreursByCompte', 1, 1),
+(37, 'addCommandeViaApiKey', 'addCommandeViaApiKey', 1, 1),
+(38, 'addAdresseToCommande', 'addAdresseToCommande', 1, 1),
+(39, 'addCompteToCommande', 'addCompteToCommande', 1, 1),
+(40, 'livreurValideNewCommande', 'livreurValideNewCommande', 1, 1),
+(41, 'clientEditStatusCommande', 'clientEditStatusCommande', 1, 1),
+(42, 'livreurEditStatusCommande', 'livreurEditStatusCommande', 1, 1),
+(43, 'vendeurEditStatusCommande', 'vendeurEditStatusCommande', 1, 1),
+(44, 'clientGetCommande', 'clientGetCommande', 1, 1),
+(45, 'livreurGetCommande', 'livreurGetCommande', 1, 1),
+(46, 'vendeurGetCommande', 'vendeurGetCommande', 1, 1),
+(47, 'getCommandeByAdresse', 'getCommandeByAdresse', 1, 1),
+(48, 'getCommandeByAdresseClient', 'getCommandeByAdresseClient', 1, 1),
+(49, 'getCommandeByAdresseVendeur', 'getCommandeByAdresseVendeur', 1, 1),
+(50, 'getCommandeByCompte', 'getCommandeByCompte', 1, 1),
+(51, 'getCommandeByCompteClient', 'getCommandeByCompteClient', 1, 1),
+(52, 'getCommandeByCompteVendeur', 'getCommandeByCompteVendeur', 1, 1),
+(53, 'getCommandeByLivreur', 'getCommandeByLivreur', 1, 1),
+(54, 'getCommandeByOffre', 'getCommandeByOffre', 1, 1),
+(55, 'editLitigeMsgsByCommandeClient', 'editLitigeMsgsByCommandeClient', 1, 1),
+(56, 'editLitigeMsgsByCommandeLivreur', 'editLitigeMsgsByCommandeLivreur', 1, 1),
+(57, 'editLitigeMsgsByCommandeVendeur', 'editLitigeMsgsByCommandeVendeur', 1, 1),
+(58, 'getLitigeMsgsByCommandeClient', 'getLitigeMsgsByCommandeClient', 1, 1),
+(59, 'getLitigeMsgsByCommandeLivreur', 'getLitigeMsgsByCommandeLivreur', 1, 1),
+(60, 'getLitigeMsgsByCommandeVendeur', 'getLitigeMsgsByCommandeVendeur', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -803,7 +869,7 @@ ALTER TABLE `comptes`
 -- AUTO_INCREMENT pour la table `droits`
 --
 ALTER TABLE `droits`
-  MODIFY `id_droit` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_droit` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT pour la table `groupes`

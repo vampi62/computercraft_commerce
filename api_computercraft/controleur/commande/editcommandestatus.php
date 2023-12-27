@@ -26,32 +26,32 @@ if ($sessionUser['isApi']) {
         }
     }
 }
-if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_offre'], 'offre', 'editstatuscommande', $sessionUser['isApi'])) {
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_offre'], 'offre', 'vendeurEditStatusCommande', $sessionUser['isApi'])) {
     if (Checkdroits::checkCheminTypeCommande($bddConnection, $_GET['id_type_commande'], $commande['id_type_commande'], 'vendeur')) {
         $permitAction = true;
     }
 }
-if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_compte_vendeur'], 'compte', 'editstatuscommande', $sessionUser['isApi'])) {
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_compte_vendeur'], 'compte', 'vendeurEditStatusCommande', $sessionUser['isApi'])) {
     if (Checkdroits::checkCheminTypeCommande($bddConnection, $_GET['id_type_commande'], $commande['id_type_commande'], 'vendeur')) {
         $permitAction = true;
     }
 }
-if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_adresse_vendeur'], 'adresse', 'editstatuscommande', $sessionUser['isApi'])) {
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_adresse_vendeur'], 'adresse', 'vendeurEditStatusCommande', $sessionUser['isApi'])) {
     if (Checkdroits::checkCheminTypeCommande($bddConnection, $_GET['id_type_commande'], $commande['id_type_commande'], 'vendeur')) {
         $permitAction = true;
     }
 }
-if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_livreur'], 'livreur', 'editstatuscommande', $sessionUser['isApi'])) {
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_livreur'], 'livreur', 'livreurEditStatusCommande', $sessionUser['isApi'])) {
     if (Checkdroits::checkCheminTypeCommande($bddConnection, $_GET['id_type_commande'], $commande['id_type_commande'], 'livreur')) {
         $permitAction = true;
     }
 }
-if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_compte_client'], 'compte', 'editstatuscommande', $sessionUser['isApi'])) {
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_compte_client'], 'compte', 'clientEditStatusCommande', $sessionUser['isApi'])) {
     if (Checkdroits::checkCheminTypeCommande($bddConnection, $_GET['id_type_commande'], $commande['id_type_commande'], 'client')) {
         $permitAction = true;
     }
 }
-if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_adresse_client'], 'adresse', 'editstatuscommande', $sessionUser['isApi'])) {
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_adresse_client'], 'adresse', 'clientEditStatusCommande', $sessionUser['isApi'])) {
     if (Checkdroits::checkCheminTypeCommande($bddConnection, $_GET['id_type_commande'], $commande['id_type_commande'], 'client')) {
         $permitAction = true;
     }

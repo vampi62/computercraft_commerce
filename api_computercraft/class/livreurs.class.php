@@ -24,7 +24,7 @@ class Livreurs {
         WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (livreurs.id_joueur = :id_joueur)');
         $req->execute(array(
             'id_joueur' => $idJoueur,
-            'nom_droit' => "getlivreurs"
+            'nom_droit' => "getLivreurs"
         ));
         $livreurs = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
@@ -47,7 +47,7 @@ class Livreurs {
         WHERE apikeys.id_apikey = :id_apikey AND droits.nom_droit = :nom_droit');
         $req->execute(array(
             'id_apikey' => $idApiKey,
-            'nom_droit' => "getlivreurs"
+            'nom_droit' => "getLivreurs"
         ));
         $livreurs = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();

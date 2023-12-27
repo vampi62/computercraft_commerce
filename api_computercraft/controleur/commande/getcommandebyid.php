@@ -14,22 +14,22 @@ if (!Checkdroits::checkId($bddConnection, $_GET['id_commande'], 'commande')) {
 }
 $commande = Commandes::getCommandeById($bddConnection, $_GET['id_commande']);
 $permitAction = false;
-if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_offre'], 'offre', 'getcommande', $sessionUser['isApi'])) {
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_offre'], 'offre', 'vendeurGetCommande', $sessionUser['isApi'])) {
     $permitAction = true;
 }
-if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_livreur'], 'livreur', 'getcommande', $sessionUser['isApi'])) {
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_livreur'], 'livreur', 'livreurGetCommande', $sessionUser['isApi'])) {
     $permitAction = true;
 }
-if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_compte_client'], 'compte', 'getcommande', $sessionUser['isApi'])) {
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_compte_client'], 'compte', 'clientGetCommande', $sessionUser['isApi'])) {
     $permitAction = true;
 }
-if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_adresse_client'], 'adresse', 'getcommande', $sessionUser['isApi'])) {
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_adresse_client'], 'adresse', 'clientGetCommande', $sessionUser['isApi'])) {
     $permitAction = true;
 }
-if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_compte_vendeur'], 'compte', 'getcommande', $sessionUser['isApi'])) {
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_compte_vendeur'], 'compte', 'vendeurGetCommande', $sessionUser['isApi'])) {
     $permitAction = true;
 }
-if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_adresse_vendeur'], 'adresse', 'getcommande', $sessionUser['isApi'])) {
+if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_adresse_vendeur'], 'adresse', 'vendeurGetCommande', $sessionUser['isApi'])) {
     $permitAction = true;
 }
 if (!$permitAction) {

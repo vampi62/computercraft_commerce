@@ -53,18 +53,23 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
     return $sessionUser; // error
 }
 // si pas de retour alors l'offre n'existe pas ou est inactive
+if ($sessionUser['isApi']) {
+    if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $sessionUser['idLogin'], 'apikey', 'addCommandeViaApiKey', $sessionUser['isApi'])) {
+        return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
+    }
+}
 $offre = Offres::getOffreById($bddConnection, $_GET['id_offre'], true);
 if (empty($offre['id_offre'])) {
     return array('status_code' => 404, 'message' => 'L\'offre n\'existe pas ou n\'est pas active.');
 }
-if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_adresse_client'], 'adresse', 'adressecommande', $sessionUser['isApi'])) {
+if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_adresse_client'], 'adresse', 'addAdresseToCommande', $sessionUser['isApi'])) {
     return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
 }
 $adresse = Adresses::getAdresseById($bddConnection, $_GET['id_adresse_client']);
 if (!$adresse['id_type_adresse'] == 1) {
     return array('status_code' => 400, 'message' => 'Le type d\'adresse n\'est pas valide pour un client.');
 }
-if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_compte_client'], 'compte', 'comptecommande', $sessionUser['isApi'])) {
+if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_compte_client'], 'compte', 'addCompteToCommande', $sessionUser['isApi'])) {
     return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
 }
 $compte = Comptes::getCompteById($bddConnection, $_GET['id_compte_client']);

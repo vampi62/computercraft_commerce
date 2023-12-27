@@ -12,7 +12,7 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
 if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
     return array('status_code' => 413, 'message' => 'Le nom du compte est trop long.');
 }
-if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_compte'], 'compte', 'editcomptenom', $sessionUser['isApi'])) {
+if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_compte'], 'compte', 'editCompteNom', $sessionUser['isApi'])) {
     return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
 }
 $compte = new Comptes($bddConnection, $_GET['id_compte']);

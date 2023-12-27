@@ -10,11 +10,11 @@ $sessionUser = Checkdroits::checkMode($bddConnection,$_GET,array('apikey' => tru
 if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
     return $sessionUser; // error
 }
-if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_livreur'], 'livreur', 'editlivreurcompte', $sessionUser['isApi'])) {
+if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_livreur'], 'livreur', 'editLivreurCompte', $sessionUser['isApi'])) {
     return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
 }
 if (!empty($_GET['id_compte'])) {
-    if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_compte'], 'compte', 'editlivreurcompte', $sessionUser['isApi'])) {
+    if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_compte'], 'compte', 'addCompteToLivreur', $sessionUser['isApi'])) {
         return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
     }
     $compte = Comptes::getCompteById($bddConnection, $_GET['id_compte']);

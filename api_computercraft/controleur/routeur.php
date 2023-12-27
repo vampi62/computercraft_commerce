@@ -503,12 +503,16 @@ switch(strtolower($_GET['action']))	{
 
     //addtransaction
     //gettransactionsbycompte
+    //getTransactionsbycompteandcommande
     //gettransactionbyid
     case 'addtransaction':
         $printmessage = require('transaction/addtransaction.php');
     break;
     case 'gettransactionsbycompte':
         $printmessage = require('transaction/gettransactionsbycompte.php');
+    break;
+    case 'gettransactionsbycompteandcommande':
+        $printmessage = require('transaction/gettransactionsbycompteandcommande.php');
     break;
     case 'gettransactionbyid':
         $printmessage = require('transaction/gettransactionbyid.php');

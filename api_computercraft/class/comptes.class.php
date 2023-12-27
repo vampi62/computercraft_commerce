@@ -17,7 +17,7 @@ class Comptes {
         WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (comptes.id_joueur = :id_joueur)');
         $req->execute(array(
             'id_joueur' => $idJoueur,
-            'nom_droit' => "getcomptes"
+            'nom_droit' => "getComptes"
         ));
         $comptes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
@@ -38,7 +38,7 @@ class Comptes {
         WHERE apikeys.id_apikey = :id_apikey AND droits.nom_droit = :nom_droit');
         $req->execute(array(
             'id_apikey' => $idApiKey,
-            'nom_droit' => "getcomptes"
+            'nom_droit' => "getComptes"
         ));
         $comptes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();

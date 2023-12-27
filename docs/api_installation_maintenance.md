@@ -5,13 +5,13 @@
 - param1	:(type) parametre obligatoire
 - param2    :(type)(optionnel) parametre non obligatoire
 
-http://0.0.0.0:9081/api_computercraft/index.php?action=__nom_action__&__param1__=__param1_val__&__param2__=__param2_val__
+http://0.0.0.0:80/api_computercraft/index.php?action=__nom_action__&__param1__=__param1_val__&__param2__=__param2_val__
 
 return (json_format)<br/>
 
 ```lua
 global_url = "0.0.0.0"
-global_port = "9081"
+global_port = "80"
 global_uri = "api_computercraft"
 function http_get(action)
 	local source_return, err = http.get("http://"..global_url..":"..global_port.."/"..global_uri.."/index.php?action="..action)
