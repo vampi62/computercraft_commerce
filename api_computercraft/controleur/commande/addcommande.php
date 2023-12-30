@@ -13,6 +13,10 @@ $quant = 0;
 $prixu = 0;
 $frait = 0;
 $methodecommande = 0;
+$offre = Offres::getOffreById($bddConnection, $_GET['id_offre'], true);
+if (empty($offre['id_offre'])) {
+    return array('status_code' => 404, 'message' => 'L\'offre n\'existe pas ou n\'est pas active.');
+}
 if (Checkdroits::checkArgs($_GET,array('id_keypay' => false))) {
     $keypay = Keypays::getKeypayById($bddConnection, $_GET['id_keypay']);
     if (empty($keypay['id_keypay'])) {
@@ -22,16 +26,16 @@ if (Checkdroits::checkArgs($_GET,array('id_keypay' => false))) {
     $prixu = $keypay['prix_unitaire_keypay'];
     $frait = 0;
     $methodecommande = 1;
+    if ($offre['prix_offre'] != $prixu) {
+        return array('status_code' => 400, 'message' => 'Le prix unitaire de la keypay ne correspond pas au prix de l\'offre.');
+    }
 } elseif (Checkdroits::checkArgs($_GET,array('quant' => false, 'frait' => false, 'prixu' => false))) {
     $quant = $_GET['quant'];
-    $prixu = $_GET['prixu'];
     $frait = $_GET['frait'];
+    $prixu = $_GET['prixu'];
     $methodecommande = 2;
     if (!is_numeric($quant)) {
         return array('status_code' => 400, 'message' => 'La quantite doit être un nombre.');
-    }
-    if (!is_numeric($prixu)) {
-        return array('status_code' => 400, 'message' => 'Le prix unitaire doit être un nombre.');
     }
     if (!is_numeric($frait)) {
         return array('status_code' => 400, 'message' => 'Les frais de port doivent être un nombre.');
@@ -39,14 +43,14 @@ if (Checkdroits::checkArgs($_GET,array('id_keypay' => false))) {
     if ($quant <= 0) {
         return array('status_code' => 400, 'message' => 'La quantite doit être superieur a 0.');
     }
-    if ($prixu <= 0) {
-        return array('status_code' => 400, 'message' => 'Le prix unitaire doit être superieur a 0.');
-    }
     if ($frait <= 0) {
         return array('status_code' => 400, 'message' => 'Les frais de port doivent être superieur ou egal a 0.');
     }
 } else {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
+}
+if ($offre['prix_offre'] != $prixu) {
+    return array('status_code' => 400, 'message' => 'Le prix unitaire ne correspond pas au prix de l\'offre.');
 }
 $sessionUser = Checkdroits::checkMode($bddConnection,$_GET,array('apikey' => true,'user' => true));
 if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
@@ -57,10 +61,6 @@ if ($sessionUser['isApi']) {
     if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $sessionUser['idLogin'], 'apikey', 'addCommandeViaApiKey', $sessionUser['isApi'])) {
         return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
     }
-}
-$offre = Offres::getOffreById($bddConnection, $_GET['id_offre'], true);
-if (empty($offre['id_offre'])) {
-    return array('status_code' => 404, 'message' => 'L\'offre n\'existe pas ou n\'est pas active.');
 }
 if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_adresse_client'], 'adresse', 'addAdresseToCommande', $sessionUser['isApi'])) {
     return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');

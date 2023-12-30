@@ -1,18 +1,22 @@
 <?php
 class Wirelessredstones {
     // recupere les wirelessredstones
-    public static function getWirelessRedstones($bdd,$page,$nbParPage, $showUser = false) {
+    public static function getWirelessRedstones($bdd,$offset,$nbParPage, $showUser = false) {
         if ($showUser) {
             $req = $bdd->prepare('SELECT wireless_redstone.*, joueurs.nom_joueur
-            FROM wireless_redstone INNER JOIN joueurs ON wireless_redstone.id_joueur = joueurs.id_joueur
-            ORDER BY id_wireless_redstone LIMIT :pagination, :nbParPage');
+            FROM wireless_redstone LEFT JOIN joueurs ON wireless_redstone.id_joueur = joueurs.id_joueur
+            WHERE id_wireless_redstone >= :offset
+            ORDER BY id_wireless_redstone
+            LIMIT :nbParPage');
         } else {
             $req = $bdd->prepare('SELECT wireless_redstone.id_wireless_redstone, wireless_redstone.date_reservation
             FROM wireless_redstone
-            ORDER BY id_wireless_redstone LIMIT :pagination, :nbParPage');
+            WHERE id_wireless_redstone >= :offset
+            ORDER BY id_wireless_redstone
+            LIMIT :nbParPage');
         }
         $req->execute(array(
-            'pagination' => $page*$nbParPage,
+            'offset' => $offset,
             'nbParPage' => $nbParPage
         ));
         $wirelessredstones = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -24,7 +28,7 @@ class Wirelessredstones {
     public static function getWirelessRedstoneById($bdd,$idWirelessRedstone, $showUser = false) {
         if ($showUser) {
             $req = $bdd->prepare('SELECT wireless_redstone.*, joueurs.nom_joueur
-            FROM wireless_redstone INNER JOIN joueurs ON wireless_redstone.id_joueur = joueurs.id_joueur
+            FROM wireless_redstone LEFT JOIN joueurs ON wireless_redstone.id_joueur = joueurs.id_joueur
             WHERE id_wireless_redstone = :id_wireless_redstone');
         } else {
             $req = $bdd->prepare('SELECT wireless_redstone.id_wireless_redstone, wireless_redstone.date_reservation
@@ -51,10 +55,13 @@ class Wirelessredstones {
     }
 
     // recupere les wirelessredstones non reserver
-    public static function getWirelessRedstonesNonReserver($bdd,$page,$nbParPage) {
-        $req = $bdd->prepare('SELECT * FROM wireless_redstone WHERE id_joueur IS NULL ORDER BY id_wireless_redstone LIMIT :pagination, :nbParPage');
+    public static function getWirelessRedstonesNonReserver($bdd,$offset,$nbParPage) {
+        $req = $bdd->prepare('SELECT * FROM wireless_redstone
+        WHERE id_joueur IS NULL AND id_wireless_redstone >= :offset
+        ORDER BY id_wireless_redstone
+        LIMIT :nbParPage');
         $req->execute(array(
-            'pagination' => $page*$nbParPage,
+            'offset' => $offset,
             'nbParPage' => $nbParPage
         ));
         $wirelessredstones = $req->fetchAll(PDO::FETCH_ASSOC);

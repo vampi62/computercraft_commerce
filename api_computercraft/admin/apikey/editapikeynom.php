@@ -16,7 +16,7 @@ $idJoueur = ApiKeys::getapikeyById($bddConnection, $_GET['id_apikey'])['id_joueu
 if (count(ApiKeys::getapikeyByNom($bddConnection,$idJoueur . '-' . $_GET['nom']))) {
     return array('status_code' => 404, 'message' => 'Le nom de l\'apikey existe deja.');
 }
-if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > ($_Serveur_['MaxLengthChamps']['nom']+strlen($idJoueur)+2)) {
     return array('status_code' => 413, 'message' => 'Le nom de l\'apikey est trop long.');
 }
 $apiKey = new ApiKeys($bddConnection, $_GET['id_apikey']);

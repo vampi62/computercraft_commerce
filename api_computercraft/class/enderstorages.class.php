@@ -1,18 +1,22 @@
 <?php
 class Enderstorages {
     // recupere les enderstorages
-    public static function getEnderStoragesChest($bdd,$page,$nbParPage, $showUser = false) {
+    public static function getEnderStoragesChest($bdd,$offset,$nbParPage, $showUser = false) {
         if ($showUser) {
             $req = $bdd->prepare('SELECT enderstorage_chest.*, joueurs.nom_joueur
-            FROM enderstorage_chest INNER JOIN joueurs ON enderstorage_chest.id_joueur = joueurs.id_joueur
-            ORDER BY id_enderstorage_chest LIMIT :pagination, :nbParPage');
+            FROM enderstorage_chest LEFT JOIN joueurs ON enderstorage_chest.id_joueur = joueurs.id_joueur
+            WHERE id_enderstorage_chest >= :offset
+            ORDER BY id_enderstorage_chest
+            LIMIT :nbParPage');
         } else {
             $req = $bdd->prepare('SELECT enderstorage_chest.id_enderstorage_chest, enderstorage_chest.color_rang_left, enderstorage_chest.color_rang_center, enderstorage_chest.color_rang_right, enderstorage_chest.date_reservation
             FROM enderstorage_chest
-            ORDER BY id_enderstorage_chest LIMIT :pagination, :nbParPage');
+            WHERE id_enderstorage_chest >= :offset
+            ORDER BY id_enderstorage_chest
+            LIMIT :nbParPage');
         }
         $req->execute(array(
-            'pagination' => $page*$nbParPage,
+            'offset' => $offset,
             'nbParPage' => $nbParPage
         ));
         $enderstorages = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -24,7 +28,7 @@ class Enderstorages {
     public static function getEnderStorageChestById($bdd,$idEnderStorageChest, $showUser = false) {
         if ($showUser) {
             $req = $bdd->prepare('SELECT enderstorage_chest.*, joueurs.nom_joueur
-            FROM enderstorage_chest INNER JOIN joueurs ON enderstorage_chest.id_joueur = joueurs.id_joueur
+            FROM enderstorage_chest LEFT JOIN joueurs ON enderstorage_chest.id_joueur = joueurs.id_joueur
             WHERE id_enderstorage_chest = :id_enderstorage_chest');
         } else {
             $req = $bdd->prepare('SELECT enderstorage_chest.id_enderstorage_chest, enderstorage_chest.color_rang_left, enderstorage_chest.color_rang_center, enderstorage_chest.color_rang_right, enderstorage_chest.date_reservation
@@ -51,10 +55,13 @@ class Enderstorages {
     }
 
     // recupere les enderstorages non reserver
-    public static function getEnderStoragesChestNonReserver($bdd,$page,$nbParPage) {
-        $req = $bdd->prepare('SELECT * FROM enderstorage_chest WHERE id_joueur IS NULL ORDER BY id_enderstorage_chest LIMIT :pagination, :nbParPage');
+    public static function getEnderStoragesChestNonReserver($bdd,$offset,$nbParPage) {
+        $req = $bdd->prepare('SELECT * FROM enderstorage_chest
+        WHERE id_joueur IS NULL AND id_enderstorage_chest >= :offset
+        ORDER BY id_enderstorage_chest
+        LIMIT :nbParPage');
         $req->execute(array(
-            'pagination' => $page*$nbParPage,
+            'offset' => $offset,
             'nbParPage' => $nbParPage
         ));
         $enderstorages = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -74,18 +81,22 @@ class Enderstorages {
     }
 
     // recupere les enderstorages
-    public static function getEnderStoragesTank($bdd,$page,$nbParPage,$showUser = false) {
+    public static function getEnderStoragesTank($bdd,$offset,$nbParPage,$showUser = false) {
         if ($showUser) {
             $req = $bdd->prepare('SELECT enderstorage_tank.*, joueurs.nom_joueur
-            FROM enderstorage_tank INNER JOIN joueurs ON enderstorage_tank.id_joueur = joueurs.id_joueur
-            ORDER BY id_enderstorage_tank LIMIT :pagination, :nbParPage');
+            FROM enderstorage_tank LEFT JOIN joueurs ON enderstorage_tank.id_joueur = joueurs.id_joueur
+            WHERE id_enderstorage_tank >= :offset
+            ORDER BY id_enderstorage_tank
+            LIMIT :nbParPage');
         } else {
             $req = $bdd->prepare('SELECT enderstorage_tank.id_enderstorage_tank, enderstorage_tank.color_rang_left, enderstorage_tank.color_rang_center, enderstorage_tank.color_rang_right, enderstorage_tank.date_reservation
             FROM enderstorage_tank
-            ORDER BY id_enderstorage_tank LIMIT :pagination, :nbParPage');
+            WHERE id_enderstorage_tank >= :offset
+            ORDER BY id_enderstorage_tank
+            LIMIT :nbParPage');
         }
         $req->execute(array(
-            'pagination' => $page*$nbParPage,
+            'offset' => $offset,
             'nbParPage' => $nbParPage
         ));
         $enderstorages = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -97,7 +108,7 @@ class Enderstorages {
     public static function getEnderStorageTankById($bdd,$idEnderStorageTank,$showUser = false) {
         if ($showUser) {
             $req = $bdd->prepare('SELECT enderstorage_tank.*, joueurs.nom_joueur
-            FROM enderstorage_tank INNER JOIN joueurs ON enderstorage_tank.id_joueur = joueurs.id_joueur
+            FROM enderstorage_tank LEFT JOIN joueurs ON enderstorage_tank.id_joueur = joueurs.id_joueur
             WHERE id_enderstorage_tank = :id_enderstorage_tank');
         } else {
             $req = $bdd->prepare('SELECT enderstorage_tank.id_enderstorage_tank, enderstorage_tank.color_rang_left, enderstorage_tank.color_rang_center, enderstorage_tank.color_rang_right, enderstorage_tank.date_reservation
@@ -124,10 +135,13 @@ class Enderstorages {
     }
 
     // recupere les enderstorages non reserver
-    public static function getEnderStoragesTankNonReserver($bdd,$page,$nbParPage) {
-        $req = $bdd->prepare('SELECT * FROM enderstorage_tank WHERE id_joueur IS NULL ORDER BY id_enderstorage_tank LIMIT :pagination, :nbParPage');
+    public static function getEnderStoragesTankNonReserver($bdd,$offset,$nbParPage) {
+        $req = $bdd->prepare('SELECT * FROM enderstorage_tank
+        WHERE id_joueur IS NULL AND id_enderstorage_tank >= :offset
+        ORDER BY id_enderstorage_tank
+        LIMIT :nbParPage');
         $req->execute(array(
-            'pagination' => $page*$nbParPage,
+            'offset' => $offset,
             'nbParPage' => $nbParPage
         ));
         $enderstorages = $req->fetchAll(PDO::FETCH_ASSOC);
