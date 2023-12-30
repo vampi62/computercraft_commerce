@@ -34,9 +34,6 @@ if (!$compte['id_type_compte'] == 1) {
 if (!is_numeric($_GET['quant'])) {
     return array('status_code' => 400, 'message' => 'La quantite doit être un nombre.');
 }
-if (!is_numeric($_GET['prixu'])) {
-    return array('status_code' => 400, 'message' => 'Le prix unitaire doit être un nombre.');
-}
 if (!is_numeric($_GET['frait'])) {
     return array('status_code' => 400, 'message' => 'Les frais de port doivent être un nombre.');
 }
@@ -60,6 +57,9 @@ if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description'])
 }
 if (strlen($_GET['code_retrait_commande']) > $_Serveur_['MaxLengthChamps']['code']) {
     return array('status_code' => 413, 'message' => 'Le code retrait est trop long.');
+}
+if ($offre['prix_offre'] != $_GET['prixu']) {
+    return array('status_code' => 400, 'message' => 'Le prix unitaire ne correspond pas au prix de l\'offre.');
 }
 $newCommande = new Commandes($bddConnection);
 $newCommande->addCommande($_GET['nom'],$_GET['quant'],$_GET['prixu'],$_GET['frait'],$_GET['description'],$_GET['code_retrait_commande'],$_GET['id_adresse_vendeur'],$_GET['id_adresse_client'],$_GET['id_offre'],$_GET['id_compte_vendeur'],$_GET['id_compte_client'],1);

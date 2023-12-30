@@ -21,7 +21,7 @@ if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
 if (!Checkdroits::checkPasswordSecu($_GET['mdp'])) {
     return array('status_code' => 400, 'message' => 'Le mot de passe doit contenir au moins 8 caracteres, une majuscule, une minuscule et un chiffre.');
 }
-if (strlen($_GET['mdp']) > $_Serveur_['MaxLengthChamps']['code']) {
+if (strlen($_GET['mdp']) > ($_Serveur_['MaxLengthChamps']['code']+strlen($_GET['id_joueur'])+2)) {
     return array('status_code' => 413, 'message' => 'Le mot de passe est trop long.');
 }
 $newApiKey = new ApiKeys($bddConnection);
