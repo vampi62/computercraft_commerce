@@ -15,8 +15,8 @@ if (!Checkdroits::checkId($bddConnection, $_GET['id_joueur'], 'joueur')) {
 if ($_GET['nbr_offre'] < 0) {
     return array('status_code' => 400, 'message' => 'Le nombre d\'offre ne peut pas être negatif.');
 }
-if ($_GET['nbr_offre'] > $_Serveur_['General']['nbr_offre_max']) {
-    $_GET['nbr_offre'] = $_Serveur_['General']['nbr_offre_max'];
+if ($_GET['nbr_offre'] > $_Serveur_['General']['NbrOffreMax']) {
+    $_GET['nbr_offre'] = $_Serveur_['General']['NbrOffreMax'];
 }
 $joueur = new Joueurs($bddConnection, $_GET['id_joueur']);
 $joueur->setJoueurnbrOffre($_GET['nbr_offre']);

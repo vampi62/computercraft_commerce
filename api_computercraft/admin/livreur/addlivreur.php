@@ -38,7 +38,7 @@ if (!empty($_GET['id_adresse'])) {
 } else {
     $_GET['id_adresse'] = null;
 }
-if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['Nom']) {
     return array('status_code' => 413, 'message' => 'Le nom du livreur est trop long.');
 }
 $newLivreur = new Livreurs($bddConnection);

@@ -15,4 +15,3 @@ $printmessage['TypeStatusTransactions'] = Droits::getTypeStatusTransactions($bdd
 $printmessage['TypeTransactions'] = Droits::getTypeTransactions($bddConnection);
 $printmessage['CheminStatusCommandes'] = Droits::getCheminStatusCommandes($bddConnection);
 return array('status_code' => 200, 'message' => '', 'data' => $printmessage);
-?>

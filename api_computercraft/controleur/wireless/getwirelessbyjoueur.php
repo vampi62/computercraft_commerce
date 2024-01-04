@@ -1,5 +1,5 @@
 <?php
-if (!$_Serveur_['Module']['wirelessredstone']) {
+if (!$_Serveur_['Module']['WirelessRedstone']) {
     return array('status_code' => 403, 'message' => 'Le module wireless redstone est désactivé.');
 }
 require_once('class/checkdroits.class.php');

@@ -21,7 +21,7 @@ $joueur = new Joueurs($bddConnection, $donneesJoueur['id_joueur']);
 $retourligne = "<br />";
 
 $to = $donneesJoueur['email_joueur'];
-$subject = "[".$_Serveur_['General']['name']."]Confirmation : Recuperation de mot de passe";
+$subject = "[".$_Serveur_['General']['Name']."]Confirmation : Recuperation de mot de passe";
 $txt = 'Bonjour, '.$donneesJoueur['pseudo_joueur'].$retourligne
 		.$retourligne
 		.'Vous avez bien confirmé votre demande de changement de mot de passe.'.$retourligne
@@ -30,7 +30,7 @@ $txt = 'Bonjour, '.$donneesJoueur['pseudo_joueur'].$retourligne
 		.'Merci de changer au plus vite votre mot de passe.'.$retourligne
 		.'Il est inutile de répondre à ce mail automatique.'.$retourligne
 		.$retourligne
-		.'Cordialement, '.$_Serveur_['General']['name'].'.';
+		.'Cordialement, '.$_Serveur_['General']['Name'].'.';
 
 
 if(MailSender::send($_Serveur_, $to, $subject, $txt)) { // modification du mot de passe que si le mail a pu être envoyer

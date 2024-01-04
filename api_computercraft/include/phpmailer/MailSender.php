@@ -26,9 +26,9 @@ class MailSender
 				$mail->Port = $arrayData['SMTP']['Port'];
 				$mail->Timeout = 5;
 				$mail->From = $arrayData['SMTP']['From'];
-				$mail->FromName = $arrayData['General']['name'];
+				$mail->FromName = $arrayData['General']['Name'];
 				$mail->addAddress($to);
-				$mail->addReplyTo($arrayData['SMTP']['Reply'], $arrayData['General']['name']);
+				$mail->addReplyTo($arrayData['SMTP']['Reply'], $arrayData['General']['Name']);
 				$mail->isHTML(true);
 				$mail->Subject = htmlspecialchars($object);
 				$mail->Body	= $body.'<br></br>';

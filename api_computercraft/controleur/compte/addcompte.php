@@ -12,7 +12,7 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
 if (!Checkdroits::checkId($bddConnection, $_GET['id_type_compte'], 'type_compte')) {
     return array('status_code' => 404, 'message' => 'Le type n\'existe pas.');
 }
-if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['Nom']) {
     return array('status_code' => 413, 'message' => 'Le nom du compte est trop long.');
 }
 $newCompte = new Comptes($bddConnection);

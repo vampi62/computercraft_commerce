@@ -23,4 +23,3 @@ if (isset($printmessage) && !empty($printmessage)) {
 	http_response_code($printmessage['status_code']);
 	echo json_encode($printmessage);
 }
-?>

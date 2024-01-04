@@ -14,4 +14,3 @@ class Base {
 		return $this->_bdd;
 	}
 }
-?>

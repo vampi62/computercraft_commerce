@@ -15,13 +15,13 @@ if (!Checkdroits::checkId($bddConnection, $_GET['id_joueur'], 'joueur')) {
 if (ApiKeys::getapikeyByNom($bddConnection, $_GET['id_joueur'] . '-' . $_GET['nom'])) {
     return array('status_code' => 403, 'message' => 'Le nom de l\'apikey est deja utilise.');
 }
-if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['Nom']+strlen($_GET['id_joueur'])+2) {
     return array('status_code' => 413, 'message' => 'Le nom est trop long.');
 }
 if (!Checkdroits::checkPasswordSecu($_GET['mdp'])) {
     return array('status_code' => 400, 'message' => 'Le mot de passe doit contenir au moins 8 caracteres, une majuscule, une minuscule et un chiffre.');
 }
-if (strlen($_GET['mdp']) > ($_Serveur_['MaxLengthChamps']['code']+strlen($_GET['id_joueur'])+2)) {
+if (strlen($_GET['mdp']) > $_Serveur_['MaxLengthChamps']['Code']) {
     return array('status_code' => 413, 'message' => 'Le mot de passe est trop long.');
 }
 $newApiKey = new ApiKeys($bddConnection);

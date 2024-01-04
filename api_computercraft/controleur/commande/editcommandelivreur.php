@@ -24,6 +24,6 @@ if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $command
 }
 $suivi = $sessionAdmin['pseudoLogin'].' a accepter la livraison de la commande par le livreur : '. $_GET['id_livreur'];
 $commande = new Commandes($bddConnection, $_GET['id_commande']);
-$commande->setCommandeSuivi($suivi, $_Serveur_['General']['case_ligne_suite']);
+$commande->setCommandeSuivi($suivi, $_Serveur_['General']['CaseLigneSuite']);
 $commande->setCommandeLivreur($_GET['id_livreur']);
 return array('status_code' => 200, 'message' => '');

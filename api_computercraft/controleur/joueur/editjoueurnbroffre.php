@@ -17,8 +17,8 @@ if ($_GET['nbr_offre'] <= 0) {
 $joueur = new Joueurs($bddConnection, $sessionUser['idLogin']);
 $nbrOffreJoueur = $joueur->getJoueurNbrOffre();
 $new_nbr_offre = $_GET['nbr_offre'] + $nbrOffreJoueur;
-if ($new_nbr_offre > $_Serveur_['General']['nbr_offre_max']) {
-    $new_nbr_offre = $_Serveur_['General']['nbr_offre_max'];
+if ($new_nbr_offre > $_Serveur_['General']['NbrOffreMax']) {
+    $new_nbr_offre = $_Serveur_['General']['NbrOffreMax'];
     $_GET['nbr_offre'] = $new_nbr_offre - $nbrOffreJoueur;
 }
 if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_compte'], 'compte', 'getcomptes')) {
@@ -26,7 +26,7 @@ if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['i
 }
 # compte a bien les fond a prelever
 $compte = new Comptes($bddConnection, $_GET['id_compte']);
-$prix_offres = $_GET['nbr_offre'] * $_Serveur_['General']['prix_offre'];
+$prix_offres = $_GET['nbr_offre'] * $_Serveur_['General']['PrixOffre'];
 if ($compte->getSolde() < $prix_offres) {
     return array('status_code' => 400, 'message' => 'Le compte n\'a pas assez de fonds pour effectuer cette action.');
 }

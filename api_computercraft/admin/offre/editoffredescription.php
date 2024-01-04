@@ -12,7 +12,7 @@ if (isset($sessionAdmin['status_code'])) { // si un code d'erreur est retourné 
 if (!Checkdroits::checkId($bddConnection, $_GET['id_offre'], 'offre')) {
     return array('status_code' => 404, 'message' => 'L\'offre n\'existe pas.');
 }
-if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description']) {
+if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['Description']) {
     return array('status_code' => 413, 'message' => 'La description est trop longue.');
 }
 $offre = new Offres($bddConnection, $_GET['id_offre']);

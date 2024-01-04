@@ -21,6 +21,6 @@ if (!empty($_GET['date'])) {
 }
 $suivi = $sessionAdmin['pseudoLogin'].' a changer la date de livraison a '. $_GET['date'] . ' via panel admin.';
 $commande = new Commandes($bddConnection, $_GET['id_commande']);
-$commande->setCommandeSuivi($suivi, $_Serveur_['General']['case_ligne_suite']);
+$commande->setCommandeSuivi($suivi, $_Serveur_['General']['CaseLigneSuite']);
 $commande->setCommandeDateLivraison($_GET['date']);
 return array('status_code' => 200, 'message' => '');

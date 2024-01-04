@@ -40,10 +40,10 @@ if (!empty($_GET['id_commande'])) {
         return array('status_code' => 404, 'message' => 'La commande n\'existe pas.');
     }
 }
-if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['Nom']) {
     return array('status_code' => 413, 'message' => 'Le nom de la transaction est trop long.');
 }
-if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description']) {
+if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['Description']) {
     return array('status_code' => 413, 'message' => 'La description est trop longue.');
 }
 if (!is_numeric($_GET['montant'])) {

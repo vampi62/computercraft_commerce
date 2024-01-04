@@ -16,7 +16,7 @@ if (!Checkdroits::checkId($bddConnection, $_GET['id_type_offre'], 'type_offre'))
 }
 // le type de compte doit etre un compte entreprise_commerce pour pouvoir etre defini comme compte de l'offre
 if (!empty($_GET['id_compte'])) {
-    if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_compte'], 'compte', 'setcomptelivreur', $sessionUser['isApi'])) {
+    if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_compte'], 'compte', 'addCompteToOffre', $sessionUser['isApi'])) {
         return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
     }
     $compte = Comptes::getCompteById($bddConnection, $_GET['id_compte']);
@@ -28,7 +28,7 @@ if (!empty($_GET['id_compte'])) {
 }
 // le type d'adresse doit etre un point de vente pour pouvoir etre defini comme adresse de l'offre
 if (!empty($_GET['id_adresse'])) {
-    if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_adresse'], 'adresse', 'setadresselivreur', $sessionUser['isApi'])) {
+    if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_adresse'], 'adresse', 'addAdresseToOffre', $sessionUser['isApi'])) {
         return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
     }
     $adresse = Adresses::getAdresseById($bddConnection, $_GET['id_adresse']);
@@ -50,10 +50,10 @@ if ($_GET['prix'] < 0) {
 if ($_GET['stock'] < 0) {
     return array('status_code' => 400, 'message' => 'Le stock ne peut pas etre negatif.');
 }
-if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['Nom']) {
     return array('status_code' => 413, 'message' => 'Le nom de l\'offre est trop long.');
 }
-if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description']) {
+if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['Description']) {
     return array('status_code' => 413, 'message' => 'La description est trop longue.');
 }
 $newOffre = new Offres($bddConnection);
