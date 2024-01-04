@@ -12,7 +12,7 @@ if (isset($sessionAdmin['status_code'])) { // si un code d'erreur est retourné 
 if (!Checkdroits::checkId($bddConnection, $_GET['id_joueur'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
-if (strlen($_GET['email']) > $_Serveur_['MaxLengthChamps']['email']) {
+if (strlen($_GET['email']) > $_Serveur_['MaxLengthChamps']['Email']) {
     return array('status_code' => 413, 'message' => 'L\'email est trop long.');
 }
 $joueur = new Joueurs($bddConnection, $_GET['id_joueur']);

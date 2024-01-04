@@ -32,7 +32,7 @@ if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['id
 if (!$permitAction) {
     return array('status_code' => 403, 'message' => 'Vous n\'avez pas les droits pour effectuer cette action.');
 }
-if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description']) {
+if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['Description']) {
     return array('status_code' => 413, 'message' => 'Le message est trop long.');
 }
 $newid = LitigeMsgs::addLitigeMsg($bddConnection,$_GET['id_commande'],$_GET['description'],$_GET['id_status_litigemsg']);

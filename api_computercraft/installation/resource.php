@@ -31,7 +31,7 @@ function SetHtpasswd() {
 	}
 }
 function SetAdmin($bdd, $pseudo_joueur, $mdp_joueur, $email_joueur) {
-	$req = $bdd->prepare('INSERT INTO joueurs(pseudo_joueur, mdp_joueur, email_joueur, last_login_joueur, id_type_role, max_offres_joueur) VALUES(:pseudo_joueur, :mdp_joueur, :email_joueur, :last_login_joueur, 2, 0)');
+	$req = $bdd->prepare('INSERT INTO joueurs(pseudo_joueur, mdp_joueur, email_joueur, last_login_joueur, id_type_joueur, max_offres_joueur) VALUES(:pseudo_joueur, :mdp_joueur, :email_joueur, :last_login_joueur, 2, 0)');
 	$req->execute(array(
 		'pseudo_joueur' => $pseudo_joueur,
 		'mdp_joueur' => password_hash($mdp_joueur, PASSWORD_DEFAULT),
@@ -39,4 +39,9 @@ function SetAdmin($bdd, $pseudo_joueur, $mdp_joueur, $email_joueur) {
 		'email_joueur' => $email_joueur
 	));
 	$req->closeCursor();
+	$req = $bdd->prepare('INSERT INTO groupes(nom,id_joueur) VALUES(:nom,:id_joueur)');
+	$req->execute(array(
+		'nom' => "Administrateur",
+		'id_joueur' => $bdd->lastInsertId()
+	));
 }

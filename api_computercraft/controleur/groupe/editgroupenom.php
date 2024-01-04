@@ -12,7 +12,7 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
 if (!Checkdroits::checkProprioObj($bddConnection, $sessionUser['idLogin'], $_GET['id_groupe'], 'groupe')) {
     return array('status_code' => 404, 'message' => 'ce groupe n\'existe pas ou ne vous appartient pas.');
 }
-if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['Nom']) {
     return array('status_code' => 413, 'message' => 'Le nom du groupe est trop long.');
 }
 $groupe = new Groupes($bddConnection, $_GET['id_groupe']);

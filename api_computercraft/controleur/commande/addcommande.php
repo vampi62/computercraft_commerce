@@ -76,10 +76,10 @@ $compte = Comptes::getCompteById($bddConnection, $_GET['id_compte_client']);
 if (!$compte['id_type_compte'] == 1) {
     return array('status_code' => 400, 'message' => 'Le type de compte client doit être un compte joueur.');
 }
-if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['Nom']) {
     return array('status_code' => 413, 'message' => 'Le nom de la commande est trop long.');
 }
-if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description']) {
+if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['Description']) {
     return array('status_code' => 413, 'message' => 'La description de la commande est trop long.');
 }
 $passwordRetrait = Checkdroits::generatePassword(16);
@@ -95,12 +95,12 @@ if ($methodecommande == 1) {
     $compteCrediteur->setCompteSolde($compteCrediteur->getSolde() + $_GET['montant']);
     $suivi = $sessionUser['pseudoLogin'].' a cree la commande via keypay.';
     $newCommande->addCommande($_GET['nom'],$quant,$prixu,$frait,$_GET['description'],$passwordRetrait,$_GET['id_adresse_vendeur'],$_GET['id_adresse_client'],$_GET['id_offre'],$_GET['id_compte_vendeur'],$_GET['id_compte_client'],15);
-    $newCommande->setCommandeSuivi($suivi,$_Serveur_['General']['case_ligne_suite']);
+    $newCommande->setCommandeSuivi($suivi,$_Serveur_['General']['CaseLigneSuite']);
     $newId = Transactions::addTransaction($bddConnection, $_GET['id_compte_client'], $offre['id_compte'],$idAdmin, $_GET['montant'], $_GET['nom'], $_GET['description'], 3, $newCommande->getIdCommande());
     return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newCommande->getIdCommande(), 'password' => $passwordRetrait, 'transactionId' => $newId));
 } elseif ($methodecommande == 2) {
     $suivi = $sessionUser['pseudoLogin'].' a cree la commande manuellement.';
     $newCommande->addCommande($_GET['nom'],$quant,$prixu,$frait,$_GET['description'],$passwordRetrait,$_GET['id_adresse_vendeur'],$_GET['id_adresse_client'],$_GET['id_offre'],$_GET['id_compte_vendeur'],$_GET['id_compte_client'],1);
-    $newCommande->setCommandeSuivi($suivi,$_Serveur_['General']['case_ligne_suite']);
+    $newCommande->setCommandeSuivi($suivi,$_Serveur_['General']['CaseLigneSuite']);
     return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newCommande->getIdCommande(), 'password' => $passwordRetrait));
 }

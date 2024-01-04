@@ -15,13 +15,13 @@ if (!Checkdroits::checkId($bddConnection, $_GET['id_type_adresse'], 'type_adress
 if (!Checkdroits::checkId($bddConnection, $_GET['id_joueur'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
-if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['Nom']) {
     return array('status_code' => 400, 'message' => 'Le nom de l\'adresse est trop long.');
 }
-if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description']) {
+if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['Description']) {
     return array('status_code' => 400, 'message' => 'La description est trop longue.');
 }
-if (strlen($_GET['coo']) > $_Serveur_['MaxLengthChamps']['coo']) {
+if (strlen($_GET['coo']) > $_Serveur_['MaxLengthChamps']['Coo']) {
     return array('status_code' => 400, 'message' => 'Les coordonnees sont trop longues.');
 }
 $newAdresse = new Adresses($bddConnection);

@@ -106,6 +106,6 @@ switch ($_GET['id_type_commande']) {
         $suivi = $sessionUser['pseudoLogin'].' a terminé la commande direct.';
         break;
 }
-$commande->setCommandeSuivi($suivi, $_Serveur_['General']['case_ligne_suite']);
+$commande->setCommandeSuivi($suivi, $_Serveur_['General']['CaseLigneSuite']);
 $commande->setCommandeStatus($_GET['id_type_commande']);
 return array('status_code' => 200, 'message' => '');

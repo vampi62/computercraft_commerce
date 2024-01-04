@@ -12,7 +12,7 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
 if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_livreur'], 'livreur', 'editLivreurNom', $sessionUser['isApi'])) {
     return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
 }
-if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['Nom']) {
     return array('status_code' => 413, 'message' => 'Le nom du livreur est trop long.');
 }
 $livreur = new Livreurs($bddConnection, $_GET['id_livreur']);

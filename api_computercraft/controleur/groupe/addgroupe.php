@@ -9,7 +9,7 @@ $sessionUser = Checkdroits::checkMode($bddConnection,$_GET,array('apikey' => fal
 if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
     return $sessionUser; // error
 }
-if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['Nom']) {
     return array('status_code' => 413, 'message' => 'Le nom du groupe est trop long.');
 }
 $newGroupe = new Groupes($bddConnection);

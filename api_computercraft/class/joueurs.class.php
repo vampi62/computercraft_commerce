@@ -167,4 +167,3 @@ class Joueurs {
 		$this->_idJoueur = $this->_bdd->lastInsertId();
 	}
 }
-?>

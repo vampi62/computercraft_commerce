@@ -15,7 +15,7 @@ if (!Checkdroits::checkProprioObj($bddConnection, $sessionUser['idLogin'], $_GET
 if (count(ApiKeys::getapikeyByNom($bddConnection,$sessionUser['idLogin'] . '-' . $_GET['nom']))) {
     return array('status_code' => 404, 'message' => 'Le nom de l\'apikey existe deja.');
 }
-if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['Nom']) {
     return array('status_code' => 413, 'message' => 'Le nom de l\'apikey est trop long.');
 }
 $apiKey = new ApiKeys($bddConnection, $_GET['id_apikey']);

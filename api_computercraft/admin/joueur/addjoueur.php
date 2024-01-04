@@ -21,21 +21,21 @@ if (!Checkdroits::checkPasswordSecu($_GET['mdp'])) {
 if (!filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)) {
     return array('status_code' => 413, 'message' => 'L\'adresse mail est invalide.');
 }
-if (strlen($_GET['pseudo']) > $_Serveur_['MaxLengthChamps']['pseudo']) {
+if (strlen($_GET['pseudo']) > $_Serveur_['MaxLengthChamps']['Pseudo']) {
     return array('status_code' => 413, 'message' => 'Le pseudo est trop long.');
 }
-if (strlen($_GET['email']) > $_Serveur_['MaxLengthChamps']['email']) {
+if (strlen($_GET['email']) > $_Serveur_['MaxLengthChamps']['Email']) {
     return array('status_code' => 413, 'message' => 'L\'email est trop long.');
 }
 if (empty($_GET['nbr_offre']) || $_GET['nbr_offre'] <= 0) {
-    if ($_Serveur_['General']['nbr_offre_defaut'] <= 0) {
+    if ($_Serveur_['General']['NbrOffreDefaut'] <= 0) {
         $_GET['nbr_offre'] = 0;
     } else {
-        $_GET['nbr_offre'] = $_Serveur_['General']['nbr_offre_defaut'];
+        $_GET['nbr_offre'] = $_Serveur_['General']['NbrOffreDefaut'];
     }
 } else {
-    if ($_GET['nbr_offre'] > $_Serveur_['General']['nbr_offre_max']) {
-        $_GET['nbr_offre'] = $_Serveur_['General']['nbr_offre_max'];
+    if ($_GET['nbr_offre'] > $_Serveur_['General']['NbrOffreMax']) {
+        $_GET['nbr_offre'] = $_Serveur_['General']['NbrOffreMax'];
     }
 }
 $newJoueur = new Joueurs($bddConnection);

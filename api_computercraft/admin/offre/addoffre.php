@@ -53,10 +53,10 @@ if ($_GET['prix'] < 0) {
 if ($_GET['stock'] < 0) {
     return array('status_code' => 400, 'message' => 'Le stock ne peut pas etre negatif.');
 }
-if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['Nom']) {
     return array('status_code' => 413, 'message' => 'Le nom de l\'offre est trop long.');
 }
-if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description']) {
+if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['Description']) {
     return array('status_code' => 413, 'message' => 'La description est trop longue.');
 }
 $newOffre = new Offres($bddConnection);

@@ -15,7 +15,7 @@ if (!Checkdroits::checkId($bddConnection, $_GET['id_type_compte'], 'type_compte'
 if (!Checkdroits::checkId($bddConnection, $_GET['id_joueur'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
-if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['Nom']) {
     return array('status_code' => 413, 'message' => 'Le nom du compte est trop long.');
 }
 $newCompte = new Comptes($bddConnection);

@@ -20,6 +20,6 @@ if (empty($_GET['id_livreur'])) {
 }
 $suivi = $sessionAdmin['pseudoLogin'].' a changer le livreur : '. $_GET['id_livreur'] . ' via panel admin.';
 $commande = new Commandes($bddConnection, $_GET['id_commande']);
-$commande->setCommandeSuivi($suivi, $_Serveur_['General']['case_ligne_suite']);
+$commande->setCommandeSuivi($suivi, $_Serveur_['General']['CaseLigneSuite']);
 $commande->setCommandeLivreur($_GET['id_livreur']);
 return array('status_code' => 200, 'message' => '');

@@ -12,7 +12,7 @@ if (isset($sessionAdmin['status_code'])) { // si un code d'erreur est retourné 
 if (!Checkdroits::checkId($bddConnection, $_GET['id_adresse'], 'adresse')) {
     return array('status_code' => 404, 'message' => 'L\'adresse n\'existe pas.');
 }
-if (strlen($_GET['coo']) > $_Serveur_['MaxLengthChamps']['coo']) {
+if (strlen($_GET['coo']) > $_Serveur_['MaxLengthChamps']['Coo']) {
     return array('status_code' => 413, 'message' => 'Les coordonnees sont trop longues.');
 }
 $adresse = new Adresses($bddConnection, $_GET['id_adresse']);

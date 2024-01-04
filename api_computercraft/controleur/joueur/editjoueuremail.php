@@ -12,7 +12,7 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
 if (!filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)) {
     return array('status_code' => 413, 'message' => 'L\'adresse mail est invalide.');
 }
-if (strlen($_GET['email']) > $_Serveur_['MaxLengthChamps']['email']) {
+if (strlen($_GET['email']) > $_Serveur_['MaxLengthChamps']['Email']) {
     return array('status_code' => 413, 'message' => 'L\'email est trop long.');
 }
 $joueur = new Joueurs($bddConnection, $sessionUser['idLogin']);

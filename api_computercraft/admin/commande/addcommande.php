@@ -49,13 +49,13 @@ if ($_GET['frait'] <= 0) {
 if (!Checkdroits::checkPasswordSecu($_GET['code_retrait_commande'])) {
     return array('status_code' => 400, 'message' => 'Le code de retrait n\'est pas securise.');
 }
-if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['nom']) {
+if (strlen($_GET['nom']) > $_Serveur_['MaxLengthChamps']['Nom']) {
     return array('status_code' => 413, 'message' => 'Le nom de la commande est trop long.');
 }
-if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description']) {
+if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['Description']) {
     return array('status_code' => 413, 'message' => 'La description de la commande est trop long.');
 }
-if (strlen($_GET['code_retrait_commande']) > $_Serveur_['MaxLengthChamps']['code']) {
+if (strlen($_GET['code_retrait_commande']) > $_Serveur_['MaxLengthChamps']['Code']) {
     return array('status_code' => 413, 'message' => 'Le code retrait est trop long.');
 }
 if ($offre['prix_offre'] != $_GET['prixu']) {
@@ -64,5 +64,5 @@ if ($offre['prix_offre'] != $_GET['prixu']) {
 $newCommande = new Commandes($bddConnection);
 $newCommande->addCommande($_GET['nom'],$_GET['quant'],$_GET['prixu'],$_GET['frait'],$_GET['description'],$_GET['code_retrait_commande'],$_GET['id_adresse_vendeur'],$_GET['id_adresse_client'],$_GET['id_offre'],$_GET['id_compte_vendeur'],$_GET['id_compte_client'],1);
 $suivi = $sessionAdmin['pseudoLogin'].' a cree la commande via panel admin.';
-$newCommande->setCommandeSuivi($suivi,$_Serveur_['General']['case_ligne_suite']);
+$newCommande->setCommandeSuivi($suivi,$_Serveur_['General']['CaseLigneSuite']);
 return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newCommande->getIdCommande()));

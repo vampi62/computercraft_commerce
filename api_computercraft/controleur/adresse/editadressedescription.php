@@ -12,7 +12,7 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
 if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_adresse'], 'adresse', "editAdresseDescription", $sessionUser['isApi'])) {
     return array('status_code' => 404, 'message' => 'cette adresse n\'existe pas ou ne vous appartient pas.');
 }
-if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['description']) {
+if (strlen($_GET['description']) > $_Serveur_['MaxLengthChamps']['Description']) {
     return array('status_code' => 413, 'message' => 'La description est trop longue.');
 }
 $adresse = new Adresses($bddConnection, $_GET['id_adresse']);

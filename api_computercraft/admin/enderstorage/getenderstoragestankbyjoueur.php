@@ -1,5 +1,5 @@
 <?php
-if (!$_Serveur_['Module']['enderstorage']) {
+if (!$_Serveur_['Module']['EnderStorage']) {
     return array('status_code' => 403, 'message' => 'Le module enderstorage est désactivé.');
 }
 require_once('class/checkdroits.class.php');

@@ -19,7 +19,7 @@ $joueur->setResetToken($resetToken);
 $lien = urlencode($resetToken);
 $retourligne = "<br />";
 $to = $donneesJoueur['email_joueur'];
-$subject = "[".$_Serveur_['General']['name']."]Recuperation de mot de passe";
+$subject = "[".$_Serveur_['General']['Name']."]Recuperation de mot de passe";
 $txt = 'Bonjour, '.$donneesJoueur['pseudo_joueur'].$retourligne
 		.$retourligne
 		.'Suite à une demande de recuperation de mail, vous recevez ce message.'.$retourligne.$retourligne
@@ -30,7 +30,7 @@ $txt = 'Bonjour, '.$donneesJoueur['pseudo_joueur'].$retourligne
 		.'Si vous n\'avez pas fait de demande de recuperation veuillez ignorer cet e-mail...'.$retourligne
 		.'Il est inutile de repondre à ce mail automatique.'.$retourligne
 		.$retourligne
-		.'Cordialement, '. $_Serveur_['General']['name'] .'.';
+		.'Cordialement, '. $_Serveur_['General']['Name'] .'.';
 
 if(MailSender::send($_Serveur_, $to, $subject, $txt)) {
 	// modif - ok

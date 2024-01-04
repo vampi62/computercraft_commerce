@@ -17,6 +17,6 @@ if (!Checkdroits::checkId($bddConnection, $_GET['id_type_commande'], 'type_comma
 }
 $suivi = $sessionAdmin['pseudoLogin'].' a changer le status a '. $_GET['id_type_commande'] . ' via panel admin.';
 $commande = new Commandes($bddConnection, $_GET['id_commande']);
-$commande->setCommandeSuivi($suivi, $_Serveur_['General']['case_ligne_suite']);
+$commande->setCommandeSuivi($suivi, $_Serveur_['General']['CaseLigneSuite']);
 $commande->setCommandeStatus($_GET['id_type_commande']);
 return array('status_code' => 200, 'message' => '');
