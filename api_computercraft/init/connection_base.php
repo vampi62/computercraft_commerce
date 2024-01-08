@@ -7,5 +7,3 @@
 	require_once('class/base.class.php');
 	$base = new base($_Serveur_['DataBase']);
 	$bddConnection = $base->getConnection();
-
-?>

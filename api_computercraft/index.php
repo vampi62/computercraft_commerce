@@ -9,17 +9,19 @@ require ('init/connection_base.php');
 if (!$_Serveur_['Install']) {
 	$printmessage = require('installation/index.php');
 } else {
-	if (isset($_GET['action'])) {
-		if (isset($_GET['admin'])) {
-			$printmessage = require('admin/routeur.php');
-		} else {
-			$printmessage = require('controleur/routeur.php');
-		}
+	if (isset($_GET['admin'])) {
+		$printmessage = require('admin/routeur.php');
 	} else {
-		$printmessage = array('status_code' => 400, 'message' => 'Action non definie.');
+		$printmessage = require('controleur/routeur.php');
 	}
 }
 if (isset($printmessage) && !empty($printmessage)) {
 	http_response_code($printmessage['status_code']);
 	echo json_encode($printmessage);
+} else {
+	http_response_code(404);
+	echo json_encode(array(
+		'status_code' => 404,
+		'message' => 'Not Found'
+	));
 }

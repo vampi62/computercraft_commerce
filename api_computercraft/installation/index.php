@@ -33,12 +33,12 @@ if (!(verifyPDO($_Serveur_['DataBase']['dbAdress'],$_Serveur_['DataBase']['dbNam
 	return array('status_code' => 500, 'message' => 'Identifiant base de donnee incorrect.');
 }
 $sql = getPDO($_Serveur_['DataBase']['dbAdress'],$_Serveur_['DataBase']['dbName'],$_Serveur_['DataBase']['dbUser'],$_Serveur_['DataBase']['dbPassword'],$_Serveur_['DataBase']['dbPort']);
-$sql->exec(file_get_contents('install.sql'));
+$sql->exec(file_get_contents('./installation/install.sql'));
 if ($_Serveur_['Module']['EnderStorage']) {
-	$sql->exec(file_get_contents('enderstorage.sql'));
+	$sql->exec(file_get_contents('./installation/enderstorage.sql'));
 }
 if ($_Serveur_['Module']['WirelessRedstone']) {
-	$sql->exec(file_get_contents('wirelessredstone.sql'));
+	$sql->exec(file_get_contents('./installation/wirelessredstone.sql'));
 }
 SetHtpasswd();
 SetAdmin($sql, $_GET['pseudo'], $_GET['mdp'], $_GET['email']);
