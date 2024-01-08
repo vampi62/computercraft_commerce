@@ -1,563 +1,296 @@
 <?php
+$request = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
+// tant que entrypoint n'est pas egal a api_computercraft on continue le shift
+$endpoint = array_shift($request);
+while ($endpoint != 'api_computercraft') {
+    $endpoint = array_shift($request);
+}
+// si le dernier caractère de $endpoint est un 's', on le supprime
+if (substr($endpoint, -1) == 's') {
+    $dossier = substr($endpoint, 0, -1);
+} else {
+    $dossier = $endpoint;
+}
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
-        switch(strtolower($_GET['action']))	{
-            //getconfig
-            //getntp
-            case 'getconfig':
-                $printmessage = require('getconfig.php');
-            break;
-            case 'getntp':
-                $printmessage = require('getntp.php');
-            break;
-            //getadressebyid
-            //getadressesbyjoueur
-            case 'getadressebyid':
-                $printmessage = require('adresse/getadressebyid.php');
-            break;
-            case 'getadressesbyjoueur':
-                $printmessage = require('adresse/getadressesbyjoueur.php');
-            break;
-            //getapikeybyid
-            //getapikeydroitsbyid
-            //getapikeysbyjoueur
-            case 'getapikeybyid':
-                $printmessage = require('apikey/getapikeybyid.php');
-            break;
-            case 'getapikeydroitsbyid':
-                $printmessage = require('apikey/getapikeydroitsbyid.php');
-            break;
-            case 'getapikeysbyjoueur':
-                $printmessage = require('apikey/getapikeysbyjoueur.php');
-            break;
-            //getcommandebyid
-            //getcommandesbyadresse
-            //getcommandesbyadresseclient
-            //getcommandesbyadressevendeur
-            //getcommandesbycompte
-            //getcommandesbycompteclient
-            //getcommandesbycomptevendeur
-            //getcommandesbylivreur
-            //getcommandesbyoffre
-            //getcommandesbystatus
-            case 'getcommandebyid':
-                $printmessage = require('commande/getcommandebyid.php');
-            break;
-            case 'getcommandesbyadresse':
-                $printmessage = require('commande/getcommandesbyadresse.php');
-            break;
-            case 'getcommandesbyadresseclient':
-                $printmessage = require('commande/getcommandesbyadresseclient.php');
-            break;
-            case 'getcommandesbyadressevendeur':
-                $printmessage = require('commande/getcommandesbyadressevendeur.php');
-            break;
-            case 'getcommandesbycompte':
-                $printmessage = require('commande/getcommandesbycompte.php');
-            break;
-            case 'getcommandesbycompteclient':
-                $printmessage = require('commande/getcommandesbycompteclient.php');
-            break;
-            case 'getcommandesbycomptevendeur':
-                $printmessage = require('commande/getcommandesbycomptevendeur.php');
-            break;
-            case 'getcommandesbylivreur':
-                $printmessage = require('commande/getcommandesbylivreur.php');
-            break;
-            case 'getcommandesbyoffre':
-                $printmessage = require('commande/getcommandesbyoffre.php');
-            break;
-            case 'getcommandesbystatus':
-                $printmessage = require('commande/getcommandesbystatus.php');
-            break;
-            //getcomptebyid
-            //getcomptesbyjoueur
-            case 'getcomptebyid':
-                $printmessage = require('compte/getcomptebyid.php');
-            break;
-            case 'getcomptesbyjoueur':
-                $printmessage = require('compte/getcomptesbyjoueur.php');
-            break;
-            //getenderstorageschest
-            //getenderstorageschestbyid
-            //getenderstorageschestbyjoueur
-            //getenderstorageschestdispo
-            //getenderstoragestank
-            //getenderstoragestankbyid
-            //getenderstoragestankbyjoueur
-            //getenderstoragestankdispo
-            case 'getenderstorageschest':
-                $printmessage = require('enderstorage/getenderstorageschest.php');
-            break;
-            case 'getenderstorageschestbyid':
-                $printmessage = require('enderstorage/getenderstorageschestbyid.php');
-            break;
-            case 'getenderstorageschestbyjoueur':
-                $printmessage = require('enderstorage/getenderstorageschestbyjoueur.php');
-            break;
-            case 'getenderstorageschestdispo':
-                $printmessage = require('enderstorage/getenderstorageschestdispo.php');
-            break;
-            case 'getenderstoragestank':
-                $printmessage = require('enderstorage/getenderstoragestank.php');
-            break;
-            case 'getenderstoragestankbyid':
-                $printmessage = require('enderstorage/getenderstoragestankbyid.php');
-            break;
-            case 'getenderstoragestankbyjoueur':
-                $printmessage = require('enderstorage/getenderstoragestankbyjoueur.php');
-            break;
-            case 'getenderstoragestankdispo':
-                $printmessage = require('enderstorage/getenderstoragestankdispo.php');
-            break;
-            //getadressesbygroupe
-            //getapikeysbygroupe
-            //getcomptesbygroupe
-            //getdroitsbygroupe
-            //getgroupebyid
-            //getgroupesbyadresse
-            //getgroupesbyapikey
-            //getgroupesbycompte
-            //getgroupesbyjoueur
-            //getgroupesbyjoueurmembre
-            //getgroupesbylivreur
-            //getgroupesbyoffre
-            //getjoueursbygroupe
-            //getlivreursbygroupe
-            //getoffresbygroupe
-            case 'getadressesbygroupe':
-                $printmessage = require('groupe/getadressesbygroupe.php');
-            break;
-            case 'getapikeysbygroupe':
-                $printmessage = require('groupe/getapikeysbygroupe.php');
-            break;
-            case 'getcomptesbygroupe':
-                $printmessage = require('groupe/getcomptesbygroupe.php');
-            break;
-            case 'getdroitsbygroupe':
-                $printmessage = require('groupe/getdroitsbygroupe.php');
-            break;
-            case 'getgroupebyid':
-                $printmessage = require('groupe/getgroupebyid.php');
-            break;
-            case 'getgroupesbyadresse':
-                $printmessage = require('groupe/getgroupesbyadresse.php');
-            break;
-            case 'getgroupesbyapikey':
-                $printmessage = require('groupe/getgroupesbyapikey.php');
-            break;
-            case 'getgroupesbycompte':
-                $printmessage = require('groupe/getgroupesbycompte.php');
-            break;
-            case 'getgroupesbyjoueur':
-                $printmessage = require('groupe/getgroupesbyjoueur.php');
-            break;
-            case 'getgroupesbyjoueurmembre':
-                $printmessage = require('groupe/getgroupesbyjoueurmembre.php');
-            break;
-            case 'getgroupesbylivreur':
-                $printmessage = require('groupe/getgroupesbylivreur.php');
-            break;
-            case 'getgroupesbyoffre':
-                $printmessage = require('groupe/getgroupesbyoffre.php');
-            break;
-            case 'getjoueursbygroupe':
-                $printmessage = require('groupe/getjoueursbygroupe.php');
-            break;
-            case 'getlivreursbygroupe':
-                $printmessage = require('groupe/getlivreursbygroupe.php');
-            break;
-            case 'getoffresbygroupe':
-                $printmessage = require('groupe/getoffresbygroupe.php');
-            break;
-            //getjetonbyjoueur
-            //getjetons
-            case 'getjetonbyjoueur':
-                $printmessage = require('jeton/getjetonbyjoueur.php');
-            break;
-            case 'getjetons':
-                $printmessage = require('jeton/getjetons.php');
-            break;
-            //getjoueurbyid
-            //getjoueurbypseudo
-            //getjoueurs
-            case 'getjoueurbyid':
-                $printmessage = require('joueur/getjoueurbyid.php');
-            break;
-            case 'getjoueurbypseudo':
-                $printmessage = require('joueur/getjoueurbypseudo.php');
-            break;
-            case 'getjoueurs':
-                $printmessage = require('joueur/getjoueurs.php');
-            break;
-            //getkeypaybyid
-            //getkeypaysbyoffre
-            case 'getkeypaybyid':
-                $printmessage = require('keypay/getkeypaybyid.php');
-            break;
-            case 'getkeypaysbyoffre':
-                $printmessage = require('keypay/getkeypaysbyoffre.php');
-            break;
-            //getlitigemsgsbycommande
-            case 'getlitigemsgsbycommande':
-                $printmessage = require('litigemsg/getlitigemsgsbycommande.php');
-            break;
-            //getlivreurbyid
-            //getlivreursbyadresse
-            //getlivreursbycompte
-            //getlivreursbyjoueur
-            case 'getlivreurbyid':
-                $printmessage = require('livreur/getlivreurbyid.php');
-            break;
-            case 'getlivreursbyadresse':
-                $printmessage = require('livreur/getlivreursbyadresse.php');
-            break;
-            case 'getlivreursbycompte':
-                $printmessage = require('livreur/getlivreursbycompte.php');
-            break;
-            case 'getlivreursbyjoueur':
-                $printmessage = require('livreur/getlivreursbyjoueur.php');
-            break;
-            //getoffrebyid
-            //getoffres
-            //getoffresbyadresse
-            //getoffresbycompte
-            //getoffresbyjoueur
-            case 'getoffrebyid':
-                $printmessage = require('offre/getoffrebyid.php');
-            break;
-            case 'getoffres':
-                $printmessage = require('offre/getoffres.php');
-            break;
-            case 'getoffresbyadresse':
-                $printmessage = require('offre/getoffresbyadresse.php');
-            break;
-            case 'getoffresbycompte':
-                $printmessage = require('offre/getoffresbycompte.php');
-            break;
-            case 'getoffresbyjoueur':
-                $printmessage = require('offre/getoffresbyjoueur.php');
-            break;
-            //gettransactionbyid
-            //gettransactionsbyadmin
-            //gettransactionsbycommande
-            //gettransactionsbycompte
-            case 'gettransactionbyid':
-                $printmessage = require('transaction/gettransactionbyid.php');
-            break;
-            case 'gettransactionsbyadmin':
-                $printmessage = require('transaction/gettransactionsbyadmin.php');
-            break;
-            case 'gettransactionsbycommande':
-                $printmessage = require('transaction/gettransactionsbycommande.php');
-            break;
-            case 'gettransactionsbycompte':
-                $printmessage = require('transaction/gettransactionsbycompte.php');
-            break;
-            //getwireless
-            //getwirelessbyid
-            //getwirelessbyjoueur
-            //getwirelessdispo
-            case 'getwireless':
-                $printmessage = require('wireless/getwireless.php');
-            break;
-            case 'getwirelessbyid':
-                $printmessage = require('wireless/getwirelessbyid.php');
-            break;
-            case 'getwirelessbyjoueur':
-                $printmessage = require('wireless/getwirelessbyjoueur.php');
-            break;
-            case 'getwirelessdispo':
-                $printmessage = require('wireless/getwirelessdispo.php');
-            break;
-            default:
-                $printmessage = array('status_code' => 405, 'message' => 'Méthode inconue.');
-            break;
+        //getconfig                         -> GET /config
+        //getntp                            -> GET /ntp
+        //getadressebyid                    -> GET /adresse/{id_adresse}
+        //getadressesbyjoueur               -> GET /adresses/joueur/{id_joueur}
+        //getapikeybyid                     -> GET /apikey/{id_apikey}
+        //getdroitsbyapikey                 -> GET /apikey/{id_apikey}/droits
+        //getapikeysbyjoueur                -> GET /apikeys/joueur/{id_joueur}
+        //getcommandebyid                   -> GET /commande/{id_commande}
+        //getcommandesbyadresse             -> GET /commandes/adresse/{id_adresse}
+        //getcommandesbyadresseclient       -> GET /commandes/adresse/{id_adresse}/client
+        //getcommandesbyadressevendeur      -> GET /commandes/adresse/{id_adresse}/vendeur
+        //getcommandesbycompte              -> GET /commandes/compte/{id_compte}
+        //getcommandesbycompteclient        -> GET /commandes/compte/{id_compte}/client
+        //getcommandesbycomptevendeur       -> GET /commandes/compte/{id_compte}/vendeur
+        //getcommandesbylivreur             -> GET /commandes/livreur/{id_livreur}
+        //getcommandesbyoffre               -> GET /commandes/offre/{id_offre}
+        //getcommandesbystatus              -> GET /commandes/status/{status}
+        //getcomptebyid                     -> GET /compte/{id_compte}
+        //getcomptesbyjoueur                -> GET /comptes/joueur/{id_joueur}
+        //getenderstorageschest             -> GET /enderstorageschest
+        //getenderstorageschestbyid         -> GET /enderstorageschest/{id_enderstorageschest}
+        //getenderstorageschestbyjoueur     -> GET /enderstorageschest/joueur/{id_joueur}
+        //getenderstorageschestdispo        -> GET /enderstorageschest/dispo
+        //getenderstoragestank              -> GET /enderstoragestank
+        //getenderstoragestankbyid          -> GET /enderstoragestank/{id_enderstoragestank}
+        //getenderstoragestankbyjoueur      -> GET /enderstoragestank/joueur/{id_joueur}
+        //getenderstoragestankdispo         -> GET /enderstoragestank/dispo
+        //getadressesbygroupe               -> GET /groupe/{id_groupe}/adresses
+        //getapikeysbygroupe                -> GET /groupe/{id_groupe}/apikeys
+        //getcomptesbygroupe                -> GET /groupe/{id_groupe}/comptes
+        //getdroitsbygroupe                 -> GET /groupe/{id_groupe}/droits
+        //getgroupebyid                     -> GET /groupe/{id_groupe}
+        //getgroupesbyadresse               -> GET /groupes/adresse/{id_adresse}
+        //getgroupesbyapikey                -> GET /groupes/apikey/{id_apikey}
+        //getgroupesbycompte                -> GET /groupes/compte/{id_compte}
+        //getgroupesbyjoueur                -> GET /groupes/joueur/{id_joueur}
+        //getgroupesbyjoueurmembre          -> GET /groupes/joueurmembre/{id_joueur}
+        //getgroupesbylivreur               -> GET /groupes/livreur/{id_livreur}
+        //getgroupesbyoffre                 -> GET /groupes/offre/{id_offre}
+        //getjoueursbygroupe                -> GET /groupe/{id_groupe}/joueurs
+        //getlivreursbygroupe               -> GET /groupe/{id_groupe}/livreurs
+        //getoffresbygroupe                 -> GET /groupe/{id_groupe}/offres
+        //getjetonbyjoueur                  -> GET /jeton/joueur/{id_joueur}
+        //getjetons                         -> GET /jetons
+        //getjoueurbyid                     -> GET /joueur/{id_joueur}
+        //getjoueurbypseudo                 -> GET /joueur/pseudo/{pseudo}
+        //getjoueurs                        -> GET /joueurs
+        //getkeypaybyid                     -> GET /keypay/{id_keypay}
+        //getkeypaysbyoffre                 -> GET /keypays/offre/{id_offre}
+        //getlitigemsgsbycommande           -> GET /litigemsgs/commande/{id_commande}
+        //getlivreurbyid                    -> GET /livreur/{id_livreur}
+        //getlivreursbyadresse              -> GET /livreurs/adresse/{id_adresse}
+        //getlivreursbycompte               -> GET /livreurs/compte/{id_compte}
+        //getlivreursbyjoueur               -> GET /livreurs/joueur/{id_joueur}
+        //getoffrebyid                      -> GET /offre/{id_offre}
+        //getoffres                         -> GET /offres
+        //getoffresbyadresse                -> GET /offres/adresse/{id_adresse}
+        //getoffresbycompte                 -> GET /offres/compte/{id_compte}
+        //getoffresbyjoueur                 -> GET /offres/joueur/{id_joueur}
+        //gettransactionbyid                -> GET /transaction/{id_transaction}
+        //gettransactionsbyadmin            -> GET /transactions/admin/{id_admin}
+        //gettransactionsbycommande         -> GET /transactions/commande/{id_commande}
+        //gettransactionsbycompte           -> GET /transactions/compte/{id_compte}
+        //getwireless                       -> GET /wireless
+        //getwirelessbyid                   -> GET /wireless/{id_wireless}
+        //getwirelessbyjoueur               -> GET /wireless/joueur/{id_joueur}
+        //getwirelessdispo                  -> GET /wireless/dispo
+        $nomVariable = "";
+        if (isset($request[0])) {
+            if (is_numeric($request[0])) {
+                $_GET['id_'.$endpoint] = array_shift($request);
+                if (isset($request[0])) {
+                    $endpoint = array_shift($request) . 'by' . $endpoint;
+                } else {
+                    $endpoint .= 'byid';
+                }
+            } else {
+                if (isset($request[1])) {
+                    $endpoint .= 'by';
+                }
+                $nomVariable = array_shift($request);
+                $endpoint .= $nomVariable;
+            }
+        }
+        if (isset($request[0])) {
+            if (is_numeric($request[0])) {
+                $_GET['id_'.$nomVariable] = array_shift($request);
+            } else {
+                $nomVariable = array_shift($request);
+                $endpoint .= $nomVariable;
+            }
+        }
+        if (isset($request[0])) {
+            if (is_numeric($request[0])) {
+                $_GET['id_'.$nomVariable] = array_shift($request);
+            } else {
+                $nomVariable = array_shift($request);
+                $endpoint .= $nomVariable;
+            }
+        }
+        if (isset($request[0])) {
+            if (is_numeric($request[0])) {
+                $_GET['id_'.$nomVariable] = array_shift($request);
+            } else {
+                $nomVariable = array_shift($request);
+                $endpoint .= $nomVariable;
+            }
+        }
+        $endpoint = 'controleur/' . $dossier . '/get' . $endpoint . '.php';
+        if (file_exists($endpoint)) {
+            $printmessage = require($endpoint);
+        } else {
+            $printmessage = array('status_code' => 405, 'message' => 'Méthode inconue.');
         }
     break;
     case 'POST':
-        switch(strtolower($_GET['action']))	{
-            //addbanqueterminal
-            case 'addbanqueterminal':
-                $printmessage = require('addbanqueterminal.php');
-            break;
-            //addadresse
-            case 'addadresse':
-                $printmessage = require('adresse/addadresse.php');
-            break;
-            //addapikey
-            //addapikeydroit
-            case 'addapikey':
-                $printmessage = require('apikey/addapikey.php');
-            break;
-            case 'addapikeydroit':
-                $printmessage = require('apikey/addapikeydroit.php');
-            break;
-            //addcommande
-            case 'addcommande':
-                $printmessage = require('commande/addcommande.php');
-            break;
-            //addcompte
-            case 'addcompte':
-                $printmessage = require('compte/addcompte.php');
-            break;
-            //addgroupe
-            //addgroupeadresse
-            //addgroupeapikey
-            //addgroupecompte
-            //addgroupedroit
-            //addgroupejoueur
-            //addgroupelivreur
-            //addgroupeoffre
-            case 'addgroupe':
-                $printmessage = require('groupe/addgroupe.php');
-            break;
-            case 'addgroupeadresse':
-                $printmessage = require('groupe/addgroupeadresse.php');
-            break;
-            case 'addgroupeapikey':
-                $printmessage = require('groupe/addgroupeapikey.php');
-            break;
-            case 'addgroupecompte':
-                $printmessage = require('groupe/addgroupecompte.php');
-            break;
-            case 'addgroupedroit':
-                $printmessage = require('groupe/addgroupedroit.php');
-            break;
-            case 'addgroupejoueur':
-                $printmessage = require('groupe/addgroupejoueur.php');
-            break;
-            case 'addgroupelivreur':
-                $printmessage = require('groupe/addgroupelivreur.php');
-            break;
-            case 'addgroupeoffre':
-                $printmessage = require('groupe/addgroupeoffre.php');
-            break;
-            //addjoueur
-            case 'addjoueur':
-                $printmessage = require('joueur/addjoueur.php');
-            break;
-            //addlitigemsg
-            case 'addlitigemsg':
-                $printmessage = require('litigemsg/addlitigemsg.php');
-            break;
-            //addlivreur
-            case 'addlivreur':
-                $printmessage = require('livreur/addlivreur.php');
-            break;
-            //addoffre
-            case 'addoffre':
-                $printmessage = require('offre/addoffre.php');
-            break;
-            //addtransaction
-            case 'addtransaction':
-                $printmessage = require('transaction/addtransaction.php');
-            break;
-            default:
-                $printmessage = array('status_code' => 405, 'message' => 'Méthode inconue.');
-            break;
+        //addadresse        -> POST /adresse
+        //addapikey         -> POST /apikey
+        //addapikeydroit    -> POST /apikey/{id_apikey}/droit/{id_droit}
+        //addcommande       -> POST /commande
+        //addcompte         -> POST /compte
+        //addgroupe         -> POST /groupe
+        //addgroupeadresse  -> POST /groupe/{id_groupe}/adresse/{id_adresse}
+        //addgroupeapikey   -> POST /groupe/{id_groupe}/apikey/{id_apikey}
+        //addgroupecompte   -> POST /groupe/{id_groupe}/compte/{id_compte}
+        //addgroupedroit    -> POST /groupe/{id_groupe}/droit/{id_droit}
+        //addgroupejoueur   -> POST /groupe/{id_groupe}/joueur/{id_joueur}
+        //addgroupelivreur  -> POST /groupe/{id_groupe}/livreur/{id_livreur}
+        //addgroupeoffre    -> POST /groupe/{id_groupe}/offre/{id_offre}
+        //addjoueur         -> POST /joueur
+        //addlitigemsg      -> POST /litigemsg
+        //addlivreur        -> POST /livreur
+        //addoffre          -> POST /offre
+        //addtransaction    -> POST /transaction
+        //addbanqueterminal -> POST /banqueterminal
+        $nomVariable = "";
+        if (isset($request[0])) {
+            if (is_numeric($request[0])) {
+                $_GET['id_'.$endpoint] = array_shift($request);
+            } else {
+                $nomVariable = array_shift($request);
+                $endpoint .= $nomVariable;
+            }
+        }
+        if (isset($request[0])) {
+            if (is_numeric($request[0])) {
+                $_GET['id_'.$nomVariable] = array_shift($request);
+            } else {
+                $nomVariable = array_shift($request);
+                $endpoint .= $nomVariable;
+            }
+        }
+        if (isset($request[0])) {
+            if (is_numeric($request[0])) {
+                $_GET['id_'.$nomVariable] = array_shift($request);
+            } else {
+                $nomVariable = array_shift($request);
+                $endpoint .= $nomVariable;
+            }
+        }
+        $endpoint = 'controleur/' . $dossier . '/add' . $endpoint . '.php';
+        if (file_exists($endpoint)) {
+            $printmessage = require($endpoint);
+        } else {
+            $printmessage = array('status_code' => 405, 'message' => 'Méthode inconue.');
         }
     break;
     case 'PUT':
-        switch(strtolower($_GET['action']))	{
-            //editadressecoo
-            //editadressedescription
-            //editadressenom
-            case 'editadressecoo':
-                $printmessage = require('adresse/editadressecoo.php');
-            break;
-            case 'editadressedescription':
-                $printmessage = require('adresse/editadressedescription.php');
-            break;
-            case 'editadressenom':
-                $printmessage = require('adresse/editadressenom.php');
-            break;
-            //editapikeymdp
-            //editapikeynom
-            case 'editapikeymdp':
-                $printmessage = require('apikey/editapikeymdp.php');
-            break;
-            case 'editapikeynom':
-                $printmessage = require('apikey/editapikeynom.php');
-            break;
-            //editcommandecoderetrait
-            //editcommandedatelivraison
-            //editcommandelivreur
-            //editcommandestatus
-            case 'editcommandecoderetrait':
-                $printmessage = require('commande/editcommandecoderetrait.php');
-            break;
-            case 'editcommandedatelivraison':
-                $printmessage = require('commande/editcommandedatelivraison.php');
-            break;
-            case 'editcommandelivreur':
-                $printmessage = require('commande/editcommandelivreur.php');
-            break;
-            case 'editcommandestatus':
-                $printmessage = require('commande/editcommandestatus.php');
-            break;
-            //editcomptenom
-            case 'editcomptenom':
-                $printmessage = require('compte/editcomptenom.php');
-            break;
-            //editenderstorageschest
-            //editenderstoragestank
-            case 'editenderstorageschest':
-                $printmessage = require('enderstorage/editenderstorageschest.php');
-            break;
-            case 'editenderstoragestank':
-                $printmessage = require('enderstorage/editenderstoragestank.php');
-            break;
-            //editgroupenom
-            case 'editgroupenom':
-                $printmessage = require('groupe/editgroupenom.php');
-            break;
-            //editjeton
-            case 'editjeton':
-                $printmessage = require('jeton/editjeton.php');
-            break;
-            //editjoueuremail
-            //editjoueurmdp
-            //editjoueurnbroffre
-            //editjoueurpseudo
-            //editjoueurrole
-            case 'editjoueuremail':
-                $printmessage = require('joueur/editjoueuremail.php');
-            break;
-            case 'editjoueurmdp':
-                $printmessage = require('joueur/editjoueurmdp.php');
-            break;
-            case 'editjoueurnbroffre':
-                $printmessage = require('joueur/editjoueurnbroffre.php');
-            break;
-            case 'editjoueurpseudo':
-                $printmessage = require('joueur/editjoueurpseudo.php');
-            break;
-            case 'editjoueurrole':
-                $printmessage = require('joueur/editjoueurrole.php');
-            break;
-            //editlivreuradresse
-            //editlivreurcompte
-            //editlivreurnom
-            case 'editlivreuradresse':
-                $printmessage = require('livreur/editlivreuradresse.php');
-            break;
-            case 'editlivreurcompte':
-                $printmessage = require('livreur/editlivreurcompte.php');
-            break;
-            case 'editlivreurnom':
-                $printmessage = require('livreur/editlivreurnom.php');
-            break;
-            //editoffreadresse
-            //editoffrecompte
-            //editoffredescription
-            //editoffrenom
-            //editoffreprix
-            //editoffrestock
-            //editoffretype
-            case 'editoffreadresse':
-                $printmessage = require('offre/editoffreadresse.php');
-            break;
-            case 'editoffrecompte':
-                $printmessage = require('offre/editoffrecompte.php');
-            break;
-            case 'editoffredescription':
-                $printmessage = require('offre/editoffredescription.php');
-            break;
-            case 'editoffrenom':
-                $printmessage = require('offre/editoffrenom.php');
-            break;
-            case 'editoffreprix':
-                $printmessage = require('offre/editoffreprix.php');
-            break;
-            case 'editoffrestock':
-                $printmessage = require('offre/editoffrestock.php');
-            break;
-            case 'editoffretype':
-                $printmessage = require('offre/editoffretype.php');
-            break;
-            //editwireless
-            case 'editwireless':
-                $printmessage = require('wireless/editwireless.php');
-            break;
-            default:
-                $printmessage = array('status_code' => 405, 'message' => 'Méthode inconue.');
-            break;
+        //editadressecoo                -> PUT /adresse/{id_adresse}/coo
+        //editadressedescription        -> PUT /adresse/{id_adresse}/description
+        //editadressenom                -> PUT /adresse/{id_adresse}/nom
+        //editapikeymdp                 -> PUT /apikey/{id_apikey}/mdp
+        //editapikeynom                 -> PUT /apikey/{id_apikey}/nom
+        //editcommandecoderetrait       -> PUT /commande/{id_commande}/coderetrait
+        //editcommandedatelivraison     -> PUT /commande/{id_commande}/datelivraison
+        //editcommandelivreur           -> PUT /commande/{id_commande}/livreur
+        //editcommandestatus            -> PUT /commande/{id_commande}/status
+        //editcomptenom                 -> PUT /compte/{id_compte}/nom
+        //editenderstorageschest        -> PUT /enderstorageschest/{id_enderstorageschest}
+        //editenderstoragestank         -> PUT /enderstoragestank/{id_enderstoragestank}
+        //editgroupenom                 -> PUT /groupe/{id_groupe}/nom
+        //editjeton                     -> PUT /jeton/{id_jeton}
+        //editjoueuremail               -> PUT /joueur/{id_joueur}/email
+        //editjoueurmdp                 -> PUT /joueur/{id_joueur}/mdp
+        //editjoueurnbroffre            -> PUT /joueur/{id_joueur}/nbroffre
+        //editjoueurpseudo              -> PUT /joueur/{id_joueur}/pseudo
+        //editjoueurrole                -> PUT /joueur/{id_joueur}/role
+        //editlivreuradresse            -> PUT /livreur/{id_livreur}/adresse
+        //editlivreurcompte             -> PUT /livreur/{id_livreur}/compte
+        //editlivreurnom                -> PUT /livreur/{id_livreur}/nom
+        //editoffreadresse              -> PUT /offre/{id_offre}/adresse
+        //editoffrecompte               -> PUT /offre/{id_offre}/compte
+        //editoffredescription          -> PUT /offre/{id_offre}/description
+        //editoffrenom                  -> PUT /offre/{id_offre}/nom
+        //editoffreprix                 -> PUT /offre/{id_offre}/prix
+        //editoffrestock                -> PUT /offre/{id_offre}/stock
+        //editoffretype                 -> PUT /offre/{id_offre}/type
+        //editwireless                  -> PUT /wireless/{id_wireless}
+        $nomVariable = "";
+        if (isset($request[0])) {
+            if (is_numeric($request[0])) {
+                $_GET['id_'.$endpoint] = array_shift($request);
+            } else {
+                $nomVariable = array_shift($request);
+                $endpoint .= $nomVariable;
+            }
+        }
+        if (isset($request[0])) {
+            if (is_numeric($request[0])) {
+                $_GET['id_'.$nomVariable] = array_shift($request);
+            } else {
+                $nomVariable = array_shift($request);
+                $endpoint .= $nomVariable;
+            }
+        }
+        if (isset($request[0])) {
+            if (is_numeric($request[0])) {
+                $_GET['id_'.$nomVariable] = array_shift($request);
+            } else {
+                $nomVariable = array_shift($request);
+                $endpoint .= $nomVariable;
+            }
+        }
+        $endpoint = 'controleur/' . $dossier . '/edit' . $endpoint . '.php';
+        if (file_exists($endpoint)) {
+            $printmessage = require($endpoint);
+        } else {
+            $printmessage = array('status_code' => 405, 'message' => 'Méthode inconue.');
         }
     break;
     case 'DELETE':
-        switch(strtolower($_GET['action']))	{
-            //deleteadresse
-            case 'deleteadresse':
-                $printmessage = require('adresse/deleteadresse.php');
-            break;
-            //deleteapikey
-            //deleteapikeydroit
-            case 'deleteapikey':
-                $printmessage = require('apikey/deleteapikey.php');
-            break;
-            case 'deleteapikeydroit':
-                $printmessage = require('apikey/deleteapikeydroit.php');
-            break;
-            //deletecompte
-            case 'deletecompte':
-                $printmessage = require('compte/deletecompte.php');
-            break;
-            //deletegroupe
-            //deletegroupeadresse
-            //deletegroupeapikey
-            //deletegroupecompte
-            //deletegroupedroit
-            //deletegroupejoueur
-            //deletegroupelivreur
-            //deletegroupeoffre
-            case 'deletegroupe':
-                $printmessage = require('groupe/deletegroupe.php');
-            break;
-            case 'deletegroupeadresse':
-                $printmessage = require('groupe/deletegroupeadresse.php');
-            break;
-            case 'deletegroupeapikey':
-                $printmessage = require('groupe/deletegroupeapikey.php');
-            break;
-            case 'deletegroupecompte':
-                $printmessage = require('groupe/deletegroupecompte.php');
-            break;
-            case 'deletegroupedroit':
-                $printmessage = require('groupe/deletegroupedroit.php');
-            break;
-            case 'deletegroupejoueur':
-                $printmessage = require('groupe/deletegroupejoueur.php');
-            break;
-            case 'deletegroupelivreur':
-                $printmessage = require('groupe/deletegroupelivreur.php');
-            break;
-            case 'deletegroupeoffre':
-                $printmessage = require('groupe/deletegroupeoffre.php');
-            break;
-            //deletejeton
-            case 'deletejeton':
-                $printmessage = require('jeton/deletejeton.php');
-            break;
-            //deletejoueur
-            case 'deletejoueur':
-                $printmessage = require('joueur/deletejoueur.php');
-            break;
-            //deletelitigemsg
-            case 'deletelitigemsg':
-                $printmessage = require('litigemsg/deletelitigemsg.php');
-            break;
-            //deletelivreur
-            case 'deletelivreur':
-                $printmessage = require('livreur/deletelivreur.php');
-            break;
-            //deleteoffre
-            case 'deleteoffre':
-                $printmessage = require('offre/deleteoffre.php');
-            break;
-            default:
-                $printmessage = array('status_code' => 405, 'message' => 'Méthode inconue.');
-            break;
+        //deleteadresse         -> DELETE /adresse/{id_adresse}
+        //deleteapikey          -> DELETE /apikey/{id_apikey}
+        //deleteapikeydroit     -> DELETE /apikey/{id_apikey}/droit/{id_droit}
+        //deletecompte          -> DELETE /compte/{id_compte}
+        //deletegroupe          -> DELETE /groupe/{id_groupe}
+        //deletegroupeadresse   -> DELETE /groupe/{id_groupe}/adresse/{id_adresse}
+        //deletegroupeapikey    -> DELETE /groupe/{id_groupe}/apikey/{id_apikey}
+        //deletegroupecompte    -> DELETE /groupe/{id_groupe}/compte/{id_compte}
+        //deletegroupedroit     -> DELETE /groupe/{id_groupe}/droit/{id_droit}
+        //deletegroupejoueur    -> DELETE /groupe/{id_groupe}/joueur/{id_joueur}
+        //deletegroupelivreur   -> DELETE /groupe/{id_groupe}/livreur/{id_livreur}
+        //deletegroupeoffre     -> DELETE /groupe/{id_groupe}/offre/{id_offre}
+        //deletejeton           -> DELETE /jeton/{id_jeton}
+        //deletejoueur          -> DELETE /joueur/{id_joueur}
+        //deletelitigemsg       -> DELETE /litigemsg/{id_litigemsg}
+        //deletelivreur         -> DELETE /livreur/{id_livreur}
+        //deleteoffre           -> DELETE /offre/{id_offre}
+        $nomVariable = "";
+        if (isset($request[0])) {
+            if (is_numeric($request[0])) {
+                $_GET['id_'.$endpoint] = array_shift($request);
+            } else {
+                $nomVariable = array_shift($request);
+                $endpoint .= $nomVariable;
+            }
+        }
+        if (isset($request[0])) {
+            if (is_numeric($request[0])) {
+                $_GET['id_'.$nomVariable] = array_shift($request);
+            } else {
+                $nomVariable = array_shift($request);
+                $endpoint .= $nomVariable;
+            }
+        }
+        if (isset($request[0])) {
+            if (is_numeric($request[0])) {
+                $_GET['id_'.$nomVariable] = array_shift($request);
+            } else {
+                $nomVariable = array_shift($request);
+                $endpoint .= $nomVariable;
+            }
+        }
+        $endpoint = 'controleur/' . $dossier . '/delete' . $endpoint . '.php';
+        if (file_exists($endpoint)) {
+            $printmessage = require($endpoint);
+        } else {
+            $printmessage = array('status_code' => 405, 'message' => 'Méthode inconue.');
         }
     break;
     default:

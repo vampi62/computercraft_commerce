@@ -5,6 +5,3 @@
 	// On lit le fichier de config et on récupère les information dans un tableau. Celui-ci contiens la config générale.
 	$configLecture = new Lire('init/config/config.yml');
 	$_Serveur_ = $configLecture->GetTableau();
-
-
-?>

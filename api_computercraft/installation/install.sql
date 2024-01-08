@@ -591,29 +591,6 @@ INSERT INTO `type_transactions` (`id_type_transaction`, `nom_type_transaction`) 
 -- --------------------------------------------------------
 
 --
--- Doublure de structure pour la vue `vw_joueurs`
--- (Voir ci-dessous la vue réelle)
---
-CREATE TABLE `vw_joueurs` (
-`id_joueur` int(11)
-,`pseudo_joueur` varchar(50)
-,`email_joueur` varchar(50)
-,`last_login_joueur` datetime
-,`max_offres_joueur` int(11)
-,`id_type_joueur` int(11)
-,`nom_type_joueur` varchar(50)
-);
-
--- --------------------------------------------------------
-
---
--- Structure de la vue `vw_joueurs`
---
-DROP TABLE IF EXISTS `vw_joueurs`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`vampi62`@`%` SQL SECURITY DEFINER VIEW `vw_joueurs`  AS SELECT `joueurs`.`id_joueur` AS `id_joueur`, `joueurs`.`pseudo_joueur` AS `pseudo_joueur`, `joueurs`.`email_joueur` AS `email_joueur`, `joueurs`.`last_login_joueur` AS `last_login_joueur`, `joueurs`.`max_offres_joueur` AS `max_offres_joueur`, `joueurs`.`id_type_joueur` AS `id_type_joueur`, `type_joueurs`.`nom_type_joueur` AS `nom_type_joueur` FROM (`joueurs` join `type_joueurs` on(`joueurs`.`id_type_joueur` = `type_joueurs`.`id_type_joueur`))  ;
-
---
 -- Index pour les tables déchargées
 --
 
@@ -1117,6 +1094,33 @@ ALTER TABLE `transactions`
   ADD CONSTRAINT `transactions_ibfk_3` FOREIGN KEY (`id_joueur`) REFERENCES `joueurs` (`id_joueur`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `transactions_ibfk_4` FOREIGN KEY (`id_compte_debiteur`) REFERENCES `comptes` (`id_compte`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `transactions_ibfk_5` FOREIGN KEY (`id_compte_crediteur`) REFERENCES `comptes` (`id_compte`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+
+--
+-- Doublure de structure pour la vue `vw_joueurs`
+-- (Voir ci-dessous la vue réelle)
+--
+CREATE TABLE `vw_joueurs` (
+`id_joueur` int(11)
+,`pseudo_joueur` varchar(50)
+,`email_joueur` varchar(50)
+,`last_login_joueur` datetime
+,`max_offres_joueur` int(11)
+,`id_type_joueur` int(11)
+,`nom_type_joueur` varchar(50)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la vue `vw_joueurs`
+--
+DROP TABLE IF EXISTS `vw_joueurs`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`vampi62`@`%` SQL SECURITY DEFINER VIEW `vw_joueurs`  AS SELECT `joueurs`.`id_joueur` AS `id_joueur`, `joueurs`.`pseudo_joueur` AS `pseudo_joueur`, `joueurs`.`email_joueur` AS `email_joueur`, `joueurs`.`last_login_joueur` AS `last_login_joueur`, `joueurs`.`max_offres_joueur` AS `max_offres_joueur`, `joueurs`.`id_type_joueur` AS `id_type_joueur`, `type_joueurs`.`nom_type_joueur` AS `nom_type_joueur` FROM (`joueurs` join `type_joueurs` on(`joueurs`.`id_type_joueur` = `type_joueurs`.`id_type_joueur`))  ;
+
+
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
