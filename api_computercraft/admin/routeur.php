@@ -151,7 +151,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $nomVariable = "";
         if (isset($request[0])) {
             if (is_numeric($request[0])) {
-                $_GET['id_'.$endpoint] = array_shift($request);
+                $_POST['id_'.$endpoint] = array_shift($request);
             } else {
                 $nomVariable = array_shift($request);
                 $endpoint .= $nomVariable;
@@ -159,7 +159,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }
         if (isset($request[0])) {
             if (is_numeric($request[0])) {
-                $_GET['id_'.$nomVariable] = array_shift($request);
+                $_POST['id_'.$nomVariable] = array_shift($request);
             } else {
                 $nomVariable = array_shift($request);
                 $endpoint .= $nomVariable;
@@ -167,7 +167,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }
         if (isset($request[0])) {
             if (is_numeric($request[0])) {
-                $_GET['id_'.$nomVariable] = array_shift($request);
+                $_POST['id_'.$nomVariable] = array_shift($request);
             } else {
                 $nomVariable = array_shift($request);
                 $endpoint .= $nomVariable;
@@ -214,7 +214,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $nomVariable = "";
         if (isset($request[0])) {
             if (is_numeric($request[0])) {
-                $_GET['id_'.$endpoint] = array_shift($request);
+                $_POST['id_'.$endpoint] = array_shift($request);
             } else {
                 $nomVariable = array_shift($request);
                 $endpoint .= $nomVariable;
@@ -222,7 +222,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }
         if (isset($request[0])) {
             if (is_numeric($request[0])) {
-                $_GET['id_'.$nomVariable] = array_shift($request);
+                $_POST['id_'.$nomVariable] = array_shift($request);
             } else {
                 $nomVariable = array_shift($request);
                 $endpoint .= $nomVariable;
@@ -230,7 +230,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }
         if (isset($request[0])) {
             if (is_numeric($request[0])) {
-                $_GET['id_'.$nomVariable] = array_shift($request);
+                $_POST['id_'.$nomVariable] = array_shift($request);
             } else {
                 $nomVariable = array_shift($request);
                 $endpoint .= $nomVariable;
@@ -264,7 +264,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $nomVariable = "";
         if (isset($request[0])) {
             if (is_numeric($request[0])) {
-                $_GET['id_'.$endpoint] = array_shift($request);
+                $_POST['id_'.$endpoint] = array_shift($request);
             } else {
                 $nomVariable = array_shift($request);
                 $endpoint .= $nomVariable;
@@ -272,7 +272,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }
         if (isset($request[0])) {
             if (is_numeric($request[0])) {
-                $_GET['id_'.$nomVariable] = array_shift($request);
+                $_POST['id_'.$nomVariable] = array_shift($request);
             } else {
                 $nomVariable = array_shift($request);
                 $endpoint .= $nomVariable;
@@ -280,7 +280,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }
         if (isset($request[0])) {
             if (is_numeric($request[0])) {
-                $_GET['id_'.$nomVariable] = array_shift($request);
+                $_POST['id_'.$nomVariable] = array_shift($request);
             } else {
                 $nomVariable = array_shift($request);
                 $endpoint .= $nomVariable;

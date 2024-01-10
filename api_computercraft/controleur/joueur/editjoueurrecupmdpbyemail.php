@@ -3,11 +3,11 @@ require_once('class/joueurs.class.php');
 require_once('include/phpmailer/MailSender.php');
 require_once('class/checkdroits.class.php');
 
-if (!Checkdroits::checkArgs($_GET, array('pseudo' => false, 'email' => false))) {
+if (!Checkdroits::checkArgs($_POST, array('pseudo' => false, 'email' => false), true)) {
 	// modif - il manque des parametres
 	return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-$donneesJoueur = Joueurs::getJoueurByMail($bddConnection, $_GET['pseudo'], $_GET['email']);
+$donneesJoueur = Joueurs::getJoueurByMail($bddConnection, $_POST['pseudo'], $_POST['email']);
 if(empty($donneesJoueur)) {
 	// modif - le mot de passe est incorrect
 	return array('status_code' => 401, 'message' => 'Le pseudo ou le mail est incorrect.');
