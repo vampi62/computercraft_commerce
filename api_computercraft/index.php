@@ -17,7 +17,7 @@ if (!$_Serveur_['Install']) {
 }
 if (isset($printmessage) && !empty($printmessage)) {
 	http_response_code($printmessage['status_code']);
-	echo json_encode($printmessage);
+	echo json_encode($printmessage, JSON_UNESCAPED_UNICODE);
 } else {
 	http_response_code(404);
 	echo json_encode(array(

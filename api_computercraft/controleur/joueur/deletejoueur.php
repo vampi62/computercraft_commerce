@@ -2,11 +2,11 @@
 require_once('class/joueurs.class.php');
 require_once('class/checkdroits.class.php');
 
-$sessionUser = Checkdroits::checkMode($bddConnection,$_GET,array('apikey' => false,'user' => true));
+$sessionUser = Checkdroits::checkMode($bddConnection,$_POST,array('apikey' => false,'user' => true), true);
 if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
     return $sessionUser; // error
 }
-if (Checkdroits::checkRole($bddConnection, $sessionUser['pseudoLogin'], array('admin'))) {
+if (Checkdroits::checkRole($bddConnection, $sessionUser['pseudoLogin'], array('admin'), true)) {
     return array('status_code' => 403, 'message' => 'Vous ne pouvez pas supprimer votre compte tant que vous etes admin.');
 }
 $joueur = new Joueurs($bddConnection, $sessionUser['idLogin']);

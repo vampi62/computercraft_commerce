@@ -16,15 +16,15 @@ if (!isset($_Serveur_['DataBase']['dbAdress']) || !isset($_Serveur_['DataBase'][
 	// 'fichier config incorrect';
 	return array('status_code' => 500, 'message' => 'Fichier config incorrect.');
 }
-if (!Checkdroits::checkArgs($_GET,array('pseudo' => false,'mdp' => false,'email' => false))) {
+if (!Checkdroits::checkArgs($_POST,array('pseudo' => false,'mdp' => false,'email' => false))) {
 	// 'il manque des parametres';
 	return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-if (!Checkdroits::checkPasswordSecu($_GET['mdp'])) {
+if (!Checkdroits::checkPasswordSecu($_POST['mdp'])) {
 	// 'le mot de passe ne respecte pas les regles de securite';
     return array('status_code' => 400, 'message' => 'Le mot de passe doit contenir au moins 8 caracteres, une majuscule, une minuscule et un chiffre.');
 }
-if (!filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)) {
+if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 	// 'email invalide';
 	return array('status_code' => 400, 'message' => 'Email invalide.');
 }
@@ -41,7 +41,7 @@ if ($_Serveur_['Module']['WirelessRedstone']) {
 	$sql->exec(file_get_contents('./installation/wirelessredstone.sql'));
 }
 SetHtpasswd();
-SetAdmin($sql, $_GET['pseudo'], $_GET['mdp'], $_GET['email']);
+SetAdmin($sql, $_POST['pseudo'], $_POST['mdp'], $_POST['email']);
 $_Serveur_['Install'] = true;
 $ecriture = new Ecrire('init/config/config.yml', $_Serveur_);
 return array('status_code' => 200, 'message' => 'Installation terminer');

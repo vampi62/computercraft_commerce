@@ -29,8 +29,8 @@ class Checkdroits {
     }
 
     // verifie le mode de connexion du compte et son authentification
-    public static function checkMode($bdd,$argsSend,$permMethode) {
-        if (self::checkArgs($argsSend,array('user' => false,'mdpuser' => false))) {
+    public static function checkMode($bdd,$argsSend,$permMethode, $boolPost=false) {
+        if (self::checkArgs($argsSend,array('user' => false,'mdpuser' => false), $boolPost)) {
             if (!$permMethode['user']) {
                 return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action avec un compte utilisateur.');
             }
@@ -39,7 +39,7 @@ class Checkdroits {
                 return array('status_code' => 403, 'message' => 'identifiant ou mot de passe incorrect.');
             }
             return array('isApi' => false,'idLogin' => $sessionLogin[0],'pseudoLogin' => $sessionLogin[1]);
-        } elseif (self::checkArgs($argsSend,array('apikey' => false, 'mdpapikey' => false))) {
+        } elseif (self::checkArgs($argsSend,array('apikey' => false, 'mdpapikey' => false), $boolPost)) {
             if (!$permMethode['apikey']) {
                 return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action avec une apikey.');
             }
@@ -54,8 +54,8 @@ class Checkdroits {
     }
 
     // verifie la connexion pour un compte admin
-    public static function checkAdmin($bdd,$argsSend) {
-        if (!self::checkArgs($argsSend,array('admin' => false,'mdpadmin' => false))) {
+    public static function checkAdmin($bdd,$argsSend, $boolPost=false) {
+        if (!self::checkArgs($argsSend,array('admin' => false,'mdpadmin' => false), $boolPost)) {
             return array('status_code' => 400, 'message' => 'Il manque des parametres.');
         }
         $sessionLogin = self::_checkMdp($bdd, $argsSend['admin'], $argsSend['mdpadmin']);
@@ -69,8 +69,8 @@ class Checkdroits {
     }
 
     // verifie la connexion pour une apikey banque
-    public static function checkTerminalApi($bdd,$argsSend) {
-        if (!self::checkArgs($argsSend,array('userbanque' => false,'mdpbanque' => false))) {
+    public static function checkTerminalApi($bdd,$argsSend, $boolPost=false) {
+        if (!self::checkArgs($argsSend,array('userbanque' => false,'mdpbanque' => false), $boolPost)) {
             return array('status_code' => 400, 'message' => 'Il manque des parametres.');
         }
         $sessionLogin = self::_checkMdpApi($bdd, $argsSend['userbanque'], $argsSend['mdpbanque']);
