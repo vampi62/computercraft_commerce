@@ -155,13 +155,13 @@ class Joueurs {
 
 	// creer un nouveau joueur
 	public function addJoueur($pseudoJoueur,$emailJoueur,$mdpJoueur,$offreDepart,$idTypeRole=1) { // 1 = utilisateur, 2 = admin, 3 = terminal
-		$req = $this->_bdd->prepare('INSERT INTO joueurs(pseudo_joueur, email_joueur, mdp_joueur, last_login_joueur, id_type_role, max_offres_joueur) VALUES(:pseudo_joueur, :email_joueur, :mdp_joueur, :last_login_joueur, :id_type_role, :max_offres_joueur)');
+		$req = $this->_bdd->prepare('INSERT INTO joueurs(pseudo_joueur, email_joueur, mdp_joueur, last_login_joueur, id_type_joueur, max_offres_joueur) VALUES(:pseudo_joueur, :email_joueur, :mdp_joueur, :last_login_joueur, :id_type_joueur, :max_offres_joueur)');
 		$req->execute(array(
 			'pseudo_joueur' => $pseudoJoueur,
 			'email_joueur' => $emailJoueur,
 			'mdp_joueur' => password_hash($mdpJoueur, PASSWORD_DEFAULT),
 			'last_login_joueur' => date('Y-m-d H:i:s'),
-			'id_type_role' => $idTypeRole,
+			'id_type_joueur' => $idTypeRole,
 			'max_offres_joueur' => $offreDepart
 		));
 		$this->_idJoueur = $this->_bdd->lastInsertId();

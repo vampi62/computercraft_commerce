@@ -88,10 +88,10 @@ class Droits {
 
     // recupere les chemin_type_commandes
     public static function getCheminStatusCommandes($bdd) {
-        $req = $bdd->prepare('SELECT * FROM chemin_type_commandes');
+        $req = $bdd->prepare('SELECT * FROM chemins_type_commandes');
         $req->execute();
-        $chemin_type_commandes = $req->fetchAll(PDO::FETCH_ASSOC);
+        $chemins_type_commandes = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
-        return $chemin_type_commandes;
+        return $chemins_type_commandes;
     }
 }

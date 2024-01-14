@@ -14,10 +14,10 @@ class ApiKeys {
     // recupere les apikeys visible pour un joueur (si groupe a les droits)
     public static function getApiKeysByUser($bdd,$id_joueur) {
         $req = $bdd->prepare('SELECT apikeys.*,joueurs.pseudo_joueur FROM apikeys 
-        INNER JOIN groupes_apikeys ON apikeys.id_apikey = groupes_apikeys.id_apikey
-        INNER JOIN groupes_joueurs ON groupes_apikeys.id_groupe = groupes_joueurs.id_groupe
-        INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_apikeys.id_groupe
-        INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
+        LEFT JOIN groupes_apikeys ON apikeys.id_apikey = groupes_apikeys.id_apikey
+        LEFT JOIN groupes_joueurs ON groupes_apikeys.id_groupe = groupes_joueurs.id_groupe
+        LEFT JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_apikeys.id_groupe
+        LEFT JOIN droits     ON droits.id_droit = groupes_droits.id_droit
         INNER JOIN joueurs ON apikeys.id_joueur = joueurs.id_joueur
         WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (apikeys.id_joueur = :id_joueur)');
         $req->execute(array(

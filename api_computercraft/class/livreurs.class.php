@@ -14,10 +14,10 @@ class Livreurs {
     // recupere les livreurs accessible par le joueur (lui a partient ou groupe en communs qui permet le getLivreurs)
     public static function getLivreursByUser($bdd,$idJoueur) {
         $req = $bdd->prepare('SELECT livreurs.*,joueurs.pseudo_joueur, comptes.nom_compte, adresses.nom_adresse FROM livreurs
-        INNER JOIN groupes_livreurs ON livreurs.id_livreur = groupes_livreurs.id_livreur
-        INNER JOIN groupes_joueurs ON groupes_livreurs.id_groupe = groupes_joueurs.id_groupe
-        INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_livreurs.id_groupe
-        INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
+        LEFT JOIN groupes_livreurs ON livreurs.id_livreur = groupes_livreurs.id_livreur
+        LEFT JOIN groupes_joueurs ON groupes_livreurs.id_groupe = groupes_joueurs.id_groupe
+        LEFT JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_livreurs.id_groupe
+        LEFT JOIN droits     ON droits.id_droit = groupes_droits.id_droit
         INNER JOIN joueurs ON livreurs.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON livreurs.id_compte = comptes.id_compte
         LEFT JOIN adresses ON livreurs.id_adresse = adresses.id_adresse

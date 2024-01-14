@@ -96,7 +96,7 @@ class Comptes {
         $req = $this->_bdd->prepare('UPDATE comptes SET solde_compte = :solde_compte WHERE id_compte = :id_compte');
         $req->execute(array(
             'solde_compte' => $soldeCompte,
-            'id_compte' => $_idCompte
+            'id_compte' => $this->_idCompte
         ));
     }
 
@@ -105,7 +105,7 @@ class Comptes {
         $req = $this->_bdd->prepare('UPDATE comptes SET nom_compte = :nom_compte WHERE id_compte = :id_compte');
         $req->execute(array(
             'nom_compte' => $nomCompte,
-            'id_compte' => $_idCompte
+            'id_compte' => $this->_idCompte
         ));
     }
 
@@ -113,7 +113,7 @@ class Comptes {
     public function deleteCompte() {
         $req = $this->_bdd->prepare('DELETE FROM comptes WHERE id_compte = :id_compte');
         $req->execute(array(
-            'id_compte' => $_idCompte
+            'id_compte' => $this->_idCompte
         ));
     }
 

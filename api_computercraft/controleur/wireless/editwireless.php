@@ -3,7 +3,7 @@ if (!$_Serveur_['Module']['WirelessRedstone']) {
     return array('status_code' => 403, 'message' => 'Le module wireless redstone est désactivé.');
 }
 require_once('class/checkdroits.class.php');
-require_once('class/wireless.class.php');
+require_once('class/wirelessredstones.class.php');
 
 if (!Checkdroits::checkArgs($_POST,array('reserver' => true, 'id_wireless' => false), true)) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');

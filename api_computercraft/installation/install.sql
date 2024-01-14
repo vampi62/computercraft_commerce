@@ -44,8 +44,8 @@ CREATE TABLE `adresses` (
 
 CREATE TABLE `apikeys` (
   `id_apikey` int(11) UNSIGNED NOT NULL,
-  `mdp_apikey` varchar(200) NOT NULL,
   `nom_apikey` varchar(50) NOT NULL,
+  `mdp_apikey` varchar(200) NOT NULL,
   `id_joueur` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -395,9 +395,9 @@ CREATE TABLE `msg_litiges` (
 
 CREATE TABLE `offres` (
   `id_offre` int(11) UNSIGNED NOT NULL,
+  `nom_offre` varchar(50) NOT NULL,
   `prix_offre` decimal(15,2) UNSIGNED NOT NULL,
   `stock_offre` int(11) UNSIGNED NOT NULL,
-  `nom_offre` varchar(50) NOT NULL,
   `description_offre` varchar(450) NOT NULL,
   `last_update_offre` datetime NOT NULL,
   `id_type_offre` int(11) UNSIGNED NOT NULL,
