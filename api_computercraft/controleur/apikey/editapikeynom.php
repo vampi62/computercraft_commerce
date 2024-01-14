@@ -12,7 +12,7 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
 if (!Checkdroits::checkProprioObj($bddConnection, $sessionUser['idLogin'], $_POST['id_apikey'], 'apikey')) {
     return array('status_code' => 404, 'message' => 'cette apikey n\'existe pas ou ne vous appartient pas.');
 }
-if (count(ApiKeys::getapikeyByNom($bddConnection,$sessionUser['idLogin'] . '-' . $_POST['nom']))) {
+if (!empty(ApiKeys::getapikeyByNom($bddConnection,$sessionUser['idLogin'] . '-' . $_POST['nom']))) {
     return array('status_code' => 404, 'message' => 'Le nom de l\'apikey existe deja.');
 }
 if (strlen($_POST['nom']) > $_Serveur_['MaxLengthChamps']['Nom']) {

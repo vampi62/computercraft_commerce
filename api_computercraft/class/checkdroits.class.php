@@ -55,14 +55,14 @@ class Checkdroits {
 
     // verifie la connexion pour un compte admin
     public static function checkAdmin($bdd,$argsSend, $boolPost=false) {
-        if (!self::checkArgs($argsSend,array('admin' => false,'mdpadmin' => false), $boolPost)) {
+        if (!self::checkArgs($argsSend,array('useradmin' => false,'mdpadmin' => false), $boolPost)) {
             return array('status_code' => 400, 'message' => 'Il manque des parametres.');
         }
-        $sessionLogin = self::_checkMdp($bdd, $argsSend['admin'], $argsSend['mdpadmin']);
+        $sessionLogin = self::_checkMdp($bdd, $argsSend['useradmin'], $argsSend['mdpadmin']);
         if (!$sessionLogin) {
             return array('status_code' => 403, 'message' => 'identifiant ou mot de passe incorrect.');
         }
-        if (!self::checkRole($bdd, $argsSend['admin'], array('admin'))) {
+        if (!self::checkRole($bdd, $argsSend['useradmin'], array('admin'))) {
             return array('status_code' => 403, 'message' => 'Le compte n\'a pas les droits.');
         }
         return array('isApi' => false,'idLogin' => $sessionLogin[0],'pseudoLogin' => $sessionLogin[1]);
@@ -279,7 +279,7 @@ class Checkdroits {
 
     // verifie le chemin_type_commandes de la commande
     public static function checkCheminTypeCommande($bdd,$idTypeDepart,$idTypeArriver,$typeUser) {
-        $req = $bdd->prepare('SELECT * FROM chemin_type_commandes WHERE id_type_commande_debut = :id_type_commande_debut AND id_type_commande_suite = :id_type_commande_suite');
+        $req = $bdd->prepare('SELECT * FROM chemins_type_commandes WHERE id_type_commande_debut = :id_type_commande_debut AND id_type_commande_suite = :id_type_commande_suite');
         $req->execute(array(
             'id_type_commande_suite' => $idTypeArriver,
             'id_type_commande_debut' => $idTypeDepart

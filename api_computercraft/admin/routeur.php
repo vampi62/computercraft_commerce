@@ -1,13 +1,21 @@
 <?php
 $request = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
 // tant que entrypoint n'est pas egal a api_computercraft on continue le shift
-$endpoint = array_shift($request);
-while ($endpoint != 'api_computercraft') {
-    $endpoint = array_shift($request);
-}
+$pathlocal = array_shift($request);
+while ($pathlocal != 'api_computercraft') {
+    $pathlocal = array_shift($request);
+} // on vide l'uri des sous dossiers jusqu'a arriver a api_computercraft
 // si le dernier caractère de $endpoint est un 's', on le supprime
+if (strpos($request[0], '?') !== false) {
+    $request[0] = substr($request[0], 0, strpos($request[0], '?'));
+}
+$endpoint = array_shift($request);
 if (substr($endpoint, -1) == 's') {
-    $dossier = substr($endpoint, 0, -1);
+    if (substr($endpoint, -2) == 'ss') {
+        $dossier = $endpoint;
+    } else {
+        $dossier = substr($endpoint, 0, -1);
+    }
 } else {
     $dossier = $endpoint;
 }
@@ -80,53 +88,34 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //getwirelessbyid                   -> GET /wireless/{id_wireless}
         //getwirelessbyjoueur               -> GET /wireless/joueur/{id_joueur}
         //getwirelessdispo                  -> GET /wireless/dispo
-        $nomVariable = "";
-        if (isset($request[0])) {
+        $nomVariable = $endpoint;
+        while (count($request) > 0) {
+            # si il y a des parametre get dans l'url on les supprime
+            if (strpos($request[0], '?') !== false) {
+                $request[0] = substr($request[0], 0, strpos($request[0], '?'));
+            }
             if (is_numeric($request[0])) {
-                $_GET['id_'.$endpoint] = array_shift($request);
-                if (isset($request[0])) {
-                    $endpoint = array_shift($request) . 'by' . $endpoint;
+                $_GET['id_'.$nomVariable] = array_shift($request);
+                if (!strpos($endpoint, 'by')) {
+                    if (isset($request[0])) {
+                        $endpoint = array_shift($request) . 'by' . $endpoint;
+                    } else {
+                        $endpoint .= 'byid';
+                    }
+                }
+            } else {
+                if (!strpos($endpoint, 'by')) {
+                    if (isset($request[1])) {
+                        $endpoint .= 'by';
+                    }
+                    $nomVariable = array_shift($request);
+                    $endpoint .= $nomVariable;
                 } else {
-                    $endpoint .= 'byid';
+                    $_GET[$nomVariable] = array_shift($request);
                 }
-            } else {
-                if (isset($request[1])) {
-                    $endpoint .= 'by';
-                }
-                $nomVariable = array_shift($request);
-                $endpoint .= $nomVariable;
             }
         }
-        if (isset($request[0])) {
-            if (is_numeric($request[0])) {
-                $_GET['id_'.$nomVariable] = array_shift($request);
-            } else {
-                $nomVariable = array_shift($request);
-                $endpoint .= $nomVariable;
-            }
-        }
-        if (isset($request[0])) {
-            if (is_numeric($request[0])) {
-                $_GET['id_'.$nomVariable] = array_shift($request);
-            } else {
-                $nomVariable = array_shift($request);
-                $endpoint .= $nomVariable;
-            }
-        }
-        if (isset($request[0])) {
-            if (is_numeric($request[0])) {
-                $_GET['id_'.$nomVariable] = array_shift($request);
-            } else {
-                $nomVariable = array_shift($request);
-                $endpoint .= $nomVariable;
-            }
-        }
-        $endpoint = 'controleur/' . $dossier . '/get' . $endpoint . '.php';
-        if (file_exists($endpoint)) {
-            $printmessage = require($endpoint);
-        } else {
-            $printmessage = array('status_code' => 405, 'message' => 'Méthode inconue.');
-        }
+        $endpoint = 'admin/' . $dossier . '/get' . $endpoint . '.php';
     break;
     case 'POST':
         //addadresse        -> POST /adresse
@@ -148,16 +137,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //addoffre          -> POST /offre
         //addtransaction    -> POST /transaction
         //addbanqueterminal -> POST /banqueterminal
-        $nomVariable = "";
-        if (isset($request[0])) {
-            if (is_numeric($request[0])) {
-                $_POST['id_'.$endpoint] = array_shift($request);
-            } else {
-                $nomVariable = array_shift($request);
-                $endpoint .= $nomVariable;
-            }
-        }
-        if (isset($request[0])) {
+        $nomVariable = $endpoint;
+        while (count($request) > 0) {
             if (is_numeric($request[0])) {
                 $_POST['id_'.$nomVariable] = array_shift($request);
             } else {
@@ -165,20 +146,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 $endpoint .= $nomVariable;
             }
         }
-        if (isset($request[0])) {
-            if (is_numeric($request[0])) {
-                $_POST['id_'.$nomVariable] = array_shift($request);
-            } else {
-                $nomVariable = array_shift($request);
-                $endpoint .= $nomVariable;
-            }
-        }
-        $endpoint = 'controleur/' . $dossier . '/add' . $endpoint . '.php';
-        if (file_exists($endpoint)) {
-            $printmessage = require($endpoint);
-        } else {
-            $printmessage = array('status_code' => 405, 'message' => 'Méthode inconue.');
-        }
+        $endpoint = 'admin/' . $dossier . '/add' . $endpoint . '.php';
     break;
     case 'PUT':
         //editadressecoo                -> PUT /adresse/{id_adresse}/coo
@@ -211,16 +179,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //editoffrestock                -> PUT /offre/{id_offre}/stock
         //editoffretype                 -> PUT /offre/{id_offre}/type
         //editwireless                  -> PUT /wireless/{id_wireless}
-        $nomVariable = "";
-        if (isset($request[0])) {
-            if (is_numeric($request[0])) {
-                $_POST['id_'.$endpoint] = array_shift($request);
-            } else {
-                $nomVariable = array_shift($request);
-                $endpoint .= $nomVariable;
-            }
-        }
-        if (isset($request[0])) {
+        parse_str(file_get_contents("php://input"), $_POST);
+        $nomVariable = $endpoint;
+        while (count($request) > 0) {
             if (is_numeric($request[0])) {
                 $_POST['id_'.$nomVariable] = array_shift($request);
             } else {
@@ -228,20 +189,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 $endpoint .= $nomVariable;
             }
         }
-        if (isset($request[0])) {
-            if (is_numeric($request[0])) {
-                $_POST['id_'.$nomVariable] = array_shift($request);
-            } else {
-                $nomVariable = array_shift($request);
-                $endpoint .= $nomVariable;
-            }
-        }
-        $endpoint = 'controleur/' . $dossier . '/edit' . $endpoint . '.php';
-        if (file_exists($endpoint)) {
-            $printmessage = require($endpoint);
-        } else {
-            $printmessage = array('status_code' => 405, 'message' => 'Méthode inconue.');
-        }
+        $endpoint = 'admin/' . $dossier . '/edit' . $endpoint . '.php';
     break;
     case 'DELETE':
         //deleteadresse         -> DELETE /adresse/{id_adresse}
@@ -261,16 +209,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //deletelitigemsg       -> DELETE /litigemsg/{id_litigemsg}
         //deletelivreur         -> DELETE /livreur/{id_livreur}
         //deleteoffre           -> DELETE /offre/{id_offre}
-        $nomVariable = "";
-        if (isset($request[0])) {
-            if (is_numeric($request[0])) {
-                $_POST['id_'.$endpoint] = array_shift($request);
-            } else {
-                $nomVariable = array_shift($request);
-                $endpoint .= $nomVariable;
-            }
-        }
-        if (isset($request[0])) {
+        parse_str(file_get_contents("php://input"), $_POST);
+        $nomVariable = $endpoint;
+        while (count($request) > 0) {
             if (is_numeric($request[0])) {
                 $_POST['id_'.$nomVariable] = array_shift($request);
             } else {
@@ -278,23 +219,17 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 $endpoint .= $nomVariable;
             }
         }
-        if (isset($request[0])) {
-            if (is_numeric($request[0])) {
-                $_POST['id_'.$nomVariable] = array_shift($request);
-            } else {
-                $nomVariable = array_shift($request);
-                $endpoint .= $nomVariable;
-            }
-        }
-        $endpoint = 'controleur/' . $dossier . '/delete' . $endpoint . '.php';
-        if (file_exists($endpoint)) {
-            $printmessage = require($endpoint);
-        } else {
-            $printmessage = array('status_code' => 405, 'message' => 'Méthode inconue.');
-        }
+        $endpoint = 'admin/' . $dossier . '/delete' . $endpoint . '.php';
     break;
     default:
-        $printmessage = array('status_code' => 405, 'message' => 'Méthode non autorisée.');
+        return array('status_code' => 405, 'message' => 'Méthode non autorisée.');
     break;
 }
+if (file_exists($endpoint)) {
+    $printmessage = require($endpoint);
+} else {
+    $printmessage = array('status_code' => 405, 'message' => 'Méthode inconue.');
+}
+$printmessage['debug'] = $_SERVER['REQUEST_METHOD'] . ' ' . $_SERVER['REQUEST_URI'];
+$printmessage['endpoint'] = $endpoint;
 return $printmessage;

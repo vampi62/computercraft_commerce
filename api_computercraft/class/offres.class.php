@@ -17,10 +17,10 @@ class Offres {
     // recupere les offres accessible par le joueur (lui a partient ou groupe en communs qui permet le getoffres)
     public static function getOffresByUser($bdd,$idJoueur) {
         $req = $bdd->prepare('SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres
-        INNER JOIN groupes_offres ON offres.id_offre = groupes_offres.id_offre
-        INNER JOIN groupes_joueurs ON groupes_offres.id_groupe = groupes_joueurs.id_groupe
-        INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_offres.id_groupe
-        INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
+        LEFT JOIN groupes_offres ON offres.id_offre = groupes_offres.id_offre
+        LEFT JOIN groupes_joueurs ON groupes_offres.id_groupe = groupes_joueurs.id_groupe
+        LEFT JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_offres.id_groupe
+        LEFT JOIN droits     ON droits.id_droit = groupes_droits.id_droit
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON offres.id_compte = comptes.id_compte
         LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse
@@ -184,7 +184,7 @@ class Offres {
     public function setOffreCompte($idCompte) {
         $req = $this->_bdd->prepare("UPDATE offres SET id_compte = :id_compte WHERE id_offre = :id_offre");
         $req->execute(array(
-            'id_offre' => $_idOffre,
+            'id_offre' => $this->_idOffre,
             'id_compte' => $idCompte
         ));
         $this->updateLastUpdate();
@@ -194,7 +194,7 @@ class Offres {
     public function setOffreAdresse($idAdresse) {
         $req = $this->_bdd->prepare("UPDATE offres SET id_adresse = :id_adresse WHERE id_offre = :id_offre");
         $req->execute(array(
-            'id_offre' => $_idOffre,
+            'id_offre' => $this->_idOffre,
             'id_adresse' => $idAdresse
         ));
         $this->updateLastUpdate();
@@ -204,7 +204,7 @@ class Offres {
     public function setOffreType($idTypeOffre) {
         $req = $this->_bdd->prepare("UPDATE offres SET id_type_offre = :id_type_offre WHERE id_offre = :id_offre");
         $req->execute(array(
-            'id_offre' => $_idOffre,
+            'id_offre' => $this->_idOffre,
             'id_type_offre' => $idTypeOffre
         ));
         $this->updateLastUpdate();
@@ -214,7 +214,7 @@ class Offres {
     public function setOffrePrix($prixOffre) {
         $req = $this->_bdd->prepare("UPDATE offres SET prix_offre = :prix_offre WHERE id_offre = :id_offre");
         $req->execute(array(
-            'id_offre' => $_idOffre,
+            'id_offre' => $this->_idOffre,
             'prix_offre' => $prixOffre
         ));
         $this->updateLastUpdate();
@@ -224,7 +224,7 @@ class Offres {
     public function setOffreDescription($descriptionOffre) {
         $req = $this->_bdd->prepare("UPDATE offres SET description_offre = :description_offre WHERE id_offre = :id_offre");
         $req->execute(array(
-            'id_offre' => $_idOffre,
+            'id_offre' => $this->_idOffre,
             'description_offre' => $descriptionOffre
         ));
         $this->updateLastUpdate();
@@ -234,7 +234,7 @@ class Offres {
     public function setOffreNom($nomOffre) {
         $req = $this->_bdd->prepare("UPDATE offres SET nom_offre = :nom_offre WHERE id_offre = :id_offre");
         $req->execute(array(
-            'id_offre' => $_idOffre,
+            'id_offre' => $this->_idOffre,
             'nom_offre' => $nomOffre
         ));
         $this->updateLastUpdate();
@@ -244,7 +244,7 @@ class Offres {
     public function setOffreStock($stockOffre) {
         $req = $this->_bdd->prepare("UPDATE offres SET stock_offre = :stock_offre WHERE id_offre = :id_offre");
         $req->execute(array(
-            'id_offre' => $_idOffre,
+            'id_offre' => $this->_idOffre,
             'stock_offre' => $stockOffre
         ));
         $this->updateLastUpdate();
@@ -254,7 +254,7 @@ class Offres {
     public function deleteOffre() {
         $req = $this->_bdd->prepare("DELETE FROM offres WHERE id_offre = :id_offre");
         $req->execute(array(
-            'id_offre' => $_idOffre
+            'id_offre' => $this->_idOffre
         ));
     }
 
@@ -279,7 +279,7 @@ class Offres {
     private function updateLastUpdate() {
         $req = $this->_bdd->prepare("UPDATE offres SET last_update_offre = :last_update_offre WHERE id_offre = :id_offre");
         $req->execute(array(
-            'id_offre' => $_idOffre,
+            'id_offre' => $this->_idOffre,
             'last_update_offre' => date('Y-m-d H:i:s')
         ));
     }

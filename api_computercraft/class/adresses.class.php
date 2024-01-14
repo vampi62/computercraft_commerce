@@ -12,12 +12,12 @@ class Adresses {
     // recupere les adresses accessible par le joueur (lui a partient ou groupes en communs qui permet le getadresses)
     public static function getAdressesByUser($bdd,$idJoueur) {
         $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses 
-        INNER JOIN groupes_adresses ON adresses.id_adresse = groupes_adresses.id_adresse
-        INNER JOIN groupes_joueurs ON groupes_adresses.id_groupe = groupes_joueurs.id_groupe
-        INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_adresses.id_groupe
-        INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
+        LEFT JOIN groupes_adresses ON adresses.id_adresse = groupes_adresses.id_adresse
+        LEFT JOIN groupes_joueurs ON groupes_adresses.id_groupe = groupes_joueurs.id_groupe
+        LEFT JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_adresses.id_groupe
+        LEFT JOIN droits     ON droits.id_droit = groupes_droits.id_droit
         INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur
-        WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom = :nom_droit) OR (adresses.id_joueur = :id_joueur)');
+        WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (adresses.id_joueur = :id_joueur)');
         $req->execute(array(
             'id_joueur' => $idJoueur,
             'nom_droit' => "getAdresses"
@@ -29,7 +29,7 @@ class Adresses {
 
     // recupere les adresses accessible par la apikey (groupe en communs qui permet le getadresses)
     public static function getAdressesByApiKey($bdd,$idApiKey) {
-        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur, livreurs.nom_livreur FROM adresses
+        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses
         INNER JOIN groupes_adresses ON adresses.id_adresse = groupes_adresses.id_adresse
         INNER JOIN groupes_apikeys ON groupes_adresses.id_groupe = groupes_apikeys.id_groupe
         INNER JOIN apikeys ON groupes_apikeys.id_apikey = apikeys.id_apikey
@@ -38,8 +38,7 @@ class Adresses {
         INNER JOIN apikeys_droits    ON apikeys_droits.id_apikey = groupes_apikeys.id_groupe
         INNER JOIN droits     ON droits.id_droit = apikeys_droits.id_droit
         INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur
-        LEFT JOIN livreurs ON livreurs.id_adresse = adresses.id_adresse
-        WHERE apikeys.id_apikey = :id_apikey AND droits.nom = :nom_droit');
+        WHERE apikeys.id_apikey = :id_apikey AND droits.nom_droit = :nom_droit');
         $req->execute(array(
             'id_apikey' => $idApiKey,
             'nom_droit' => "getAdresses"
@@ -51,9 +50,8 @@ class Adresses {
 
     // recupere les adresses d'un joueur
     public static function getAdressesByJoueur($bdd,$idJoueur) {
-        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur,livreurs.nom_livreur FROM adresses 
-        INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur
-        LEFT JOIN livreurs ON livreurs.id_livreur = adresses.id_livreur WHERE adresses.id_joueur = :id_joueur');
+        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses 
+        INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur WHERE adresses.id_joueur = :id_joueur');
         $req->execute(array(
             'id_joueur' => $idJoueur
         ));
@@ -62,24 +60,10 @@ class Adresses {
         return $adresses;
     }
 
-    // recupere les adresse d'un livreur
-    public static function getAdressesByLivreur($bdd,$idLivreur) {
-        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur,livreurs.nom_livreur FROM adresses 
-        INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur
-        LEFT JOIN livreurs ON livreurs.id_livreur = adresses.id_livreur WHERE adresses.id_livreur = :id_livreur');
-        $req->execute(array(
-            'id_livreur' => $idLivreur
-        ));
-        $adresses = $req->fetchAll(PDO::FETCH_ASSOC);
-        $req->closeCursor();
-        return $adresses;
-    }
-
     // recupere l'adresse
     public static function getAdresseById($bdd,$idAdresse) {
-        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur,livreurs.nom_livreur FROM adresses
-        INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur
-        LEFT JOIN livreurs ON livreurs.id_livreur = adresses.id_livreur WHERE adresses.id_adresse = :id_adresse');
+        $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses
+        INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur WHERE adresses.id_adresse = :id_adresse');
         $req->execute(array(
             'id_adresse' => $idAdresse
         ));
@@ -108,7 +92,7 @@ class Adresses {
         $req = $this->_bdd->prepare('UPDATE adresses SET coo_adresse = :coo_adresse WHERE id_adresse = :id_adresse');
         $req->execute(array(
             'coo_adresse' => $cooAdresse,
-            'id_adresse' => $_idAdresse
+            'id_adresse' => $this->_idAdresse
         ));
     }
 
@@ -117,7 +101,7 @@ class Adresses {
         $req = $this->_bdd->prepare('UPDATE adresses SET nom_adresse = :nom_adresse WHERE id_adresse = :id_adresse');
         $req->execute(array(
             'nom_adresse' => $nomAdresse,
-            'id_adresse' => $_idAdresse
+            'id_adresse' => $this->_idAdresse
         ));
     }
 
@@ -126,7 +110,7 @@ class Adresses {
         $req = $this->_bdd->prepare('UPDATE adresses SET description_adresse = :description_adresse WHERE id_adresse = :id_adresse');
         $req->execute(array(
             'description_adresse' => $descriptionAdresse,
-            'id_adresse' => $_idAdresse
+            'id_adresse' => $this->_idAdresse
         ));
     }
 
@@ -135,7 +119,7 @@ class Adresses {
         $req = $this->_bdd->prepare('UPDATE adresses SET id_type_adresse = :id_type_adresse WHERE id_adresse = :id_adresse');
         $req->execute(array(
             'id_type_adresse' => $idTypeAdresse,
-            'id_adresse' => $_idAdresse
+            'id_adresse' => $this->_idAdresse
         ));
     }
 
@@ -143,15 +127,15 @@ class Adresses {
     public function deleteAdresse() {
         $req = $this->_bdd->prepare('DELETE FROM adresses WHERE id_adresse = :id_adresse');
         $req->execute(array(
-            'id_adresse' => $_idAdresse
+            'id_adresse' => $this->_idAdresse
         ));
     }
 
     // ajoute une adresse
-    public function addAdresse($cooAdresse,$nomAdresse,$descriptionAdresse,$idTypeAdresse) {
+    public function addAdresse($idJoueur,$cooAdresse,$nomAdresse,$descriptionAdresse,$idTypeAdresse) {
         $req = $this->_bdd->prepare('INSERT INTO adresses (id_joueur,coo_adresse,nom_adresse,description_adresse,id_type_adresse) VALUES (:id_joueur,:coo_adresse,:nom_adresse,:description_adresse,:id_type_adresse)');
         $req->execute(array(
-            'id_joueur' => $_idAdresse,
+            'id_joueur' => $idJoueur,
             'coo_adresse' => $cooAdresse,
             'nom_adresse' => $nomAdresse,
             'description_adresse' => $descriptionAdresse,

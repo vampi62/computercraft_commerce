@@ -9,7 +9,7 @@ $sessionUser = Checkdroits::checkMode($bddConnection,$_POST,array('apikey' => fa
 if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
     return $sessionUser; // error
 }
-if (ApiKeys::getapikeyByNom($bddConnection, $_POST['idLogin'] . '-' . $_POST['nom'])) {
+if (ApiKeys::getapikeyByNom($bddConnection, $sessionUser['idLogin'] . '-' . $_POST['nom'])) {
     return array('status_code' => 403, 'message' => 'Le nom de l\'apikey est deja utilise.');
 }
 if (strlen($_POST['nom']) > $_Serveur_['MaxLengthChamps']['Nom']+strlen($sessionUser['idLogin'])+2) {

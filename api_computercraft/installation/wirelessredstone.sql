@@ -24,20 +24,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `wireless_redstone`
+-- Structure de la table `wireless_redstones`
 --
 
-CREATE TABLE `wireless_redstone` (
+CREATE TABLE `wireless_redstones` (
   `id_wireless_redstone` int(11) UNSIGNED NOT NULL,
   `id_joueur` int(11) UNSIGNED DEFAULT NULL,
   `date_reservation_wireless_redstone` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `wireless_redstone`
+-- Déchargement des données de la table `wireless_redstones`
 --
 
-INSERT INTO `wireless_redstone` (`id_wireless_redstone`, `id_joueur`, `date_reservation_wireless_redstone`) VALUES
+INSERT INTO `wireless_redstones` (`id_wireless_redstone`, `id_joueur`, `date_reservation_wireless_redstone`) VALUES
 (1, NULL, NULL),
 (2, NULL, NULL),
 (3, NULL, NULL),
@@ -2871,7 +2871,7 @@ INSERT INTO `wireless_redstone` (`id_wireless_redstone`, `id_joueur`, `date_rese
 (2831, NULL, NULL),
 (2832, NULL, NULL),
 (2833, NULL, NULL);
-INSERT INTO `wireless_redstone` (`id_wireless_redstone`, `id_joueur`, `date_reservation_wireless_redstone`) VALUES
+INSERT INTO `wireless_redstones` (`id_wireless_redstone`, `id_joueur`, `date_reservation_wireless_redstone`) VALUES
 (2834, NULL, NULL),
 (2835, NULL, NULL),
 (2836, NULL, NULL),
@@ -5045,9 +5045,9 @@ INSERT INTO `wireless_redstone` (`id_wireless_redstone`, `id_joueur`, `date_rese
 --
 
 --
--- Index pour la table `wireless_redstone`
+-- Index pour la table `wireless_redstones`
 --
-ALTER TABLE `wireless_redstone`
+ALTER TABLE `wireless_redstones`
   ADD PRIMARY KEY (`id_wireless_redstone`),
   ADD KEY `wireless_redstone_ibfk_1` (`id_joueur`);
 
@@ -5056,9 +5056,9 @@ ALTER TABLE `wireless_redstone`
 --
 
 --
--- AUTO_INCREMENT pour la table `wireless_redstone`
+-- AUTO_INCREMENT pour la table `wireless_redstones`
 --
-ALTER TABLE `wireless_redstone`
+ALTER TABLE `wireless_redstones`
   MODIFY `id_wireless_redstone` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5001;
 
 --
@@ -5066,9 +5066,9 @@ ALTER TABLE `wireless_redstone`
 --
 
 --
--- Contraintes pour la table `wireless_redstone`
+-- Contraintes pour la table `wireless_redstones`
 --
-ALTER TABLE `wireless_redstone`
+ALTER TABLE `wireless_redstones`
   ADD CONSTRAINT `wireless_redstone_ibfk_1` FOREIGN KEY (`id_joueur`) REFERENCES `joueurs` (`id_joueur`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
