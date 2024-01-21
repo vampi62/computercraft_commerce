@@ -19,8 +19,8 @@ if (!is_numeric($_GET['limit'])) {
     return array('status_code' => 400, 'message' => 'Le nombre par page n\'est pas un nombre.');
 }
 // bool (true or false or 1 or 0)
-if (!is_bool($_GET['show']) && $_GET['show'] != "true" && $_GET['show'] != "false" && $_GET['show'] != "1" && $_GET['show'] != "0") {
-    $_GET['show'] = null;
+if (!is_bool($_GET['show'])) {
+    $_GET['show'] = $_GET['show'] == "true" || $_GET['show'] == "1" ? true : false;
 }
 if (!$_Serveur_['General']['ModuleShowUser']) {
     $_GET['show'] = null;

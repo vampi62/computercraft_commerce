@@ -2,13 +2,13 @@
 class Checkdroits {
     // verifie si le compte a un des role requis
     public static function checkRole($bdd, $pseudoJoueur, $arrayRoleRequis) {
-        $req = $bdd->prepare('SELECT nom_type_role FROM vw_joueurs WHERE pseudo_joueur = :pseudo_joueur');
+        $req = $bdd->prepare('SELECT nom_type_joueur FROM vw_joueurs WHERE pseudo_joueur = :pseudo_joueur');
         $req->execute(array(
             'pseudo_joueur' => $pseudoJoueur
         ));
         $login = $req->fetch(PDO::FETCH_ASSOC);
         $req->closeCursor();
-        if (in_array($login['nom_type_role'], $arrayRoleRequis)) {
+        if (in_array($login['nom_type_joueur'], $arrayRoleRequis)) {
             return true;
         }
         return false;
@@ -128,6 +128,9 @@ class Checkdroits {
 
     // genere un mot de passe aleatoire securise
     public static function generatePassword($length = 16) {
+        if ($length < 8) {
+            $length = 8;
+        }
         $chars = 'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ0123456789';
         $count = mb_strlen($chars);
         for ($i = 0, $result = ''; $i < $length; $i++) {

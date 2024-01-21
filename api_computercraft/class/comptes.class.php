@@ -71,7 +71,7 @@ class Comptes {
     private $_bdd;
 
     public function __construct($bdd,$idCompte = null) {
-        $this->_bdd = $this->_bdd;
+        $this->_bdd = $bdd;
         if($idCompte != null) {
             $this->_idCompte = $idCompte;
             $req = $this->_bdd->prepare('SELECT solde_compte FROM comptes WHERE id_compte = :id_compte');
@@ -101,7 +101,7 @@ class Comptes {
     }
 
     // modifie le nom du compte
-    public function setCompteNom($nom_compte) {
+    public function setCompteNom($nomCompte) {
         $req = $this->_bdd->prepare('UPDATE comptes SET nom_compte = :nom_compte WHERE id_compte = :id_compte');
         $req->execute(array(
             'nom_compte' => $nomCompte,

@@ -17,7 +17,7 @@ if (!empty($_POST['id_compte'])) {
         return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
     }
     $compte = Comptes::getCompteById($bddConnection, $_POST['id_compte']);
-    if (!$compte['id_type_compte'] == 2) { // ne doit pas etre autre chose qu'un compte entreprise_livreur
+    if ($compte['id_type_compte'] != 2) { // ne doit pas etre autre chose qu'un compte entreprise_livreur
         return array('status_code' => 400, 'message' => 'Le type de compte n\'est pas valide pour un livreur.');
     }
 } else {
@@ -29,7 +29,7 @@ if (!empty($_POST['id_adresse'])) {
         return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
     }
     $adresse = Adresses::getAdresseById($bddConnection, $_POST['id_adresse']);
-    if (!$adresse['id_type_adresse'] == 2) { // ne doit pas etre autre chose qu'un point relais
+    if ($adresse['id_type_adresse'] != 2) { // ne doit pas etre autre chose qu'un point relais
         return array('status_code' => 400, 'message' => 'Le type d\'adresse n\'est pas valide pour un livreur.');
     }
 } else {

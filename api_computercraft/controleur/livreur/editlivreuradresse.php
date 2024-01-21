@@ -11,14 +11,14 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
     return $sessionUser; // error
 }
 if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_POST['id_livreur'], 'livreur', 'editLivreurAdresse', $sessionUser['isApi'])) {
-    return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
+    return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'ajouter une adresse a ce livreur.');
 }
 if (!empty($_POST['id_adresse'])) {
     if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_POST['id_adresse'], 'adresse', 'addAdresseToLivreur', $sessionUser['isApi'])) {
-        return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
+        return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'ajouter cette adresse a un livreur.');
     }
     $adresse = Adresses::getAdresseById($bddConnection, $_POST['id_adresse']);
-    if (!$adresse['id_type_adresse'] == 2) { // ne doit pas etre autre chose qu'un point relais
+    if ($adresse['id_type_adresse'] != 2) { // ne doit pas etre autre chose qu'un point relais
         return array('status_code' => 400, 'message' => 'Le type d\'adresse n\'est pas valide pour un livreur.');
     }
 } else {

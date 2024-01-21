@@ -44,6 +44,19 @@ class Joueurs {
 			return $joueurs;
 	}
 
+	// recupere les infos du joueurs via son pseudo et son token et si le token est valide
+	public static function getJoueurByPseudoToken($bdd,$pseudoJoueur,$tokenJoueur) {
+		$req = $bdd->prepare('SELECT * FROM joueurs WHERE pseudo_joueur = :pseudo_joueur AND resettoken_joueur = :token_joueur AND expire_resettoken_joueur > :expire_date');
+		$req->execute(array(
+			'pseudo_joueur' => $pseudoJoueur,
+			'token_joueur' => $tokenJoueur,
+			'expire_date' => date('Y-m-d H:i:s')
+			));
+			$joueurs = $req->fetch(PDO::FETCH_ASSOC);
+			$req->closeCursor();
+			return $joueurs;
+	}
+
 	// recupere les infos du joueurs via son email
 	public static function getJoueurByMail($bdd,$pseudoJoueur,$emailJoueur) {
 		$req = $bdd->prepare('SELECT * FROM vw_joueurs WHERE email_joueur = :email_joueur AND pseudo_joueur = :pseudo_joueur');

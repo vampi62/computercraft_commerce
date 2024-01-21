@@ -39,9 +39,9 @@ function SetAdmin($bdd, $pseudo_joueur, $mdp_joueur, $email_joueur) {
 		'email_joueur' => $email_joueur
 	));
 	$req->closeCursor();
-	$req = $bdd->prepare('INSERT INTO groupes(nom,id_joueur) VALUES(:nom,:id_joueur)');
+	$req = $bdd->prepare('INSERT INTO groupes(nom_groupe,id_joueur) VALUES(:nom_groupe,:id_joueur)');
 	$req->execute(array(
-		'nom' => "Administrateur",
+		'nom_groupe' => "Administrateur",
 		'id_joueur' => $bdd->lastInsertId()
 	));
 }

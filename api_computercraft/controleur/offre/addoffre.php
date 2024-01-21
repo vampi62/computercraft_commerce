@@ -17,10 +17,10 @@ if (!Checkdroits::checkId($bddConnection, $_POST['id_type_offre'], 'type_offre')
 // le type de compte doit etre un compte entreprise_commerce pour pouvoir etre defini comme compte de l'offre
 if (!empty($_POST['id_compte'])) {
     if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_POST['id_compte'], 'compte', 'addCompteToOffre', $sessionUser['isApi'])) {
-        return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
+        return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'ajouter ce compte a une offre.');
     }
     $compte = Comptes::getCompteById($bddConnection, $_POST['id_compte']);
-    if (!$compte['id_type_compte'] > 2) { // ne doit pas etre un compte entreprise_livreur ou courant
+    if ($compte['id_type_compte'] != 3) { // ne doit pas etre un compte entreprise_livreur ou courant
         return array('status_code' => 400, 'message' => 'Le type de compte n\'est pas valide pour une offre.');
     }
 } else {
@@ -29,10 +29,10 @@ if (!empty($_POST['id_compte'])) {
 // le type d'adresse doit etre un point de vente pour pouvoir etre defini comme adresse de l'offre
 if (!empty($_POST['id_adresse'])) {
     if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_POST['id_adresse'], 'adresse', 'addAdresseToOffre', $sessionUser['isApi'])) {
-        return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
+        return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'ajouter cette adresse a une offre.');
     }
     $adresse = Adresses::getAdresseById($bddConnection, $_POST['id_adresse']);
-    if (!$adresse['id_type_adresse'] > 2) { // ne doit pas etre un point relais ou une reception
+    if ($adresse['id_type_adresse'] != 3 && $adresse['id_type_adresse'] != 4 && $adresse['id_type_adresse'] != 5) { // ne doit pas etre autre chose qu'un commerce
         return array('status_code' => 400, 'message' => 'Le type d\'adresse n\'est pas valide pour une offre.');
     }
 } else {

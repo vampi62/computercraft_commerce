@@ -12,4 +12,4 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
 if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_groupe'], 'groupe', 'getApiKeys', $sessionUser['isApi'])) {
     return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
 }
-return array('status_code' => 200 , 'message' => '', 'data' => Groupes::getapikeysByGroupe($bddConnection, $_GET['id_groupe']));
+return array('status_code' => 200 , 'message' => '', 'data' => Groupes::getApiKeysByGroupe($bddConnection, $_GET['id_groupe']));

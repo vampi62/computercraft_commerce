@@ -11,14 +11,14 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
     return $sessionUser; // error
 }
 if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_POST['id_livreur'], 'livreur', 'editLivreurCompte', $sessionUser['isApi'])) {
-    return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
+    return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'ajouter un compte a ce livreur.');
 }
 if (!empty($_POST['id_compte'])) {
     if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_POST['id_compte'], 'compte', 'addCompteToLivreur', $sessionUser['isApi'])) {
-        return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
+        return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'ajouter ce compte a un livreur.');
     }
     $compte = Comptes::getCompteById($bddConnection, $_POST['id_compte']);
-    if (!$compte['id_type_compte'] == 2) { // ne doit pas etre autre chose qu'un compte entreprise_livreur
+    if ($compte['id_type_compte'] != 2) { // ne doit pas etre autre chose qu'un compte entreprise_livreur
         return array('status_code' => 400, 'message' => 'Le type de compte n\'est pas valide pour un livreur.');
     }
 } else {

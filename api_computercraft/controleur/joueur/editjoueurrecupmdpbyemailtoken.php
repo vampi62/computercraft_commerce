@@ -7,14 +7,12 @@ if (!Checkdroits::checkArgs($_POST, array('pseudo' => false, 'token' => false), 
 	// modif - il manque des parametres
 	return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-$token = urldecode($_POST['token']);
-$donneesJoueur = Joueurs::getJoueurByToken($bddConnection, $_POST['pseudo'], $token);
+$donneesJoueur = Joueurs::getJoueurByPseudoToken($bddConnection, $_POST['pseudo'], urldecode($_POST['token']));
 if(empty($donneesJoueur)) {
 	// modif - le mot de passe est incorrect
-	return array('status_code' => 401, 'message' => 'Le pseudo ou le mail est incorrect.');
+	return array('status_code' => 401, 'message' => 'Le pseudo ou le token est incorrect.');
 }
-$caracAllows = 'ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz0123456789';
-$mdp = substr(str_shuffle($caracAllows), 0, 7);
+$mdp = Checkdroits::generatePassword(10);
 
 $joueur = new Joueurs($bddConnection, $donneesJoueur['id_joueur']);
 
