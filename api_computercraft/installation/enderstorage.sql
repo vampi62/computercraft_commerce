@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `enderstorage_chest`
+-- Structure de la table `enderstorage_chests`
 --
 
-CREATE TABLE `enderstorage_chest` (
+CREATE TABLE `enderstorage_chests` (
   `id_enderstorage_chest` int(11) UNSIGNED NOT NULL,
   `color_rang_left_enderstorage_chest` smallint(5) UNSIGNED NOT NULL,
   `color_rang_center_enderstorage_chest` smallint(5) UNSIGNED NOT NULL,
@@ -37,10 +37,10 @@ CREATE TABLE `enderstorage_chest` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `enderstorage_chest`
+-- Déchargement des données de la table `enderstorage_chests`
 --
 
-INSERT INTO `enderstorage_chest` (`id_enderstorage_chest`, `color_rang_left_enderstorage_chest`, `color_rang_center_enderstorage_chest`, `color_rang_right_enderstorage_chest`, `id_joueur`, `date_reservation_enderstorage_chest`) VALUES
+INSERT INTO `enderstorage_chests` (`id_enderstorage_chest`, `color_rang_left_enderstorage_chest`, `color_rang_center_enderstorage_chest`, `color_rang_right_enderstorage_chest`, `id_joueur`, `date_reservation_enderstorage_chest`) VALUES
 (1, 1, 1, 1, NULL, NULL),
 (2, 1, 1, 2, NULL, NULL),
 (3, 1, 1, 4, NULL, NULL),
@@ -1689,7 +1689,7 @@ INSERT INTO `enderstorage_chest` (`id_enderstorage_chest`, `color_rang_left_ende
 (1646, 64, 64, 8912, NULL, NULL),
 (1647, 64, 64, 16384, NULL, NULL),
 (1648, 64, 64, 32768, NULL, NULL);
-INSERT INTO `enderstorage_chest` (`id_enderstorage_chest`, `color_rang_left_enderstorage_chest`, `color_rang_center_enderstorage_chest`, `color_rang_right_enderstorage_chest`, `id_joueur`, `date_reservation_enderstorage_chest`) VALUES
+INSERT INTO `enderstorage_chests` (`id_enderstorage_chest`, `color_rang_left_enderstorage_chest`, `color_rang_center_enderstorage_chest`, `color_rang_right_enderstorage_chest`, `id_joueur`, `date_reservation_enderstorage_chest`) VALUES
 (1649, 64, 128, 1, NULL, NULL),
 (1650, 64, 128, 2, NULL, NULL),
 (1651, 64, 128, 4, NULL, NULL),
@@ -3203,7 +3203,7 @@ INSERT INTO `enderstorage_chest` (`id_enderstorage_chest`, `color_rang_left_ende
 (3159, 4096, 32, 64, NULL, NULL),
 (3160, 4096, 32, 128, NULL, NULL),
 (3161, 4096, 32, 256, NULL, NULL);
-INSERT INTO `enderstorage_chest` (`id_enderstorage_chest`, `color_rang_left_enderstorage_chest`, `color_rang_center_enderstorage_chest`, `color_rang_right_enderstorage_chest`, `id_joueur`, `date_reservation_enderstorage_chest`) VALUES
+INSERT INTO `enderstorage_chests` (`id_enderstorage_chest`, `color_rang_left_enderstorage_chest`, `color_rang_center_enderstorage_chest`, `color_rang_right_enderstorage_chest`, `id_joueur`, `date_reservation_enderstorage_chest`) VALUES
 (3162, 4096, 32, 512, NULL, NULL),
 (3163, 4096, 32, 1024, NULL, NULL),
 (3164, 4096, 32, 2048, NULL, NULL),
@@ -4143,10 +4143,10 @@ INSERT INTO `enderstorage_chest` (`id_enderstorage_chest`, `color_rang_left_ende
 -- --------------------------------------------------------
 
 --
--- Structure de la table `enderstorage_tank`
+-- Structure de la table `enderstorage_tanks`
 --
 
-CREATE TABLE `enderstorage_tank` (
+CREATE TABLE `enderstorage_tanks` (
   `id_enderstorage_tank` int(11) UNSIGNED NOT NULL,
   `color_rang_left_enderstorage_tank` smallint(5) UNSIGNED NOT NULL,
   `color_rang_center_enderstorage_tank` smallint(5) UNSIGNED NOT NULL,
@@ -4156,10 +4156,10 @@ CREATE TABLE `enderstorage_tank` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `enderstorage_tank`
+-- Déchargement des données de la table `enderstorage_tanks`
 --
 
-INSERT INTO `enderstorage_tank` (`id_enderstorage_tank`, `color_rang_left_enderstorage_tank`, `color_rang_center_enderstorage_tank`, `color_rang_right_enderstorage_tank`, `id_joueur`, `date_reservation_enderstorage_tank`) VALUES
+INSERT INTO `enderstorage_tanks` (`id_enderstorage_tank`, `color_rang_left_enderstorage_tank`, `color_rang_center_enderstorage_tank`, `color_rang_right_enderstorage_tank`, `id_joueur`, `date_reservation_enderstorage_tank`) VALUES
 (1, 1, 1, 1, NULL, NULL),
 (2, 1, 1, 2, NULL, NULL),
 (3, 1, 1, 4, NULL, NULL),
@@ -5808,7 +5808,7 @@ INSERT INTO `enderstorage_tank` (`id_enderstorage_tank`, `color_rang_left_enders
 (1646, 64, 64, 8912, NULL, NULL),
 (1647, 64, 64, 16384, NULL, NULL),
 (1648, 64, 64, 32768, NULL, NULL);
-INSERT INTO `enderstorage_tank` (`id_enderstorage_tank`, `color_rang_left_enderstorage_tank`, `color_rang_center_enderstorage_tank`, `color_rang_right_enderstorage_tank`, `id_joueur`, `date_reservation_enderstorage_tank`) VALUES
+INSERT INTO `enderstorage_tanks` (`id_enderstorage_tank`, `color_rang_left_enderstorage_tank`, `color_rang_center_enderstorage_tank`, `color_rang_right_enderstorage_tank`, `id_joueur`, `date_reservation_enderstorage_tank`) VALUES
 (1649, 64, 128, 1, NULL, NULL),
 (1650, 64, 128, 2, NULL, NULL),
 (1651, 64, 128, 4, NULL, NULL),
@@ -7322,7 +7322,7 @@ INSERT INTO `enderstorage_tank` (`id_enderstorage_tank`, `color_rang_left_enders
 (3159, 4096, 32, 64, NULL, NULL),
 (3160, 4096, 32, 128, NULL, NULL),
 (3161, 4096, 32, 256, NULL, NULL);
-INSERT INTO `enderstorage_tank` (`id_enderstorage_tank`, `color_rang_left_enderstorage_tank`, `color_rang_center_enderstorage_tank`, `color_rang_right_enderstorage_tank`, `id_joueur`, `date_reservation_enderstorage_tank`) VALUES
+INSERT INTO `enderstorage_tanks` (`id_enderstorage_tank`, `color_rang_left_enderstorage_tank`, `color_rang_center_enderstorage_tank`, `color_rang_right_enderstorage_tank`, `id_joueur`, `date_reservation_enderstorage_tank`) VALUES
 (3162, 4096, 32, 512, NULL, NULL),
 (3163, 4096, 32, 1024, NULL, NULL),
 (3164, 4096, 32, 2048, NULL, NULL),
@@ -8264,16 +8264,16 @@ INSERT INTO `enderstorage_tank` (`id_enderstorage_tank`, `color_rang_left_enders
 --
 
 --
--- Index pour la table `enderstorage_chest`
+-- Index pour la table `enderstorage_chests`
 --
-ALTER TABLE `enderstorage_chest`
+ALTER TABLE `enderstorage_chests`
   ADD PRIMARY KEY (`id_enderstorage_chest`),
   ADD KEY `enderstorage_chest_ibfk_1` (`id_joueur`);
 
 --
--- Index pour la table `enderstorage_tank`
+-- Index pour la table `enderstorage_tanks`
 --
-ALTER TABLE `enderstorage_tank`
+ALTER TABLE `enderstorage_tanks`
   ADD PRIMARY KEY (`id_enderstorage_tank`),
   ADD KEY `enderstorage_tank_ibfk_1` (`id_joueur`);
 
@@ -8282,15 +8282,15 @@ ALTER TABLE `enderstorage_tank`
 --
 
 --
--- AUTO_INCREMENT pour la table `enderstorage_chest`
+-- AUTO_INCREMENT pour la table `enderstorage_chests`
 --
-ALTER TABLE `enderstorage_chest`
+ALTER TABLE `enderstorage_chests`
   MODIFY `id_enderstorage_chest` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4097;
 
 --
--- AUTO_INCREMENT pour la table `enderstorage_tank`
+-- AUTO_INCREMENT pour la table `enderstorage_tanks`
 --
-ALTER TABLE `enderstorage_tank`
+ALTER TABLE `enderstorage_tanks`
   MODIFY `id_enderstorage_tank` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4097;
 
 --
@@ -8298,15 +8298,15 @@ ALTER TABLE `enderstorage_tank`
 --
 
 --
--- Contraintes pour la table `enderstorage_chest`
+-- Contraintes pour la table `enderstorage_chests`
 --
-ALTER TABLE `enderstorage_chest`
+ALTER TABLE `enderstorage_chests`
   ADD CONSTRAINT `enderstorage_chest_ibfk_1` FOREIGN KEY (`id_joueur`) REFERENCES `joueurs` (`id_joueur`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `enderstorage_tank`
+-- Contraintes pour la table `enderstorage_tanks`
 --
-ALTER TABLE `enderstorage_tank`
+ALTER TABLE `enderstorage_tanks`
   ADD CONSTRAINT `enderstorage_tank_ibfk_1` FOREIGN KEY (`id_joueur`) REFERENCES `joueurs` (`id_joueur`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 

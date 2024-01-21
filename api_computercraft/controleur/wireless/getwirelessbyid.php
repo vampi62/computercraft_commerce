@@ -16,8 +16,8 @@ if (!Checkdroits::checkId($bddConnection, $_GET['id_wireless'], 'wireless_redsto
     return array('status_code' => 404, 'message' => 'Le wireless n\'existe pas.');
 }
 // bool (true or false or 1 or 0)
-if (!is_bool($_GET['show']) && $_GET['show'] != "true" && $_GET['show'] != "false" && $_GET['show'] != "1" && $_GET['show'] != "0") {
-    $_GET['show'] = null;
+if (!is_bool($_GET['show'])) {
+    $_GET['show'] = $_GET['show'] == "true" || $_GET['show'] == "1" ? true : false;
 }
 if (!$_Serveur_['General']['ModuleShowUser']) {
     $_GET['show'] = null;

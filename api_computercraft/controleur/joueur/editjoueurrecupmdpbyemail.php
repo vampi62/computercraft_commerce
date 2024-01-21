@@ -15,7 +15,7 @@ if(empty($donneesJoueur)) {
 
 $resetToken = substr(md5(microtime(TRUE)*(100000+rand(1,1000))), 0, -20);
 $joueur = new Joueurs($bddConnection, $donneesJoueur['id_joueur']);
-$joueur->setResetToken($resetToken);
+$joueur->setJoueurResetToken($resetToken);
 $lien = urlencode($resetToken);
 $retourligne = "<br />";
 $to = $donneesJoueur['email_joueur'];

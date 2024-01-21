@@ -29,7 +29,7 @@ if (strlen($_POST['email']) > $_Serveur_['MaxLengthChamps']['Email']) {
 $newJoueur = new Joueurs($bddConnection);
 $newJoueur->addJoueur($_POST['pseudo'], $_POST['email'], Checkdroits::generatePassword(50), 0, 3); // compte terminal banque
 $groupe = new Groupes($bddConnection, 1); // 1 groupe Administrateur
-$groupe->addJoueur($newJoueur->getId());
+$groupe->addGroupeJoueur($newJoueur->getIdJoueur());
 $newApiKey = new ApiKeys($bddConnection);
-$newApiKey->addapikey($_POST['nom'], $_POST['mdp'], $newJoueur->getId());
-return array('status_code' => 200, 'message' => '', 'data' => array('idJoueur' => $newJoueur->getId(), 'idApiKey' => $newApiKey->getIdApiKey()));
+$newApiKey->addApiKey($_POST['nom'], $_POST['mdp'], $newJoueur->getIdJoueur());
+return array('status_code' => 200, 'message' => '', 'data' => array('idJoueur' => $newJoueur->getIdJoueur(), 'idApiKey' => $newApiKey->getIdApiKey()));

@@ -6,6 +6,9 @@ while ($pathlocal != 'api_computercraft') {
     $pathlocal = array_shift($request);
 } // on vide l'uri des sous dossiers jusqu'a arriver a api_computercraft
 // si le dernier caractère de $endpoint est un 's', on le supprime
+if (count($request) == 0) {
+    return array('status_code' => 405, 'message' => 'Méthode non autorisée.');
+}
 if (strpos($request[0], '?') !== false) {
     $request[0] = substr($request[0], 0, strpos($request[0], '?'));
 }
@@ -25,9 +28,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //getntp                            -> GET /ntp
         //getadressebyid                    -> GET /adresse/{id_adresse}
         //getadresses                       -> GET /adresses
+        //getadressesbygroupe               -> GET /adresses/groupe/{id_groupe}
         //getapikeybyid                     -> GET /apikey/{id_apikey}
-        //getdroitsbyapikey                 -> GET /apikey/{id_apikey}/droits
         //getapikeys                        -> GET /apikeys
+        //getapikeysbygroupe                -> GET /apikeys/groupe/{id_groupe}
+        //getdroitsbyapikey                 -> GET /apikey/{id_apikey}/droits
         //getcommandebyid                   -> GET /commande/{id_commande}
         //getcommandesbyadresse             -> GET /commandes/adresse/{id_adresse}
         //getcommandesbyadresseclient       -> GET /commandes/adresse/{id_adresse}/client
@@ -38,6 +43,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //getcommandesbylivreur             -> GET /commandes/livreur/{id_livreur}
         //getcommandesnolivreur             -> GET /commandes/nolivreur
         //getcommandesbyoffre               -> GET /commandes/offre/{id_offre}
+        //getcomptebyid                     -> GET /compte/{id_compte}
+        //getcomptes                        -> GET /comptes
+        //getcomptesbygroupe                -> GET /comptes/groupe/{id_groupe}
         //getenderstorageschest             -> GET /enderstorageschest
         //getenderstorageschestbyid         -> GET /enderstorageschest/{id_enderstorageschest}
         //getenderstorageschestbyjoueur     -> GET /enderstorageschest/joueur/{id_joueur}
@@ -46,9 +54,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //getenderstoragestankbyid          -> GET /enderstoragestank/{id_enderstoragestank}
         //getenderstoragestankbyjoueur      -> GET /enderstoragestank/joueur/{id_joueur}
         //getenderstoragestankdispo         -> GET /enderstoragestank/dispo
-        //getadressesbygroupe               -> GET /groupe/{id_groupe}/adresses
-        //getapikeysbygroupe                -> GET /groupe/{id_groupe}/apikeys
-        //getcomptesbygroupe                -> GET /groupe/{id_groupe}/comptes
         //getdroitsbygroupe                 -> GET /groupe/{id_groupe}/droits
         //getgroupebyid                     -> GET /groupe/{id_groupe}
         //getgroupesbyadresse               -> GET /groupes/adresse/{id_adresse}
@@ -58,16 +63,12 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //getgroupesbyjoueurmembre          -> GET /groupes/joueurmembre/{id_joueur}
         //getgroupesbylivreur               -> GET /groupes/livreur/{id_livreur}
         //getgroupesbyoffre                 -> GET /groupes/offre/{id_offre}
-        //getjoueursbygroupe                -> GET /groupe/{id_groupe}/joueurs
-        //getlivreursbygroupe               -> GET /groupe/{id_groupe}/livreurs
-        //getoffresbygroupe                 -> GET /groupe/{id_groupe}/offres
         //getjetonbyjoueur                  -> GET /jeton/joueur/{id_joueur}
         //getjetons                         -> GET /jetons
-        //getcomptebyid                     -> GET /compte/{id_compte}
-        //getcomptes                        -> GET /comptes
         //getjoueurbyid                     -> GET /joueur/{id_joueur}
         //getjoueurbypseudo                 -> GET /joueur/pseudo/{pseudo}
         //getjoueurs                        -> GET /joueurs
+        //getjoueursbygroupe                -> GET /joueurs/groupe/{id_groupe}
         //getkeypaybyid                     -> GET /keypay/{id_keypay}
         //getkeypaysbyoffre                 -> GET /keypays/offre/{id_offre}
         //getlitigemsgsbycommande           -> GET /litigemsgs/commande/{id_commande}
@@ -75,11 +76,13 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //getlivreurs                       -> GET /livreurs
         //getlivreursbyadresse              -> GET /livreurs/adresse/{id_adresse}
         //getlivreursbycompte               -> GET /livreurs/compte/{id_compte}
+        //getlivreursbygroupe               -> GET /livreurs/groupe/{id_groupe}
         //getoffrebyid                      -> GET /offre/{id_offre}
         //getoffres                         -> GET /offres
         //getoffresall                      -> GET /offres/all
         //getoffresbyadresse                -> GET /offres/adresse/{id_adresse}
         //getoffresbycompte                 -> GET /offres/compte/{id_compte}
+        //getoffresbygroupe                 -> GET /offres/groupe/{id_groupe}
         //gettransactionsbycompte           -> GET /transactions/compte/{id_compte}
         //gettransactionsbycomptecommande   -> GET /transactions/compte/{id_compte}/commande/{id_commande}
         //gettransactionbyid                -> GET /transaction/{id_transaction}
@@ -97,6 +100,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 $_GET['id_'.$nomVariable] = array_shift($request);
                 if (!strpos($endpoint, 'by')) {
                     if (isset($request[0])) {
+                        if (strpos($request[0], '?') !== false) {
+                            $request[0] = substr($request[0], 0, strpos($request[0], '?'));
+                        }
                         $endpoint = array_shift($request) . 'by' . $endpoint;
                     } else {
                         $endpoint .= 'byid';
@@ -110,6 +116,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
                     $nomVariable = array_shift($request);
                     $endpoint .= $nomVariable;
                 } else {
+                    if (strpos($request[0], '?') !== false) {
+                        $request[0] = substr($request[0], 0, strpos($request[0], '?'));
+                    }
                     $_GET[$nomVariable] = array_shift($request);
                 }
             }

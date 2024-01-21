@@ -1,24 +1,23 @@
 <?php
 class Wirelessredstones {
     // recupere les wirelessredstones
-    public static function getWirelessRedstones($bdd,$offset,$nbParPage, $showUser = false) {
+    public static function getWirelessRedstones($bdd,$offsetd,$nbage, $showUser = false) {
         if ($showUser) {
             $req = $bdd->prepare('SELECT wireless_redstones.*, joueurs.pseudo_joueur
             FROM wireless_redstones LEFT JOIN joueurs ON wireless_redstones.id_joueur = joueurs.id_joueur
-            WHERE id_wireless_redstone >= :offset
+            WHERE id_wireless_redstone >= :offsetd
             ORDER BY id_wireless_redstone
-            LIMIT :nbParPage');
+            LIMIT :nbage');
         } else {
             $req = $bdd->prepare('SELECT wireless_redstones.id_wireless_redstone, wireless_redstones.date_reservation_wireless_redstone
             FROM wireless_redstones
-            WHERE id_wireless_redstone >= :offset
-            ORDER BY id_wireless_redstone
-            LIMIT :nbParPage');
+            WHERE id_wireless_redstone >= :offsetd
+            ORDER BY id_wireless_redstone ASC
+            LIMIT :nbage');
         }
-        $req->execute(array(
-            'offset' => $offset,
-            'nbparpage' => $nbParPage
-        ));
+        $req->bindParam(':offsetd', $offsetd, PDO::PARAM_INT);
+        $req->bindParam(':nbage', $nbage, PDO::PARAM_INT);
+        $req->execute();
         $wirelessredstones = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $wirelessredstones;
@@ -56,14 +55,13 @@ class Wirelessredstones {
 
     // recupere les wirelessredstones non reserver
     public static function getWirelessRedstonesNonReserver($bdd,$offset,$nbParPage) {
-        $req = $bdd->prepare('SELECT * FROM wireless_redstones
+        $req = $bdd->prepare('SELECT id_wireless_redstone FROM wireless_redstones
         WHERE id_joueur IS NULL AND id_wireless_redstone >= :offset1
         ORDER BY id_wireless_redstone
         LIMIT :nbage');
-        $req->execute(array(
-            'offset1' => $offset,
-            'nbage' => $nbParPage
-        ));
+        $req->bindParam(':offset1', $offset, PDO::PARAM_INT);
+        $req->bindParam(':nbage', $nbParPage, PDO::PARAM_INT);
+        $req->execute();
         $wirelessredstones = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $wirelessredstones;

@@ -7,7 +7,7 @@
 class Jetons {
 	// recuperation le tableau de jeton
 	public static function getJetons($bdd) {
-		$req = $bdd->query('SELECT jeton.*,joueurs.pseudo_joueur FROM jeton INNER JOIN joueurs ON joueurs.id_joueur = jeton.id_joueur');
+		$req = $bdd->query('SELECT jetons.*,joueurs.pseudo_joueur FROM jetons INNER JOIN joueurs ON joueurs.id_joueur = jetons.id_joueur');
 		$list_jetons = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $list_jetons;
@@ -15,7 +15,7 @@ class Jetons {
 
 	// recuperation le tableau de jeton
 	public static function getJetonByJoueur($bdd,$idJoueur) {
-		$req = $bdd->prepare('SELECT jeton.*,joueurs.pseudo_joueur FROM jeton INNER JOIN joueurs ON joueurs.id_joueur = jeton.id_joueur WHERE jeton.id_joueur = :id_joueur');
+		$req = $bdd->prepare('SELECT jetons.*,joueurs.pseudo_joueur FROM jetons INNER JOIN joueurs ON joueurs.id_joueur = jetons.id_joueur WHERE jetons.id_joueur = :id_joueur');
 		$req->execute(array(
 			'id_joueur' => $idJoueur
 		));
@@ -44,7 +44,7 @@ class Jetons {
 
 	// creer une nouvelle entre dans la table jeton
 	public function addJeton() {
-		$req = $this->_bdd->prepare('INSERT INTO jeton(jeton1_jeton, jeton10_jeton, jeton100_jeton, jeton1k_jeton, jeton10k_jeton, id_joueur, last_update_jeton) VALUES(:jeton1_jeton, :jeton10_jeton, :jeton100_jeton, :jeton1k_jeton, :jeton10k_jeton, :id_joueur, :last_update_jeton)');
+		$req = $this->_bdd->prepare('INSERT INTO jetons(jeton1_jeton, jeton10_jeton, jeton100_jeton, jeton1k_jeton, jeton10k_jeton, id_joueur, last_update_jeton) VALUES(:jeton1_jeton, :jeton10_jeton, :jeton100_jeton, :jeton1k_jeton, :jeton10k_jeton, :id_joueur, :last_update_jeton)');
 		$req->execute(array(
 			'jeton1_jeton' => 0,
 			'jeton10_jeton' => 0,
@@ -59,7 +59,7 @@ class Jetons {
 
 	// modifier une entre dans la table jeton
 	public function setJeton($jeton) {
-		$req = $this->_bdd->prepare('UPDATE jeton SET jeton1_jeton = :jeton1_jeton, jeton10_jeton = :jeton10_jeton, jeton100_jeton = :jeton100_jeton, jeton1k_jeton = :jeton1k_jeton, jeton10k_jeton = :jeton10k_jeton, last_update_jeton = :last_update_jeton WHERE id_joueur = :id_joueur');
+		$req = $this->_bdd->prepare('UPDATE jetons SET jeton1_jeton = :jeton1_jeton, jeton10_jeton = :jeton10_jeton, jeton100_jeton = :jeton100_jeton, jeton1k_jeton = :jeton1k_jeton, jeton10k_jeton = :jeton10k_jeton, last_update_jeton = :last_update_jeton WHERE id_joueur = :id_joueur');
 		$req->execute(array(
 			'jeton1_jeton' => intval($jeton["1"]),
 			'jeton10_jeton' => intval($jeton["10"]),
@@ -73,7 +73,7 @@ class Jetons {
 
 	// supprimer une entre dans la table jeton
 	public function deleteJeton() {
-		$req = $this->_bdd->prepare('DELETE FROM jeton WHERE id_joueur = :id_joueur');
+		$req = $this->_bdd->prepare('DELETE FROM jetons WHERE id_joueur = :id_joueur');
 		$req->execute(array(
 			'id_joueur' => $this->_idJoueur
 		));
