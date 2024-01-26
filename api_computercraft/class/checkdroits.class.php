@@ -281,19 +281,20 @@ class Checkdroits {
     }
 
     // verifie le chemin_type_commandes de la commande
-    public static function checkCheminTypeCommande($bdd,$idTypeDepart,$idTypeArriver,$typeUser) {
+    public static function checkCheminTypeCommande($bdd,$idTypeArriver,$idTypeDepart,$typeUser) {
         $req = $bdd->prepare('SELECT * FROM chemins_type_commandes WHERE id_type_commande_debut = :id_type_commande_debut AND id_type_commande_suite = :id_type_commande_suite');
         $req->execute(array(
             'id_type_commande_suite' => $idTypeArriver,
             'id_type_commande_debut' => $idTypeDepart
         ));
-        $cheminTypeCommandes = $req->fetch(PDO::FETCH_ASSOC);
+        $cheminTypeCommandes = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
-        if ($cheminTypeCommandes[$typeUser . "_chemin_type_commandes"] == "1") {
-            return true;
-        } else {
-            return false;
+        for ($i=0; $i < count($cheminTypeCommandes); $i++) {
+            if ($cheminTypeCommandes[$i][$typeUser . "_chemin_type_commandes"] == "1") {
+                return true;
+            }
         }
+        return false;
     }
 
     // verification code retire_commande

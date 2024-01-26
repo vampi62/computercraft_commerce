@@ -25,13 +25,14 @@ class LitigeMsgs {
     }
 
     // ajoute un message au fil de discution litige
-    public static function addLitigeMsg($bdd,$idCommande,$descriptionMsgLitige,$idStatusMsgLitige) {
-        $req = $bdd->prepare('INSERT INTO msg_litiges(id_commande,date_msg_litige,description_msg_litige,id_status_msg_litige) VALUES(:id_commande,:date_msg_litige,:description_msg_litige,:id_status_msg_litige)');
+    public static function addLitigeMsg($bdd,$idCommande,$texteMsgLitige,$idTypeMsgLitige,$idJoueur) {
+        $req = $bdd->prepare('INSERT INTO msg_litiges(id_commande,date_msg_litige,texte_msg_litige,id_type_msg_litige,id_joueur) VALUES(:id_commande,:date_msg_litige,:texte_msg_litige,:id_type_msg_litige,:id_joueur)');
         $req->execute(array(
             'id_commande' => $idCommande,
             'date_msg_litige' => date("Y-m-d H:i:s"),
-            'description_msg_litige' => $descriptionMsgLitige,
-            'id_status_msg_litige' => $idStatusMsgLitige
+            'texte_msg_litige' => $texteMsgLitige,
+            'id_type_msg_litige' => $idTypeMsgLitige,
+            'id_joueur' => $idJoueur
         ));
         return $bdd->lastInsertId();
     }

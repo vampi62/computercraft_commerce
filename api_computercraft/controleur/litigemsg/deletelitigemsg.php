@@ -1,15 +1,19 @@
 <?php
 require_once('class/checkdroits.class.php');
 require_once('class/litigemsgs.class.php');
+require_once('class/commandes.class.php');
 
-if (!Checkdroits::checkArgs($_POST,array('id_litigemsg' => false), true)) {
+if (!Checkdroits::checkArgs($_POST,array('id_commande' => false, 'id_litigemsg' => false), true)) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
-$sessionUser = Checkdroits::checkMode($bddConnection,$_POST,array('apikey' => true,'user' => true), true);
+$sessionUser = Checkdroits::checkMode($bddConnection,$_POST,array('apikey' => false,'user' => true), true);
 if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
     return $sessionUser; // error
 }
 $commande = Commandes::getCommandeById($bddConnection, $_POST['id_commande']);
+if (empty($commande)) {
+    return array('status_code' => 404, 'message' => 'La commande n\'existe pas.');
+}
 $permitAction = false;
 if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_offre'], 'offre', 'editLitigeMsgsByCommandeVendeur', $sessionUser['isApi'])) {
     $permitAction = true;
@@ -37,8 +41,11 @@ $litigemsgs = LitigeMsgs::getLitigeMsgsByCommande($bddConnection, $_POST['id_com
 if (count($litigemsgs) == 0) {
     return array('status_code' => 400, 'message' => 'Il n\'y a pas de litigemsgs pour cette commande.');
 }
-if ($litigemsgs[count($litigemsgs) - 1]['id_litigemsg'] != $_POST['id_litigemsg']) {
+if ($litigemsgs[count($litigemsgs) - 1]['id_msg_litige'] != $_POST['id_litigemsg']) {
     return array('status_code' => 400, 'message' => 'Le litigemsg a supprimer n\'est pas le dernier litigemsg.');
+}
+if ($litigemsgs[count($litigemsgs) - 1]['id_joueur'] != $sessionUser['idLogin']) {
+    return array('status_code' => 400, 'message' => 'Le litigemsg a supprimer n\'a pas ete cree par vous.');
 }
 LitigeMsgs::deleteLitigemsg($bddConnection, $_POST['id_litigemsg']);
 return array('status_code' => 200, 'message' => 'Le litigemsg a bien ete supprime.');

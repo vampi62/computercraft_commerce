@@ -16,8 +16,8 @@ if (!empty($_POST['userbanque']) && !empty($_POST['mdpbanque'])) {
     if (isset($sessionBanque['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
         return $sessionBanque; // error
     }
-    $apikey = Apikeys::getApiKeyById($bddConnection, $sessionBanque['idLogin']);
-    if (!Checkdroits::checkRole($bddConnection, $apikey['pseudo_joueur'], array('terminal','traitement'))) {
+    $apikeyBanque = Apikeys::getApiKeyById($bddConnection, $sessionBanque['idLogin']);
+    if (!Checkdroits::checkRole($bddConnection, $apikeyBanque['pseudo_joueur'], array('terminal','traitement'))) {
         return array('status_code' => 403, 'message' => 'Le compte n\'a pas les droits.');
     }
 }
@@ -35,7 +35,7 @@ if (empty($_POST['id_compte_debiteur']) && empty($_POST['id_compte_crediteur']))
 if ($_POST['id_compte_debiteur'] == $_POST['id_compte_crediteur']) {
     return array('status_code' => 400, 'message' => 'Le compte debiteur et le compte crediteur sont identiques.');
 }
-if (!empty($_POST['id_commande'])) {
+if (!empty($_POST['id_commande']) && $_POST['id_commande'] != null && $_POST['id_commande'] != "" && $_POST['id_commande'] != "null") {
     if (!Checkdroits::checkId($bddConnection, $_POST['id_commande'], 'commande')) {
         return array('status_code' => 404, 'message' => 'La commande n\'existe pas.');
     }
@@ -58,39 +58,61 @@ if ($_POST['id_compte_debiteur'] == "") {
 if ($_POST['id_compte_crediteur'] == "") {
     $_POST['id_compte_crediteur'] = null;
 }
-if ($_POST['id_commande'] == "") {
+if ($_POST['id_commande'] == "" || $_POST['id_commande'] == "null") {
     $_POST['id_commande'] = null;
 }
 
-switch($_POST['id_type_transaction']) {
-    case '1': // depot
-        if (empty($sessionBanque)) {
-            return array('status_code' => 403, 'message' => 'Vous devez avoir un acces banque pour valider cette transaction.');
-        }
-        if (!Checkdroits::checkPermObj($bddConnection, $sessionBanque['idLogin'], $_POST['id_compte_crediteur'], 'compte', 'addtransactiondepot', $sessionBanque['isApi'])) {
-            return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission de creer cette transaction.');
-        }
-    break;
-    case '2': // retrait
-        if (empty($sessionBanque)) {
-            return array('status_code' => 403, 'message' => 'Vous devez avoir un acces banque pour valider cette transaction.');
-        }
-        if (!Checkdroits::checkPermObj($bddConnection, $sessionBanque['idLogin'], $_POST['id_compte_debiteur'], 'compte', 'addtransactionretrait', $sessionBanque['isApi'])) {
-            return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission de creer cette transaction.');
-        }
-    break;
-    case '3': // remboursement
-        if (empty($_POST['id_compte_debiteur']) || empty($_POST['id_compte_crediteur'])) {
-            return array('status_code' => 400, 'message' => 'Il faut un compte debiteur et un compte crediteur.');
-        }
-        if (!Checkdroits::checkPermObj($bddConnection, $sessionBanque['idLogin'], $_POST['id_compte_debiteur'], 'compte', 'addtransactionremboursement', $sessionBanque['isApi'])) {
-            return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission de creer cette transaction.');
-        }
-        if (!Checkdroits::checkId($bddConnection, $_POST['id_compte_crediteur'], 'compte')) {
+function checkCompte($bddConnection, $idCompte, $montant, $sens) {
+    if (!Checkdroits::checkId($bddConnection, $idCompte, 'compte')) {
+        if ($sens == 'crediteur') {
             return array('status_code' => 404, 'message' => 'Le compte crediteur n\'existe pas.');
+        } else {
+            return array('status_code' => 404, 'message' => 'Le compte debiteur n\'existe pas.');
         }
+    }
+    $compte = new Comptes($bddConnection, $idCompte);
+    if ($sens == 'crediteur') {
+        $compte->setCompteSolde($compte->getSolde() + $montant);
+    } else {
+        if ($compte->getSolde() < $montant) {
+            return array('status_code' => 403, 'message' => 'Le compte debiteur n\'a pas assez d\'argent.');
+        }
+        $compte->setCompteSolde($compte->getSolde() - $montant);
+    }
+    return array('status_code' => 200, 'message' => '');
+}
+
+$idAdmin = null;
+switch($_POST['id_type_transaction']) {
+    case '1': // retrait // action effectuer sur un pc banque
+        if (empty($sessionBanque)) {
+            return array('status_code' => 403, 'message' => 'Vous devez avoir un acces banque pour valider cette transaction.');
+        }
+        if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_POST['id_compte_debiteur'], 'compte', 'addtransactionretrait', $sessionUser['isApi'])) {
+            return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission de creer cette transaction.');
+        }
+        $idAdmin = $apikeyBanque['id_joueur'];
+        $statusCompte = checkCompte($bddConnection, $_POST['id_compte_debiteur'], $_POST['montant'], 'debiteur');
+        if ($statusCompte['status_code'] != 200) {
+            return $statusCompte;
+        }
+        $_POST['id_compte_crediteur'] = null;
     break;
-    case '4': // achat
+    case '2': // depot // action effectuer sur un pc banque
+        if (empty($sessionBanque)) {
+            return array('status_code' => 403, 'message' => 'Vous devez avoir un acces banque pour valider cette transaction.');
+        }
+        if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_POST['id_compte_crediteur'], 'compte', 'addtransactiondepot', $sessionUser['isApi'])) {
+            return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission de creer cette transaction.');
+        }
+        $idAdmin = $apikeyBanque['id_joueur'];
+        $statusCompte = checkCompte($bddConnection, $_POST['id_compte_crediteur'], $_POST['montant'], 'crediteur');
+        if ($statusCompte['status_code'] != 200) {
+            return $statusCompte;
+        }
+        $_POST['id_compte_debiteur'] = null;
+    break;
+    case '3': // achat // action effectuer sur un pc banque
         if (empty($sessionBanque)) {
             return array('status_code' => 403, 'message' => 'Vous devez avoir un acces banque pour valider cette transaction.');
         }
@@ -103,6 +125,40 @@ switch($_POST['id_type_transaction']) {
         if (!Checkdroits::checkId($bddConnection, $_POST['id_compte_debiteur'], 'compte')) {
             return array('status_code' => 404, 'message' => 'Le compte debiteur n\'existe pas.');
         }
+        if (empty($_POST['id_commande']) || $_POST['id_commande'] == null || $_POST['id_commande'] == "") {
+            return array('status_code' => 400, 'message' => 'Il faut une commande.');
+        }
+        $idAdmin = $apikeyBanque['id_joueur'];
+        $statusCompte = checkCompte($bddConnection, $_POST['id_compte_debiteur'], $_POST['montant'], 'debiteur');
+        if ($statusCompte['status_code'] != 200) {
+            return $statusCompte;
+        }
+        $statusCompte = checkCompte($bddConnection, $_POST['id_compte_crediteur'], $_POST['montant'], 'crediteur');
+        if ($statusCompte['status_code'] != 200) {
+            return $statusCompte;
+        }
+    break;
+    case '4': // remboursement
+        if (empty($_POST['id_compte_debiteur']) || empty($_POST['id_compte_crediteur'])) {
+            return array('status_code' => 400, 'message' => 'Il faut un compte debiteur et un compte crediteur.');
+        }
+        if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_POST['id_compte_debiteur'], 'compte', 'addtransactionremboursement', $sessionUser['isApi'])) {
+            return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission de creer cette transaction.');
+        }
+        if (!Checkdroits::checkId($bddConnection, $_POST['id_compte_crediteur'], 'compte')) {
+            return array('status_code' => 404, 'message' => 'Le compte crediteur n\'existe pas.');
+        }
+        if (empty($_POST['id_commande']) || $_POST['id_commande'] == null || $_POST['id_commande'] == "") {
+            return array('status_code' => 400, 'message' => 'Il faut une commande.');
+        }
+        $statusCompte = checkCompte($bddConnection, $_POST['id_compte_debiteur'], $_POST['montant'], 'debiteur');
+        if ($statusCompte['status_code'] != 200) {
+            return $statusCompte;
+        }
+        $statusCompte = checkCompte($bddConnection, $_POST['id_compte_crediteur'], $_POST['montant'], 'crediteur');
+        if ($statusCompte['status_code'] != 200) {
+            return $statusCompte;
+        }
     break;
     case '5': // livraison
         if (empty($_POST['id_compte_debiteur']) || empty($_POST['id_compte_crediteur'])) {
@@ -110,6 +166,9 @@ switch($_POST['id_type_transaction']) {
         }
         if (!Checkdroits::checkId($bddConnection, $_POST['id_compte_crediteur'], 'compte')) {
             return array('status_code' => 404, 'message' => 'Le compte crediteur n\'existe pas.');
+        }
+        if (empty($_POST['id_commande']) || $_POST['id_commande'] == null || $_POST['id_commande'] == "") {
+            return array('status_code' => 400, 'message' => 'Il faut une commande.');
         }
         if (empty($sessionBanque)) {
             if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_POST['id_compte_debiteur'], 'compte', 'addtransactionachat', $sessionUser['isApi'])) {
@@ -119,6 +178,14 @@ switch($_POST['id_type_transaction']) {
             if (!Checkdroits::checkId($bddConnection, $_POST['id_compte_debiteur'], 'compte')) {
                 return array('status_code' => 404, 'message' => 'Le compte debiteur n\'existe pas.');
             }
+        }
+        $statusCompte = checkCompte($bddConnection, $_POST['id_compte_debiteur'], $_POST['montant'], 'debiteur');
+        if ($statusCompte['status_code'] != 200) {
+            return $statusCompte;
+        }
+        $statusCompte = checkCompte($bddConnection, $_POST['id_compte_crediteur'], $_POST['montant'], 'crediteur');
+        if ($statusCompte['status_code'] != 200) {
+            return $statusCompte;
         }
     break;
     case '6': // transfert
@@ -131,25 +198,18 @@ switch($_POST['id_type_transaction']) {
         if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_POST['id_compte_debiteur'], 'compte', 'addtransactiontransfert', $sessionUser['isApi'])) {
             return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission de creer cette transaction.');
         }
+        $statusCompte = checkCompte($bddConnection, $_POST['id_compte_debiteur'], $_POST['montant'], 'debiteur');
+        if ($statusCompte['status_code'] != 200) {
+            return $statusCompte;
+        }
+        $statusCompte = checkCompte($bddConnection, $_POST['id_compte_crediteur'], $_POST['montant'], 'crediteur');
+        if ($statusCompte['status_code'] != 200) {
+            return $statusCompte;
+        }
     break;
     case '7': // abonnement
         return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission de creer cette transaction.');
     break;
-}
-$idAdmin = null;
-if ($sessionBanque != null) {
-    $idAdmin = $apikey['id_joueur'];
-}
-if (!empty($_POST['id_compte_debiteur'])) {
-    $compteDebiteur = new Comptes($bddConnection, $_POST['id_compte_debiteur']);
-    if ($compteDebiteur->getSolde() < $_POST['montant']) {
-        return array('status_code' => 403, 'message' => 'Le compte debiteur n\'a pas assez d\'argent.');
-    }
-    $compteDebiteur->setCompteSolde($compteDebiteur->getSolde() - $_POST['montant']);
-}
-if (!empty($_POST['id_compte_crediteur'])) {
-    $compteCrediteur = new Comptes($bddConnection, $_POST['id_compte_crediteur']);
-    $compteCrediteur->setCompteSolde($compteCrediteur->getSolde() + $_POST['montant']);
 }
 $newId = Transactions::addTransaction($bddConnection, $_POST['id_compte_debiteur'], $_POST['id_compte_crediteur'],$idAdmin, $_POST['montant'], $_POST['nom'], $_POST['description'], $_POST['id_type_transaction'], $_POST['id_commande']);
 return array('status_code' => 200, 'message' => 'La transaction a bien ete cree.', 'data' => array('id' => $newId));

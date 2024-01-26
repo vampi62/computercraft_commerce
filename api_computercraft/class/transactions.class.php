@@ -1,6 +1,6 @@
 <?php
 // get transactions/{id_compte}
-// get transactions/{id_admin}
+// get transactions/{id_joueur}
 // get transaction/{id}
 // set transaction/add
 
@@ -10,7 +10,7 @@ class Transactions {
         $req = $bdd->prepare('SELECT transactions.*, codebit.nom_compte as nom_compte_debiteur, cocred.nom_compte as nom_compte_crediteur, commandes.nom_commande FROM transactions 
         LEFT JOIN comptes AS codebit ON transactions.id_compte_debiteur = codebit.id_compte
         LEFT JOIN comptes AS cocred ON transactions.id_compte_crediteur = cocred.id_compte
-        LEFT JOIN joueurs ON transactions.id_admin = joueurs.id_joueur
+        LEFT JOIN joueurs ON transactions.id_joueur = joueurs.id_joueur
         INNER JOIN commandes ON transactions.id_commande = commandes.id_commande
         WHERE (transactions.id_compte_debiteur = :id_compte OR transactions.id_compte_crediteur = :id_compte) AND transactions.id_commande = :id_commande');
         $req->execute(array(
@@ -27,7 +27,7 @@ class Transactions {
         $req = $bdd->prepare('SELECT transactions.*, codebit.nom_compte as nom_compte_debiteur, cocred.nom_compte as nom_compte_crediteur, commandes.nom_commande FROM transactions 
         LEFT JOIN comptes AS codebit ON transactions.id_compte_debiteur = codebit.id_compte
         LEFT JOIN comptes AS cocred ON transactions.id_compte_crediteur = cocred.id_compte
-        LEFT JOIN joueurs ON transactions.id_admin = joueurs.id_joueur
+        LEFT JOIN joueurs ON transactions.id_joueur = joueurs.id_joueur
         LEFT JOIN commandes ON transactions.id_commande = commandes.id_commande
         WHERE transactions.id_compte_debiteur = :id_compte OR transactions.id_compte_crediteur = :id_compte');
         $req->execute(array(
@@ -43,11 +43,11 @@ class Transactions {
         $req = $bdd->prepare('SELECT transactions.*, codebit.nom_compte as nom_compte_debiteur, cocred.nom_compte as nom_compte_crediteur, commandes.nom_commande FROM transactions 
         LEFT JOIN comptes AS codebit ON transactions.id_compte_debiteur = codebit.id_compte
         LEFT JOIN comptes AS cocred ON transactions.id_compte_crediteur = cocred.id_compte
-        INNER JOIN joueurs ON transactions.id_admin = joueurs.id_joueur
+        INNER JOIN joueurs ON transactions.id_joueur = joueurs.id_joueur
         LEFT JOIN commandes ON transactions.id_commande = commandes.id_commande
-        WHERE transactions.id_admin = :id_admin');
+        WHERE transactions.id_joueur = :id_joueur');
         $req->execute(array(
-            'id_admin' => $idAdmin
+            'id_joueur' => $idAdmin
         ));
         $transactions = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
@@ -59,7 +59,7 @@ class Transactions {
         $req = $bdd->prepare('SELECT transactions.*, codebit.nom_compte as nom_compte_debiteur, cocred.nom_compte as nom_compte_crediteur, commandes.nom_commande FROM transactions 
         LEFT JOIN comptes AS codebit ON transactions.id_compte_debiteur = codebit.id_compte
         LEFT JOIN comptes AS cocred ON transactions.id_compte_crediteur = cocred.id_compte
-        LEFT JOIN joueurs ON transactions.id_admin = joueurs.id_joueur
+        LEFT JOIN joueurs ON transactions.id_joueur = joueurs.id_joueur
         LEFT JOIN commandes ON transactions.id_commande = commandes.id_commande
         WHERE transactions.id_transaction = :id_transaction');
         $req->execute(array(
@@ -74,7 +74,7 @@ class Transactions {
         $req = $bdd->prepare('SELECT transactions.*, codebit.nom_compte as nom_compte_debiteur, cocred.nom_compte as nom_compte_crediteur, commandes.nom_commande FROM transactions 
         LEFT JOIN comptes AS codebit ON transactions.id_compte_debiteur = codebit.id_compte
         LEFT JOIN comptes AS cocred ON transactions.id_compte_crediteur = cocred.id_compte
-        LEFT JOIN joueurs ON transactions.id_admin = joueurs.id_joueur
+        LEFT JOIN joueurs ON transactions.id_joueur = joueurs.id_joueur
         INNER JOIN commandes ON transactions.id_commande = commandes.id_commande
         WHERE transactions.id_commande = :id_commande');
         $req->execute(array(
@@ -86,12 +86,13 @@ class Transactions {
     }
 
     // ajoute une transaction
+    //
     public static function addTransaction($bdd,$idCompteDebiteur=null,$idCompteCrediteur=null,$idAdmin=null,$sommeTransaction,$nomTransaction,$descriptionTransaction,$idTypeTransaction,$idCommande=null) {
-        $req = $bdd->prepare('INSERT INTO transactions(id_compte_debiteur,id_compte_crediteur,id_admin,somme_transaction,date_transaction,nom_transaction,description_transaction,id_type_transaction,id_commande) VALUES(:id_compte_debiteur,:id_compte_crediteur,:id_admin,:somme_transaction,:date_transaction,:nom_transaction,:description_transaction,:id_type_transaction,:id_commande)');
+        $req = $bdd->prepare('INSERT INTO transactions(id_compte_debiteur,id_compte_crediteur,id_joueur,somme_transaction,date_transaction,nom_transaction,description_transaction,id_type_transaction,id_commande) VALUES(:id_compte_debiteur,:id_compte_crediteur,:id_joueur,:somme_transaction,:date_transaction,:nom_transaction,:description_transaction,:id_type_transaction,:id_commande)');
         $req->execute(array(
             'id_compte_debiteur' => $idCompteDebiteur,
             'id_compte_crediteur' => $idCompteCrediteur,
-            'id_admin' => $idAdmin,
+            'id_joueur' => $idAdmin,
             'somme_transaction' => $sommeTransaction,
             'date_transaction' => date("Y-m-d H:i:s"),
             'nom_transaction' => $nomTransaction,

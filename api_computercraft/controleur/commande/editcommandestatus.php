@@ -3,7 +3,7 @@ require_once('class/checkdroits.class.php');
 require_once('class/commandes.class.php');
 require_once('class/apikeys.class.php');
 
-if (!Checkdroits::checkArgs($_POST,array('id_commande' => false, 'id_type_commande' => false), true)) {
+if (!Checkdroits::checkArgs($_POST,array('id_commande' => false, 'id_status' => false), true)) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $sessionUser = Checkdroits::checkMode($bddConnection,$_POST,array('apikey' => true,'user' => true), true);
@@ -14,45 +14,45 @@ $commande = Commandes::getCommandeById($bddConnection, $_POST['id_commande']);
 if (empty($commande)) {
     return array('status_code' => 404, 'message' => 'La commande n\'existe pas.');
 }
-if (!Checkdroits::checkId($bddConnection, $_POST['id_type_commande'], 'type_commande')) {
+if (!Checkdroits::checkId($bddConnection, $_POST['id_status'], 'type_commande')) {
     return array('status_code' => 404, 'message' => 'Le type n\'existe pas.');
 }
 $permitAction = false;
 if ($sessionUser['isApi']) {
     $apikey = Apikeys::getApiKeyById($bddConnection, $sessionUser['idLogin']);
     if (Checkdroits::checkRole($bddConnection, $apikey['pseudo_joueur'], array('terminal','traitement'))) {
-        if (Checkdroits::checkCheminTypeCommande($bddConnection, $_POST['id_type_commande'], $commande['id_type_commande'], 'admin')) {
+        if (Checkdroits::checkCheminTypeCommande($bddConnection, $_POST['id_status'], $commande['id_type_commande'], 'admin')) {
             $permitAction = true;
         }
     }
 }
 if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_offre'], 'offre', 'vendeurEditStatusCommande', $sessionUser['isApi'])) {
-    if (Checkdroits::checkCheminTypeCommande($bddConnection, $_POST['id_type_commande'], $commande['id_type_commande'], 'vendeur')) {
+    if (Checkdroits::checkCheminTypeCommande($bddConnection, $_POST['id_status'], $commande['id_type_commande'], 'vendeur')) {
         $permitAction = true;
     }
 }
 if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_compte_vendeur'], 'compte', 'vendeurEditStatusCommande', $sessionUser['isApi'])) {
-    if (Checkdroits::checkCheminTypeCommande($bddConnection, $_POST['id_type_commande'], $commande['id_type_commande'], 'vendeur')) {
+    if (Checkdroits::checkCheminTypeCommande($bddConnection, $_POST['id_status'], $commande['id_type_commande'], 'vendeur')) {
         $permitAction = true;
     }
 }
 if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_adresse_vendeur'], 'adresse', 'vendeurEditStatusCommande', $sessionUser['isApi'])) {
-    if (Checkdroits::checkCheminTypeCommande($bddConnection, $_POST['id_type_commande'], $commande['id_type_commande'], 'vendeur')) {
+    if (Checkdroits::checkCheminTypeCommande($bddConnection, $_POST['id_status'], $commande['id_type_commande'], 'vendeur')) {
         $permitAction = true;
     }
 }
 if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_livreur'], 'livreur', 'livreurEditStatusCommande', $sessionUser['isApi'])) {
-    if (Checkdroits::checkCheminTypeCommande($bddConnection, $_POST['id_type_commande'], $commande['id_type_commande'], 'livreur')) {
+    if (Checkdroits::checkCheminTypeCommande($bddConnection, $_POST['id_status'], $commande['id_type_commande'], 'livreur')) {
         $permitAction = true;
     }
 }
 if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_compte_client'], 'compte', 'clientEditStatusCommande', $sessionUser['isApi'])) {
-    if (Checkdroits::checkCheminTypeCommande($bddConnection, $_POST['id_type_commande'], $commande['id_type_commande'], 'client')) {
+    if (Checkdroits::checkCheminTypeCommande($bddConnection, $_POST['id_status'], $commande['id_type_commande'], 'client')) {
         $permitAction = true;
     }
 }
 if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $commande['id_adresse_client'], 'adresse', 'clientEditStatusCommande', $sessionUser['isApi'])) {
-    if (Checkdroits::checkCheminTypeCommande($bddConnection, $_POST['id_type_commande'], $commande['id_type_commande'], 'client')) {
+    if (Checkdroits::checkCheminTypeCommande($bddConnection, $_POST['id_status'], $commande['id_type_commande'], 'client')) {
         $permitAction = true;
     }
 }
@@ -61,7 +61,7 @@ if (!$permitAction) {
 }
 $commande = new Commandes($bddConnection, $_POST['id_commande']);
 $suivi = "";
-switch ($_POST['id_type_commande']) {
+switch ($_POST['id_status']) {
     case 2: // (vendeur) validation refusée par le vendeur
         $suivi = $sessionUser['pseudoLogin'].' a refusé la commande.';
         break;
@@ -107,5 +107,5 @@ switch ($_POST['id_type_commande']) {
         break;
 }
 $commande->setCommandeSuivi($suivi, $_Serveur_['General']['CaseLigneSuite']);
-$commande->setCommandeStatus($_POST['id_type_commande']);
+$commande->setCommandeStatus($_POST['id_status']);
 return array('status_code' => 200, 'message' => '');
