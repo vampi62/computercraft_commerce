@@ -145,6 +145,7 @@ class Offres {
             'id_offre' => $idOffre
         ));
         $offre = $req->fetch(PDO::FETCH_ASSOC);
+        $offre = array($offre);
 		$req->closeCursor();
         if ($boolRemoveInactive) {
             return self::removeInactiveOffre($offre);
@@ -158,8 +159,8 @@ class Offres {
     private static function removeInactiveOffre($listeOffres) {
         $listeOffresActive = array();
         foreach ($listeOffres as $offre) {
-            if ($offre['prix_offre'] != null && $offre['id_compte'] != null && $offre['id_adresse'] != null && $offre['id_type_offre'] != null && $offre['description_offre'] != null && $offre['nom_offre'] != null) {
-                if ($offre['prix_offre'] != '' && $offre['id_compte'] != '' && $offre['id_adresse'] != '' && $offre['id_type_offre'] != '' && $offre['description_offre'] != '' && $offre['nom_offre'] != '') {
+            if ($offre['prix_offre'] != null && $offre['stock_offre'] != null && $offre['nom_offre'] != null && $offre['description_offre'] != null && $offre['id_type_offre'] != null && $offre['id_adresse'] != null && $offre['id_compte'] != null) {
+                if ($offre['prix_offre'] != '' && $offre['stock_offre'] != '' && $offre['nom_offre'] != '' && $offre['description_offre'] != '' && $offre['id_type_offre'] != '' && $offre['id_adresse'] != '' && $offre['id_compte'] != '') {
                     array_push($listeOffresActive,$offre);
                 }
             }

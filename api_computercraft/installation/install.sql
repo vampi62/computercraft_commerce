@@ -111,7 +111,7 @@ CREATE TABLE `commandes` (
   `nom_commande` varchar(50) NOT NULL,
   `quantite_commande` int(11) UNSIGNED NOT NULL,
   `prix_unitaire_commande` decimal(15,2) UNSIGNED NOT NULL,
-  `frais_livraison` decimal(15,2) UNSIGNED NOT NULL,
+  `frais_livraison_commande` decimal(15,2) UNSIGNED NOT NULL,
   `description_commande` varchar(450) NOT NULL,
   `suivi_commande` varchar(4096) NOT NULL,
   `date_commande_commande` datetime NOT NULL,
@@ -384,7 +384,8 @@ CREATE TABLE `msg_litiges` (
   `texte_msg_litige` varchar(450) NOT NULL,
   `date_msg_litige` datetime NOT NULL,
   `id_type_msg_litige` int(11) UNSIGNED NOT NULL,
-  `id_commande` int(11) UNSIGNED NOT NULL
+  `id_commande` int(11) UNSIGNED NOT NULL,
+  `id_joueur` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -743,7 +744,8 @@ ALTER TABLE `livreurs`
 ALTER TABLE `msg_litiges`
   ADD PRIMARY KEY (`id_msg_litige`),
   ADD KEY `msg_litiges_ibfk_1` (`id_type_msg_litige`),
-  ADD KEY `msg_litiges_ibfk_2` (`id_commande`);
+  ADD KEY `msg_litiges_ibfk_2` (`id_commande`),
+  ADD KEY `msg_litiges_ibfk_3` (`id_joueur`);
 
 --
 -- Index pour la table `offres`
@@ -1074,7 +1076,8 @@ ALTER TABLE `livreurs`
 --
 ALTER TABLE `msg_litiges`
   ADD CONSTRAINT `msg_litiges_ibfk_1` FOREIGN KEY (`id_type_msg_litige`) REFERENCES `type_msg_litiges` (`id_type_msg_litige`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `msg_litiges_ibfk_2` FOREIGN KEY (`id_commande`) REFERENCES `commandes` (`id_commande`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `msg_litiges_ibfk_2` FOREIGN KEY (`id_commande`) REFERENCES `commandes` (`id_commande`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `msg_litiges_ibfk_3` FOREIGN KEY (`id_joueur`) REFERENCES `joueurs` (`id_joueur`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `offres`

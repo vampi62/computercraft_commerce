@@ -274,13 +274,13 @@ class Commandes {
     }
 
     // ajoute une commande
-    public function addCommande($nomCommande,$quantiteCommande,$prixUnitaireCommande,$fraitLivraisonCommande,$descriptionCommande,$codeRetraitCommande,$idAdresseVendeur,$idAdresseClient,$idOffre,$idCompteVendeur,$idCompteClient,$typeCommande) {
-        $req = $this->_bdd->prepare('INSERT INTO commandes(nom_commande,quantite_commande,prix_unitaire_commande,frait_livraison_commande,description_commande,suivi_commande,date_commande_commande,code_retrait_commande,id_adresse_vendeur,id_adresse_client,id_offre,id_compte_vendeur,id_compte_client,id_type_commande) VALUES(:nom_commande,:quantite_commande,:prix_unitaire_commande,:frait_livraison_commande,:description_commande,:suivi_commande,:date_commande_commande,:code_retrait_commande,:id_adresse_vendeur,:id_adresse_client,:id_offre,:id_compte_vendeur,:id_compte_client,:id_type_commande)');
+    public function addCommande($nomCommande,$quantiteCommande,$prixUnitaireCommande,$fraisLivraisonCommande,$descriptionCommande,$codeRetraitCommande,$idAdresseVendeur,$idAdresseClient,$idOffre,$idCompteVendeur,$idCompteClient,$typeCommande) {
+        $req = $this->_bdd->prepare('INSERT INTO commandes(nom_commande,quantite_commande,prix_unitaire_commande,frais_livraison_commande,description_commande,suivi_commande,date_commande_commande,code_retrait_commande,id_adresse_vendeur,id_adresse_client,id_offre,id_compte_vendeur,id_compte_client,id_type_commande) VALUES(:nom_commande,:quantite_commande,:prix_unitaire_commande,:frais_livraison_commande,:description_commande,:suivi_commande,:date_commande_commande,:code_retrait_commande,:id_adresse_vendeur,:id_adresse_client,:id_offre,:id_compte_vendeur,:id_compte_client,:id_type_commande)');
         $req->execute(array(
             'nom_commande' => $nomCommande,
             'quantite_commande' => $quantiteCommande,
             'prix_unitaire_commande' => $prixUnitaireCommande,
-            'frait_livraison_commande' => $fraitLivraisonCommande,
+            'frais_livraison_commande' => $fraisLivraisonCommande,
             'description_commande' => $descriptionCommande,
             'suivi_commande' => "",
             'date_commande_commande' => date("Y-m-d H:i:s"),

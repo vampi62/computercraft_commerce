@@ -114,13 +114,18 @@ switch ($_SERVER['REQUEST_METHOD']) {
                         $endpoint .= 'by';
                     }
                     $nomVariable = array_shift($request);
-                    $endpoint .= $nomVariable;
                 } else {
-                    if (strpos($request[0], '?') !== false) {
+                    $nomVariable = array_shift($request);
+                    if (count($request) > 0 && strpos($request[0], '?') !== false) {
                         $request[0] = substr($request[0], 0, strpos($request[0], '?'));
                     }
-                    $_GET[$nomVariable] = array_shift($request);
+                    if (is_numeric($request[0])) {
+                        $_GET['id_'.$nomVariable] = array_shift($request);
+                    } else {
+                        $_GET[$nomVariable] = array_shift($request);
+                    }
                 }
+                $endpoint .= $nomVariable;
             }
         }
         $endpoint = 'controleur/' . $dossier . '/get' . $endpoint . '.php';

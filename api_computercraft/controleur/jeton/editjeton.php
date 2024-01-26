@@ -14,6 +14,6 @@ $apikey = Apikeys::getApiKeyById($bddConnection, $sessionUser['idLogin']);
 if (!Checkdroits::checkRole($bddConnection, $apikey['pseudo_joueur'], array('admin','terminal'))) {
     return array('status_code' => 403, 'message' => 'Le compte n\'a pas les droits.');
 }
-$jeton = new Jetons($bddConnection, $sessionUser['idLogin']);
+$jeton = new Jetons($bddConnection, $apikey['id_joueur']);
 $jeton->setJeton($_POST);
 return array('status_code' => 200, 'message' => 'Le jeton a bien ete modifie.');

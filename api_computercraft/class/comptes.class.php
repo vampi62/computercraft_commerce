@@ -79,6 +79,7 @@ class Comptes {
                 'id_compte' => $this->_idCompte
             ));
             $this->_soldeCompte = $req->fetch(PDO::FETCH_ASSOC)['solde_compte'];
+            $req->closeCursor();
         }
     }
 
@@ -92,7 +93,7 @@ class Comptes {
     }
     // le solde_compte ne peut être modifier qu'avec une transaction pour garder une trace des mouvements
     // modifie le solde_compte du compte
-    public function setCompteSolde($solde_compte) {
+    public function setCompteSolde($soldeCompte) {
         $req = $this->_bdd->prepare('UPDATE comptes SET solde_compte = :solde_compte WHERE id_compte = :id_compte');
         $req->execute(array(
             'solde_compte' => $soldeCompte,
