@@ -2,7 +2,7 @@
 require_once('class/joueurs.class.php');
 require_once('class/checkdroits.class.php');
 
-if (!Checkdroits::checkArgs($_POST,array('pseudo' => false, 'mdp' => false, 'email' => false, 'id_type_role' => false, 'nbr_offre' => true), true)) {
+if (!Checkdroits::checkArgs($_POST,array('pseudo' => false, 'mdp' => false, 'email' => false, 'id_role' => false, 'nbr_offre' => true), true)) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $sessionAdmin = Checkdroits::checkAdmin($bddConnection,$_POST, true);
@@ -12,7 +12,7 @@ if (isset($sessionAdmin['status_code'])) { // si un code d'erreur est retourné 
 if (!empty(Joueurs::getJoueurByPseudo($bddConnection, $_POST['pseudo']))) {
     return array('status_code' => 404, 'message' => 'Le pseudo est deja pris.');
 }
-if (!Checkdroits::checkId($bddConnection, $_POST['id_type_role'], 'type_role')) {
+if (!Checkdroits::checkId($bddConnection, $_POST['id_role'], 'type_joueur')) {
     return array('status_code' => 404, 'message' => 'Le role n\'existe pas.');
 }
 if (!Checkdroits::checkPasswordSecu($_POST['mdp'])) {
@@ -39,5 +39,5 @@ if (empty($_POST['nbr_offre']) || $_POST['nbr_offre'] <= 0) {
     }
 }
 $newJoueur = new Joueurs($bddConnection);
-$newJoueur->addJoueur($_POST['pseudo'], $_POST['email'], $_POST['mdp'], $_POST['nbr_offre'], $_POST['id_type_role']);
-return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newJoueur->getId()));
+$newJoueur->addJoueur($_POST['pseudo'], $_POST['email'], $_POST['mdp'], $_POST['nbr_offre'], $_POST['id_role']);
+return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newJoueur->getIdJoueur()));

@@ -88,7 +88,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //gettransactionbyid                -> GET /transaction/{id_transaction}
         //getwireless                       -> GET /wireless
         //getwirelessbyid                   -> GET /wireless/{id_wireless}
-        //getwirelessbyjoueur               -> GET /wireless/joueur/{pseudo_joueur}
+        //getwirelessbyjoueur               -> GET /wireless/joueur/
         //getwirelessdispo                  -> GET /wireless/dispo
         $nomVariable = $endpoint;
         while (count($request) > 0) {
@@ -116,13 +116,15 @@ switch ($_SERVER['REQUEST_METHOD']) {
                     $nomVariable = array_shift($request);
                 } else {
                     $nomVariable = array_shift($request);
-                    if (count($request) > 0 && strpos($request[0], '?') !== false) {
-                        $request[0] = substr($request[0], 0, strpos($request[0], '?'));
-                    }
-                    if (is_numeric($request[0])) {
-                        $_GET['id_'.$nomVariable] = array_shift($request);
-                    } else {
-                        $_GET[$nomVariable] = array_shift($request);
+                    if (count($request) > 0) {
+                        if (strpos($request[0], '?') !== false) {
+                            $request[0] = substr($request[0], 0, strpos($request[0], '?'));
+                        }
+                        if (is_numeric($request[0])) {
+                            $_GET['id_'.$nomVariable] = array_shift($request);
+                        } else {
+                            $_GET[$nomVariable] = array_shift($request);
+                        }
                     }
                 }
                 $endpoint .= $nomVariable;
@@ -152,6 +154,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //addtransaction    -> POST /transaction
         $nomVariable = $endpoint;
         while (count($request) > 0) {
+            if (strpos($request[0], '?') !== false) {
+                $request[0] = substr($request[0], 0, strpos($request[0], '?'));
+            }
             if (is_numeric($request[0])) {
                 $_POST['id_'.$nomVariable] = array_shift($request);
             } else {
@@ -194,6 +199,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
         parse_str(file_get_contents("php://input"), $_POST);
         $nomVariable = $endpoint;
         while (count($request) > 0) {
+            if (strpos($request[0], '?') !== false) {
+                $request[0] = substr($request[0], 0, strpos($request[0], '?'));
+            }
             if (is_numeric($request[0])) {
                 $_POST['id_'.$nomVariable] = array_shift($request);
             } else {
@@ -223,6 +231,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
         parse_str(file_get_contents("php://input"), $_POST);
         $nomVariable = $endpoint;
         while (count($request) > 0) {
+            if (strpos($request[0], '?') !== false) {
+                $request[0] = substr($request[0], 0, strpos($request[0], '?'));
+            }
             if (is_numeric($request[0])) {
                 $_POST['id_'.$nomVariable] = array_shift($request);
             } else {

@@ -13,7 +13,7 @@ if (!Checkdroits::checkId($bddConnection, $_POST['id_apikey'], 'apikey')) {
     return array('status_code' => 404, 'message' => 'l\'apikey n\'existe pas.');
 }
 $idJoueur = ApiKeys::getapikeyById($bddConnection, $_POST['id_apikey'])['id_joueur'];
-if (count(ApiKeys::getapikeyByNom($bddConnection,$idJoueur . '-' . $_POST['nom']))) {
+if (!empty(ApiKeys::getapikeyByNom($bddConnection,$idJoueur . '-' . $_POST['nom']))) {
     return array('status_code' => 404, 'message' => 'Le nom de l\'apikey existe deja.');
 }
 if (strlen($_POST['nom']) > ($_Serveur_['MaxLengthChamps']['Nom']+strlen($idJoueur)+2)) {

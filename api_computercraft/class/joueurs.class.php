@@ -141,9 +141,9 @@ class Joueurs {
 
 	// change le role du joueur
 	public function setJoueurRole($role) {
-		$req = $this->_bdd->prepare('UPDATE joueurs SET id_type_role = :id_type_role WHERE id_joueur = :id_joueur');
+		$req = $this->_bdd->prepare('UPDATE joueurs SET id_type_joueur = :id_type_joueur WHERE id_joueur = :id_joueur');
 		$req->execute(array(
-			'id_type_role' => $role,
+			'id_type_joueur' => $role,
 			'id_joueur' => $this->_idJoueur
 		));
 	}

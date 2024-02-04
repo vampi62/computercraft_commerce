@@ -5,7 +5,7 @@ if (!$_Serveur_['Module']['EnderStorage']) {
 require_once('class/checkdroits.class.php');
 require_once('class/enderstorages.class.php');
 
-if (!Checkdroits::checkArgs($_GET,array('offset' => false, 'limit' => false, 'show' => true))) {
+if (!Checkdroits::checkArgs($_GET,array('offset' => true, 'limit' => false, 'show' => true))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $sessionAdmin = Checkdroits::checkAdmin($bddConnection,$_GET);
