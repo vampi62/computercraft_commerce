@@ -6,6 +6,9 @@ while ($pathlocal != 'api_computercraft') {
     $pathlocal = array_shift($request);
 } // on vide l'uri des sous dossiers jusqu'a arriver a api_computercraft
 // si le dernier caractère de $endpoint est un 's', on le supprime
+if (count($request) == 0) {
+    return array('status_code' => 405, 'message' => 'Méthode non autorisée.');
+}
 if (strpos($request[0], '?') !== false) {
     $request[0] = substr($request[0], 0, strpos($request[0], '?'));
 }
@@ -98,6 +101,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 $_GET['id_'.$nomVariable] = array_shift($request);
                 if (!strpos($endpoint, 'by')) {
                     if (isset($request[0])) {
+                        if (strpos($request[0], '?') !== false) {
+                            $request[0] = substr($request[0], 0, strpos($request[0], '?'));
+                        }
                         $endpoint = array_shift($request) . 'by' . $endpoint;
                     } else {
                         $endpoint .= 'byid';
@@ -109,10 +115,20 @@ switch ($_SERVER['REQUEST_METHOD']) {
                         $endpoint .= 'by';
                     }
                     $nomVariable = array_shift($request);
-                    $endpoint .= $nomVariable;
                 } else {
-                    $_GET[$nomVariable] = array_shift($request);
+                    $nomVariable = array_shift($request);
+                    if (count($request) > 0) {
+                        if (strpos($request[0], '?') !== false) {
+                            $request[0] = substr($request[0], 0, strpos($request[0], '?'));
+                        }
+                        if (is_numeric($request[0])) {
+                            $_GET['id_'.$nomVariable] = array_shift($request);
+                        } else {
+                            $_GET[$nomVariable] = array_shift($request);
+                        }
+                    }
                 }
+                $endpoint .= $nomVariable;
             }
         }
         $endpoint = 'admin/' . $dossier . '/get' . $endpoint . '.php';
@@ -139,6 +155,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //addbanqueterminal -> POST /banqueterminal
         $nomVariable = $endpoint;
         while (count($request) > 0) {
+            if (strpos($request[0], '?') !== false) {
+                $request[0] = substr($request[0], 0, strpos($request[0], '?'));
+            }
             if (is_numeric($request[0])) {
                 $_POST['id_'.$nomVariable] = array_shift($request);
             } else {
@@ -182,6 +201,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
         parse_str(file_get_contents("php://input"), $_POST);
         $nomVariable = $endpoint;
         while (count($request) > 0) {
+            if (strpos($request[0], '?') !== false) {
+                $request[0] = substr($request[0], 0, strpos($request[0], '?'));
+            }
             if (is_numeric($request[0])) {
                 $_POST['id_'.$nomVariable] = array_shift($request);
             } else {
@@ -212,6 +234,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
         parse_str(file_get_contents("php://input"), $_POST);
         $nomVariable = $endpoint;
         while (count($request) > 0) {
+            if (strpos($request[0], '?') !== false) {
+                $request[0] = substr($request[0], 0, strpos($request[0], '?'));
+            }
             if (is_numeric($request[0])) {
                 $_POST['id_'.$nomVariable] = array_shift($request);
             } else {

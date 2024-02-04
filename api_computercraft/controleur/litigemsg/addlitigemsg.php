@@ -10,6 +10,9 @@ $sessionUser = Checkdroits::checkMode($bddConnection,$_POST,array('apikey' => fa
 if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
     return $sessionUser; // error
 }
+if (!Checkdroits::checkId($bddConnection, $_POST['id_status_litigemsg'], 'type_msg_litige')) {
+    return array('status_code' => 404, 'message' => 'Le status n\'existe pas.');
+}
 $commande = Commandes::getCommandeById($bddConnection, $_POST['id_commande']);
 if (empty($commande)) {
     return array('status_code' => 404, 'message' => 'La commande n\'existe pas.');

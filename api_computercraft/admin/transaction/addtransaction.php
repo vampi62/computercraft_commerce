@@ -25,7 +25,7 @@ if (empty($_POST['id_compte_debiteur']) && empty($_POST['id_compte_crediteur']))
 if ($_POST['id_compte_debiteur'] == $_POST['id_compte_crediteur']) {
     return array('status_code' => 400, 'message' => 'Le compte debiteur et le compte crediteur sont identiques.');
 }
-if (!empty($_POST['id_commande'])) {
+if (!empty($_POST['id_commande']) && $_POST['id_commande'] != null && $_POST['id_commande'] != "" && $_POST['id_commande'] != "null") {
     if (!Checkdroits::checkId($bddConnection, $_POST['id_commande'], 'commande')) {
         return array('status_code' => 404, 'message' => 'La commande n\'existe pas.');
     }
@@ -48,7 +48,7 @@ if ($_POST['id_compte_debiteur'] == "") {
 if ($_POST['id_compte_crediteur'] == "") {
     $_POST['id_compte_crediteur'] = null;
 }
-if ($_POST['id_commande'] == "") {
+if ($_POST['id_commande'] == "" || $_POST['id_commande'] == "null") {
     $_POST['id_commande'] = null;
 }
 if (empty($_POST['id_compte_crediteur']) && empty($_POST['id_compte_debiteur'])) {

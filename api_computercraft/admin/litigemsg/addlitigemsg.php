@@ -12,11 +12,11 @@ if (isset($sessionAdmin['status_code'])) { // si un code d'erreur est retourné 
 if (!Checkdroits::checkId($bddConnection, $_POST['id_commande'], 'commande')) {
     return array('status_code' => 404, 'message' => 'La commande n\'existe pas.');
 }
-if (!Checkdroits::checkId($bddConnection, $_POST['id_status_litigemsg'], 'status_litigemsg')) {
+if (!Checkdroits::checkId($bddConnection, $_POST['id_status_litigemsg'], 'type_msg_litige')) {
     return array('status_code' => 404, 'message' => 'Le status n\'existe pas.');
 }
 if (strlen($_POST['description']) > $_Serveur_['MaxLengthChamps']['Description']) {
     return array('status_code' => 413, 'message' => 'Le message est trop long.');
 }
-$newid = LitigeMsgs::addLitigeMsg($bddConnection,$_POST['id_commande'],$_POST['description'],$_POST['id_status_litigemsg']);
+$newid = LitigeMsgs::addLitigeMsg($bddConnection,$_POST['id_commande'],$_POST['description'],$_POST['id_status_litigemsg'],$sessionAdmin['idLogin']);
 return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newid));

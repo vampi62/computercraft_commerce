@@ -5,7 +5,7 @@ if (!$_Serveur_['Module']['WirelessRedstone']) {
 require_once('class/checkdroits.class.php');
 require_once('class/wirelessredstones.class.php');
 
-if (!Checkdroits::checkArgs($_GET,array('offset' => false, 'limit' => false))) {
+if (!Checkdroits::checkArgs($_GET,array('offset' => true, 'limit' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $sessionAdmin = Checkdroits::checkAdmin($bddConnection,$_GET);

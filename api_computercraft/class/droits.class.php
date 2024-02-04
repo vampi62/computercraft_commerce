@@ -94,4 +94,52 @@ class Droits {
         $req->closeCursor();
         return $chemins_type_commandes;
     }
+
+    // recupere les droits d'un joueur sur un element
+    public static function getDroitsJoueurOnObject($bdd, $idNom, $idObjet, $type ,$isApi=false) {
+        if ($isApi) {
+            if ($type == 'groupe') {
+                $req = $bdd->prepare('SELECT groupes.*, drgroupe.id_droit AS id_droit_groupe, drapi.id_droit AS id_droit_apikey FROM groupes
+                INNER JOIN groupes_apikeys    ON groupes.id_groupe = groupes_apikeys.id_groupe
+                INNER JOIN apikeys           ON apikeys.id_apikey = groupes_apikeys.id_apikey
+                INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes.id_groupe
+                INNER JOIN apikeys_droits    ON apikeys_droits.id_apikey = apikeys.id_apikey
+                INNER JOIN droits AS drgroupe  ON droits.id_droit = groupes_droits.id_droit
+                INNER JOIN droits AS drapi     ON droits.id_droit = apikeys_droits.id_droit
+                WHERE groupes.id_groupe = :idobjet AND apikeys.id_apikey = :idnom');
+            } else {
+                $req = $bdd->prepare('SELECT '.$type.'s.id_'.$type.', groupes.*, drgroupe.id_droit AS id_droit_groupe, drapi.id_droit AS id_droit_apikey FROM '.$type.'s
+                INNER JOIN groupes_'.$type.'s ON '.$type.'s.id_'.$type.' = groupes_'.$type.'s.id_'.$type.'
+                INNER JOIN groupes_apikeys    ON groupes_'.$type.'s.id_groupe = groupes_apikeys.id_groupe
+                INNER JOIN groupes           ON groupes.id_groupe = groupes_apikeys.id_groupe
+                INNER JOIN apikeys           ON apikeys.id_apikey = groupes_apikeys.id_apikey
+                INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_'.$type.'s.id_groupe
+                INNER JOIN apikeys_droits    ON apikeys_droits.id_apikey = apikeys.id_apikey
+                INNER JOIN droits AS drgroupe  ON droits.id_droit = groupes_droits.id_droit
+                INNER JOIN droits AS drapi     ON droits.id_droit = apikeys_droits.id_droit
+                WHERE '.$type.'s.id_'.$type.' = :idobjet AND apikeys.id_apikey = :idnom');
+            }
+        } else {
+            if ($type == 'groupe') {
+                $req = $bdd->prepare('SELECT groupes.*, drgroupe.id_droit AS id_droit_groupe FROM groupes
+                INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes.id_groupe
+                INNER JOIN droits AS drgroupe  ON droits.id_droit = groupes_droits.id_droit
+                WHERE groupes.id_groupe = :idobjet AND groupes_droits.id_droit = :idnom');
+            } else {
+                $req = $bdd->prepare('SELECT '.$type.'s.id_'.$type.', groupes.*, drgroupe.id_droit AS id_droit_groupe FROM '.$type.'s
+                INNER JOIN groupes_'.$type.'s ON '.$type.'s.id_'.$type.' = groupes_'.$type.'s.id_'.$type.'
+                INNER JOIN groupes           ON groupes.id_groupe = groupes_'.$type.'s.id_groupe
+                INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_'.$type.'s.id_groupe
+                INNER JOIN droits AS drgroupe  ON droits.id_droit = groupes_droits.id_droit
+                WHERE '.$type.'s.id_'.$type.' = :idobjet AND groupes_droits.id_droit = :idnom');
+            }
+        }
+        $req->execute(array(
+            'idobjet' => $idObjet,
+            'idnom' => $idNom
+        ));
+        $liste = $req->fetch(PDO::FETCH_ASSOC);
+        $req->closeCursor();
+        return $liste;
+    }
 }

@@ -24,6 +24,9 @@ if (Checkdroits::checkArgs($_POST,array('id_keypay' => false), true)) {
     if (empty($keypay['id_keypay'])) {
         return array('status_code' => 404, 'message' => 'La keypay n\'existe pas.');
     }
+    if ($keypay['date_expire_keypay'] < time()) {
+        return array('status_code' => 400, 'message' => 'La keypay est expiree.');
+    }
     $quant = $keypay['quantite_keypay'];
     $prixu = $keypay['prix_unitaire_keypay'];
     $frais = 0;

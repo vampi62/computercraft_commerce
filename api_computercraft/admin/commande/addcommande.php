@@ -13,8 +13,8 @@ if (isset($sessionAdmin['status_code'])) { // si un code d'erreur est retourné 
     return $sessionAdmin; // error
 }
 // si pas de retour alors l'offre n'existe pas ou est inactive
-$offre = Offres::getOffreById($bddConnection, $_POST['id_offre'], true);
-if (empty($offre['id_offre'])) {
+$offre = Offres::getOffreById($bddConnection, $_POST['id_offre'], true)[0];
+if (empty($offre)) {
     return array('status_code' => 404, 'message' => 'L\'offre n\'existe pas ou n\'est pas active.');
 }
 if (!Checkdroits::checkId($bddConnection, $_POST['id_adresse_client'], 'adresse')) {
@@ -62,7 +62,7 @@ if ($offre['prix_offre'] != $_POST['prixu']) {
     return array('status_code' => 400, 'message' => 'Le prix unitaire ne correspond pas au prix de l\'offre.');
 }
 $newCommande = new Commandes($bddConnection);
-$newCommande->addCommande($_POST['nom'],$_POST['quant'],$_POST['prixu'],$_POST['frait'],$_POST['description'],$_POST['code_retrait_commande'],$_POST['id_adresse_vendeur'],$_POST['id_adresse_client'],$_POST['id_offre'],$_POST['id_compte_vendeur'],$_POST['id_compte_client'],1);
+$newCommande->addCommande($_POST['nom'],$_POST['quant'],$_POST['prixu'],$_POST['frait'],$_POST['description'],$_POST['code_retrait_commande'],$offre['id_adresse'],$_POST['id_adresse_client'],$_POST['id_offre'],$offre['id_compte'],$_POST['id_compte_client'],1);
 $suivi = $sessionAdmin['pseudoLogin'].' a cree la commande via panel admin.';
 $newCommande->setCommandeSuivi($suivi,$_Serveur_['General']['CaseLigneSuite']);
 return array('status_code' => 200, 'message' => '', 'data' => array('id' => $newCommande->getIdCommande()));

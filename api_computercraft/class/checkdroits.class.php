@@ -185,16 +185,28 @@ class Checkdroits {
                 // si groupe et apikey a les droits sur l'objet pour effectuer l'action
                     // -- permet l'action
             # si api et obj sont dans un meme groupe qui permet l'action alors return true
-            $req = $bdd->prepare('SELECT '.$type.'s.id_'.$type.' FROM '.$type.'s
-            INNER JOIN groupes_'.$type.'s ON '.$type.'s.id_'.$type.' = groupes_'.$type.'s.id_'.$type.'
-            INNER JOIN groupes_apikeys    ON groupes_'.$type.'s.id_groupe = groupes_apikeys.id_groupe
-            INNER JOIN apikeys           ON apikeys.id_apikey = groupes_apikeys.id_apikey
-            INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_'.$type.'s.id_groupe
-            INNER JOIN apikeys_droits    ON apikeys_droits.id_apikey = apikeys.id_apikey
-            INNER JOIN droits AS drgroupe  ON droits.id_droit = groupes_droits.id_droit
-            INNER JOIN droits AS drapi     ON droits.id_droit = apikeys_droits.id_droit
-            WHERE '.$type.'s.id_'.$type.' = :idobjet AND drgroupe.nom_droit = :action AND apikeys.id_apikey = :idnom
-            LIMIT 1');
+            if ($type == 'groupe') {
+                $req = $bdd->prepare('SELECT groupes.id_groupe FROM groupes
+                INNER JOIN groupes_apikeys    ON groupes.id_groupe = groupes_apikeys.id_groupe
+                INNER JOIN apikeys           ON apikeys.id_apikey = groupes_apikeys.id_apikey
+                INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes.id_groupe
+                INNER JOIN apikeys_droits    ON apikeys_droits.id_apikey = apikeys.id_apikey
+                INNER JOIN droits AS drgroupe  ON droits.id_droit = groupes_droits.id_droit
+                INNER JOIN droits AS drapi     ON droits.id_droit = apikeys_droits.id_droit
+                WHERE groupes.id_groupe = :idobjet AND drgroupe.nom_droit = :action AND apikeys.id_apikey = :idnom
+                LIMIT 1');
+            } else {
+                $req = $bdd->prepare('SELECT '.$type.'s.id_'.$type.' FROM '.$type.'s
+                INNER JOIN groupes_'.$type.'s ON '.$type.'s.id_'.$type.' = groupes_'.$type.'s.id_'.$type.'
+                INNER JOIN groupes_apikeys    ON groupes_'.$type.'s.id_groupe = groupes_apikeys.id_groupe
+                INNER JOIN apikeys           ON apikeys.id_apikey = groupes_apikeys.id_apikey
+                INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_'.$type.'s.id_groupe
+                INNER JOIN apikeys_droits    ON apikeys_droits.id_apikey = apikeys.id_apikey
+                INNER JOIN droits AS drgroupe  ON droits.id_droit = groupes_droits.id_droit
+                INNER JOIN droits AS drapi     ON droits.id_droit = apikeys_droits.id_droit
+                WHERE '.$type.'s.id_'.$type.' = :idobjet AND drgroupe.nom_droit = :action AND apikeys.id_apikey = :idnom
+                LIMIT 1');
+            }
             $req->execute(array(
                 'idobjet' => $idObjet,
                 'idnom' => $idNom,
@@ -218,16 +230,25 @@ class Checkdroits {
                 return true;
             }
             return false;
-            $req->closeCursor();
+            if ($type == 'groupe') { 
+                $req = $bdd->prepare('SELECT groupes.id_groupe FROM groupes
+                INNER JOIN groupes_joueur    ON groupes.id_groupe = groupes_joueur.id_groupe
+                INNER JOIN joueurs           ON joueurs.id_joueur = groupes_joueur.id_joueur
+                INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes.id_groupe
+                INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
+                WHERE groupes.id_groupe = :idobjet AND droits.nom_droit = :action AND joueurs.id_joueur = :idnom
+                LIMIT 1');
+            } else {
+                $req = $bdd->prepare('SELECT '.$type.'s.id_'.$type.' FROM '.$type.'s
+                INNER JOIN groupes_'.$type.'s ON '.$type.'s.id_'.$type.' = groupes_'.$type.'s.id_'.$type.'
+                INNER JOIN groupes_joueur    ON groupes_'.$type.'s.id_groupe = groupes_joueur.id_groupe
+                INNER JOIN joueurs           ON joueurs.id_joueur = groupes_joueur.id_joueur
+                INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_'.$type.'s.id_groupe
+                INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
+                WHERE '.$type.'s.id_'.$type.' = :idobjet AND droits.nom_droit = :action AND joueurs.id_joueur = :idnom
+                LIMIT 1');
+            }
             # si user et obj sont dans un meme groupe qui permet l'action alors return true
-            $req = $bdd->prepare('SELECT '.$type.'s.id_'.$type.' FROM '.$type.'s
-            INNER JOIN groupes_'.$type.'s ON '.$type.'s.id_'.$type.' = groupes_'.$type.'s.id_'.$type.'
-            INNER JOIN groupes_joueur    ON groupes_'.$type.'s.id_groupe = groupes_joueur.id_groupe
-            INNER JOIN joueurs           ON joueurs.id_joueur = groupes_joueur.id_joueur
-            INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_'.$type.'s.id_groupe
-            INNER JOIN droits     ON droits.id_droit = groupes_droits.id_droit
-            WHERE '.$type.'s.id_'.$type.' = :idobjet AND droits.nom_droit = :action AND joueurs.id_joueur = :idnom
-            LIMIT 1');
             $req->execute(array(
                 'idobjet' => $idObjet,
                 'idnom' => $idNom,
