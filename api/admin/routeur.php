@@ -1,10 +1,10 @@
 <?php
 $request = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
-// tant que entrypoint n'est pas egal a api_computercraft on continue le shift
+// tant que entrypoint n'est pas egal a api on continue le shift
 $pathlocal = array_shift($request);
-while ($pathlocal != 'api_computercraft') {
+while ($pathlocal != 'api') {
     $pathlocal = array_shift($request);
-} // on vide l'uri des sous dossiers jusqu'a arriver a api_computercraft
+} // on vide l'uri des sous dossiers jusqu'a arriver a api
 // si le dernier caractère de $endpoint est un 's', on le supprime
 if (count($request) == 0) {
     return array('status_code' => 405, 'message' => 'Méthode non autorisée.');
@@ -27,12 +27,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //getconfig                         -> GET /config
         //getntp                            -> GET /ntp
         //getadressebyid                    -> GET /adresse/{id_adresse}
-        //getadresses                       -> GET /adresses
-        //getadressesbygroupe               -> GET /adresses/groupe/{id_groupe}
+        //getadressesbyjoueur               -> GET /adresses/joueur/{id_joueur}
         //getapikeybyid                     -> GET /apikey/{id_apikey}
-        //getapikeys                        -> GET /apikeys
-        //getapikeysbygroupe                -> GET /apikeys/groupe/{id_groupe}
         //getdroitsbyapikey                 -> GET /apikey/{id_apikey}/droits
+        //getapikeysbyjoueur                -> GET /apikeys/joueur/{id_joueur}
         //getcommandebyid                   -> GET /commande/{id_commande}
         //getcommandesbyadresse             -> GET /commandes/adresse/{id_adresse}
         //getcommandesbyadresseclient       -> GET /commandes/adresse/{id_adresse}/client
@@ -41,11 +39,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //getcommandesbycompteclient        -> GET /commandes/compte/{id_compte}/client
         //getcommandesbycomptevendeur       -> GET /commandes/compte/{id_compte}/vendeur
         //getcommandesbylivreur             -> GET /commandes/livreur/{id_livreur}
-        //getcommandesnolivreur             -> GET /commandes/nolivreur
         //getcommandesbyoffre               -> GET /commandes/offre/{id_offre}
+        //getcommandesbystatus              -> GET /commandes/status/{status}
         //getcomptebyid                     -> GET /compte/{id_compte}
-        //getcomptes                        -> GET /comptes
-        //getcomptesbygroupe                -> GET /comptes/groupe/{id_groupe}
+        //getcomptesbyjoueur                -> GET /comptes/joueur/{id_joueur}
         //getenderstorageschest             -> GET /enderstorageschest
         //getenderstorageschestbyid         -> GET /enderstorageschest/{id_enderstorageschest}
         //getenderstorageschestbyjoueur     -> GET /enderstorageschest/joueur/{id_joueur}
@@ -54,6 +51,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //getenderstoragestankbyid          -> GET /enderstoragestank/{id_enderstoragestank}
         //getenderstoragestankbyjoueur      -> GET /enderstoragestank/joueur/{id_joueur}
         //getenderstoragestankdispo         -> GET /enderstoragestank/dispo
+        //getadressesbygroupe               -> GET /groupe/{id_groupe}/adresses
+        //getapikeysbygroupe                -> GET /groupe/{id_groupe}/apikeys
+        //getcomptesbygroupe                -> GET /groupe/{id_groupe}/comptes
         //getdroitsbygroupe                 -> GET /groupe/{id_groupe}/droits
         //getgroupebyid                     -> GET /groupe/{id_groupe}
         //getgroupesbyadresse               -> GET /groupes/adresse/{id_adresse}
@@ -63,32 +63,33 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //getgroupesbyjoueurmembre          -> GET /groupes/joueurmembre/{id_joueur}
         //getgroupesbylivreur               -> GET /groupes/livreur/{id_livreur}
         //getgroupesbyoffre                 -> GET /groupes/offre/{id_offre}
+        //getjoueursbygroupe                -> GET /groupe/{id_groupe}/joueurs
+        //getlivreursbygroupe               -> GET /groupe/{id_groupe}/livreurs
+        //getoffresbygroupe                 -> GET /groupe/{id_groupe}/offres
         //getjetonbyjoueur                  -> GET /jeton/joueur/{id_joueur}
         //getjetons                         -> GET /jetons
         //getjoueurbyid                     -> GET /joueur/{id_joueur}
         //getjoueurbypseudo                 -> GET /joueur/pseudo/{pseudo}
         //getjoueurs                        -> GET /joueurs
-        //getjoueursbygroupe                -> GET /joueurs/groupe/{id_groupe}
         //getkeypaybyid                     -> GET /keypay/{id_keypay}
         //getkeypaysbyoffre                 -> GET /keypays/offre/{id_offre}
         //getlitigemsgsbycommande           -> GET /litigemsgs/commande/{id_commande}
         //getlivreurbyid                    -> GET /livreur/{id_livreur}
-        //getlivreurs                       -> GET /livreurs
         //getlivreursbyadresse              -> GET /livreurs/adresse/{id_adresse}
         //getlivreursbycompte               -> GET /livreurs/compte/{id_compte}
-        //getlivreursbygroupe               -> GET /livreurs/groupe/{id_groupe}
+        //getlivreursbyjoueur               -> GET /livreurs/joueur/{id_joueur}
         //getoffrebyid                      -> GET /offre/{id_offre}
         //getoffres                         -> GET /offres
-        //getoffresall                      -> GET /offres/all
         //getoffresbyadresse                -> GET /offres/adresse/{id_adresse}
         //getoffresbycompte                 -> GET /offres/compte/{id_compte}
-        //getoffresbygroupe                 -> GET /offres/groupe/{id_groupe}
-        //gettransactionsbycompte           -> GET /transactions/compte/{id_compte}
-        //gettransactionsbycomptecommande   -> GET /transactions/compte/{id_compte}/commande/{id_commande}
+        //getoffresbyjoueur                 -> GET /offres/joueur/{id_joueur}
         //gettransactionbyid                -> GET /transaction/{id_transaction}
+        //gettransactionsbyadmin            -> GET /transactions/admin/{id_admin}
+        //gettransactionsbycommande         -> GET /transactions/commande/{id_commande}
+        //gettransactionsbycompte           -> GET /transactions/compte/{id_compte}
         //getwireless                       -> GET /wireless
         //getwirelessbyid                   -> GET /wireless/{id_wireless}
-        //getwirelessbyjoueur               -> GET /wireless/joueur/
+        //getwirelessbyjoueur               -> GET /wireless/joueur/{id_joueur}
         //getwirelessdispo                  -> GET /wireless/dispo
         $nomVariable = $endpoint;
         while (count($request) > 0) {
@@ -130,7 +131,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 $endpoint .= $nomVariable;
             }
         }
-        $endpoint = 'controleur/' . $dossier . '/get' . $endpoint . '.php';
+        $endpoint = 'admin/' . $dossier . '/get' . $endpoint . '.php';
     break;
     case 'POST':
         //addadresse        -> POST /adresse
@@ -147,11 +148,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //addgroupelivreur  -> POST /groupe/{id_groupe}/livreur/{id_livreur}
         //addgroupeoffre    -> POST /groupe/{id_groupe}/offre/{id_offre}
         //addjoueur         -> POST /joueur
-        //addkeypay         -> POST /keypay
         //addlitigemsg      -> POST /litigemsg
         //addlivreur        -> POST /livreur
         //addoffre          -> POST /offre
         //addtransaction    -> POST /transaction
+        //addbanqueterminal -> POST /banqueterminal
         $nomVariable = $endpoint;
         while (count($request) > 0) {
             if (strpos($request[0], '?') !== false) {
@@ -164,7 +165,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 $endpoint .= $nomVariable;
             }
         }
-        $endpoint = 'controleur/' . $dossier . '/add' . $endpoint . '.php';
+        $endpoint = 'admin/' . $dossier . '/add' . $endpoint . '.php';
     break;
     case 'PUT':
         //editadressecoo                -> PUT /adresse/{id_adresse}/coo
@@ -172,6 +173,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //editadressenom                -> PUT /adresse/{id_adresse}/nom
         //editapikeymdp                 -> PUT /apikey/{id_apikey}/mdp
         //editapikeynom                 -> PUT /apikey/{id_apikey}/nom
+        //editcommandecoderetrait       -> PUT /commande/{id_commande}/coderetrait
+        //editcommandedatelivraison     -> PUT /commande/{id_commande}/datelivraison
         //editcommandelivreur           -> PUT /commande/{id_commande}/livreur
         //editcommandestatus            -> PUT /commande/{id_commande}/status
         //editcomptenom                 -> PUT /compte/{id_compte}/nom
@@ -183,8 +186,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //editjoueurmdp                 -> PUT /joueur/{id_joueur}/mdp
         //editjoueurnbroffre            -> PUT /joueur/{id_joueur}/nbroffre
         //editjoueurpseudo              -> PUT /joueur/{id_joueur}/pseudo
-        //editjoueurrecupmdpbyemail     -> PUT /joueur/recupmdpbyemail
-        //editjoueurrecupmdpbyemailtoken-> PUT /joueur/recupmdpbyemailtoken
+        //editjoueurrole                -> PUT /joueur/{id_joueur}/role
         //editlivreuradresse            -> PUT /livreur/{id_livreur}/adresse
         //editlivreurcompte             -> PUT /livreur/{id_livreur}/compte
         //editlivreurnom                -> PUT /livreur/{id_livreur}/nom
@@ -209,7 +211,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 $endpoint .= $nomVariable;
             }
         }
-        $endpoint = 'controleur/' . $dossier . '/edit' . $endpoint . '.php';
+        $endpoint = 'admin/' . $dossier . '/edit' . $endpoint . '.php';
     break;
     case 'DELETE':
         //deleteadresse         -> DELETE /adresse/{id_adresse}
@@ -224,6 +226,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //deletegroupejoueur    -> DELETE /groupe/{id_groupe}/joueur/{id_joueur}
         //deletegroupelivreur   -> DELETE /groupe/{id_groupe}/livreur/{id_livreur}
         //deletegroupeoffre     -> DELETE /groupe/{id_groupe}/offre/{id_offre}
+        //deletejeton           -> DELETE /jeton/{id_jeton}
         //deletejoueur          -> DELETE /joueur/{id_joueur}
         //deletelitigemsg       -> DELETE /litigemsg/{id_litigemsg}
         //deletelivreur         -> DELETE /livreur/{id_livreur}
@@ -241,7 +244,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 $endpoint .= $nomVariable;
             }
         }
-        $endpoint = 'controleur/' . $dossier . '/delete' . $endpoint . '.php';
+        $endpoint = 'admin/' . $dossier . '/delete' . $endpoint . '.php';
     break;
     default:
         return array('status_code' => 405, 'message' => 'Méthode non autorisée.');

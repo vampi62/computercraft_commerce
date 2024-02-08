@@ -1,15 +1,14 @@
-# panel d'administration de l'api http
+# panel de production de l'api http
 
 ## table des matieres
 ==================
-* [panel_admin de l'api http](#panel_admin-de-lapi-http)
+* [panel de l'api http](#panel-de-lapi-http)
     * [table des matieres](#table-des-matieres)
     * [description](#description)
     * [liste des actions](#liste-des-actions)
         * [nom_action (exemple)](#nom_action-exemple)
         * [getntp](#getntp)
         * [getconfig](#getconfig)
-        * [addbanqueterminal](#addbanqueterminal)
         * [gestion des adresses](#gestion-des-adresses)
             * [addadresse](#addadresse)
             * [deleteadresse](#deleteadresse)
@@ -17,8 +16,8 @@
             * [editadressedescription](#editadressedescription)
             * [editadressenom](#editadressenom)
             * [getadressebyid](#getadressebyid)
+            * [getadresses](#getadresses)
             * [getadressesbygroupe](#getadressesbygroupe)
-            * [getadressesbyjoueur](#getadressesbyjoueur)
         * [gestion des apikey](#gestion-des-apikey)
             * [addapikey](#addapikey)
             * [addapikeydroit](#addapikeydroit)
@@ -27,13 +26,11 @@
             * [editapikeymdp](#editapikeymdp)
             * [editapikeynom](#editapikeynom)
             * [getapikeybyid](#getapikeybyid)
+            * [getapikeys](#getapikeys)
             * [getapikeysbygroupe](#getapikeysbygroupe)
-            * [getapikeysbyjoueur](#getapikeysbyjoueur)
             * [getdroitsbyapikey](#getdroitsbyapikey)
         * [gestion des commandes](#gestion-des-commandes)
             * [addcommande](#addcommande)
-            * [editcommandecoderetrait](#editcommandecoderetrait)
-            * [editcommandedatelivraison](#editcommandedatelivraison)
             * [editcommandelivreur](#editcommandelivreur)
             * [editcommandestatus](#editcommandestatus)
             * [getcommandebyid](#getcommandebyid)
@@ -45,26 +42,26 @@
             * [getcommandesbycomptevendeur](#getcommandesbycomptevendeur)
             * [getcommandesbylivreur](#getcommandesbylivreur)
             * [getcommandesbyoffre](#getcommandesbyoffre)
-            * [getcommandesbystatus](#getcommandesbystatus)
+            * [getcommandesnolivreur](#getcommandesnolivreur)
         * [gestion des comptes](#gestion-des-comptes)
             * [addcompte](#addcompte)
             * [deletecompte](#deletecompte)
             * [editcomptenom](#editcomptenom)
             * [getcomptebyid](#getcomptebyid)
+            * [getcomptes](#getcompte)
             * [getcomptesbygroupe](#getcomptesbygroupe)
-            * [getcomptesbyjoueur](#getcomptebyjoueur)
         * [gestion des enderstorageschest](#gestion-des-enderstorageschest)
             * [editenderstorageschest](#editenderstorageschest)
             * [getenderstorageschest](#getenderstorageschest)
             * [getenderstorageschestbyid](#getenderstorageschestbyid)
-            * [getenderstorageschestbyjoueur](#getenderstorageschestbyjoueur)
             * [getenderstorageschestdispo](#getenderstorageschestdispo)
+            * [getenderstorageschestjoueur](#getenderstorageschestjoueur)
         * [gestion des enderstoragestank](#gestion-des-enderstoragestank)
             * [editenderstoragestank](#editenderstoragestank)
             * [getenderstoragestank](#getenderstoragestank)
             * [getenderstoragestankbyid](#getenderstoragestankbyid)
-            * [getenderstoragestankbyjoueur](#getenderstoragestankbyjoueur)
             * [getenderstoragestankdispo](#getenderstoragestankdispo)
+            * [getenderstoragestankjoueur](#getenderstoragestankjoueur)
         * [gestion des groupes](#gestion-des-groupes)
             * [addgroupe](#addgroupe)
             * [addgroupeadresse](#addgroupeadresse)
@@ -85,16 +82,14 @@
             * [editgroupenom](#editgroupenom)
             * [getdroitsbygroupe](#getdroitsbygroupe)
             * [getgroupebyid](#getgroupebyid)
+            * [getgroupes](#getgroupes)
             * [getgroupesbyadresse](#getgroupesbyadresse)
             * [getgroupesbyapikey](#getgroupesbyapikey)
             * [getgroupesbycompte](#getgroupesbycompte)
-            * [getgroupesbyjoueur](#getgroupesbyjoueur)
             * [getgroupesbyjoueurmembre](#getgroupesbyjoueurmembre)
             * [getgroupesbylivreur](#getgroupesbylivreur)
             * [getgroupesbyoffre](#getgroupesbyoffre)
         * [gestion des jeton](#gestion-des-jeton)
-            * [deletejeton](#deletejeton)
-            * [editjeton](#editjeton)
             * [getjetonbyjoueur](#getjetonbyjoueur)
             * [getjetons](#getjetons)
         * [gestion des joueurs](#gestion-des-joueurs)
@@ -104,12 +99,14 @@
             * [editjoueurmdp](#editjoueurmdp)
             * [editjoueurnbroffre](#editjoueurnbroffre)
             * [editjoueurpseudo](#editjoueurpseudo)
-            * [editjoueurrole](#editjoueurrole)
+            * [editjoueurrecupmdpbyemail](#editjoueurrecupmdpbyemail)
+            * [editjoueurrecupmdpbyemailtoken](#editjoueurrecupmdpbyemailtoken)
             * [getjoueurbyid](#getjoueurbyid)
             * [getjoueurbypseudo](#getjoueurbypseudo)
-            * [getjoueurs](#getjoueurs)
+            * [getjoueursbygroupe](#getjoueursbygroupe)
             * [getjoueursbygroupe](#getjoueursbygroupe)
         * [gestion des keypay](#gestion-des-keypay)
+            * [addkeypay](#addkeypay)
             * [getkeypaybyid](#getkeypaybyid)
             * [getkeypaysbyoffre](#getkeypaysbyoffre)
         * [gestion des litigemsg](#gestion-des-litigemsg)
@@ -123,10 +120,10 @@
             * [editlivreurcompte](#editlivreurcompte)
             * [editlivreurnom](#editlivreurnom)
             * [getlivreurbyid](#getlivreurbyid)
+            * [getlivreurs](#getlivreurs)
             * [getlivreursbyadresse](#getlivreursbyadresse)
             * [getlivreursbycompte](#getlivreursbycompte)
             * [getlivreursbygroupe](#getlivreursbygroupe)
-            * [getlivreursbyjoueur](#getlivreursbyjoueur)
         * [gestion des offres](#gestion-des-offres)
             * [addoffre](#addoffre)
             * [deleteoffre](#deleteoffre)
@@ -139,28 +136,26 @@
             * [editoffretype](#editoffretype)
             * [getoffrebyid](#getoffrebyid)
             * [getoffres](#getoffres)
+            * [getoffresall](#getoffresall)
             * [getoffresbyadresse](#getoffresbyadresse)
             * [getoffresbycompte](#getoffresbycompte)
             * [getoffresbygroupe](#getoffresbygroupe)
-            * [getoffresbyjoueur](#getoffresbyjoueur)
         * [gestion des transactions](#gestion-des-transactions)
             * [addtransaction](#addtransaction)
             * [gettransactionbyid](#gettransactionbyid)
-            * [gettransactionsbyadmin](#gettransactionsbyadmin)
-            * [gettransactionsbycommande](#gettransactionsbycommande)
             * [gettransactionsbycompte](#gettransactionsbycompte)
+            * [gettransactionsbycomptecommande](#gettransactionsbycomptecommande)
         * [gestion des wireless](#gestion-des-wireless)
             * [editendwireless](#editendwireless)
             * [getendwireless](#getendwireless)
             * [getendwirelessbyid](#getendwirelessbyid)
-            * [getendwirelessbyjoueur](#getendwirelessbyjoueur)
+            * [getendwireless](#getendwireless)
             * [getendwirelessdispo](#getendwirelessdispo)
-
 
 ## description
 
-le panel admin sert a administrer les données de l'api sans les restriction de droits ou d'ordre de fonctionnement.
-les actions du panel doivent être effectuer par un compte avec un rang "admin".
+le panel user sert a useristrer les données de l'api sans les restriction de droits ou d'ordre de fonctionnement.
+les actions du panel doivent être effectuer par un compte avec un rang "user".
 n'utiliser ce panel que pour des conflits ou des erreurs de fonctionnement.
 
 sur certain type il n'est pas possible d'effectuer toutes les action du CRUD, par exemple:
@@ -176,7 +171,7 @@ les chaine de caractere sont limiter a 450 caractere pour les champs "descriptio
 |:---:|:--- |
 | 200 | la requete a été effectuer avec succes |
 | 400 | parametre manquant |
-| 403 | vous n'avez pas les droits ou les identifiant admin sont incorrect |
+| 403 | vous n'avez pas les droits ou les identifiant user sont incorrect |
 | 404 | l'élément indiquer n'existe pas |
 | 413 | la longueur d'un parametre est trop longue |
 | 500 | le serveur n'a pas pu effectuer la requete |
@@ -192,39 +187,57 @@ http://0.0.0.0:9081/api/index.php?action=__nom_action__&__param1__=__param1_val_
 
 return (json_format)<br/>
 
+```lua
+global_url = "0.0.0.0"
+global_port = "9081"
+global_uri = "api"
+function http_get(action)
+	local source_return, err = http.get("http://"..global_url..":"..global_port.."/"..global_uri.."/index.php?action="..action)
+	local source_text = source_return.readAll()
+	return textutils.unserialise(source_text)
+end
+
+action="getjoueurbypseudo&mdp=__mdpuser__&pseudo=__pseudo__&user=true" -- exemple d'action
+list_ou_code_retour = http_get(action)
+print(list_ou_code_retour.status_code())-- =200 si la commande a ete effectuer
+print(list_ou_code_retour.message())
+print(list_ou_code_retour.data())-- n'est retourner que si une action get.. est effectuer avec succes
+```
 
 ### getntp
-http:/__global_url__:__global_port__/__global_uri__/index.php?action=getntp&admin=true
+http:/__global_url__:__global_port__/__global_uri__/index.php?action=getntp&user=true
 
 
 ### getconfig
-http://__global_url__:__global_port__/__global_uri__/index.php?action=getconfig&admin=true
+http://__global_url__:__global_port__/__global_uri__/index.php?action=getconfig&user=true
 
+### gestion des comptes
+#### addcompte
+- user	:(str) pseudo du compte user
+- mdpuser	:(str) mdp du compte user
+- nom		:(str) nom du compte
+- id_type_compte :(int) id du type de compte
 
-### gestion des adresses
-#### addadresse
-- admin	        :(str) pseudo du compte admin
-- mdpadmin	        :(str) mdp du compte admin
-- id_joueur	        :(int) id du joueur auquel appartiendra l'adresse
-- nom	            :(str) nom de la nouvelle adresse
-- id_type_adresse	:(int) id du type d'adresse (obtenir les type existant avec la commande getconfig)
-- description	    :(str) description de l'adresse
-- coo	            :(str) coordonnée de l'adresse
-- id_livreur	    :(int)(vide) si l'adresse n'est pas un point de livraison, sinon id du livreur qui livre à cette adresse
+http://__global_url__:__global_port__/__global_uri__/index.php?action=addcompte&user=true&user=__user__&mdpuser=__mdpuser__&nom=__nom__&id_type_compte=__id_type_compte__
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=addadresse&admin=true&admin=__admin__&mdpadmin=__mdpadmin__&id_joueur=__id_joueur__&nom=__nom__&id_type_adresse=__id_type_adresse__&description=__description__&coo=__coo__&id_livreur=__id_livreur__
+#### deletecompte
+- user	:(str) pseudo du compte user
+- mdpuser	:(str) mdp du compte user
+- id_compte :(int) id du compte à supprimer
 
-#### deleteadresse
-- admin	    :(str) pseudo du compte admin
-- mdpadmin	    :(str) mdp du compte admin
-- id_adresse	:(int) id de l'adresse à supprimer
+http://__global_url__:__global_port__/__global_uri__/index.php?action=deletecompte&user=true&user=__user__&mdpuser=__mdpuser__&id_compte=__id_compte__
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=deleteadresse&admin=true&admin=__admin__&mdpadmin=__mdpadmin__&id_adresse=__id_adresse__
+#### editcomptenom
+- user	:(str) pseudo du compte user
+- mdpuser	:(str) mdp du compte user
+- id_compte :(int) id du compte à modifier
+- nom		:(str) nouveau nom du compte
 
-#### editadressecoo
-- admin	    :(str) pseudo du compte admin
-- mdpadmin	    :(str) mdp du compte admin
-- id_adresse	:(int) id de l'adresse à modifier
-- coo	        :(str) nouvelle coordonnée de l'adresse
+http://__global_url__:__global_port__/__global_uri__/index.php?action=editcomptenom&user=true&user=__user__&mdpuser=__mdpuser__&id_compte=__id_compte__&nom=__nom__
 
-http://__global_url__:__global_port__/__global_uri__/index.php?action=editadressecoo&admin=true&admin=__admin__&mdpadmin=__mdpadmin__&id_adresse=__id_adresse__&coo=__coo__
+#### getcomptebyid
+- user	:(str) pseudo du compte user
+- mdpuser	:(str) mdp du compte user
+- id_compte :(int) id du compte à obtenir
+
+http://__global_url__:__global_port__/__global_uri__/index.php?action=getcomptebyid&user=true&user=__user__&mdpuser=__mdpuser__&id_compte=__id_compte__
