@@ -1120,7 +1120,7 @@ CREATE TABLE `vw_joueurs` (
 --
 DROP TABLE IF EXISTS `vw_joueurs`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`vampi62`@`%` SQL SECURITY DEFINER VIEW `vw_joueurs`  AS SELECT `joueurs`.`id_joueur` AS `id_joueur`, `joueurs`.`pseudo_joueur` AS `pseudo_joueur`, `joueurs`.`email_joueur` AS `email_joueur`, `joueurs`.`last_login_joueur` AS `last_login_joueur`, `joueurs`.`max_offres_joueur` AS `max_offres_joueur`, `joueurs`.`id_type_joueur` AS `id_type_joueur`, `type_joueurs`.`nom_type_joueur` AS `nom_type_joueur` FROM (`joueurs` join `type_joueurs` on(`joueurs`.`id_type_joueur` = `type_joueurs`.`id_type_joueur`))  ;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vw_joueurs`  AS SELECT `joueurs`.`id_joueur` AS `id_joueur`, `joueurs`.`pseudo_joueur` AS `pseudo_joueur`, `joueurs`.`email_joueur` AS `email_joueur`, `joueurs`.`last_login_joueur` AS `last_login_joueur`, `joueurs`.`max_offres_joueur` AS `max_offres_joueur`, `joueurs`.`id_type_joueur` AS `id_type_joueur`, `type_joueurs`.`nom_type_joueur` AS `nom_type_joueur` FROM (`joueurs` join `type_joueurs` on(`joueurs`.`id_type_joueur` = `type_joueurs`.`id_type_joueur`))  ;
 
 
 
