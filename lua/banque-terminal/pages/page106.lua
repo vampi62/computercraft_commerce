@@ -1,0 +1,15 @@
+page106 = basalt.createFrame()
+x, y = term.getSize()
+
+page106:addButton()
+    :setPosition(1, 19)
+    :setText("retour")
+    :setSize(8,1)
+    :onClick(function()
+        page101:show()
+    end)
+
+page106:addLabel()
+    :setPosition(1 + (x/2) - math.floor(#"about"/2), 2)
+    :setText("about")
+    :setSize(#"about",1)

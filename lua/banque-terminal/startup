@@ -1,0 +1,25 @@
+term.clear()
+term.setCursorPos(1,1)
+local filePath = "basalt.lua"
+if not(fs.exists(filePath))then
+    shell.run("pastebin run ESs1mg7P packed true "..filePath:gsub(".lua", ""))
+end
+basalt = require(filePath:gsub(".lua", ""))
+
+
+local _config = fs.list("config/")
+for i = 1, #_config do
+    require("config/"..string.gsub(_config[i], ".lua", ""))
+end
+
+local fonctions = fs.list("fonctions/")
+for k = 1, #fonctions do
+    require("fonctions/"..string.gsub(fonctions[k], ".lua", ""))
+end
+
+local _pages = fs.list("pages/")
+for j = 1, #_pages do
+    require("pages/"..string.gsub(_pages[j], ".lua", ""))
+end
+
+basalt.autoUpdate()
