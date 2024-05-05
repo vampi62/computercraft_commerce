@@ -1,20 +1,20 @@
 <?php
 $request = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
 // tant que entrypoint n'est pas egal a api on continue le shift
-$pathlocal = array_shift($request);
-while ($pathlocal != 'api') {
+do {
     $pathlocal = array_shift($request);
-} // on vide l'uri des sous dossiers jusqu'a arriver a api
-// si le dernier caractère de $endpoint est un 's', on le supprime
+} while ($pathlocal != 'api' && count($request) > 0);
+// on vide l'uri des sous dossiers jusqu'a arriver a api
 if (count($request) == 0) {
     return array('status_code' => 405, 'message' => 'Méthode non autorisée.');
 }
 if (strpos($request[0], '?') !== false) {
     $request[0] = substr($request[0], 0, strpos($request[0], '?'));
 }
+// si le dernier caractère de $endpoint est un 's', on le supprime
 $endpoint = array_shift($request);
 if (substr($endpoint, -1) == 's') {
-    if (substr($endpoint, -2) == 'ss') {
+    if (substr($endpoint, -2) == 'ss') { // exception pour "wireless"
         $dossier = $endpoint;
     } else {
         $dossier = substr($endpoint, 0, -1);
