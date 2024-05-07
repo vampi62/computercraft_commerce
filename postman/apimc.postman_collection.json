@@ -5949,6 +5949,58 @@
 					"response": []
 				},
 				{
+					"name": "getlua",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{site_url}}/lua?admin=true",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"lua"
+							],
+							"query": [
+								{
+									"key": "admin",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getluabysysteme",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{site_url}}/lua/systeme/?admin=true&systeme=banque-term",
+							"host": [
+								"{{site_url}}"
+							],
+							"path": [
+								"lua",
+								"systeme",
+								""
+							],
+							"query": [
+								{
+									"key": "admin",
+									"value": "true"
+								},
+								{
+									"key": "systeme",
+									"value": "banque-term"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "addbanqueterminal",
 					"request": {
 						"method": "POST",
@@ -11109,6 +11161,48 @@
 									],
 									"path": [
 										"ntp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getlua",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}/lua",
+									"host": [
+										"{{site_url}}"
+									],
+									"path": [
+										"lua"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getluabysysteme",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}/lua/systeme/?systeme=banque-term",
+									"host": [
+										"{{site_url}}"
+									],
+									"path": [
+										"lua",
+										"systeme",
+										""
+									],
+									"query": [
+										{
+											"key": "systeme",
+											"value": "banque-term"
+										}
 									]
 								}
 							},
