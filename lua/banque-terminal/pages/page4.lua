@@ -1,14 +1,6 @@
 page4 = basalt.createFrame()
 x, y = term.getSize()
 
-page4:addButton()
-    :setPosition(1, 19)
-    :setText("retour")
-    :setSize(8,1)
-    :onClick(function()
-        page1:show()
-    end)
-
 page4:addLabel()
     :setPosition(1 + (x/2) - math.floor(#"mot de passe oublié"/2), 2)
     :setText("mot de passe oublié")
@@ -23,6 +15,7 @@ local pseudo = page4:addInput()
     :setPosition(1 + (x/2) - math.floor(32/2), 5)
     :setSize(32,1)
     :setInputLimit(31)
+    :setValue(basalt.getVariable("pseudo"))
 
 page4:addLabel()
     :setPosition(1 + (x/2) - math.floor(#"Email"/2), 7)
@@ -33,6 +26,7 @@ local email = page4:addInput()
     :setPosition(1 + (x/2) - math.floor(32/2), 8)
     :setSize(32,1)
     :setInputLimit(31)
+    :setValue(basalt.getVariable("email"))
 
 page4:addLabel()
     :setPosition(1 + (x/2) - math.floor(#"Code"/2), 10)
@@ -49,18 +43,36 @@ page4:addButton()
     :setText("envoyer")
     :setSize(#"envoyer",1)
     :onClick(function()
-        if api.mdpOublieToken(code:getValue(), pseudo:getValue()) then
+        local _mdpoublie = api.mdpOublieToken(code:getValue(), pseudo:getValue())
+        if _mdpoublie[1] then
+            pseudo:setValue("")
+            email:setValue("")
+            code:setValue("")
             page1:show()
         else
             if page4alert then
                 page4alert:remove()
             end
             page4alert = page4:addLabel()
-                :setPosition(1 + (x/2) - math.floor(#"Mauvais pseudo ou email"/2), 15)
-                :setText("Mauvais pseudo ou email")
-                :setSize(#"Mauvais pseudo ou email",1)
-            page4aletTempo = 5
+                :setPosition(1 + (x/2) - math.floor(#_mdpoublie[2]/2), 16)
+                :setText(_mdpoublie[2])
+                :setSize(#_mdpoublie[2],1)
+                :setBackground(colors.black)
+                :setForeground(colors.red)
+            page4alertTempo = 5
         end
+    end)
+
+
+page4:addButton()
+    :setPosition(1, 19)
+    :setText("retour")
+    :setSize(8,1)
+    :onClick(function()
+        pseudo:setValue("")
+        email:setValue("")
+        code:setValue("")
+        page1:show()
     end)
 
 local timeLabel = page4:addLabel()
@@ -70,13 +82,13 @@ local timeLabel = page4:addLabel()
 
 page4TimeThread = page4:addThread()
 page4TimeThread:start(function()
-    page4aletTempo = 0
+    page4alertTempo = 0
     while true do
         timeLabel:setText(os.date("%d/%m/%Y %H:%M"))
         sleep(1)
-        if page4aletTempo > 0 then
-            page4aletTempo = page4aletTempo - 1
-            if page4aletTempo == 0 then
+        if page4alertTempo > 0 then
+            page4alertTempo = page4alertTempo - 1
+            if page4alertTempo == 0 then
                 page4alert:remove()
             end
         end

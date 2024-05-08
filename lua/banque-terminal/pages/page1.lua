@@ -1,14 +1,6 @@
 page1 = basalt.createFrame()
 x, y = term.getSize()
 
-page1:addButton()
-    :setPosition(1, 19)
-    :setText("retour")
-    :setSize(8,1)
-    :onClick(function()
-        page0:show()
-    end)
-
 page1:addLabel()
     :setPosition(1 + (x/2) - math.floor(#"connexion"/2), 2)
     :setText("connexion")
@@ -40,17 +32,24 @@ page1:addButton()
     :setText("connexion")
     :setSize(#"connexion",1)
     :onClick(function()
-        if api.connexionUser(pseudo:getValue(), mdp:getValue()) then
+        local _login = api.connexionUser(pseudo:getValue(), mdp:getValue())
+        if _login[1] then
+            basalt.setVariable("pseudo", pseudo:getValue())
+            basalt.setVariable("mdp", mdp:getValue())
+            pseudo:setValue("")
+            mdp:setValue("")
             page10:show()
         else
             if page1alert then
                 page1alert:remove()
             end
             page1alert = page1:addLabel()
-                :setPosition(1 + (x/2) - math.floor(#"Mauvais pseudo ou mot de passe"/2), 12)
-                :setText("Mauvais pseudo ou mot de passe")
-                :setSize(#"Mauvais pseudo ou mot de passe",1)
-            page1aletTempo = 5
+                :setPosition(1 + (x/2) - math.floor(#_login[2]/2), 16)
+                :setText(_login[2])
+                :setSize(#_login[2],1)
+                :setBackground(colors.black)
+                :setForeground(colors.red)
+            page1alertTempo = 5
         end
     end)
 
@@ -63,6 +62,16 @@ page1:addButton()
     end)
 
 
+page1:addButton()
+    :setPosition(1, 19)
+    :setText("retour")
+    :setSize(8,1)
+    :onClick(function()
+        pseudo:setValue("")
+        mdp:setValue("")
+        page0:show()
+    end)
+
 local timeLabel = page1:addLabel()
     :setPosition(51 - #os.date("%d/%m/%Y %H:%M"), 19)
     :setText(os.date("%d/%m/%Y %H:%M"))
@@ -70,13 +79,13 @@ local timeLabel = page1:addLabel()
 
 page1TimeThread = page1:addThread()
 page1TimeThread:start(function()
-    page1aletTempo = 0
+    page1alertTempo = 0
     while true do
         timeLabel:setText(os.date("%d/%m/%Y %H:%M"))
         sleep(1)
-        if page1aletTempo > 0 then
-            page1aletTempo = page1aletTempo - 1
-            if page1aletTempo == 0 then
+        if page1alertTempo > 0 then
+            page1alertTempo = page1alertTempo - 1
+            if page1alertTempo == 0 then
                 page1alert:remove()
             end
         end

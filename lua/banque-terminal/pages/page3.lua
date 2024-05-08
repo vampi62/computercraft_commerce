@@ -1,14 +1,6 @@
 page3 = basalt.createFrame()
 x, y = term.getSize()
 
-page3:addButton()
-    :setPosition(1, 19)
-    :setText("retour")
-    :setSize(8,1)
-    :onClick(function()
-        page1:show()
-    end)
-
 page3:addLabel()
     :setPosition(1 + (x/2) - math.floor(#"mot de passe oublié"/2), 2)
     :setText("mot de passe oublié")
@@ -39,18 +31,34 @@ page3:addButton()
     :setText("envoyer")
     :setSize(#"envoyer",1)
     :onClick(function()
-        if api.mdpOublie(pseudo:getValue(), email:getValue()) then
+        local _mdpoublie = api.mdpOublie(pseudo:getValue(), email:getValue())
+        if _mdpoublie[1] then
+            basalt.setVariable("pseudo", pseudo:getValue())
+            basalt.setVariable("email", email:getValue())
             page4:show()
         else
             if page3alert then
                 page3alert:remove()
             end
             page3alert = page3:addLabel()
-                :setPosition(1 + (x/2) - math.floor(#"Mauvais pseudo ou email"/2), 12)
-                :setText("Mauvais pseudo ou email")
-                :setSize(#"Mauvais pseudo ou email",1)
-            page3aletTempo = 5
+                :setPosition(1 + (x/2) - math.floor(#_mdpoublie[2]/2), 16)
+                :setText(_mdpoublie[2])
+                :setSize(#_mdpoublie[2],1)
+                :setBackground(colors.black)
+                :setForeground(colors.red)
+            page3alertTempo = 5
         end
+    end)
+
+
+page3:addButton()
+    :setPosition(1, 19)
+    :setText("retour")
+    :setSize(8,1)
+    :onClick(function()
+        pseudo:setValue("")
+        email:setValue("")
+        page1:show()
     end)
 
 local timeLabel = page3:addLabel()
@@ -60,13 +68,13 @@ local timeLabel = page3:addLabel()
 
 page3TimeThread = page3:addThread()
 page3TimeThread:start(function()
-    page3aletTempo = 0
+    page3alertTempo = 0
     while true do
         timeLabel:setText(os.date("%d/%m/%Y %H:%M"))
         sleep(1)
-        if page3aletTempo > 0 then
-            page3aletTempo = page3aletTempo - 1
-            if page3aletTempo == 0 then
+        if page3alertTempo > 0 then
+            page3alertTempo = page3alertTempo - 1
+            if page3alertTempo == 0 then
                 page3alert:remove()
             end
         end

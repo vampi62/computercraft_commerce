@@ -1,14 +1,6 @@
 page2 = basalt.createFrame()
 x, y = term.getSize()
 
-page2:addButton()
-    :setPosition(1, 19)
-    :setText("retour")
-    :setSize(8,1)
-    :onClick(function()
-        page0:show()
-    end)
-
 page2:addLabel()
     :setPosition(1 + (x/2) - math.floor(#"inscription"/2), 2)
     :setText("inscription")
@@ -62,17 +54,26 @@ page2:addButton()
     :setSize(#"inscription",1)
     :onClick(function()
         if mdp:getValue() == mdp2:getValue() then
-            if api.inscriptionUser(pseudo:getValue(), mdp:getValue(), email:getValue()) then
+            local _inscription = api.inscriptionUser(pseudo:getValue(), mdp:getValue(), email:getValue())
+            if _inscription[1] then
+                basalt.setVariable("pseudo", pseudo:getValue())
+                basalt.setVariable("mdp", mdp:getValue())
+                pseudo:setValue("")
+                mdp:setValue("")
+                mdp2:setValue("")
+                email:setValue("")
                 page20:show()
             else
                 if page2alert then
                     page2alert:remove()
                 end
                 page2alert = page2:addLabel()
-                    :setPosition(1 + (x/2) - math.floor(#"Erreur lors de l'inscription"/2), 18)
-                    :setText("Erreur lors de l'inscription")
-                    :setSize(#"Erreur lors de l'inscription",1)
-                page2aletTempo = 5
+                    :setPosition(1 + (x/2) - math.floor(#_inscription[2]/2), 18)
+                    :setText(_inscription[2])
+                    :setSize(#_inscription[2],1)
+                    :setBackground(colors.black)
+                    :setForeground(colors.red)
+                page2alertTempo = 5
             end
         else
             if page2alert then
@@ -82,8 +83,21 @@ page2:addButton()
                 :setPosition(1 + (x/2) - math.floor(#"Les mots de passe ne correspondent pas"/2), 18)
                 :setText("Les mots de passe ne correspondent pas")
                 :setSize(#"Les mots de passe ne correspondent pas",1)
-            page2aletTempo = 5
+            page2alertTempo = 5
         end
+    end)
+
+
+page2:addButton()
+    :setPosition(1, 19)
+    :setText("retour")
+    :setSize(8,1)
+    :onClick(function()
+        pseudo:setValue("")
+        mdp:setValue("")
+        mdp2:setValue("")
+        email:setValue("")
+        page0:show()
     end)
 
 local timeLabel = page2:addLabel()
@@ -93,13 +107,13 @@ local timeLabel = page2:addLabel()
 
 page2TimeThread = page2:addThread()
 page2TimeThread:start(function()
-    page2aletTempo = 0
+    page2alertTempo = 0
     while true do
         timeLabel:setText(os.date("%d/%m/%Y %H:%M"))
         sleep(1)
-        if page2aletTempo > 0 then
-            page2aletTempo = page2aletTempo - 1
-            if page2aletTempo == 0 then
+        if page2alertTempo > 0 then
+            page2alertTempo = page2alertTempo - 1
+            if page2alertTempo == 0 then
                 page2alert:remove()
             end
         end

@@ -1,14 +1,6 @@
 page102 = basalt.createFrame()
 x, y = term.getSize()
 
-page102:addButton()
-    :setPosition(1, 19)
-    :setText("retour")
-    :setSize(8,1)
-    :onClick(function()
-        page101:show()
-    end)
-
 page102:addLabel()
     :setPosition(1 + (x/2) - math.floor(#"changer mdp"/2), 2)
     :setText("changer mdp")
@@ -64,17 +56,35 @@ page102:addButton()
                 page102alert = page102:addLabel()
                     :setPosition(1 + (x/2) - math.floor(#"Mot de passe changé"/2), 15)
                     :setText("Mot de passe changé")
+                    :setBackground(colors.black)
+                    :setForeground(colors.green)
             else
                 page102alert = page102:addLabel()
                     :setPosition(1 + (x/2) - math.floor(#"Les mots de passe ne correspondent pas"/2), 15)
                     :setText("Les mots de passe ne correspondent pas")
+                    :setBackground(colors.black)
+                    :setForeground(colors.red)
             end
         else
             page102alert = page102:addLabel()
                 :setPosition(1 + (x/2) - math.floor(#"Mauvais mot de passe"/2), 15)
                 :setText("Mauvais mot de passe")
+                :setBackground(colors.black)
+                :setForeground(colors.red)
         end
-        page102aletTempo = 5
+        page102alertTempo = 5
+    end)
+
+
+page102:addButton()
+    :setPosition(1, 19)
+    :setText("retour")
+    :setSize(8,1)
+    :onClick(function()
+        page101:show()
+        oldMdp:setValue("")
+        newMdp:setValue("")
+        confirmMdp:setValue("")
     end)
 
 local timeLabel = page102:addLabel()
@@ -84,13 +94,13 @@ local timeLabel = page102:addLabel()
 
 page102TimeThread = page102:addThread()
 page102TimeThread:start(function()
-    page102aletTempo = 0
+    page102alertTempo = 0
     while true do
         timeLabel:setText(os.date("%d/%m/%Y %H:%M"))
         sleep(1)
-        if page102aletTempo > 0 then
-            page102aletTempo = page102aletTempo - 1
-            if page102aletTempo == 0 then
+        if page102alertTempo > 0 then
+            page102alertTempo = page102alertTempo - 1
+            if page102alertTempo == 0 then
                 page102alert:remove()
             end
         end

@@ -1,6 +1,31 @@
 page106 = basalt.createFrame()
 x, y = term.getSize()
 
+page106:addLabel()
+    :setPosition(1 + (x/2) - math.floor(#"about"/2), 2)
+    :setText("about")
+    :setSize(#"about",1)
+
+--page106:addLabel()
+--    :setPosition(1, 4)
+--    :setText("basalt version : " .. str(basalt:getVersion()))
+--    :setSize(#"basalt version : " .. str(basalt:getVersion()),1)
+
+page106:addLabel()
+    :setPosition(1, 5)
+    :setText("https://basalt.madefor.cc/#/")
+    :setSize(#"https://basalt.madefor.cc/#/",1)
+
+page106:addLabel()
+    :setPosition(1, 6)
+    :setText("commerce version : " .. config.terminalVersion)
+    :setSize(#"commerce version : " .. config.terminalVersion,1)
+
+page106:addLabel()
+    :setPosition(1, 7)
+    :setText("https://github.com/vampi62/computercraft_commerce")
+    :setSize(#"https://github.com/vampi62/computercraft_commerce",1)
+
 page106:addButton()
     :setPosition(1, 19)
     :setText("retour")
@@ -8,8 +33,3 @@ page106:addButton()
     :onClick(function()
         page101:show()
     end)
-
-page106:addLabel()
-    :setPosition(1 + (x/2) - math.floor(#"about"/2), 2)
-    :setText("about")
-    :setSize(#"about",1)

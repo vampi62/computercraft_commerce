@@ -1,14 +1,6 @@
 page100 = basalt.createFrame()
 x, y = term.getSize()
 
-page100:addButton()
-    :setPosition(1, 19)
-    :setText("retour")
-    :setSize(8,1)
-    :onClick(function()
-        page0:show()
-    end)
-
 page100:addLabel()
     :setPosition(1 + (x/2) - math.floor(#"configurations"/2), 2)
     :setText("configurations")
@@ -31,6 +23,7 @@ page100:addButton()
     :setSize(#"envoyer",1)
     :onClick(function()
         if config.terminalPassword == mdpPc:getValue() then
+            mdpPc:setValue("")
             page101:show()
         else
             if page100alert then
@@ -39,10 +32,19 @@ page100:addButton()
             page100alert = page100:addLabel()
                 :setPosition(1 + (x/2) - math.floor(#"Mauvais mot de passe"/2), 9)
                 :setText("Mauvais mot de passe")
-            page100aletTempo = 5
+            page100alertTempo = 5
         end
     end)
 
+
+page100:addButton()
+    :setPosition(1, 19)
+    :setText("retour")
+    :setSize(8,1)
+    :onClick(function()
+        mdpPc:setValue("")
+        page0:show()
+    end)
 
 local timeLabel = page100:addLabel()
     :setPosition(51 - #os.date("%d/%m/%Y %H:%M"), 19)
@@ -51,13 +53,13 @@ local timeLabel = page100:addLabel()
 
 page100TimeThread = page100:addThread()
 page100TimeThread:start(function()
-    page100aletTempo = 0
+    page100alertTempo = 0
     while true do
         timeLabel:setText(os.date("%d/%m/%Y %H:%M"))
         sleep(1)
-        if page100aletTempo > 0 then
-            page100aletTempo = page100aletTempo - 1
-            if page100aletTempo == 0 then
+        if page100alertTempo > 0 then
+            page100alertTempo = page100alertTempo - 1
+            if page100alertTempo == 0 then
                 page100alert:remove()
             end
         end

@@ -1,5 +1,5 @@
 configApi = {
-    apiUrl = "https://site.fr/api/",
+    apiUrl = "https://computercraft.raspberrycloudav.fr/",
     apiKeyName = "",
     apiKeyToken = ""
 }
