@@ -5901,6 +5901,46 @@
 					]
 				},
 				{
+					"name": "token",
+					"item": [
+						{
+							"name": "token",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "user",
+											"value": "{{pseudo}}",
+											"description": "(str) pseudo user",
+											"type": "text"
+										},
+										{
+											"key": "mdpuser",
+											"value": "{{mdp}}",
+											"description": "(str) mdp user",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{site_url}}/token/",
+									"host": [
+										"{{site_url}}"
+									],
+									"path": [
+										"token",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "getconfig",
 					"request": {
 						"method": "GET",
@@ -11133,6 +11173,46 @@
 							]
 						},
 						{
+							"name": "token",
+							"item": [
+								{
+									"name": "token",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "user",
+													"value": "{{pseudo}}",
+													"description": "(str) pseudo user",
+													"type": "text"
+												},
+												{
+													"key": "mdpuser",
+													"value": "{{mdp}}",
+													"description": "(str) mdp user",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{site_url}}/token/",
+											"host": [
+												"{{site_url}}"
+											],
+											"path": [
+												"token",
+												""
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "getconfig",
 							"request": {
 								"method": "GET",
@@ -13815,6 +13895,46 @@
 							]
 						},
 						{
+							"name": "token",
+							"item": [
+								{
+									"name": "token",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "user",
+													"value": "{{pseudo}}",
+													"description": "(str) pseudo user",
+													"type": "text"
+												},
+												{
+													"key": "mdpuser",
+													"value": "{{mdp}}",
+													"description": "(str) mdp user",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{site_url}}/token/",
+											"host": [
+												"{{site_url}}"
+											],
+											"path": [
+												"token",
+												""
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "getconfig",
 							"request": {
 								"method": "GET",
@@ -13843,6 +13963,48 @@
 									],
 									"path": [
 										"ntp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getlua",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}/lua",
+									"host": [
+										"{{site_url}}"
+									],
+									"path": [
+										"lua"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getluabysysteme",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{site_url}}/lua/systeme/?systeme=banque-term",
+									"host": [
+										"{{site_url}}"
+									],
+									"path": [
+										"lua",
+										"systeme",
+										""
+									],
+									"query": [
+										{
+											"key": "systeme",
+											"value": "banque-term"
+										}
 									]
 								}
 							},

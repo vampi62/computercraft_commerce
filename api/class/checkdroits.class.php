@@ -191,9 +191,15 @@ class Checkdroits {
                 INNER JOIN apikeys           ON apikeys.id_apikey = groupes_apikeys.id_apikey
                 INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes.id_groupe
                 INNER JOIN apikeys_droits    ON apikeys_droits.id_apikey = apikeys.id_apikey
-                INNER JOIN droits AS drgroupe  ON droits.id_droit = groupes_droits.id_droit
-                INNER JOIN droits AS drapi     ON droits.id_droit = apikeys_droits.id_droit
+                INNER JOIN droits AS drgroupe  ON drgroupe.id_droit = groupes_droits.id_droit
+                INNER JOIN droits AS drapi     ON drapi.id_droit = apikeys_droits.id_droit
                 WHERE groupes.id_groupe = :idobjet AND drgroupe.nom_droit = :action AND apikeys.id_apikey = :idnom
+                LIMIT 1');
+            } elseif ($type == 'apikey') {
+                $req = $bdd->prepare('SELECT apikeys.id_apikey FROM apikeys
+                INNER JOIN apikeys_droits    ON apikeys_droits.id_apikey = apikeys.id_apikey
+                INNER JOIN droits     ON droits.id_droit = apikeys_droits.id_droit
+                WHERE apikeys.id_apikey = :idobjet AND droits.nom_droit = :action AND apikeys.id_apikey = :idnom
                 LIMIT 1');
             } else {
                 $req = $bdd->prepare('SELECT '.$type.'s.id_'.$type.' FROM '.$type.'s
@@ -202,8 +208,8 @@ class Checkdroits {
                 INNER JOIN apikeys           ON apikeys.id_apikey = groupes_apikeys.id_apikey
                 INNER JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_'.$type.'s.id_groupe
                 INNER JOIN apikeys_droits    ON apikeys_droits.id_apikey = apikeys.id_apikey
-                INNER JOIN droits AS drgroupe  ON droits.id_droit = groupes_droits.id_droit
-                INNER JOIN droits AS drapi     ON droits.id_droit = apikeys_droits.id_droit
+                INNER JOIN droits AS drgroupe  ON drgroupe.id_droit = groupes_droits.id_droit
+                INNER JOIN droits AS drapi     ON drapi.id_droit = apikeys_droits.id_droit
                 WHERE '.$type.'s.id_'.$type.' = :idobjet AND drgroupe.nom_droit = :action AND apikeys.id_apikey = :idnom
                 LIMIT 1');
             }
