@@ -13,12 +13,14 @@ les joueurs peuvent consulter les offres et les stocks des commerces, effectuer 
 
 ## (1) installation du serveur web et de l'api
 
+(image docker disponible dans ce ripository pour l'etape 1 et 2)
 1. creer votre serveur web (il doit etre accessible par le serveur minecraft)
+(!utilisation en https recommandé, sauf pour les anciennes versions de computercraft qui ne prennent pas en charge l'https!)
 2. activer le module rewrite d'apache
 3. sur votre seveur sql creer une base de donnée et un utilisateur avec les droits sur cette base
 4. clonez le projet dans le dossier racine de votre serveur web
 5. ouvrer le fichier de configuration (computercraft_commerce\api\init\config\config.yml)
-5.1 inserer les informations de connexion a la base de donnée, les informations de connexion au serveur smtp pour les mails de recuperation de mot de passe au d'autre parametre optionnel
+5.1. inserer les informations de connexion a la base de donnée, les informations de connexion au serveur smtp pour les mails de recuperation de mot de passe au d'autre parametre optionnel
 ```yaml
 Install: false # ne pas editer
 General:
