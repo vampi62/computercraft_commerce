@@ -11,7 +11,8 @@ function getLuaFiles($origin, $dir, &$listFiles) {
             }
             getLuaFiles($origin, $dir . $file . '/', $listFiles);
         } else {
-            $listFiles[$dir][$file] = hash_file('sha256', $origin . $dir . $file);
+            $listFiles[$dir][] = $file;
+            //$listFiles[$dir][$file] = hash('sha256', file_get_contents($origin . $dir . $file));
         }
     }
 }
