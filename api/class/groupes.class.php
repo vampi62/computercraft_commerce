@@ -385,19 +385,19 @@ class Groupes {
 
     // ajoute un droit a un groupe
     public function addGroupeDroit($idDroits) {
-        $req = $this->_bdd->prepare('INSERT INTO groupes_droits(id_groupe,id_droits) VALUES(:id_groupe,:id_droits)');
+        $req = $this->_bdd->prepare('INSERT INTO groupes_droits(id_groupe,id_droit) VALUES(:id_groupe,:id_droit)');
         $req->execute(array(
             'id_groupe' => $this->_idGroupe,
-            'id_droits' => $idDroits
+            'id_droit' => $idDroits
         ));
     }
 
     // supprime un droit d'un groupe
     public function deleteGroupeDroit($idDroits) {
-        $req = $this->_bdd->prepare('DELETE FROM groupes_droits WHERE id_groupe = :id_groupe AND id_droits = :id_droits');
+        $req = $this->_bdd->prepare('DELETE FROM groupes_droits WHERE id_groupe = :id_groupe AND id_droit = :id_droit');
         $req->execute(array(
             'id_groupe' => $this->_idGroupe,
-            'id_droits' => $idDroits
+            'id_droit' => $idDroits
         ));
     }
 
