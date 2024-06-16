@@ -2,7 +2,7 @@
 require_once('class/checkdroits.class.php');
 require_once('class/litigemsgs.class.php');
 require_once('class/commandes.class.php');
-if (!Checkdroits::checkArgs($_GET,array('id_commande' => false))) {
+if (!Checkdroits::checkArgs($_GET,array('offset' => true, 'limit' => true, 'id_commande' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $sessionUser = Checkdroits::checkMode($bddConnection,$_GET,array('apikey' => false,'user' => true));
@@ -35,4 +35,5 @@ if (!$permitAction && Checkdroits::checkPermObj($bddConnection, $sessionUser['id
 if (!$permitAction) {
     return array('status_code' => 403, 'message' => 'Vous n\'avez pas les droits pour acceder a ces informations.');
 }
-return array('status_code' => 200, 'message' => '', 'data' => LitigeMsgs::getLitigeMsgsByCommande($bddConnection, $_GET['id_commande']));
+Checkdroits::checkLimitOffset($_Serveur_, $_GET['limit'], $_GET['offset']);
+return array('status_code' => 200, 'message' => '', 'data' => LitigeMsgs::getLitigeMsgsByCommande($bddConnection, $_GET['id_commande'], $_GET['limit'], $_GET['offset']));

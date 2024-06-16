@@ -10,14 +10,16 @@
 // set adresse/{id}/delete
 class Adresses {
     // recupere les adresses accessible par le joueur (lui a partient ou groupes en communs qui permet le getadresses)
-    public static function getAdressesByUser($bdd,$idJoueur) {
+    public static function getAdressesByUser($bdd,$idJoueur,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses 
         LEFT JOIN groupes_adresses ON adresses.id_adresse = groupes_adresses.id_adresse
         LEFT JOIN groupes_joueurs ON groupes_adresses.id_groupe = groupes_joueurs.id_groupe
         LEFT JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_adresses.id_groupe
         LEFT JOIN droits     ON droits.id_droit = groupes_droits.id_droit
         INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur
-        WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (adresses.id_joueur = :id_joueur)');
+        WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (adresses.id_joueur = :id_joueur)
+        ORDER BY adresses.id_adresse ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_joueur' => $idJoueur,
             'nom_droit' => "getAdresses"
@@ -28,7 +30,7 @@ class Adresses {
     }
 
     // recupere les adresses accessible par la apikey (groupe en communs qui permet le getadresses)
-    public static function getAdressesByApiKey($bdd,$idApiKey) {
+    public static function getAdressesByApiKey($bdd,$idApiKey,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses
         INNER JOIN groupes_adresses ON adresses.id_adresse = groupes_adresses.id_adresse
         INNER JOIN groupes_apikeys ON groupes_adresses.id_groupe = groupes_apikeys.id_groupe
@@ -38,7 +40,9 @@ class Adresses {
         INNER JOIN apikeys_droits    ON apikeys_droits.id_apikey = groupes_apikeys.id_groupe
         INNER JOIN droits     ON droits.id_droit = apikeys_droits.id_droit
         INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur
-        WHERE apikeys.id_apikey = :id_apikey AND droits.nom_droit = :nom_droit');
+        WHERE apikeys.id_apikey = :id_apikey AND droits.nom_droit = :nom_droit
+        ORDER BY adresses.id_adresse ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_apikey' => $idApiKey,
             'nom_droit' => "getAdresses"
@@ -49,9 +53,11 @@ class Adresses {
     }
 
     // recupere les adresses d'un joueur
-    public static function getAdressesByJoueur($bdd,$idJoueur) {
+    public static function getAdressesByJoueur($bdd,$idJoueur,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT adresses.*,joueurs.pseudo_joueur FROM adresses 
-        INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur WHERE adresses.id_joueur = :id_joueur');
+        INNER JOIN joueurs ON joueurs.id_joueur = adresses.id_joueur WHERE adresses.id_joueur = :id_joueur
+        ORDER BY adresses.id_adresse ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_joueur' => $idJoueur
         ));

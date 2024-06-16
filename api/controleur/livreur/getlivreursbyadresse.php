@@ -2,7 +2,7 @@
 require_once('class/checkdroits.class.php');
 require_once('class/livreurs.class.php');
 
-if (!Checkdroits::checkArgs($_GET,array('id_adresse' => false))) {
+if (!Checkdroits::checkArgs($_GET,array('offset' => true, 'limit' => true, 'id_adresse' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $sessionUser = Checkdroits::checkMode($bddConnection,$_GET,array('apikey' => true,'user' => true));
@@ -12,4 +12,5 @@ if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné p
 if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_adresse'], 'adresse', 'getLivreursByAdresse', $sessionUser['isApi'])) {
     return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
 }
-return array('status_code' => 200, 'message' => '', 'data' => Livreurs::getLivreursByAdresse($bddConnection, $_GET['id_adresse']));
+Checkdroits::checkLimitOffset($_Serveur_, $_GET['limit'], $_GET['offset']);
+return array('status_code' => 200, 'message' => '', 'data' => Livreurs::getLivreursByAdresse($bddConnection, $_GET['id_adresse'], $_GET['limit'], $_GET['offset']));

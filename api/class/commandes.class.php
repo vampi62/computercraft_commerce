@@ -14,7 +14,7 @@
 
 class Commandes {
     // recupere les commandes ayant ce compte comme vendeur ou client
-    public static function getCommandesByCompte($bdd,$idCompte) {
+    public static function getCommandesByCompte($bdd,$idCompte,$status=null, $limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
         LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
         LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
@@ -22,17 +22,26 @@ class Commandes {
         LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
         LEFT JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
         LEFT JOIN offres ON commandes.id_offre = offres.id_offre
-        WHERE commandes.id_compte_vendeur = :id_compte OR commandes.id_compte_client = :id_compte');
-        $req->execute(array(
-            'id_compte' => $idCompte
-        ));
+        WHERE (commandes.id_compte_vendeur = :id_compte OR commandes.id_compte_client = :id_compte)' . ($status != null ? ' AND commandes.id_type_commande = :id_type_commande' : '') . '
+        ORDER BY commandes.id_commande ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
+        if ($status != null) {
+            $req->execute(array(
+                'id_compte' => $idCompte,
+                'id_type_commande' => $status
+            ));
+        } else {
+            $req->execute(array(
+                'id_compte' => $idCompte
+            ));
+        }
         $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $commandes;
     }
 
     // recupere les commandes ayant cette adresse comme vendeur ou client
-    public static function getCommandesByAdresse($bdd,$idAdresse) {
+    public static function getCommandesByAdresse($bdd,$idAdresse,$status=null, $limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
         LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
         LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
@@ -40,17 +49,26 @@ class Commandes {
         LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
         LEFT JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
         LEFT JOIN offres ON commandes.id_offre = offres.id_offre
-        WHERE commandes.id_adresse_client = :id_adresse OR commandes.id_adresse_vendeur = :id_adresse');
-        $req->execute(array(
-            'id_adresse' => $idAdresse
-        ));
+        WHERE (commandes.id_adresse_client = :id_adresse OR commandes.id_adresse_vendeur = :id_adresse)' . ($status != null ? ' AND commandes.id_type_commande = :id_type_commande' : '') . '
+        ORDER BY commandes.id_commande ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
+        if ($status != null) {
+            $req->execute(array(
+                'id_adresse' => $idAdresse,
+                'id_type_commande' => $status
+            ));
+        } else {
+            $req->execute(array(
+                'id_adresse' => $idAdresse
+            ));
+        }
         $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $commandes;
     }
 
     // recupere les commandes ayant ce compte vendeur
-    public static function getCommandesByCompteVendeur($bdd,$idCompteVendeur) {
+    public static function getCommandesByCompteVendeur($bdd,$idCompteVendeur,$status=null, $limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
         INNER JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
         LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
@@ -58,17 +76,26 @@ class Commandes {
         LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
         LEFT JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
         LEFT JOIN offres ON commandes.id_offre = offres.id_offre
-        WHERE commandes.id_compte_vendeur = :id_compte_vendeur');
-        $req->execute(array(
-            'id_compte_vendeur' => $idCompteVendeur
-        ));
+        WHERE (commandes.id_compte_vendeur = :id_compte_vendeur)' . ($status != null ? ' AND commandes.id_type_commande = :id_type_commande' : '') . '
+        ORDER BY commandes.id_commande ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
+        if ($status != null) {
+            $req->execute(array(
+                'id_compte_vendeur' => $idCompteVendeur,
+                'id_type_commande' => $status
+            ));
+        } else {
+            $req->execute(array(
+                'id_compte_vendeur' => $idCompteVendeur
+            ));
+        }
         $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $commandes;
     }
 
     // recupere les commandes ayant ce compte client
-    public static function getCommandesByCompteClient($bdd,$idCompteClient) {
+    public static function getCommandesByCompteClient($bdd,$idCompteClient,$status=null, $limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
         LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
         INNER JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
@@ -76,17 +103,26 @@ class Commandes {
         LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
         LEFT JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
         LEFT JOIN offres ON commandes.id_offre = offres.id_offre
-        WHERE commandes.id_compte_client = :id_compte_client');
-        $req->execute(array(
-            'id_compte_client' => $idCompteClient
-        ));
+        WHERE (commandes.id_compte_client = :id_compte_client)' . ($status != null ? ' AND commandes.id_type_commande = :id_type_commande' : '') . '
+        ORDER BY commandes.id_commande ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
+        if ($status != null) {
+            $req->execute(array(
+                'id_compte_client' => $idCompteClient,
+                'id_type_commande' => $status
+            ));
+        } else {
+            $req->execute(array(
+                'id_compte_client' => $idCompteClient
+            ));
+        }
         $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $commandes;
     }
 
     // recupere les commandes ayant cette adresse vendeur
-    public static function getCommandesByAdresseVendeur($bdd,$idAdresseVendeur) {
+    public static function getCommandesByAdresseVendeur($bdd,$idAdresseVendeur,$status=null, $limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
         LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
         LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
@@ -94,17 +130,26 @@ class Commandes {
         LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
         LEFT JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
         LEFT JOIN offres ON commandes.id_offre = offres.id_offre
-        WHERE commandes.id_adresse_vendeur = :id_adresse_vendeur');
-        $req->execute(array(
-            'id_adresse_vendeur' => $idAdresseVendeur
-        ));
+        WHERE (commandes.id_adresse_vendeur = :id_adresse_vendeur)' . ($status != null ? ' AND commandes.id_type_commande = :id_type_commande' : '') . '
+        ORDER BY commandes.id_commande ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
+        if ($status != null) {
+            $req->execute(array(
+                'id_adresse_vendeur' => $idAdresseVendeur,
+                'id_type_commande' => $status
+            ));
+        } else {
+            $req->execute(array(
+                'id_adresse_vendeur' => $idAdresseVendeur
+            ));
+        }
         $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $commandes;
     }
 
     // recupere les commandes ayant cette adresse client
-    public static function getCommandesByAdresseClient($bdd,$idAdresseClient) {
+    public static function getCommandesByAdresseClient($bdd,$idAdresseClient,$status=null, $limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
         LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
         LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
@@ -112,17 +157,26 @@ class Commandes {
         INNER JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
         LEFT JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
         LEFT JOIN offres ON commandes.id_offre = offres.id_offre
-        WHERE commandes.id_adresse_client = :id_adresse_client');
-        $req->execute(array(
-            'id_adresse_client' => $idAdresseClient
-        ));
+        WHERE (commandes.id_adresse_client = :id_adresse_client)' . ($status != null ? ' AND commandes.id_type_commande = :id_type_commande' : '') . '
+        ORDER BY commandes.id_commande ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
+        if ($status != null) {
+            $req->execute(array(
+                'id_adresse_client' => $idAdresseClient,
+                'id_type_commande' => $status
+            ));
+        } else {
+            $req->execute(array(
+                'id_adresse_client' => $idAdresseClient
+            ));
+        }
         $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $commandes;
     }
 
     // recupere les commandes ayant ce livreur
-    public static function getCommandesByLivreur($bdd,$idLivreur) {
+    public static function getCommandesByLivreur($bdd,$idLivreur,$status=null, $limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
         LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
         LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
@@ -130,23 +184,34 @@ class Commandes {
         LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
         INNER JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
         LEFT JOIN offres ON commandes.id_offre = offres.id_offre
-        WHERE commandes.id_livreur = :id_livreur');
-        $req->execute(array(
-            'id_livreur' => $idLivreur
-        ));
+        WHERE (commandes.id_livreur = :id_livreur)' . ($status != null ? ' AND commandes.id_type_commande = :id_type_commande' : '') . '
+        ORDER BY commandes.id_commande ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
+        if ($status != null) {
+            $req->execute(array(
+                'id_livreur' => $idLivreur,
+                'id_type_commande' => $status
+            ));
+        } else {
+            $req->execute(array(
+                'id_livreur' => $idLivreur
+            ));
+        }
         $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $commandes;
     }
 
     // recupere les commandes sans livreur et avec le status
-    public static function getCommandesByStatusAndNoLivreur($bdd,$idTypeCommande) {
+    public static function getCommandesByStatusAndNoLivreur($bdd,$idTypeCommande,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client FROM commandes 
         LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
         LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
         LEFT JOIN adresses AS advendeur ON commandes.id_adresse_vendeur = advendeur.id_adresse
         LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
-        WHERE commandes.id_type_commande = :id_type_commande AND commandes.id_livreur IS NULL');
+        WHERE commandes.id_type_commande = :id_type_commande AND commandes.id_livreur IS NULL
+        ORDER BY commandes.id_commande ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_type_commande' => $idTypeCommande
         ));
@@ -156,7 +221,7 @@ class Commandes {
     }
 
     // recupere les commandes ayant cette offre
-    public static function getCommandesByOffre($bdd,$idOffre) {
+    public static function getCommandesByOffre($bdd,$idOffre,$status=null, $limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
         LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
         LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
@@ -164,10 +229,19 @@ class Commandes {
         LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
         LEFT JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
         INNER JOIN offres ON commandes.id_offre = offres.id_offre
-        WHERE commandes.id_offre = :id_offre');
-        $req->execute(array(
-            'id_offre' => $idOffre
-        ));
+        WHERE (commandes.id_offre = :id_offre)' . ($status != null ? ' AND commandes.id_type_commande = :id_type_commande' : '') . '
+        ORDER BY commandes.id_commande ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
+        if ($status != null) {
+            $req->execute(array(
+                'id_offre' => $idOffre,
+                'id_type_commande' => $status
+            ));
+        } else {
+            $req->execute(array(
+                'id_offre' => $idOffre
+            ));
+        }
         $commandes = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $commandes;
@@ -182,7 +256,8 @@ class Commandes {
         LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
         LEFT JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
         LEFT JOIN offres ON commandes.id_offre = offres.id_offre
-        WHERE commandes.id_commande = :id_commande');
+        WHERE commandes.id_commande = :id_commande
+        ORDER BY commandes.id_commande ASC');
         $req->execute(array(
             'id_commande' => $idCommande
         ));
@@ -192,7 +267,7 @@ class Commandes {
     }
 
     // recupere les commande via le status
-    public static function getCommandesByStatus($bdd,$idTypeCommande) {
+    public static function getCommandesByStatus($bdd,$idTypeCommande,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT commandes.*, covendeur.nom_compte AS nom_compte_vendeur ,coclient.nom_compte AS nom_compte_client ,advendeur.nom_adresse AS nom_adresse_vendeur,adclient.nom_adresse AS nom_adresse_client,livreurs.nom_livreur,offres.nom_offre FROM commandes 
         LEFT JOIN comptes AS covendeur ON commandes.id_compte_vendeur = covendeur.id_compte
         LEFT JOIN comptes AS coclient ON commandes.id_compte_client = coclient.id_compte
@@ -200,7 +275,9 @@ class Commandes {
         LEFT JOIN adresses AS adclient ON commandes.id_adresse_client = adclient.id_adresse
         LEFT JOIN livreurs ON commandes.id_livreur = livreurs.id_livreur
         LEFT JOIN offres ON commandes.id_offre = offres.id_offre
-        WHERE commandes.id_type_commande = :id_type_commande');
+        WHERE commandes.id_type_commande = :id_type_commande
+        ORDER BY commandes.id_commande ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_type_commande' => $idTypeCommande
         ));

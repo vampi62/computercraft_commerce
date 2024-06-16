@@ -12,14 +12,16 @@
 
 class ApiKeys {
     // recupere les apikeys visible pour un joueur (si groupe a les droits)
-    public static function getApiKeysByUser($bdd,$id_joueur) {
+    public static function getApiKeysByUser($bdd,$id_joueur,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT apikeys.*,joueurs.pseudo_joueur FROM apikeys 
         LEFT JOIN groupes_apikeys ON apikeys.id_apikey = groupes_apikeys.id_apikey
         LEFT JOIN groupes_joueurs ON groupes_apikeys.id_groupe = groupes_joueurs.id_groupe
         LEFT JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_apikeys.id_groupe
         LEFT JOIN droits     ON droits.id_droit = groupes_droits.id_droit
         INNER JOIN joueurs ON apikeys.id_joueur = joueurs.id_joueur
-        WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (apikeys.id_joueur = :id_joueur)');
+        WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (apikeys.id_joueur = :id_joueur)
+        ORDER BY apikeys.id_apikey ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_joueur' => $id_joueur,
             'nom_droit' => "getApiKeys"
@@ -30,8 +32,11 @@ class ApiKeys {
     }
 
     // recupere les apikeys d'un joueur
-    public static function getApiKeysByJoueur($bdd,$id_joueur) {
-        $req = $bdd->prepare('SELECT apikeys.*,joueurs.pseudo_joueur FROM apikeys INNER JOIN joueurs ON apikeys.id_joueur = joueurs.id_joueur WHERE apikeys.id_joueur = :id_joueur');
+    public static function getApiKeysByJoueur($bdd,$id_joueur,$limit = 100,$offset = 0) {
+        $req = $bdd->prepare('SELECT apikeys.*,joueurs.pseudo_joueur FROM apikeys INNER JOIN joueurs ON apikeys.id_joueur = joueurs.id_joueur
+        WHERE apikeys.id_joueur = :id_joueur
+        ORDER BY apikeys.id_apikey ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_joueur' => $id_joueur
         ));
@@ -42,7 +47,9 @@ class ApiKeys {
 
     // recupere les info d'une apikey avec son id
     public static function getApiKeyById($bdd,$id_apikey) {
-        $req = $bdd->prepare('SELECT apikeys.*,joueurs.pseudo_joueur FROM apikeys INNER JOIN joueurs ON apikeys.id_joueur = joueurs.id_joueur WHERE apikeys.id_apikey = :id_apikey');
+        $req = $bdd->prepare('SELECT apikeys.*,joueurs.pseudo_joueur FROM apikeys INNER JOIN joueurs ON apikeys.id_joueur = joueurs.id_joueur
+        WHERE apikeys.id_apikey = :id_apikey
+        ORDER BY apikeys.id_apikey ASC');
         $req->execute(array(
             'id_apikey' => $id_apikey
         ));
@@ -53,7 +60,9 @@ class ApiKeys {
 
     // recupere les info d'une apikey avec son nom
     public static function getApiKeyByNom($bdd,$nom_apikey) {
-        $req = $bdd->prepare('SELECT apikeys.*,joueurs.pseudo_joueur FROM apikeys INNER JOIN joueurs ON apikeys.id_joueur = joueurs.id_joueur WHERE apikeys.nom_apikey = :nom_apikey');
+        $req = $bdd->prepare('SELECT apikeys.*,joueurs.pseudo_joueur FROM apikeys INNER JOIN joueurs ON apikeys.id_joueur = joueurs.id_joueur
+        WHERE apikeys.nom_apikey = :nom_apikey
+        ORDER BY apikeys.id_apikey ASC');
         $req->execute(array(
             'nom_apikey' => $nom_apikey
         ));
@@ -64,7 +73,9 @@ class ApiKeys {
 
     // recupere les droits d'une apikey
     public static function getDroitsByApiKey($bdd,$id_apikey) {
-        $req = $bdd->prepare('SELECT * FROM droits INNER JOIN apikeys_droits ON droits.id_droit = apikeys_droits.id_droit WHERE apikeys_droits.id_apikey = :id_apikey');
+        $req = $bdd->prepare('SELECT * FROM droits INNER JOIN apikeys_droits ON droits.id_droit = apikeys_droits.id_droit
+        WHERE apikeys_droits.id_apikey = :id_apikey
+        ORDER BY droits.id_droit ASC');
         $req->execute(array(
             'id_apikey' => $id_apikey
         ));

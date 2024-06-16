@@ -2,7 +2,7 @@
 require_once('class/checkdroits.class.php');
 require_once('class/apikeys.class.php');
 
-if (!Checkdroits::checkArgs($_GET,array('id_joueur' => false))) {
+if (!Checkdroits::checkArgs($_GET,array('offset' => true, 'limit' => true, 'id_joueur' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $sessionAdmin = Checkdroits::checkAdmin($bddConnection,$_GET);
@@ -12,4 +12,5 @@ if (isset($sessionAdmin['status_code'])) { // si un code d'erreur est retourné 
 if (!Checkdroits::checkId($bddConnection, $_GET['id_joueur'], 'joueur')) {
     return array('status_code' => 404, 'message' => 'Le joueur n\'existe pas.');
 }
-return array('status_code' => 200, 'message' => '', 'data' => ApiKeys::getapikeysByJoueur($bddConnection, $_GET['id_joueur']));
+Checkdroits::checkLimitOffset($_Serveur_, $_GET['limit'], $_GET['offset']);
+return array('status_code' => 200, 'message' => '', 'data' => ApiKeys::getapikeysByJoueur($bddConnection, $_GET['id_joueur'], $_GET['limit'], $_GET['offset']));

@@ -15,7 +15,7 @@
 
 class Offres {
     // recupere les offres accessible par le joueur (lui a partient ou groupe en communs qui permet le getoffres)
-    public static function getOffresByUser($bdd,$idJoueur) {
+    public static function getOffresByUser($bdd,$idJoueur,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres
         LEFT JOIN groupes_offres ON offres.id_offre = groupes_offres.id_offre
         LEFT JOIN groupes_joueurs ON groupes_offres.id_groupe = groupes_joueurs.id_groupe
@@ -24,7 +24,9 @@ class Offres {
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON offres.id_compte = comptes.id_compte
         LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse
-        WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (offres.id_joueur = :id_joueur)');
+        WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (offres.id_joueur = :id_joueur)
+        ORDER BY offres.id_offre ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_joueur' => $idJoueur,
             'nom_droit' => "getOffres"
@@ -35,7 +37,7 @@ class Offres {
     }
 
     // recupere les offres accessible par la apikey (groupe en communs qui permet le getoffres)
-    public static function getOffresByApiKey($bdd,$idApiKey) {
+    public static function getOffresByApiKey($bdd,$idApiKey,$limit=100,$offset=0) {
         $req = $bdd->prepare('SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres
         INNER JOIN groupes_offres ON offres.id_offre = groupes_offres.id_offre
         INNER JOIN groupes_apikeys ON groupes_offres.id_groupe = groupes_apikeys.id_groupe
@@ -47,7 +49,9 @@ class Offres {
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON offres.id_compte = comptes.id_compte
         LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse
-        WHERE apikeys.id_apikey = :id_apikey AND droits.nom_droit = :nom_droit');
+        WHERE apikeys.id_apikey = :id_apikey AND droits.nom_droit = :nom_droit
+        ORDER BY offres.id_offre ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_apikey' => $idApiKey,
             'nom_droit' => "getOffres"
@@ -58,11 +62,13 @@ class Offres {
     }
 
     // recupere toutes les offres
-    public static function getOffres($bdd,$boolRemoveInactive=FALSE) {
+    public static function getOffres($bdd,$boolRemoveInactive=FALSE,$limit=100,$offset=0) {
         $req = $bdd->prepare('SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON offres.id_compte = comptes.id_compte
-        LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse');
+        LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse
+        ORDER BY offres.id_offre ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute();
         $offres = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
@@ -75,12 +81,14 @@ class Offres {
     }
 
     // recupere les offres d'un joueur
-    public static function getOffresByJoueur($bdd,$idJoueur,$boolRemoveInactive=FALSE) {
-        $req = $bdd->prepare("SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres 
+    public static function getOffresByJoueur($bdd,$idJoueur,$boolRemoveInactive=FALSE,$limit = 100,$offset = 0) {
+        $req = $bdd->prepare('SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres 
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON offres.id_compte = comptes.id_compte
         LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse
-        WHERE offres.id_joueur = :id_joueur");
+        WHERE offres.id_joueur = :id_joueur
+        ORDER BY offres.id_offre ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_joueur' => $idJoueur
         ));
@@ -95,12 +103,14 @@ class Offres {
     }
 
     // recupere les offres associer a un compte
-    public static function getOffresByCompte($bdd,$idCompte,$boolRemoveInactive=FALSE) {
-        $req = $bdd->prepare("SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres 
+    public static function getOffresByCompte($bdd,$idCompte,$boolRemoveInactive=FALSE,$limit = 100,$offset = 0) {
+        $req = $bdd->prepare('SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres 
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
         INNER JOIN comptes ON offres.id_compte = comptes.id_compte
         LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse
-        WHERE offres.id_compte = :id_compte");
+        WHERE offres.id_compte = :id_compte
+        ORDER BY offres.id_offre ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_compte' => $idCompte
         ));
@@ -115,12 +125,14 @@ class Offres {
     }
 
     // recupere les offres associer a une adresse
-    public static function getOffresByAdresse($bdd,$idAdresse,$boolRemoveInactive=FALSE) {
-        $req = $bdd->prepare("SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres 
+    public static function getOffresByAdresse($bdd,$idAdresse,$boolRemoveInactive=FALSE,$limit = 100,$offset = 0) {
+        $req = $bdd->prepare('SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres 
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON offres.id_compte = comptes.id_compte
         INNER JOIN adresses ON offres.id_adresse = adresses.id_adresse
-        WHERE offres.id_adresse = :id_adresse");
+        WHERE offres.id_adresse = :id_adresse
+        ORDER BY offres.id_offre ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_adresse' => $idAdresse
         ));
@@ -135,12 +147,12 @@ class Offres {
     }
 
     // recupere l'offre
-    public static function getOffreById($bdd,$idOffre,$boolRemoveInactive=FALSE) {
-        $req = $bdd->prepare("SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres 
+    public static function getOffreById($bdd,$idOffre,$boolRemoveInactive=FALSE,$limit = 100,$offset = 0) {
+        $req = $bdd->prepare('SELECT offres.*,joueurs.pseudo_joueur,comptes.nom_compte,adresses.nom_adresse FROM offres 
         INNER JOIN joueurs ON offres.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON offres.id_compte = comptes.id_compte
         LEFT JOIN adresses ON offres.id_adresse = adresses.id_adresse
-        WHERE offres.id_offre = :id_offre");
+        WHERE offres.id_offre = :id_offre');
         $req->execute(array(
             'id_offre' => $idOffre
         ));

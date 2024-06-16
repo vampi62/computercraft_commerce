@@ -90,7 +90,7 @@ class Router {
      *
      * @param string $url The route URL
      *
-     * @return void
+     * @return array
      */
     public function dispatch($url)
     {
@@ -110,14 +110,14 @@ class Router {
      * to be removed before the route is matched to the routing table. For
      * example:
      *
-     *   URL                           $_SERVER['QUERY_STRING']  Route
+     *   URL                           $_SERVER['REQUEST_URI']  Route
      *   -------------------------------------------------------------------
      *   localhost                     ''                        ''
      *   localhost/?                   ''                        ''
-     *   localhost/?page=1             page=1                    ''
-     *   localhost/posts?page=1        posts&page=1              posts
-     *   localhost/posts/index         posts/index               posts/index
-     *   localhost/posts/index?page=1  posts/index&page=1        posts/index
+     *   localhost/?page=1             /?page=1                  /
+     *   localhost/posts?page=1        /posts?page=1             /posts
+     *   localhost/posts/index         /posts/index              /posts/index
+     *   localhost/posts/index?page=1  /posts/index?page=1       /posts/index
      *
      * A URL of the format localhost/?page (one variable name, no value) won't
      * work however. (NB. The .htaccess file converts the first ? to a & when

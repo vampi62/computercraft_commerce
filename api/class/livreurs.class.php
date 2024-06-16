@@ -12,7 +12,7 @@
 
 class Livreurs {
     // recupere les livreurs accessible par le joueur (lui a partient ou groupe en communs qui permet le getLivreurs)
-    public static function getLivreursByUser($bdd,$idJoueur) {
+    public static function getLivreursByUser($bdd,$idJoueur,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT livreurs.*,joueurs.pseudo_joueur, comptes.nom_compte, adresses.nom_adresse FROM livreurs
         LEFT JOIN groupes_livreurs ON livreurs.id_livreur = groupes_livreurs.id_livreur
         LEFT JOIN groupes_joueurs ON groupes_livreurs.id_groupe = groupes_joueurs.id_groupe
@@ -21,7 +21,9 @@ class Livreurs {
         INNER JOIN joueurs ON livreurs.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON livreurs.id_compte = comptes.id_compte
         LEFT JOIN adresses ON livreurs.id_adresse = adresses.id_adresse
-        WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (livreurs.id_joueur = :id_joueur)');
+        WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (livreurs.id_joueur = :id_joueur)
+        ORDER BY livreurs.id_livreur ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_joueur' => $idJoueur,
             'nom_droit' => "getLivreurs"
@@ -32,7 +34,7 @@ class Livreurs {
     }
 
     // recupere les livreurs accessible par la apikey (groupe en communs qui permet le getlivreurs)
-    public static function getLivreursByApiKey($bdd,$idApiKey) {
+    public static function getLivreursByApiKey($bdd,$idApiKey,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT livreurs.*,joueurs.pseudo_joueur, comptes.nom_compte, adresses.nom_adresse FROM livreurs
         INNER JOIN groupes_livreurs ON livreurs.id_livreur = groupes_livreurs.id_livreur
         INNER JOIN groupes_apikeys ON groupes_livreurs.id_groupe = groupes_apikeys.id_groupe
@@ -44,7 +46,9 @@ class Livreurs {
         INNER JOIN joueurs ON livreurs.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON livreurs.id_compte = comptes.id_compte
         LEFT JOIN adresses ON livreurs.id_adresse = adresses.id_adresse
-        WHERE apikeys.id_apikey = :id_apikey AND droits.nom_droit = :nom_droit');
+        WHERE apikeys.id_apikey = :id_apikey AND droits.nom_droit = :nom_droit
+        ORDER BY livreurs.id_livreur ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_apikey' => $idApiKey,
             'nom_droit' => "getLivreurs"
@@ -55,12 +59,14 @@ class Livreurs {
     }
 
     // recupere les livreurs d'un joueur
-    public static function getLivreursByJoueur($bdd,$idJoueur) {
+    public static function getLivreursByJoueur($bdd,$idJoueur,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT livreurs.*, joueurs.pseudo_joueur,comptes.nom_compte, adresses.nom_adresse  FROM livreurs
         INNER JOIN joueurs ON livreurs.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON livreurs.id_compte = comptes.id_compte
         LEFT JOIN adresses ON livreurs.id_adresse = adresses.id_adresse
-        WHERE livreurs.id_joueur = :id_joueur');
+        WHERE livreurs.id_joueur = :id_joueur
+        ORDER BY livreurs.id_livreur ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_joueur' => $idJoueur
         ));
@@ -70,12 +76,14 @@ class Livreurs {
     }
 
     // recupere les livreurs utilisant un compte precis
-    public static function getLivreursByCompte($bdd,$idCompte) {
+    public static function getLivreursByCompte($bdd,$idCompte,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT livreurs.*, joueurs.pseudo_joueur,comptes.nom_compte, adresses.nom_adresse  FROM livreurs
         INNER JOIN joueurs ON livreurs.id_joueur = joueurs.id_joueur
         INNER JOIN comptes ON livreurs.id_compte = comptes.id_compte
         LEFT JOIN adresses ON livreurs.id_adresse = adresses.id_adresse
-        WHERE livreurs.id_compte = :id_compte');
+        WHERE livreurs.id_compte = :id_compte
+        ORDER BY livreurs.id_livreur ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_compte' => $idCompte
         ));
@@ -85,12 +93,14 @@ class Livreurs {
     }
 
     // recupere les livreurs utilisant une adresse precis
-    public static function getLivreursByAdresse($bdd,$idAdresse) {
+    public static function getLivreursByAdresse($bdd,$idAdresse,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT livreurs.*, joueurs.pseudo_joueur,comptes.nom_compte, adresses.nom_adresse  FROM livreurs
         INNER JOIN joueurs ON livreurs.id_joueur = joueurs.id_joueur
         LEFT JOIN comptes ON livreurs.id_compte = comptes.id_compte
         INNER JOIN adresses ON livreurs.id_adresse = adresses.id_adresse
-        WHERE livreurs.id_adresse = :id_adresse');
+        WHERE livreurs.id_adresse = :id_adresse
+        ORDER BY livreurs.id_livreur ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_adresse' => $idAdresse
         ));

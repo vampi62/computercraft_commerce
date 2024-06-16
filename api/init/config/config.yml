@@ -8,6 +8,7 @@ General:
     Name: computercraft_api
     Version: 2.0
     ModuleShowUser: true
+    LimitPerGET: 100
 DataBase:
     dbAdress: 0.0.0.0
     dbName: dbname

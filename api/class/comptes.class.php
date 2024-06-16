@@ -7,14 +7,16 @@
 // set compte/add
 class Comptes {
     // recupere les comptes accessible par le joueur (lui a partient ou groupe en communs qui permet le getcomptes)
-    public static function getComptesByUser($bdd,$idJoueur) {
+    public static function getComptesByUser($bdd,$idJoueur,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT comptes.*,joueurs.pseudo_joueur FROM comptes
         LEFT JOIN groupes_comptes ON comptes.id_compte = groupes_comptes.id_compte
         LEFT JOIN groupes_joueurs ON groupes_comptes.id_groupe = groupes_joueurs.id_groupe
         LEFT JOIN groupes_droits    ON groupes_droits.id_groupe = groupes_comptes.id_groupe
         LEFT JOIN droits     ON droits.id_droit = groupes_droits.id_droit
         INNER JOIN joueurs ON joueurs.id_joueur = comptes.id_joueur
-        WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (comptes.id_joueur = :id_joueur)');
+        WHERE (groupes_joueurs.id_joueur = :id_joueur AND droits.nom_droit = :nom_droit) OR (comptes.id_joueur = :id_joueur)
+        ORDER BY comptes.id_compte ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_joueur' => $idJoueur,
             'nom_droit' => "getComptes"
@@ -25,7 +27,7 @@ class Comptes {
     }
 
     // recupere les comptes accessible par la apikey (groupe en communs qui permet le getcomptes)
-    public static function getComptesByApiKey($bdd,$idApiKey) {
+    public static function getComptesByApiKey($bdd,$idApiKey,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT comptes.*,joueurs.pseudo_joueur FROM comptes
         INNER JOIN groupes_comptes ON comptes.id_compte = groupes_comptes.id_compte
         INNER JOIN groupes_apikeys ON groupes_comptes.id_groupe = groupes_apikeys.id_groupe
@@ -35,7 +37,9 @@ class Comptes {
         INNER JOIN apikeys_droits    ON apikeys_droits.id_apikey = groupes_apikeys.id_groupe
         INNER JOIN droits     ON droits.id_droit = apikeys_droits.id_droit
         INNER JOIN joueurs ON joueurs.id_joueur = comptes.id_joueur
-        WHERE apikeys.id_apikey = :id_apikey AND droits.nom_droit = :nom_droit');
+        WHERE apikeys.id_apikey = :id_apikey AND droits.nom_droit = :nom_droit
+        ORDER BY comptes.id_compte ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_apikey' => $idApiKey,
             'nom_droit' => "getComptes"
@@ -46,8 +50,11 @@ class Comptes {
     }
 
     // recupere les comptes d'un joueur
-    public static function getComptesByJoueur($bdd,$idJoueur) {
-        $req = $bdd->prepare('SELECT comptes.*,joueurs.pseudo_joueur FROM comptes INNER JOIN joueurs ON joueurs.id_joueur = comptes.id_joueur WHERE comptes.id_joueur = :id_joueur');
+    public static function getComptesByJoueur($bdd,$idJoueur,$limit = 100,$offset = 0) {
+        $req = $bdd->prepare('SELECT comptes.*,joueurs.pseudo_joueur FROM comptes INNER JOIN joueurs ON joueurs.id_joueur = comptes.id_joueur
+        WHERE comptes.id_joueur = :id_joueur
+        ORDER BY comptes.id_compte ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_joueur' => $idJoueur
         ));
@@ -58,7 +65,8 @@ class Comptes {
 
     // recupere le compte
     public static function getCompteById($bdd,$idCompte) {
-        $req = $bdd->prepare('SELECT comptes.*,joueurs.pseudo_joueur FROM comptes INNER JOIN joueurs ON joueurs.id_joueur = comptes.id_joueur WHERE comptes.id_compte = :id_compte');
+        $req = $bdd->prepare('SELECT comptes.*,joueurs.pseudo_joueur FROM comptes INNER JOIN joueurs ON joueurs.id_joueur = comptes.id_joueur
+        WHERE comptes.id_compte = :id_compte');
         $req->execute(array(
             'id_compte' => $idCompte
         ));

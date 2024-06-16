@@ -6,13 +6,15 @@
 
 class Transactions {
     // recupere les transaction en attente
-    public static function getTransactionsByCompteAndCommande($bdd,$idCompte,$idCommande) {
+    public static function getTransactionsByCompteAndCommande($bdd,$idCompte,$idCommande,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT transactions.*, codebit.nom_compte as nom_compte_debiteur, cocred.nom_compte as nom_compte_crediteur, commandes.nom_commande FROM transactions 
         LEFT JOIN comptes AS codebit ON transactions.id_compte_debiteur = codebit.id_compte
         LEFT JOIN comptes AS cocred ON transactions.id_compte_crediteur = cocred.id_compte
         LEFT JOIN joueurs ON transactions.id_joueur = joueurs.id_joueur
         INNER JOIN commandes ON transactions.id_commande = commandes.id_commande
-        WHERE (transactions.id_compte_debiteur = :id_compte OR transactions.id_compte_crediteur = :id_compte) AND transactions.id_commande = :id_commande');
+        WHERE (transactions.id_compte_debiteur = :id_compte OR transactions.id_compte_crediteur = :id_compte) AND transactions.id_commande = :id_commande
+        ORDER BY transactions.id_transaction DESC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_compte' => $idCompte,
             'id_commande' => $idCommande
@@ -23,13 +25,15 @@ class Transactions {
     }
 
     // recupere les transactions du compte
-    public static function getTransactionsByCompte($bdd,$idCompte) {
+    public static function getTransactionsByCompte($bdd,$idCompte,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT transactions.*, codebit.nom_compte as nom_compte_debiteur, cocred.nom_compte as nom_compte_crediteur, commandes.nom_commande FROM transactions 
         LEFT JOIN comptes AS codebit ON transactions.id_compte_debiteur = codebit.id_compte
         LEFT JOIN comptes AS cocred ON transactions.id_compte_crediteur = cocred.id_compte
         LEFT JOIN joueurs ON transactions.id_joueur = joueurs.id_joueur
         LEFT JOIN commandes ON transactions.id_commande = commandes.id_commande
-        WHERE transactions.id_compte_debiteur = :id_compte OR transactions.id_compte_crediteur = :id_compte');
+        WHERE transactions.id_compte_debiteur = :id_compte OR transactions.id_compte_crediteur = :id_compte
+        ORDER BY transactions.id_transaction DESC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_compte' => $idCompte
         ));
@@ -39,13 +43,15 @@ class Transactions {
     }
 
     // recupere les transactions executer par un admin
-    public static function getTransactionsByAdmin($bdd,$idAdmin) {
+    public static function getTransactionsByAdmin($bdd,$idAdmin,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT transactions.*, codebit.nom_compte as nom_compte_debiteur, cocred.nom_compte as nom_compte_crediteur, commandes.nom_commande FROM transactions 
         LEFT JOIN comptes AS codebit ON transactions.id_compte_debiteur = codebit.id_compte
         LEFT JOIN comptes AS cocred ON transactions.id_compte_crediteur = cocred.id_compte
         INNER JOIN joueurs ON transactions.id_joueur = joueurs.id_joueur
         LEFT JOIN commandes ON transactions.id_commande = commandes.id_commande
-        WHERE transactions.id_joueur = :id_joueur');
+        WHERE transactions.id_joueur = :id_joueur
+        ORDER BY transactions.id_transaction DESC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_joueur' => $idAdmin
         ));
@@ -55,7 +61,7 @@ class Transactions {
     }
 
     // recupere la transaction
-    public static function getTransactionById($bdd,$idTransaction) {
+    public static function getTransactionById($bdd,$idTransaction,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT transactions.*, codebit.nom_compte as nom_compte_debiteur, cocred.nom_compte as nom_compte_crediteur, commandes.nom_commande FROM transactions 
         LEFT JOIN comptes AS codebit ON transactions.id_compte_debiteur = codebit.id_compte
         LEFT JOIN comptes AS cocred ON transactions.id_compte_crediteur = cocred.id_compte
@@ -70,13 +76,15 @@ class Transactions {
         return $transaction;
     }
 
-    public static function getTransactionsByCommande($bdd,$idCommande) {
+    public static function getTransactionsByCommande($bdd,$idCommande,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT transactions.*, codebit.nom_compte as nom_compte_debiteur, cocred.nom_compte as nom_compte_crediteur, commandes.nom_commande FROM transactions 
         LEFT JOIN comptes AS codebit ON transactions.id_compte_debiteur = codebit.id_compte
         LEFT JOIN comptes AS cocred ON transactions.id_compte_crediteur = cocred.id_compte
         LEFT JOIN joueurs ON transactions.id_joueur = joueurs.id_joueur
         INNER JOIN commandes ON transactions.id_commande = commandes.id_commande
-        WHERE transactions.id_commande = :id_commande');
+        WHERE transactions.id_commande = :id_commande
+        ORDER BY transactions.id_transaction DESC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_commande' => $idCommande
         ));

@@ -1,23 +1,23 @@
 <?php
 class Wirelessredstones {
     // recupere les wirelessredstones
-    public static function getWirelessRedstones($bdd,$offsetd,$nbage, $showUser = false) {
+    public static function getWirelessRedstones($bdd, $showUser = false, $limit = 100, $offset = 0) {
         if ($showUser) {
             $req = $bdd->prepare('SELECT wireless_redstones.*, joueurs.pseudo_joueur
             FROM wireless_redstones LEFT JOIN joueurs ON wireless_redstones.id_joueur = joueurs.id_joueur
-            WHERE id_wireless_redstone >= :offsetd
-            ORDER BY id_wireless_redstone
-            LIMIT :nbage');
+            WHERE wireless_redstones.id_wireless_redstone >= :offsetd
+            ORDER BY wireless_redstones.id_wireless_redstone ASC
+            LIMIT ' . $limit);
         } else {
             $req = $bdd->prepare('SELECT wireless_redstones.id_wireless_redstone, wireless_redstones.date_reservation_wireless_redstone
             FROM wireless_redstones
-            WHERE id_wireless_redstone >= :offsetd
-            ORDER BY id_wireless_redstone ASC
-            LIMIT :nbage');
+            WHERE wireless_redstones.id_wireless_redstone >= :offsetd
+            ORDER BY wireless_redstones.id_wireless_redstone ASC
+            LIMIT ' . $limit);
         }
-        $req->bindParam(':offsetd', $offsetd, PDO::PARAM_INT);
-        $req->bindParam(':nbage', $nbage, PDO::PARAM_INT);
-        $req->execute();
+        $req->execute(array(
+            'offsetd' => $offset
+        ));
         $wirelessredstones = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $wirelessredstones;
@@ -27,12 +27,12 @@ class Wirelessredstones {
     public static function getWirelessRedstoneById($bdd,$idWirelessRedstone, $showUser = false) {
         if ($showUser) {
             $req = $bdd->prepare('SELECT wireless_redstones.*, joueurs.pseudo_joueur
-            FROM wireless_redstones LEFT JOIN joueurs ON wireless_redstones.id_joueur = joueurs.id_joueur
-            WHERE id_wireless_redstone = :id_wireless_redstone');
+            FROM wireless_redstones.wireless_redstones LEFT JOIN joueurs ON wireless_redstones.id_joueur = joueurs.id_joueur
+            WHERE wireless_redstones.id_wireless_redstone = :id_wireless_redstone');
         } else {
             $req = $bdd->prepare('SELECT wireless_redstones.id_wireless_redstone, wireless_redstones.date_reservation_wireless_redstone
-            FROM wireless_redstones
-            WHERE id_wireless_redstone = :id_wireless_redstone');
+            FROM wireless_redstones.wireless_redstones
+            WHERE wireless_redstones.id_wireless_redstone = :id_wireless_redstone');
         }
         $req->execute(array(
             'id_wireless_redstone' => $idWirelessRedstone
@@ -43,8 +43,9 @@ class Wirelessredstones {
     }
 
     // recupere les wirelessredstones d'un joueur
-    public static function getWirelessRedstonesByJoueur($bdd,$idJoueur) {
-        $req = $bdd->prepare('SELECT * FROM wireless_redstones WHERE id_joueur = :id_joueur');
+    public static function getWirelessRedstonesByJoueur($bdd,$idJoueur,$limit = 100,$offset = 0) {
+        $req = $bdd->prepare('SELECT * FROM wireless_redstones WHERE id_joueur = :id_joueur
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_joueur' => $idJoueur
         ));
@@ -54,14 +55,14 @@ class Wirelessredstones {
     }
 
     // recupere les wirelessredstones non reserver
-    public static function getWirelessRedstonesNonReserver($bdd,$offset,$nbParPage) {
+    public static function getWirelessRedstonesNonReserver($bdd,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT id_wireless_redstone FROM wireless_redstones
         WHERE id_joueur IS NULL AND id_wireless_redstone >= :offset1
-        ORDER BY id_wireless_redstone
-        LIMIT :nbage');
-        $req->bindParam(':offset1', $offset, PDO::PARAM_INT);
-        $req->bindParam(':nbage', $nbParPage, PDO::PARAM_INT);
-        $req->execute();
+        ORDER BY id_wireless_redstone ASC
+        LIMIT ' . $limit);
+        $req->execute(array(
+            'offset1' => $offset
+        ));
         $wirelessredstones = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $wirelessredstones;

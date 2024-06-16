@@ -19,7 +19,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         //getcommandesbycomptevendeur       -> GET /commandes/compte/{id_compte}/vendeur
         //getcommandesbylivreur             -> GET /commandes/livreur/{id_livreur}
         //getcommandesbyoffre               -> GET /commandes/offre/{id_offre}
-        //getcommandesbystatus              -> GET /commandes/status/{status}
+        //getcommandesbystatus              -> GET /commandes/status/{id_status}
         //getcomptebyid                     -> GET /compte/{id_compte}
         //getcomptesbyjoueur                -> GET /comptes/joueur/{id_joueur}
         //getenderstorageschest             -> GET /enderstorageschest
@@ -86,7 +86,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $router->add('/api/commandes/compte/{id_compte:\d+}/vendeur', ['controller' => 'commande', 'action' => 'getcommandesbycomptevendeur']);
         $router->add('/api/commandes/livreur/{id_livreur:\d+}', ['controller' => 'commande', 'action' => 'getcommandesbylivreur']);
         $router->add('/api/commandes/offre/{id_offre:\d+}', ['controller' => 'commande', 'action' => 'getcommandesbyoffre']);
-        $router->add('/api/commandes/status/{status}', ['controller' => 'commande', 'action' => 'getcommandesbystatus']);
+        $router->add('/api/commandes/status/{id_status:\d+}', ['controller' => 'commande', 'action' => 'getcommandesbystatus']);
         $router->add('/api/compte/{id_compte:\d+}', ['controller' => 'compte', 'action' => 'getcomptebyid']);
         $router->add('/api/comptes/joueur/{id_joueur:\d+}', ['controller' => 'compte', 'action' => 'getcomptesbyjoueur']);
         $router->add('/api/enderstorageschest', ['controller' => 'enderstorageschest', 'action' => 'getenderstorageschest']);

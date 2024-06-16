@@ -14,8 +14,10 @@
 // set joueur/{id}/expiretoken
 class Joueurs {
 	// recupere les infos des joueurs
-	public static function getJoueurs($bdd) {
-		$req = $bdd->prepare('SELECT * FROM vw_joueurs');
+	public static function getJoueurs($bdd,$limit = 100,$offset = 0) {
+		$req = $bdd->prepare('SELECT * FROM vw_joueurs
+		ORDER BY id_joueur ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
 		$req->execute();
 		$joueurs = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();

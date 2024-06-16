@@ -33,9 +33,11 @@
 
 class Groupes {
     // recupere les groupes d'un joueur
-    public static function getGroupesByJoueur($bdd,$idJoueur) {
+    public static function getGroupesByJoueur($bdd,$idJoueur,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT groupes.* FROM groupes
-        WHERE groupes.id_joueur = :id_joueur');
+        WHERE groupes.id_joueur = :id_joueur
+        ORDER BY groupes.id_groupe ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_joueur' => $idJoueur
         ));
@@ -45,12 +47,14 @@ class Groupes {
     }
 
     // recupere les groupes d'un joueur membre
-    public static function getGroupesByJoueurMembre($bdd,$idJoueur,$idJoueurProprio = null) {
-        if ($idJoueurProprio == null) {
+    public static function getGroupesByJoueurMembre($bdd,$idJoueur,$idJoueurProprio = null,$limit = 100,$offset = 0) {
+        if ($idJoueurProprio == null || $idJoueurProprio == $idJoueur) {
             $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo_joueur FROM groupes 
             INNER JOIN groupes_joueurs ON groupes_joueurs.id_groupe = groupes.id_groupe 
             INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur 
-            WHERE groupes_joueurs.id_joueur = :id_joueur');
+            WHERE groupes_joueurs.id_joueur = :id_joueur
+            ORDER BY groupes.id_groupe ASC
+            LIMIT ' . $limit . ' OFFSET ' . $offset);
             $req->execute(array(
                 'id_joueur' => $idJoueur
             ));
@@ -58,7 +62,9 @@ class Groupes {
             $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo_joueur FROM groupes 
             INNER JOIN groupes_joueurs ON groupes_joueurs.id_groupe = groupes.id_groupe 
             INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur 
-            WHERE groupes_joueurs.id_joueur = :id_joueur AND groupes.id_joueur = :id_joueur_proprio');
+            WHERE groupes_joueurs.id_joueur = :id_joueur AND groupes.id_joueur = :id_joueur_proprio
+            ORDER BY groupes.id_groupe ASC
+            LIMIT ' . $limit . ' OFFSET ' . $offset);
             $req->execute(array(
                 'id_joueur' => $idJoueur,
                 'id_joueur_proprio' => $idJoueurProprio
@@ -70,11 +76,13 @@ class Groupes {
     }
 
     // recupere les groupes d'un compte
-    public static function getGroupesByCompte($bdd,$idCompte) {
+    public static function getGroupesByCompte($bdd,$idCompte,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo_joueur FROM groupes 
         INNER JOIN groupes_comptes ON groupes_comptes.id_groupe = groupes.id_groupe 
         INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur 
-        WHERE groupes_comptes.id_compte = :id_compte');
+        WHERE groupes_comptes.id_compte = :id_compte
+        ORDER BY groupes.id_groupe ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_compte' => $idCompte
         ));
@@ -84,11 +92,13 @@ class Groupes {
     }
 
     // recupere les groupes d'une offre
-    public static function getGroupesByOffre($bdd,$idOffre) {
+    public static function getGroupesByOffre($bdd,$idOffre,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo_joueur FROM groupes 
         INNER JOIN groupes_offres ON groupes_offres.id_groupe = groupes.id_groupe 
         INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur 
-        WHERE groupes_offres.id_offre = :id_offre');
+        WHERE groupes_offres.id_offre = :id_offre
+        ORDER BY groupes.id_groupe ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_offre' => $idOffre
         ));
@@ -98,11 +108,13 @@ class Groupes {
     }
 
     // recupere les groupes d'une adresse
-    public static function getGroupesByAdresse($bdd,$idAdresse) {
+    public static function getGroupesByAdresse($bdd,$idAdresse,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo_joueur FROM groupes 
         INNER JOIN groupes_adresses ON groupes_adresses.id_groupe = groupes.id_groupe 
         INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur 
-        WHERE groupes_adresses.id_adresse = :id_adresse');
+        WHERE groupes_adresses.id_adresse = :id_adresse
+        ORDER BY groupes.id_groupe ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_adresse' => $idAdresse
         ));
@@ -112,11 +124,13 @@ class Groupes {
     }
 
     // recupere les groupes d'un livreur
-    public static function getGroupesByLivreur($bdd,$idLivreur) {
+    public static function getGroupesByLivreur($bdd,$idLivreur,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo_joueur FROM groupes 
         INNER JOIN groupes_livreurs ON groupes_livreurs.id_groupe = groupes.id_groupe 
         INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur 
-        WHERE groupes_livreurs.id_livreur = :id_livreur');
+        WHERE groupes_livreurs.id_livreur = :id_livreur
+        ORDER BY groupes.id_groupe ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_livreur' => $idLivreur
         ));
@@ -126,11 +140,13 @@ class Groupes {
     }
 
     // recupere les groupes d'une apikey
-    public static function getGroupesByApiKey($bdd,$idApiKey) {
+    public static function getGroupesByApiKey($bdd,$idApiKey,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT groupes.*,joueurs.pseudo_joueur FROM groupes 
         INNER JOIN groupes_apikeys ON groupes_apikeys.id_groupe = groupes.id_groupe 
         INNER JOIN joueurs ON groupes.id_joueur = joueurs.id_joueur 
-        WHERE groupes_apikeys.id_apikey = :id_apikey');
+        WHERE groupes_apikeys.id_apikey = :id_apikey
+        ORDER BY groupes.id_groupe ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_apikey' => $idApiKey
         ));
@@ -140,10 +156,12 @@ class Groupes {
     }
 
     // recupere les joueurs d'un groupe
-    public static function getJoueursByGroupe($bdd,$idGroupe) {
+    public static function getJoueursByGroupe($bdd,$idGroupe,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT groupes_joueurs.*,joueurs.pseudo_joueur FROM groupes_joueurs 
         INNER JOIN joueurs ON groupes_joueurs.id_joueur = joueurs.id_joueur 
-        WHERE groupes_joueurs.id_groupe = :id_groupe');
+        WHERE groupes_joueurs.id_groupe = :id_groupe
+        ORDER BY groupes_joueurs.id_joueur ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_groupe' => $idGroupe
         ));
@@ -153,10 +171,12 @@ class Groupes {
     }
 
     // recupere les comptes d'un groupe
-    public static function getComptesByGroupe($bdd,$idGroupe) {
+    public static function getComptesByGroupe($bdd,$idGroupe,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT groupes_comptes.*,comptes.nom_compte FROM groupes_comptes 
         INNER JOIN comptes ON groupes_comptes.id_compte = comptes.id_compte
-        WHERE groupes_comptes.id_groupe = :id_groupe');
+        WHERE groupes_comptes.id_groupe = :id_groupe
+        ORDER BY groupes_comptes.id_compte ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_groupe' => $idGroupe
         ));
@@ -166,10 +186,12 @@ class Groupes {
     }
 
     // recupere les offres d'un groupe
-    public static function getOffresByGroupe($bdd,$idGroupe) {
+    public static function getOffresByGroupe($bdd,$idGroupe,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT groupes_offres.*,offres.nom_offre FROM groupes_offres 
         INNER JOIN offres ON groupes_offres.id_offre = offres.id_offre
-        WHERE groupes_offres.id_groupe = :id_groupe');
+        WHERE groupes_offres.id_groupe = :id_groupe
+        ORDER BY groupes_offres.id_offre ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_groupe' => $idGroupe
         ));
@@ -179,10 +201,12 @@ class Groupes {
     }
 
     // recupere les adresses d'un groupe
-    public static function getAdressesByGroupe($bdd,$idGroupe) {
+    public static function getAdressesByGroupe($bdd,$idGroupe,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT groupes_adresses.*,adresses.nom_adresse FROM groupes_adresses 
         INNER JOIN adresses ON groupes_adresses.id_adresse = adresses.id_adresse
-        WHERE groupes_adresses.id_groupe = :id_groupe');
+        WHERE groupes_adresses.id_groupe = :id_groupe
+        ORDER BY groupes_adresses.id_adresse ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_groupe' => $idGroupe
         ));
@@ -192,10 +216,12 @@ class Groupes {
     }
 
     // recupere les comptes d'un groupe
-    public static function getLivreursByGroupe($bdd,$idGroupe) {
+    public static function getLivreursByGroupe($bdd,$idGroupe,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT groupes_livreurs.*,livreurs.nom_livreur FROM groupes_livreurs 
         INNER JOIN livreurs ON groupes_livreurs.id_livreur = livreurs.id_livreur
-        WHERE groupes_livreurs.id_groupe = :id_groupe');
+        WHERE groupes_livreurs.id_groupe = :id_groupe
+        ORDER BY groupes_livreurs.id_livreur ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_groupe' => $idGroupe
         ));
@@ -205,10 +231,12 @@ class Groupes {
     }
 
     // recupere les apikeys d'un groupe
-    public static function getApiKeysByGroupe($bdd,$idGroupe) {
+    public static function getApiKeysByGroupe($bdd,$idGroupe,$limit = 100,$offset = 0) {
         $req = $bdd->prepare('SELECT groupes_apikeys.*,apikeys.nom_apikey FROM groupes_apikeys 
         INNER JOIN apikeys ON groupes_apikeys.id_apikey = apikeys.id_apikey
-        WHERE groupes_apikeys.id_groupe = :id_groupe');
+        WHERE groupes_apikeys.id_groupe = :id_groupe
+        ORDER BY groupes_apikeys.id_apikey ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_groupe' => $idGroupe
         ));

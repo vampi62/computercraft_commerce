@@ -30,9 +30,10 @@ class Keypays {
     }
 
     // recupere les keypays d'une offre
-    public static function getKeypaysByOffre($bdd,$idOffre) {
+    public static function getKeypaysByOffre($bdd,$idOffre,$limit = 100,$offset = 0) {
         // recupere la keypay
-        $req = $bdd->prepare('SELECT * FROM keypays WHERE id_offre = :id_offre');
+        $req = $bdd->prepare('SELECT * FROM keypays WHERE id_offre = :id_offre
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_offre' => $idOffre
         ));

@@ -6,16 +6,20 @@
 // set jeton/add
 class Jetons {
 	// recuperation le tableau de jeton
-	public static function getJetons($bdd) {
-		$req = $bdd->query('SELECT jetons.*,joueurs.pseudo_joueur FROM jetons INNER JOIN joueurs ON joueurs.id_joueur = jetons.id_joueur');
+	public static function getJetons($bdd,$limit = 100,$offset = 0) {
+		$req = $bdd->query('SELECT jetons.*,joueurs.pseudo_joueur FROM jetons INNER JOIN joueurs ON joueurs.id_joueur = jetons.id_joueur
+		ORDER BY jetons.id_jeton ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
 		$list_jetons = $req->fetchAll(PDO::FETCH_ASSOC);
 		$req->closeCursor();
         return $list_jetons;
 	}
 
 	// recuperation le tableau de jeton
-	public static function getJetonByJoueur($bdd,$idJoueur) {
-		$req = $bdd->prepare('SELECT jetons.*,joueurs.pseudo_joueur FROM jetons INNER JOIN joueurs ON joueurs.id_joueur = jetons.id_joueur WHERE jetons.id_joueur = :id_joueur');
+	public static function getJetonByJoueur($bdd,$idJoueur,$limit = 100,$offset = 0) {
+		$req = $bdd->prepare('SELECT jetons.*,joueurs.pseudo_joueur FROM jetons INNER JOIN joueurs ON joueurs.id_joueur = jetons.id_joueur
+		WHERE jetons.id_joueur = :id_joueur
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
 		$req->execute(array(
 			'id_joueur' => $idJoueur
 		));

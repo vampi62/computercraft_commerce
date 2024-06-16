@@ -111,7 +111,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $router->add('/api/jeton/joueur/{id_joueur:\d+}', ['controller' => 'jeton', 'action' => 'getjetonbyjoueur']);
         $router->add('/api/jetons', ['controller' => 'jeton', 'action' => 'getjetons']);
         $router->add('/api/joueur/{id_joueur:\d+}', ['controller' => 'joueur', 'action' => 'getjoueurbyid']);
-        $router->add('/api/joueur/pseudo/{pseudo:\d+}', ['controller' => 'joueur', 'action' => 'getjoueurbypseudo']);
+        $router->add('/api/joueur/pseudo/{pseudo}', ['controller' => 'joueur', 'action' => 'getjoueurbypseudo']);
         $router->add('/api/joueurs', ['controller' => 'joueur', 'action' => 'getjoueurs']);
         $router->add('/api/joueurs/groupe/{id_groupe:\d+}', ['controller' => 'joueur', 'action' => 'getjoueursbygroupe']);
         $router->add('/api/keypay/{id_keypay:\d+}', ['controller' => 'keypay', 'action' => 'getkeypaybyid']);

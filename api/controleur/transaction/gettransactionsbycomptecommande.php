@@ -4,7 +4,7 @@ require_once('class/checkdroits.class.php');
 require_once('class/transactions.class.php');
 require_once('class/comptes.class.php');
 
-if (!Checkdroits::checkArgs($_GET,array('id_compte' => false, 'id_commande' => false))) {
+if (!Checkdroits::checkArgs($_GET,array('offset' => true, 'limit' => true, 'id_compte' => false, 'id_commande' => false))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $sessionUser = Checkdroits::checkMode($bddConnection,$_GET,array('apikey' => true,'user' => true));
@@ -17,4 +17,5 @@ if (!Checkdroits::checkId($bddConnection, $_GET['id_commande'], 'commande')) {
 if (!Checkdroits::checkPermObj($bddConnection, $sessionUser['idLogin'], $_GET['id_compte'], 'compte', 'getTransactionsByCompteAndCommande')) {
     return array('status_code' => 403, 'message' => 'Vous n\'avez pas la permission d\'effectuer cette action.');
 }
-return array('status_code' => 200, 'message' => '', 'data' => Transactions::getTransactionsByCompteAndCommande($bddConnection, $_GET['id_compte'], $_GET['id_commande']));
+Checkdroits::checkLimitOffset($_Serveur_, $_GET['limit'], $_GET['offset']);
+return array('status_code' => 200, 'message' => '', 'data' => Transactions::getTransactionsByCompteAndCommande($bddConnection, $_GET['id_compte'], $_GET['id_commande'], $_GET['limit'], $_GET['offset']));

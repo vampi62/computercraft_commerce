@@ -5,18 +5,12 @@ if (!$_Serveur_['Module']['EnderStorage']) {
 require_once('class/checkdroits.class.php');
 require_once('class/enderstorages.class.php');
 
-if (!Checkdroits::checkArgs($_GET,array('offset' => true, 'limit' => false, 'show' => true))) {
+if (!Checkdroits::checkArgs($_GET,array('offset' => true, 'limit' => true, 'show' => true))) {
     return array('status_code' => 400, 'message' => 'Il manque des parametres.');
 }
 $sessionUser = Checkdroits::checkMode($bddConnection,$_GET,array('apikey' => false,'user' => true));
 if (isset($sessionUser['status_code'])) { // si un code d'erreur est retourné par la fonction alors on retourne le code d'erreur
     return $sessionUser; // error
-}
-if (!is_numeric($_GET['offset'])) {
-    return array('status_code' => 400, 'message' => 'L\'offset n\'est pas un nombre.');
-}
-if (!is_numeric($_GET['limit'])) {
-    return array('status_code' => 400, 'message' => 'Le limit n\'est pas un nombre.');
 }
 // bool (true or false or 1 or 0)
 if (!is_bool($_GET['show'])) {
@@ -25,4 +19,5 @@ if (!is_bool($_GET['show'])) {
 if (!$_Serveur_['General']['ModuleShowUser']) {
     $_GET['show'] = null;
 }
-return array('status_code' => 200, 'message' => '', 'data' => Enderstorages::getEnderStoragesChest($bddConnection,$_GET['offset'],$_GET['limit'], $_GET['show']));
+Checkdroits::checkLimitOffset($_Serveur_, $_GET['limit'], $_GET['offset']);
+return array('status_code' => 200, 'message' => '', 'data' => Enderstorages::getEnderStoragesChest($bddConnection, $_GET['show'], $_GET['limit'], $_GET['offset']));

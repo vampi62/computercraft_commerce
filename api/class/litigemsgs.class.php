@@ -5,9 +5,11 @@
 
 class LitigeMsgs {
     // recupere le fil de discution litige par rapport a l'id de commande
-    public static function getLitigeMsgsByCommande($bdd,$idCommande) {
+    public static function getLitigeMsgsByCommande($bdd,$idCommande,$limit = 100,$offset = 0) {
         // recupere les litiges de la commande
-        $req = $bdd->prepare('SELECT * FROM msg_litiges WHERE id_commande = :id_commande');
+        $req = $bdd->prepare('SELECT * FROM msg_litiges WHERE id_commande = :id_commande
+        ORDER BY id_msg_litige ASC
+        LIMIT ' . $limit . ' OFFSET ' . $offset);
         $req->execute(array(
             'id_commande' => $idCommande
         ));

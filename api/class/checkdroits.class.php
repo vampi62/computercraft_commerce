@@ -292,6 +292,16 @@ class Checkdroits {
         return true;
     }
 
+    // verifie si les parametre "limit" et "offset" sont valide "is_numeric", > 0, non vide, sinon met une valeur par defaut
+    public static function checkLimitOffset($_Serveur_, &$limit, &$offset) {
+        if (!isset($limit) || empty($limit) || !is_numeric($limit) || $limit <= 0 || $limit > $_Serveur_['General']['LimitPerGET']) {
+            $limit = $_Serveur_['General']['LimitPerGET'];
+        }
+        if (!isset($offset) || empty($offset) || !is_numeric($offset) || $offset < 0) {
+            $offset = 0;
+        }
+    }
+
     // verifie si le compte est proprio de l'objet
     public static function checkProprioObj($bdd, $idNom, $idObjet, $type) {
         $req = $bdd->prepare('SELECT '.$type.'s.id_'.$type.' FROM '.$type.'s WHERE id_'.$type.' = :idobjet AND id_joueur = :idnom');
